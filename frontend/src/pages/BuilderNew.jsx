@@ -50,33 +50,39 @@ const BuilderNew = () => {
     }));
   };
 
-  // Calculate position for inline editing panel
+  // Calculate position for inline editing panel or toolbar
   useEffect(() => {
     if (selectedBlockId && selectedBlockRef.current) {
       const rect = selectedBlockRef.current.getBoundingClientRect();
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const panelHeight = 500; // Approximate height of the panel
-      const panelWidth = 420;
       
-      // Calculate top position - try to position above block, but ensure it's visible
-      let top = rect.top + scrollTop - panelHeight - 20;
-      
-      // If panel would be above viewport, position it below the block instead
-      if (top < scrollTop + 80) { // 80px for toolbar
-        top = rect.bottom + scrollTop + 20;
+      if (isMenuBlock) {
+        // Position toolbar directly below menu
+        setToolbarPosition({ 
+          top: rect.bottom + scrollTop + 10,
+          left: rect.left + 20
+        });
+      } else {
+        // Keep existing logic for panel
+        const panelHeight = 500;
+        const panelWidth = 420;
+        
+        let top = rect.top + scrollTop - panelHeight - 20;
+        
+        if (top < scrollTop + 80) {
+          top = rect.bottom + scrollTop + 20;
+        }
+        
+        let left = rect.left + (rect.width / 2) - (panelWidth / 2);
+        
+        const maxLeft = window.innerWidth - panelWidth - 20;
+        if (left < 20) left = 20;
+        if (left > maxLeft) left = maxLeft;
+        
+        setEditPanelPosition({ top, left });
       }
-      
-      // Calculate left position - center horizontally but keep on screen
-      let left = rect.left + (rect.width / 2) - (panelWidth / 2);
-      
-      // Ensure panel stays within viewport horizontally
-      const maxLeft = window.innerWidth - panelWidth - 20;
-      if (left < 20) left = 20;
-      if (left > maxLeft) left = maxLeft;
-      
-      setEditPanelPosition({ top, left });
     }
-  }, [selectedBlockId]);
+  }, [selectedBlockId, isMenuBlock]);
 
   const handleAddBlock = (template) => {
     saveToHistory(blocks);
