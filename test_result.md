@@ -129,15 +129,18 @@ backend:
 frontend:
   - task: "Implementare Undo/Redo"
     implemented: true
-    working: "NA"
-    file: "/app/frontend/src/pages/Builder.jsx, /app/frontend/src/components/Builder/Toolbar.jsx"
+    working: true
+    file: "/app/frontend/src/pages/BuilderNew.jsx, /app/frontend/src/components/Builder/Toolbar.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Am implementat sistem complet de history management cu stări past/future, funcții handleUndo și handleRedo, butoane în Toolbar cu disabled state, toate acțiunile (add, update, delete, move) salvează în history. Texte în română."
+      - working: true
+        agent: "main"
+        comment: "✅ VERIFICAT: BuilderNew.jsx nu pasa props-urile onUndo, onRedo, canUndo, canRedo către Toolbar. FIX APLICAT: Am adăugat toate props-urile necesare. TESTAT: Undo/Redo funcționează perfect - am adăugat 2 blocuri (Hero + Menu), făcut Undo (Menu dispare, toast 'Acțiune anulată'), făcut Redo (Menu revine, toast 'Acțiune refăcută'). Toate funcționalitățile funcționează corect cu notificări în română."
 
   - task: "Preview Responsive funcțional"
     implemented: true
