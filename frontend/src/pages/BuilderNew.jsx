@@ -16,10 +16,12 @@ const BuilderNew = () => {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isFTPDialogOpen, setIsFTPDialogOpen] = useState(false);
   const [editPanelPosition, setEditPanelPosition] = useState({ top: 0, left: 0 });
+  const [toolbarPosition, setToolbarPosition] = useState({ top: 0, left: 0 });
   const selectedBlockRef = useRef(null);
   const { toast } = useToast();
 
   const selectedBlock = blocks.find(b => b.id === selectedBlockId);
+  const isMenuBlock = selectedBlock && selectedBlock.config.type === 'menu';
   
   // Load project from localStorage on mount
   useEffect(() => {
