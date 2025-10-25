@@ -73,6 +73,114 @@ export const blockTemplates = [
     }
   },
   {
+    id: 'hero-5',
+    category: 'hero',
+    name: 'Hero - Animated Gradient',
+    thumbnail: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=400&h=300&fit=crop',
+    config: {
+      type: 'hero',
+      background: { type: 'gradient', value: 'linear-gradient(135deg, #667EEA 0%, #764BA2 50%, #F093FB 100%)' },
+      fullScreen: true,
+      fullWidth: true,
+      contentWidth: 850,
+      padding: { top: 150, bottom: 150 },
+      title: { text: 'Build something amazing', show: true, color: '#ffffff', align: 'center' },
+      description: { text: 'Powerful tools and elegant design come together to help you create stunning websites with ease', show: true, color: '#f5f5f5', align: 'center' },
+      button: { text: 'Start Building', show: true, color: '#FBBF24', textColor: '#1a1a1a', link: '#' },
+      subtitle: { text: 'No credit card required', show: true, color: '#e0e0e0', align: 'center' }
+    }
+  },
+  {
+    id: 'hero-6',
+    category: 'hero',
+    name: 'Hero - Split Screen',
+    thumbnail: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=300&fit=crop',
+    config: {
+      type: 'hero',
+      background: { type: 'image', value: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&h=1080&fit=crop', overlay: true, overlayColor: 'rgba(0,0,0,0.4)' },
+      fullScreen: true,
+      fullWidth: true,
+      contentWidth: 950,
+      padding: { top: 140, bottom: 140 },
+      title: { text: 'Collaborate and grow together', show: true, color: '#ffffff', align: 'left' },
+      description: { text: 'Join thousands of teams already using our platform to build, collaborate, and ship amazing products', show: true, color: '#f0f0f0', align: 'left' },
+      button: { text: 'Join Free', show: true, color: '#10B981', textColor: '#ffffff', link: '#' },
+      subtitle: { text: '14-day free trial, cancel anytime', show: true, color: '#d5d5d5', align: 'left' }
+    }
+  },
+  {
+    id: 'hero-7',
+    category: 'hero',
+    name: 'Hero - Minimal Centered',
+    thumbnail: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop',
+    config: {
+      type: 'hero',
+      background: { type: 'color', value: '#FAFAFA' },
+      fullScreen: true,
+      fullWidth: false,
+      contentWidth: 750,
+      padding: { top: 180, bottom: 180 },
+      title: { text: 'Simple. Powerful. Elegant.', show: true, color: '#1a1a1a', align: 'center' },
+      description: { text: 'Everything you need to build professional websites. Nothing you don\'t.', show: true, color: '#4a4a4a', align: 'center' },
+      button: { text: 'Get Started', show: true, color: '#1a1a1a', textColor: '#ffffff', link: '#' },
+      subtitle: { text: 'Used by 10,000+ creators', show: true, color: '#6a6a6a', align: 'center' }
+    }
+  },
+  {
+    id: 'hero-8',
+    category: 'hero',
+    name: 'Hero - Dark Bold',
+    thumbnail: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=400&h=300&fit=crop',
+    config: {
+      type: 'hero',
+      background: { type: 'color', value: '#0F172A' },
+      fullScreen: true,
+      fullWidth: false,
+      contentWidth: 900,
+      padding: { top: 160, bottom: 160 },
+      title: { text: 'The future is here', show: true, color: '#F59E0B', align: 'center' },
+      description: { text: 'Revolutionary platform that transforms how teams build digital experiences. Start creating today.', show: true, color: '#E5E7EB', align: 'center' },
+      button: { text: 'Start Free Trial', show: true, color: '#F59E0B', textColor: '#0F172A', link: '#' },
+      subtitle: { text: 'Trusted by leading companies worldwide', show: true, color: '#9CA3AF', align: 'center' }
+    }
+  },
+  {
+    id: 'hero-9',
+    category: 'hero',
+    name: 'Hero - Image Overlay',
+    thumbnail: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop',
+    config: {
+      type: 'hero',
+      background: { type: 'image', value: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop', overlay: true, overlayColor: 'rgba(0,0,0,0.65)' },
+      fullScreen: false,
+      fullWidth: true,
+      contentWidth: 850,
+      padding: { top: 180, bottom: 180 },
+      title: { text: 'Design without limits', show: true, color: '#ffffff', align: 'center' },
+      description: { text: 'Unleash your creativity with our intuitive design tools and beautiful templates', show: true, color: '#f5f5f5', align: 'center' },
+      button: { text: 'Explore Templates', show: true, color: '#EC4899', textColor: '#ffffff', link: '#' },
+      subtitle: { text: 'Free forever, upgrade as you grow', show: true, color: '#e0e0e0', align: 'center' }
+    }
+  },
+  {
+    id: 'hero-10',
+    category: 'hero',
+    name: 'Hero - Dual CTA',
+    thumbnail: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=300&fit=crop',
+    config: {
+      type: 'hero',
+      background: { type: 'gradient', value: 'linear-gradient(135deg, #0F2027 0%, #203A43 50%, #2C5364 100%)' },
+      fullScreen: true,
+      fullWidth: false,
+      contentWidth: 950,
+      padding: { top: 140, bottom: 140 },
+      title: { text: 'Launch your project faster', show: true, color: '#ffffff', align: 'center' },
+      description: { text: 'Everything you need to build stunning websites in minutes, not months. Choose your path below.', show: true, color: '#d0d0d0', align: 'center' },
+      button: { text: 'Start Building', show: true, color: '#3B82F6', textColor: '#ffffff', link: '#' },
+      subtitle: { text: 'Or watch a demo', show: true, color: '#a0a0a0', align: 'center' }
+    }
+  },
+  {
     id: 'menu-1',
     category: 'menu',
     name: 'Menu - Horizontal Classic',
