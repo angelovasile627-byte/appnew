@@ -602,7 +602,7 @@ export const blockTemplates = [
         { icon: 'Instagram', url: '#' },
         { icon: 'Linkedin', url: '#' }
       ],
-      copyright: { text: '© 2025 Mobirise. All rights reserved.', show: true, color: '#9a9aae' }
+      copyright: { text: '© 2025 AXXO. All rights reserved.', show: true, color: '#9a9aae' }
     }
   },
   {
