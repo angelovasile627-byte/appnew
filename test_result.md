@@ -174,11 +174,14 @@ frontend:
     file: "/app/frontend/src/components/Builder/InlineEditingPanel.jsx"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Funcționalitatea de editare imagini există deja. Utilizatorii pot edita URL-ul imaginii de fundal prin câmpul Background în panoul de editare. Toate template-urile noi cu imagini suportă editare"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: Image editing functionality works correctly. Successfully tested with Hero - Split Screen template. Clicking on a block opens the inline editing panel, Background field is available, and users can change image URLs. The change is applied immediately and verified. Editing panel opens/closes properly."
 
 metadata:
   created_by: "main_agent"
