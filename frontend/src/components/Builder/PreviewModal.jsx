@@ -9,6 +9,182 @@ const DEVICE_SIZES = {
   mobile: { width: '375px', label: 'Mobil', icon: Smartphone }
 };
 
+// Helper function to generate HTML from block config
+const generateBlockHTML = (config) => {
+  if (!config) return '';
+
+  switch (config.type) {
+    case 'menu':
+      return `
+        <nav style="
+          background-color: ${config.background.value};
+          width: 100%;
+          position: ${config.sticky ? 'sticky' : 'relative'};
+          top: ${config.sticky ? '0' : 'auto'};
+          z-index: ${config.sticky ? '100' : 'auto'};
+          border-bottom: 1px solid rgba(0,0,0,0.1);
+          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        ">
+          <div style="
+            max-width: ${config.fullWidth ? '100%' : config.contentWidth + 'px'};
+            margin: 0 auto;
+            padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
+            display: flex;
+            align-items: center;
+            justify-content: ${config.align === 'center' ? 'center' : 'space-between'};
+            gap: 40px;
+            flex-wrap: wrap;
+          ">
+            ${config.logo.show && config.align !== 'center' ? `
+              <div style="
+                font-size: ${config.logo.size}px;
+                font-weight: 800;
+                color: ${config.logo.color};
+              ">
+                ${config.logo.text}
+              </div>
+            ` : ''}
+            
+            <div style="
+              display: flex;
+              align-items: center;
+              gap: ${config.align === 'center' ? '60px' : '40px'};
+              flex-wrap: wrap;
+            ">
+              ${config.align === 'center' && config.logo.show ? `
+                <div style="
+                  font-size: ${config.logo.size}px;
+                  font-weight: 800;
+                  color: ${config.logo.color};
+                ">
+                  ${config.logo.text}
+                </div>
+              ` : ''}
+              
+              <div style="display: flex; align-items: center; gap: 32px; flex-wrap: wrap;">
+                ${config.menuItems.filter(item => item.show).map(item => `
+                  <a href="${item.link}" style="
+                    font-size: 16px;
+                    font-weight: 500;
+                    color: ${item.color};
+                    text-decoration: none;
+                  ">
+                    ${item.text}
+                  </a>
+                `).join('')}
+              </div>
+              
+              ${config.button.show ? `
+                <a href="${config.button.link}" style="
+                  background-color: ${config.button.color};
+                  color: ${config.button.textColor};
+                  padding: 12px 28px;
+                  font-size: 16px;
+                  border-radius: 10px;
+                  border: ${config.button.color === 'transparent' ? `2px solid ${config.button.textColor}` : 'none'};
+                  font-weight: 600;
+                  text-decoration: none;
+                  display: inline-block;
+                  white-space: nowrap;
+                ">
+                  ${config.button.text}
+                </a>
+              ` : ''}
+            </div>
+          </div>
+        </nav>
+      `;
+
+    case 'hero':
+      const bgStyle = config.background.type === 'image' 
+        ? `background-image: url('${config.background.value}'); background-size: cover; background-position: center;`
+        : config.background.type === 'gradient'
+        ? `background: ${config.background.value};`
+        : `background-color: ${config.background.value};`;
+      
+      const overlay = config.background.overlay ? `
+        <div style="
+          position: absolute;
+          inset: 0;
+          background-color: ${config.background.overlayColor || 'rgba(0,0,0,0.5)'};
+        "></div>
+      ` : '';
+
+      return `
+        <section style="
+          ${bgStyle}
+          width: 100%;
+          min-height: ${config.fullScreen ? '100vh' : 'auto'};
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
+          position: relative;
+        ">
+          ${overlay}
+          <div style="
+            max-width: ${config.contentWidth}px;
+            text-align: ${config.title.align};
+            position: relative;
+            z-index: 1;
+          ">
+            ${config.title.show ? `
+              <h1 style="
+                font-size: 64px;
+                font-weight: 800;
+                color: ${config.title.color};
+                margin-bottom: 24px;
+                line-height: 1.1;
+              ">
+                ${config.title.text}
+              </h1>
+            ` : ''}
+            
+            ${config.description.show ? `
+              <p style="
+                font-size: 20px;
+                color: ${config.description.color};
+                margin-bottom: 32px;
+                line-height: 1.6;
+              ">
+                ${config.description.text}
+              </p>
+            ` : ''}
+            
+            ${config.button.show ? `
+              <a href="${config.button.link}" style="
+                background-color: ${config.button.color};
+                color: ${config.button.textColor};
+                padding: 16px 40px;
+                font-size: 18px;
+                border-radius: 12px;
+                font-weight: 600;
+                text-decoration: none;
+                display: inline-block;
+                margin-bottom: 16px;
+              ">
+                ${config.button.text}
+              </a>
+            ` : ''}
+            
+            ${config.subtitle.show ? `
+              <p style="
+                font-size: 14px;
+                color: ${config.subtitle.color};
+                margin-top: 16px;
+              ">
+                ${config.subtitle.text}
+              </p>
+            ` : ''}
+          </div>
+        </section>
+      `;
+
+    default:
+      return `<div style="padding: 40px; text-align: center; font-family: sans-serif;"><p>Bloc de tip "${config.type}" - previzualizare indisponibilă</p></div>`;
+  }
+};
+
 export const PreviewModal = ({ blocks, isOpen, onClose }) => {
   const [device, setDevice] = useState('desktop');
 
@@ -18,20 +194,7 @@ export const PreviewModal = ({ blocks, isOpen, onClose }) => {
     }
 
     const htmlBlocks = blocks.map(block => {
-      const template = blockTemplates.find(t => t.id === block.templateId);
-      if (!template) return '';
-
-      let html = template.html || '';
-      
-      // Replace config values in HTML
-      if (block.config) {
-        Object.entries(block.config).forEach(([key, value]) => {
-          const regex = new RegExp(`{{${key}}}`, 'g');
-          html = html.replace(regex, value || '');
-        });
-      }
-
-      return html;
+      return generateBlockHTML(block.config);
     }).join('\n');
 
     return `
