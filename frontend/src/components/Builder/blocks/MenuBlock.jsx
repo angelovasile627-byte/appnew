@@ -34,6 +34,7 @@ export const MenuBlock = ({ config, onUpdate }) => {
   return (
     <div style={containerStyle}>
       <div style={contentStyle}>
+        {/* Logo */}
         {config.logo.show && config.align !== 'center' && (
           <div
             style={{
@@ -50,7 +51,24 @@ export const MenuBlock = ({ config, onUpdate }) => {
           </div>
         )}
 
-        <div style={menuContainerStyle}>
+        {/* Hamburger Menu Button - Mobile Only */}
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          style={{
+            display: 'none',
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '8px',
+            color: config.logo.color || '#1a1a2e'
+          }}
+          className="mobile-menu-toggle"
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
+        {/* Desktop Menu */}
+        <div style={menuContainerStyle} className="desktop-menu">
           {config.align === 'center' && config.logo.show && (
             <div
               style={{
@@ -108,7 +126,82 @@ export const MenuBlock = ({ config, onUpdate }) => {
             </Button>
           )}
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        {isMobileMenuOpen && (
+          <div
+            className="mobile-menu-dropdown"
+            style={{
+              position: 'fixed',
+              top: '60px',
+              left: 0,
+              right: 0,
+              backgroundColor: config.background.value,
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+              padding: '20px',
+              zIndex: 1000,
+              display: 'none'
+            }}
+          >
+            <nav style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {config.menuItems.map((item, index) => (
+                item.show && (
+                  <a
+                    key={index}
+                    href={item.link}
+                    style={{
+                      fontSize: '16px',
+                      fontWeight: '500',
+                      color: item.color,
+                      textDecoration: 'none',
+                      padding: '12px 0',
+                      borderBottom: '1px solid rgba(0,0,0,0.1)'
+                    }}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.text}
+                  </a>
+                )
+              ))}
+              {config.button.show && (
+                <a
+                  href={config.button.link}
+                  style={{
+                    backgroundColor: config.button.color,
+                    color: config.button.textColor,
+                    padding: '12px 28px',
+                    fontSize: '16px',
+                    borderRadius: '10px',
+                    border: config.button.color === 'transparent' ? `2px solid ${config.button.textColor}` : 'none',
+                    fontWeight: '600',
+                    textDecoration: 'none',
+                    textAlign: 'center',
+                    display: 'block',
+                    marginTop: '8px'
+                  }}
+                >
+                  {config.button.text}
+                </a>
+              )}
+            </nav>
+          </div>
+        )}
       </div>
+
+      {/* Responsive CSS */}
+      <style>{`
+        @media (max-width: 768px) {
+          .desktop-menu {
+            display: none !important;
+          }
+          .mobile-menu-toggle {
+            display: block !important;
+          }
+          .mobile-menu-dropdown {
+            display: block !important;
+          }
+        }
+      `}</style>
     </div>
   );
 };
