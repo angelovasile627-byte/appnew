@@ -111,17 +111,17 @@ user_problem_statement: |
   5. Toate textele să fie în română
 
 backend:
-  - task: "N/A - Acest task este doar frontend"
+  - task: "Endpoint FTP Upload"
     implemented: true
     working: "NA"
-    file: "N/A"
+    file: "/app/backend/server.py"
     stuck_count: 0
-    priority: "low"
-    needs_retesting: false
+    priority: "high"
+    needs_retesting: true
     status_history:
       - working: "NA"
         agent: "main"
-        comment: "Nu sunt necesare modificări în backend pentru acest task"
+        comment: "Am implementat endpoint /api/ftp/upload care primește configurare FTP și blocuri, generează HTML complet și îl încarcă pe server FTP folosind biblioteca ftplib"
 
 frontend:
   - task: "Adăugare template-uri noi pentru Menu (total 6)"
