@@ -128,20 +128,22 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         )}
 
         {/* Background Color */}
-        <div className="space-y-2">
-          <Label className="text-sm font-semibold">Background</Label>
-          <div className="flex gap-2">
-            <Input
-              type="color"
-              value={config.background?.value || '#ffffff'}
-              onChange={(e) => updateConfig('background.value', e.target.value)}
-              className="w-14 h-10 p-1 cursor-pointer"
-            />
+        <div className="space-y-3 border-t border-gray-800 pt-4">
+          <Label className="text-sm font-bold text-white uppercase tracking-wider">Background</Label>
+          <div className="flex gap-3 items-center">
+            <div className="relative">
+              <Input
+                type="color"
+                value={config.background?.value || '#ffffff'}
+                onChange={(e) => updateConfig('background.value', e.target.value)}
+                className="w-16 h-16 p-1 cursor-pointer rounded-lg bg-gray-800 border-gray-700"
+              />
+            </div>
             <Input
               type="text"
               value={config.background?.value || '#ffffff'}
               onChange={(e) => updateConfig('background.value', e.target.value)}
-              className="flex-1 text-sm"
+              className="flex-1 bg-gray-800 border-gray-700 text-white"
             />
           </div>
         </div>
