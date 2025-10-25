@@ -140,6 +140,75 @@ export const blockTemplates = [
     }
   },
   {
+    id: 'menu-4',
+    category: 'menu',
+    name: 'Menu - Sidebar Mobile',
+    thumbnail: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400&h=300&fit=crop',
+    config: {
+      type: 'menu',
+      background: { type: 'gradient', value: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)' },
+      fullWidth: true,
+      contentWidth: 1200,
+      padding: { top: 20, bottom: 20 },
+      logo: { text: 'MyBrand', show: true, color: '#ffffff', size: 30 },
+      menuItems: [
+        { text: 'Home', link: '#home', color: '#ffffff', show: true },
+        { text: 'Products', link: '#products', color: '#ffffff', show: true },
+        { text: 'Services', link: '#services', color: '#ffffff', show: true },
+        { text: 'About', link: '#about', color: '#ffffff', show: true }
+      ],
+      button: { text: 'Contact Us', show: true, color: '#FFD93D', textColor: '#1a1a1a', link: '#contact' },
+      sticky: true,
+      align: 'space-between'
+    }
+  },
+  {
+    id: 'menu-5',
+    category: 'menu',
+    name: 'Menu - Split Navigation',
+    thumbnail: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
+    config: {
+      type: 'menu',
+      background: { type: 'color', value: '#ffffff' },
+      fullWidth: true,
+      contentWidth: 1400,
+      padding: { top: 22, bottom: 22 },
+      logo: { text: 'LOGO', show: true, color: '#1a1a2e', size: 32 },
+      menuItems: [
+        { text: 'Shop', link: '#shop', color: '#2d3748', show: true },
+        { text: 'About', link: '#about', color: '#2d3748', show: true },
+        { text: 'Blog', link: '#blog', color: '#2d3748', show: true },
+        { text: 'Contact', link: '#contact', color: '#2d3748', show: true }
+      ],
+      button: { text: 'Sign In', show: true, color: '#2D3748', textColor: '#ffffff', link: '#signin' },
+      sticky: false,
+      align: 'split'
+    }
+  },
+  {
+    id: 'menu-6',
+    category: 'menu',
+    name: 'Menu - Minimal Modern',
+    thumbnail: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=300&fit=crop',
+    config: {
+      type: 'menu',
+      background: { type: 'color', value: '#0F172A' },
+      fullWidth: true,
+      contentWidth: 1200,
+      padding: { top: 18, bottom: 18 },
+      logo: { text: 'STUDIO', show: true, color: '#F59E0B', size: 28 },
+      menuItems: [
+        { text: 'Work', link: '#work', color: '#F3F4F6', show: true },
+        { text: 'Studio', link: '#studio', color: '#F3F4F6', show: true },
+        { text: 'News', link: '#news', color: '#F3F4F6', show: true },
+        { text: 'Careers', link: '#careers', color: '#F3F4F6', show: true }
+      ],
+      button: { text: 'Let\'s Talk', show: true, color: '#F59E0B', textColor: '#0F172A', link: '#contact' },
+      sticky: true,
+      align: 'space-between'
+    }
+  },
+  {
     id: 'features-1',
     category: 'features',
     name: 'Features - 3 Column',
