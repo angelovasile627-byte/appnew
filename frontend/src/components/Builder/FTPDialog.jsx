@@ -161,7 +161,8 @@ export const FTPDialog = ({ blocks, isOpen, onClose }) => {
           </div>
 
           {/* FTP Configuration */}
-          <div className="bg-gray-50 rounded-lg p-4 space-y-4">
+          {publishType === 'ftp' && (
+            <div className="bg-gray-50 rounded-lg p-4 space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2">
                 <Label htmlFor="host" className="text-sm font-medium text-gray-700">
