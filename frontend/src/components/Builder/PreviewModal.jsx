@@ -173,7 +173,7 @@ const generateBlockHTML = (config) => {
         </nav>
       `;
 
-    case 'hero':
+    case 'hero': {
       const bgStyle = config.background.type === 'image' 
         ? `background-image: url('${config.background.value}'); background-size: cover; background-position: center;`
         : config.background.type === 'gradient'
