@@ -144,15 +144,18 @@ frontend:
 
   - task: "Preview Responsive funcțional"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/frontend/src/components/Builder/PreviewModal.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Am creat PreviewModal care generează HTML complet din blocuri, afișează în iframe cu opțiuni pentru Desktop (100%), Tablet (768px), Mobile (375px), și poate deschide în fereastră nouă. Texte în română."
+      - working: true
+        agent: "main"
+        comment: "✅ VERIFICAT: BuilderNew.jsx nu pasa prop-ul blocks către PreviewModal. FIX APLICAT: Am adăugat PreviewModal la sfârșitul JSX-ului cu props blocks, isOpen, onClose. TESTAT: Preview Modal funcționează perfect - se deschide corect, afișează blocuri în iframe, butoanele Desktop/Tabletă/Mobil schimbă width-ul corect (100%/768px/375px), opțiunea 'Deschide în fereastră nouă' funcționează. Toate textele în română."
 
   - task: "FTP Dialog funcțional"
     implemented: true
