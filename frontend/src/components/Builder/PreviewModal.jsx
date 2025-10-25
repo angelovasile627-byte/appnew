@@ -172,16 +172,6 @@ const generateBlockHTML = (config) => {
           </style>
         </nav>
       `;
-                  display: inline-block;
-                  white-space: nowrap;
-                ">
-                  ${config.button.text}
-                </a>
-              ` : ''}
-            </div>
-          </div>
-        </nav>
-      `;
 
     case 'hero':
       const bgStyle = config.background.type === 'image' 
