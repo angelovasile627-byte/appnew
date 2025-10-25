@@ -39,6 +39,27 @@ class StatusCheck(BaseModel):
 class StatusCheckCreate(BaseModel):
     client_name: str
 
+# FTP Models
+class FTPConfig(BaseModel):
+    host: str
+    port: str = "21"
+    username: str
+    password: str
+    rootFolder: str = "/"
+    publishOnlyChanges: bool = False
+
+class BlockConfig(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+class Block(BaseModel):
+    id: str
+    templateId: str
+    config: Dict[str, Any]
+
+class FTPUploadRequest(BaseModel):
+    ftpConfig: FTPConfig
+    blocks: List[Block]
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
