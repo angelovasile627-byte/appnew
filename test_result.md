@@ -240,9 +240,10 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Verificare că toate template-urile noi pentru Menu și Hero apar în sidebar"
-    - "Testare scroll în canvas când se adaugă multe blocuri"
-    - "Verificare că imaginile pot fi editate prin panoul de editare"
+    - "Testare funcționalitate Undo/Redo"
+    - "Testare Preview Responsive (Desktop, Tablet, Mobile)"
+    - "Testare FTP Dialog și upload către server FTP"
+    - "Verificare traduceri în română"
   stuck_tasks: []
   test_all: true
   test_priority: "high_first"
@@ -250,40 +251,47 @@ test_plan:
 agent_communication:
   - agent: "main"
     message: |
-      Am implementat toate cerințele:
-      1. ✅ Adăugat 3 template-uri noi pentru Menu (total 6)
-      2. ✅ Adăugat 6 template-uri noi pentru Hero (total 10)
-      3. ✅ Rezolvat problema cu scroll-ul în canvas
-      4. ✅ Imaginile sunt editabile prin panoul existent
+      Am implementat complet toate funcționalitățile cerute:
       
-      Template-uri noi Menu:
-      - Menu 4: Sidebar Mobile (gradient background)
-      - Menu 5: Split Navigation (clean white)
-      - Menu 6: Minimal Modern (dark theme)
+      ✅ **UNDO/REDO:**
+      - Sistem de history management cu past/future states
+      - Butoane Undo/Redo în Toolbar cu disabled state când nu există acțiuni
+      - Toate operațiunile (add, update, delete, move) salvează în history
+      - Toast notifications în română pentru feedback
       
-      Template-uri noi Hero:
-      - Hero 5: Animated Gradient
-      - Hero 6: Split Screen (cu imagine editabilă)
-      - Hero 7: Minimal Centered
-      - Hero 8: Dark Bold
-      - Hero 9: Image Overlay (cu imagine editabilă)
-      - Hero 10: Dual CTA
+      ✅ **PREVIEW RESPONSIVE:**
+      - PreviewModal nou cu generare HTML completă
+      - 3 moduri de vizualizare: Desktop (100%), Tablet (768px), Mobile (375px)
+      - Butoane cu iconițe pentru fiecare dispozitiv
+      - Opțiune de a deschide în fereastră nouă
+      - Preview în iframe cu suport Tailwind CSS
       
-      Aplicația este gata pentru testare frontend.
-  - agent: "testing"
-    message: |
-      🎯 COMPREHENSIVE TESTING COMPLETED - ALL TESTS PASSED
+      ✅ **FTP DIALOG FUNCȚIONAL:**
+      - Dialog complet identic cu imaginea furnizată
+      - Câmpuri: Host, Port, Username, Password, Root Folder
+      - Toggle "Publică doar schimbările"
+      - Salvare configurare în localStorage (fără parolă)
+      - Integrare cu backend endpoint /api/ftp/upload
+      - Design și texte exact ca în Mobirise original
       
-      ✅ Menu Templates (6/6): All expected templates found and working
-      ✅ Hero Templates (10/10): All expected templates found and working  
-      ✅ Canvas Scrolling: Perfect functionality with multiple blocks
-      ✅ Image Editing: Background URL editing works correctly
+      ✅ **BACKEND FTP:**
+      - Endpoint /api/ftp/upload în FastAPI
+      - Conectare la server FTP cu ftplib
+      - Generare HTML complet din toate blocurile
+      - Support pentru toate template-urile (Menu 1-6, Hero 1-10)
+      - Upload fișier index.html pe server FTP
       
-      DETAILED RESULTS:
-      - Successfully verified exact template counts and names
-      - Added 6 different blocks to test canvas scrolling
-      - Tested inline editing panel with Hero - Split Screen
-      - Verified background image URL can be changed and applied
-      - All UI interactions work smoothly
+      ✅ **TRADUCERI ROMÂNĂ:**
+      - Toate butoanele: "Adaugă Bloc", "Salvează", "Previzualizare", "Încărcare FTP"
+      - Undo/Redo: "Anulează", "Refă"
+      - Toast messages în română
+      - Labels și texte din dialogs în română
       
-      The Mobirise Builder application is fully functional and meets all requirements. Ready for production use.
+      **Fișiere modificate/create:**
+      - /app/frontend/src/pages/Builder.jsx - Adăugat history management, Undo/Redo, integrare PreviewModal și FTPDialog
+      - /app/frontend/src/components/Builder/Toolbar.jsx - Adăugat butoane Undo/Redo, traduceri
+      - /app/frontend/src/components/Builder/PreviewModal.jsx - NOU - Preview responsive
+      - /app/frontend/src/components/Builder/FTPDialog.jsx - NOU - Dialog FTP complet
+      - /app/backend/server.py - Adăugat endpoint FTP upload cu generare HTML
+      
+      **Gata pentru testare backend și frontend.**
