@@ -124,12 +124,60 @@ backend:
         comment: "Am implementat endpoint /api/ftp/upload care primește configurare FTP și blocuri, generează HTML complet și îl încarcă pe server FTP folosind biblioteca ftplib"
 
 frontend:
+  - task: "Implementare Undo/Redo"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/Builder.jsx, /app/frontend/src/components/Builder/Toolbar.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Am implementat sistem complet de history management cu stări past/future, funcții handleUndo și handleRedo, butoane în Toolbar cu disabled state, toate acțiunile (add, update, delete, move) salvează în history. Texte în română."
+
+  - task: "Preview Responsive funcțional"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/Builder/PreviewModal.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Am creat PreviewModal care generează HTML complet din blocuri, afișează în iframe cu opțiuni pentru Desktop (100%), Tablet (768px), Mobile (375px), și poate deschide în fereastră nouă. Texte în română."
+
+  - task: "FTP Dialog funcțional"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/Builder/FTPDialog.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Am creat FTPDialog complet cu câmpuri pentru Host, Port, Username, Password, Folder root, toggle pentru 'Publică doar schimbările', salvare configurare în localStorage, și integrare cu backend endpoint /api/ftp/upload. Design identic cu imaginea furnizată, texte în română."
+
+  - task: "Traducere texte în română"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/Builder.jsx, /app/frontend/src/components/Builder/Toolbar.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Am tradus toate textele aplicației în română: butoane, toast messages, labels. Exemple: 'Adaugă Bloc', 'Salvează', 'Previzualizare', 'Încărcare FTP', 'Anulează', 'Refă'."
+
   - task: "Adăugare template-uri noi pentru Menu (total 6)"
     implemented: true
     working: true
     file: "/app/frontend/src/data/mockBlocks.js"
     stuck_count: 0
-    priority: "high"
+    priority: "low"
     needs_retesting: false
     status_history:
       - working: true
@@ -144,7 +192,7 @@ frontend:
     working: true
     file: "/app/frontend/src/data/mockBlocks.js"
     stuck_count: 0
-    priority: "high"
+    priority: "low"
     needs_retesting: false
     status_history:
       - working: true
@@ -159,7 +207,7 @@ frontend:
     working: true
     file: "/app/frontend/src/components/Builder/Canvas.jsx"
     stuck_count: 0
-    priority: "high"
+    priority: "low"
     needs_retesting: false
     status_history:
       - working: true
@@ -174,7 +222,7 @@ frontend:
     working: true
     file: "/app/frontend/src/components/Builder/InlineEditingPanel.jsx"
     stuck_count: 0
-    priority: "medium"
+    priority: "low"
     needs_retesting: false
     status_history:
       - working: true
