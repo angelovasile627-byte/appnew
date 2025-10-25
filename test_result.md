@@ -124,11 +124,14 @@ frontend:
     file: "/app/frontend/src/components/Builder/Canvas.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Canvas already has overflow-y-auto, scroll should work properly with multiple blocks"
+      - working: true
+        agent: "testing"
+        comment: "TESTED: Canvas scroll functionality working perfectly. Added multiple blocks (Menu, Hero, Features) and verified smooth scrolling. Canvas properly handles overflow with overflow-y-auto class."
 
   - task: "Hero templates - 14 templates total"
     implemented: true
