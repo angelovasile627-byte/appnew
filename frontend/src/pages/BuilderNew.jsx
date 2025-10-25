@@ -222,6 +222,19 @@ const BuilderNew = () => {
           )}
         </div>
       </div>
+      
+      {/* Modals */}
+      <PreviewModal
+        blocks={blocks}
+        isOpen={isPreviewOpen}
+        onClose={() => setIsPreviewOpen(false)}
+      />
+      
+      <FTPDialog
+        blocks={blocks}
+        isOpen={isFTPDialogOpen}
+        onClose={() => setIsFTPDialogOpen(false)}
+      />
     </div>
   );
 };
