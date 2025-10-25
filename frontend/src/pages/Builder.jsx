@@ -4,6 +4,7 @@ import { Canvas } from '../components/Builder/Canvas';
 import { BlockLibrary } from '../components/Builder/BlockLibrary';
 import { EditingPanel } from '../components/Builder/EditingPanel';
 import { PreviewModal } from '../components/Builder/PreviewModal';
+import { FTPDialog } from '../components/Builder/FTPDialog';
 import { useToast } from '../hooks/use-toast';
 
 const Builder = () => {
