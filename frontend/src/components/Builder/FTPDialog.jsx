@@ -248,13 +248,29 @@ export const FTPDialog = ({ blocks, isOpen, onClose }) => {
               </Label>
             </div>
           </div>
+          )}
+
+          {/* Local save message */}
+          {publishType === 'local' && (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <p className="text-sm text-blue-800 mb-2">
+                <strong>Salvare ca proiect local</strong>
+              </p>
+              <p className="text-sm text-blue-800">
+                Proiectul va fi salvat în browser-ul tău. Poți continua să lucrezi la el oricând revii pe pagină. 
+                Când este gata, îl poți publica prin FTP.
+              </p>
+            </div>
+          )}
 
           {/* Info message */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-            <p className="text-sm text-blue-800">
-              Pt a exporta proiectul site-ului, te rog utilizează "Site-uri → Setări Site"
-            </p>
-          </div>
+          {publishType === 'ftp' && (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+              <p className="text-sm text-blue-800">
+                Pt a exporta proiectul site-ului, te rog utilizează "Site-uri → Setări Site"
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Footer */}
