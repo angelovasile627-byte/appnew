@@ -13,6 +13,7 @@ const Builder = () => {
   const [selectedBlockId, setSelectedBlockId] = useState(null);
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [isFTPDialogOpen, setIsFTPDialogOpen] = useState(false);
   const { toast } = useToast();
 
   const selectedBlock = blocks.find(b => b.id === selectedBlockId);
