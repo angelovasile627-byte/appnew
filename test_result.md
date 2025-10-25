@@ -129,11 +129,14 @@ frontend:
     file: "/app/frontend/src/data/mockBlocks.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Am adăugat 3 template-uri noi pentru Menu: Sidebar Mobile, Split Navigation, Minimal Modern. Total acum: 6 template-uri Menu"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: Found exactly 6 Menu templates as expected: Menu - Horizontal Classic, Menu - Centered, Menu - Transparent, Menu - Sidebar Mobile, Menu - Split Navigation, Menu - Minimal Modern. All templates display correctly in sidebar and can be added to canvas."
 
   - task: "Adăugare template-uri noi pentru Hero (total 10)"
     implemented: true
