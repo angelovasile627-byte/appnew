@@ -17,6 +17,41 @@ const BuilderNew = () => {
 
   const selectedBlock = blocks.find(b => b.id === selectedBlockId);
 
+  // Add to history whenever blocks change
+  const addToHistory = (newBlocks) => {
+    const newHistory = history.slice(0, historyIndex + 1);
+    newHistory.push(JSON.parse(JSON.stringify(newBlocks)));
+    setHistory(newHistory);
+    setHistoryIndex(newHistory.length - 1);
+    setBlocks(newBlocks);
+  };
+
+  // Undo function
+  const handleUndo = () => {
+    if (historyIndex > 0) {
+      const newIndex = historyIndex - 1;
+      setHistoryIndex(newIndex);
+      setBlocks(JSON.parse(JSON.stringify(history[newIndex])));
+      toast({
+        title: 'Undo',
+        description: 'Action undone successfully'
+      });
+    }
+  };
+
+  // Redo function
+  const handleRedo = () => {
+    if (historyIndex < history.length - 1) {
+      const newIndex = historyIndex + 1;
+      setHistoryIndex(newIndex);
+      setBlocks(JSON.parse(JSON.stringify(history[newIndex])));
+      toast({
+        title: 'Redo',
+        description: 'Action redone successfully'
+      });
+    }
+  };
+
   // Calculate position for inline editing panel
   useEffect(() => {
     if (selectedBlockId && selectedBlockRef.current) {
