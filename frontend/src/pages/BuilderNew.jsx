@@ -7,6 +7,8 @@ import { useToast } from '../hooks/use-toast';
 
 const BuilderNew = () => {
   const [blocks, setBlocks] = useState([]);
+  const [history, setHistory] = useState([[]]);
+  const [historyIndex, setHistoryIndex] = useState(0);
   const [selectedBlockId, setSelectedBlockId] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [editPanelPosition, setEditPanelPosition] = useState({ top: 0, left: 0 });
