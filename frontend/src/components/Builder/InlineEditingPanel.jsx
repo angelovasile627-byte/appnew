@@ -289,25 +289,34 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Icons - Only for Menu type */}
         {config.type === 'menu' && (
-          <div className="space-y-2 p-3 bg-gray-50 rounded-lg">
-            <div className="flex items-center justify-between">
-              <Label className="text-sm font-semibold">Icons</Label>
-              <Switch
-                checked={config.showIcons ?? false}
-                onCheckedChange={(checked) => updateConfig('showIcons', checked)}
-              />
-            </div>
+          <div className="flex items-center justify-between py-2">
+            <Label className="text-sm text-gray-300">Icons</Label>
+            <Switch
+              checked={config.showIcons ?? false}
+              onCheckedChange={(checked) => updateConfig('showIcons', checked)}
+            />
+          </div>
+        )}
+
+        {/* Button - Only for Menu type */}
+        {config.type === 'menu' && (
+          <div className="flex items-center justify-between py-2">
+            <Label className="text-sm text-gray-300">Button</Label>
+            <Switch
+              checked={config.showButton ?? true}
+              onCheckedChange={(checked) => updateConfig('showButton', checked)}
+            />
           </div>
         )}
 
         {/* Styles Section - Only for Menu type */}
         {config.type === 'menu' && (
-          <div className="space-y-3 p-3 bg-gray-50 rounded-lg">
-            <Label className="text-sm font-semibold">Styles</Label>
+          <div className="space-y-3 border-t border-gray-800 pt-4">
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Styles</h4>
             
             {/* Transparent */}
-            <div className="flex items-center justify-between">
-              <Label className="text-xs text-gray-600">Transparent</Label>
+            <div className="flex items-center justify-between py-2">
+              <Label className="text-sm text-gray-300">Transparent</Label>
               <Switch
                 checked={config.transparent ?? false}
                 onCheckedChange={(checked) => updateConfig('transparent', checked)}
@@ -315,43 +324,54 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             </div>
 
             {/* Sticky */}
-            <div className="flex items-center justify-between">
-              <Label className="text-xs text-gray-600">Sticky</Label>
+            <div className="flex items-center justify-between py-2">
+              <Label className="text-sm text-gray-300">Sticky</Label>
               <Switch
                 checked={config.sticky ?? false}
                 onCheckedChange={(checked) => updateConfig('sticky', checked)}
               />
             </div>
-          </div>
-        )}
 
-        {/* Opacity - Only for Menu type */}
-        {config.type === 'menu' && (
-          <div className="space-y-2 p-3 bg-gray-50 rounded-lg">
-            <Label className="text-sm font-semibold">Opacity</Label>
-            <div className="flex items-center gap-3">
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={(config.opacity ?? 100)}
-                onChange={(e) => updateConfig('opacity', parseInt(e.target.value))}
-                className="flex-1"
-              />
-              <span className="text-xs text-gray-600 w-12">{config.opacity ?? 100}%</span>
+            {/* Opacity */}
+            <div className="space-y-2">
+              <Label className="text-sm text-gray-300">Opacity</Label>
+              <div className="flex items-center gap-3">
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={(config.opacity ?? 100)}
+                  onChange={(e) => updateConfig('opacity', parseInt(e.target.value))}
+                  className="flex-1"
+                />
+                <span className="text-sm text-gray-400 w-12">{config.opacity ?? 100}%</span>
+              </div>
             </div>
-          </div>
-        )}
 
-        {/* Hamburger - Only for Menu type */}
-        {config.type === 'menu' && (
-          <div className="space-y-2 p-3 bg-gray-50 rounded-lg">
-            <div className="flex items-center justify-between">
-              <Label className="text-sm font-semibold">Hamburger</Label>
-              <Switch
-                checked={config.hamburger ?? false}
-                onCheckedChange={(checked) => updateConfig('hamburger', checked)}
-              />
+            {/* Color */}
+            <div className="space-y-2">
+              <Label className="text-sm text-gray-300">Color</Label>
+              <div className="flex gap-3 items-center">
+                <Input
+                  type="color"
+                  value={config.color?.value || '#ffffff'}
+                  onChange={(e) => updateConfig('color.value', e.target.value)}
+                  className="w-16 h-16 p-1 cursor-pointer rounded-full bg-gray-800 border-gray-700"
+                />
+              </div>
+            </div>
+
+            {/* Hamburger */}
+            <div className="space-y-2">
+              <Label className="text-sm text-gray-300">Hamburger</Label>
+              <div className="flex gap-3 items-center">
+                <Input
+                  type="color"
+                  value={config.hamburgerColor || '#000000'}
+                  onChange={(e) => updateConfig('hamburgerColor', e.target.value)}
+                  className="w-16 h-16 p-1 cursor-pointer rounded-full bg-gray-800 border-gray-700"
+                />
+              </div>
             </div>
           </div>
         )}
