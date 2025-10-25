@@ -8,7 +8,7 @@ export const BlockLibrary = ({ isOpen, onClose, onAddBlock }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const categories = ['all', 'hero', 'features', 'article', 'intro', 'cta', 'gallery', 'testimonial', 'contact', 'pricing', 'footer', 'team', 'stats', 'faq'];
+  const categories = ['all', 'menu', 'hero', 'features', 'article', 'intro', 'cta', 'gallery', 'testimonial', 'contact', 'pricing', 'footer', 'team', 'stats', 'faq'];
 
   const filteredBlocks = blockTemplates.filter(block => {
     const matchesSearch = block.name.toLowerCase().includes(searchTerm.toLowerCase());
