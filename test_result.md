@@ -159,11 +159,14 @@ frontend:
     file: "/app/frontend/src/components/Builder/Canvas.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Am modificat structura Canvas pentru a permite scroll corect: schimbat min-h-screen cu min-h-full, adăugat h-full pe container principal, adăugat pb-20 pentru spațiu la final"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: Canvas scrolling works perfectly. Successfully added 6 blocks (Menu, Hero, Features, Article, CTA, Footer) to canvas and tested scrolling functionality. Canvas scrolls smoothly to bottom and back to top. The pb-20 padding provides proper spacing at the end."
 
   - task: "Asigurare editare imagini"
     implemented: true
