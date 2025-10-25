@@ -159,15 +159,18 @@ frontend:
 
   - task: "FTP Dialog funcțional"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/frontend/src/components/Builder/FTPDialog.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Am creat FTPDialog complet cu câmpuri pentru Host, Port, Username, Password, Folder root, toggle pentru 'Publică doar schimbările', salvare configurare în localStorage, și integrare cu backend endpoint /api/ftp/upload. Design identic cu imaginea furnizată, texte în română."
+      - working: true
+        agent: "main"
+        comment: "✅ VERIFICAT: BuilderNew.jsx nu pasa prop-ul blocks către FTPDialog. FIX APLICAT: Am adăugat FTPDialog la sfârșitul JSX-ului cu props blocks, isOpen, onClose. TESTAT: FTP Dialog funcționează perfect - se deschide corect, afișează toate câmpurile (Server FTP, Utilizator, Parolă, Port, Dosar rădăcină), toggle 'Publică doar schimbările' funcționează, design identic cu imaginea furnizată, toate textele în română (Publicare, ANULEAZĂ, PUBLICARE)."
 
   - task: "Traducere texte în română"
     implemented: true
