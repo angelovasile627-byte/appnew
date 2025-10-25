@@ -150,46 +150,57 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Logo */}
         {config.logo && (
-          <div className="space-y-3 p-3 bg-gray-50 rounded-lg">
+          <div className="space-y-3 border-t border-gray-800 pt-4">
             <div className="flex items-center justify-between">
-              <Label className="text-sm font-semibold">Logo</Label>
+              <Label className="text-sm font-bold text-white uppercase tracking-wider">Logo</Label>
               <Switch
                 checked={config.logo.show ?? true}
                 onCheckedChange={(checked) => updateConfig('logo.show', checked)}
               />
             </div>
             {config.logo.show && (
-              <>
-                <div>
-                  <Label className="text-xs text-gray-600">Brand Name</Label>
-                  <Input
-                    value={config.logo.text || ''}
-                    onChange={(e) => updateConfig('logo.text', e.target.value)}
-                    placeholder="Brand name"
-                    className="text-sm"
+              <div className="space-y-3 ml-4">
+                <div className="space-y-2">
+                  <Label className="text-sm text-gray-300">Brand Name</Label>
+                  <Switch
+                    checked={config.logo.text !== '' && config.logo.text !== undefined}
+                    onCheckedChange={(checked) => updateConfig('logo.text', checked ? 'Brand' : '')}
                   />
+                  {config.logo.text && (
+                    <Input
+                      value={config.logo.text || ''}
+                      onChange={(e) => updateConfig('logo.text', e.target.value)}
+                      placeholder="Brand name"
+                      className="bg-gray-800 border-gray-700 text-white"
+                    />
+                  )}
                 </div>
-                <div>
-                  <Label className="text-xs text-gray-600">Logo Size</Label>
-                  <Input
-                    type="number"
-                    value={config.logo.size || 24}
-                    onChange={(e) => updateConfig('logo.size', parseInt(e.target.value))}
-                    className="text-sm"
-                    min="12"
-                    max="72"
-                  />
+                <div className="space-y-2">
+                  <Label className="text-sm text-gray-300">Logo Size</Label>
+                  <div className="flex items-center gap-3">
+                    <Input
+                      type="range"
+                      value={config.logo.size || 24}
+                      onChange={(e) => updateConfig('logo.size', parseInt(e.target.value))}
+                      className="flex-1 bg-gray-800 border-gray-700"
+                      min="12"
+                      max="72"
+                    />
+                    <span className="text-sm text-gray-400 w-12">{config.logo.size || 24}px</span>
+                  </div>
                 </div>
-                <div>
-                  <Label className="text-xs text-gray-600">Color</Label>
-                  <Input
-                    type="color"
-                    value={config.logo.color || '#000000'}
-                    onChange={(e) => updateConfig('logo.color', e.target.value)}
-                    className="w-full h-10 p-1 cursor-pointer"
-                  />
+                <div className="space-y-2">
+                  <Label className="text-sm text-gray-300">Color</Label>
+                  <div className="flex gap-3 items-center">
+                    <Input
+                      type="color"
+                      value={config.logo.color || '#000000'}
+                      onChange={(e) => updateConfig('logo.color', e.target.value)}
+                      className="w-16 h-16 p-1 cursor-pointer rounded-full bg-gray-800 border-gray-700"
+                    />
+                  </div>
                 </div>
-              </>
+              </div>
             )}
           </div>
         )}
