@@ -70,7 +70,8 @@ const BuilderNew = () => {
       templateId: template.id,
       config: JSON.parse(JSON.stringify(template.config))
     };
-    setBlocks([...blocks, newBlock]);
+    const newBlocks = [...blocks, newBlock];
+    addToHistory(newBlocks);
     setSelectedBlockId(newBlock.id);
     toast({
       title: 'Block added',
@@ -79,13 +80,15 @@ const BuilderNew = () => {
   };
 
   const handleUpdateBlock = (blockId, newConfig) => {
-    setBlocks(blocks.map(block => 
+    const newBlocks = blocks.map(block => 
       block.id === blockId ? { ...block, config: newConfig } : block
-    ));
+    );
+    addToHistory(newBlocks);
   };
 
   const handleDeleteBlock = (blockId) => {
-    setBlocks(blocks.filter(block => block.id !== blockId));
+    const newBlocks = blocks.filter(block => block.id !== blockId);
+    addToHistory(newBlocks);
     if (selectedBlockId === blockId) {
       setSelectedBlockId(null);
     }
@@ -99,7 +102,7 @@ const BuilderNew = () => {
     const newBlocks = [...blocks];
     const [movedBlock] = newBlocks.splice(fromIndex, 1);
     newBlocks.splice(toIndex, 0, movedBlock);
-    setBlocks(newBlocks);
+    addToHistory(newBlocks);
   };
 
   const handleSave = () => {
