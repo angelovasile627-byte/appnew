@@ -117,10 +117,40 @@ const BuilderNew = () => {
   };
 
   const handleMoveBlock = (fromIndex, toIndex) => {
+    const movedBlock = blocks[fromIndex];
+    
+    // Import blockTemplates to check if it's a menu
+    const { blockTemplates } = require('../data/mockBlocks');
+    const template = blockTemplates.find(t => t.id === movedBlock.templateId);
+    
+    // If moving a menu block, it should always stay at position 0
+    if (template && template.category === 'menu' && toIndex !== 0) {
+      toast({
+        title: 'Meniul trebuie să fie primul',
+        description: 'Meniul trebuie să fie întotdeauna primul element din pagină',
+        variant: 'destructive'
+      });
+      return;
+    }
+    
+    // If moving another block to position 0 and there's a menu at position 0
+    if (toIndex === 0 && fromIndex !== 0) {
+      const firstBlock = blocks[0];
+      const firstTemplate = blockTemplates.find(t => t.id === firstBlock.templateId);
+      if (firstTemplate && firstTemplate.category === 'menu') {
+        toast({
+          title: 'Meniul trebuie să fie primul',
+          description: 'Nu poți muta alte blocuri înaintea meniului',
+          variant: 'destructive'
+        });
+        return;
+      }
+    }
+    
     saveToHistory(blocks);
     const newBlocks = [...blocks];
-    const [movedBlock] = newBlocks.splice(fromIndex, 1);
-    newBlocks.splice(toIndex, 0, movedBlock);
+    const [moved] = newBlocks.splice(fromIndex, 1);
+    newBlocks.splice(toIndex, 0, moved);
     setBlocks(newBlocks);
   };
 
