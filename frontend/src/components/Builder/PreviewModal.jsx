@@ -257,6 +257,7 @@ const generateBlockHTML = (config) => {
           </div>
         </section>
       `;
+    }
 
     default:
       return `<div style="padding: 40px; text-align: center; font-family: sans-serif;"><p>Bloc de tip "${config.type}" - previzualizare indisponibilă</p></div>`;
