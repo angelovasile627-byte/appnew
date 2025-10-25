@@ -189,6 +189,11 @@ const Builder = () => {
         isOpen={isPreviewOpen}
         onClose={() => setIsPreviewOpen(false)}
       />
+      <FTPDialog
+        blocks={blocks}
+        isOpen={isFTPDialogOpen}
+        onClose={() => setIsFTPDialogOpen(false)}
+      />
     </div>
   );
 };
