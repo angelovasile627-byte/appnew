@@ -378,44 +378,44 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Title */}
         {config.title && (
-          <div className="space-y-2 p-3 bg-gray-50 rounded-lg">
+          <div className="space-y-3 border-t border-gray-800 pt-4">
             <div className="flex items-center justify-between">
-              <Label className="text-sm font-semibold">Title</Label>
+              <Label className="text-sm font-bold text-white uppercase tracking-wider">Title</Label>
               <Switch
                 checked={config.title.show ?? true}
                 onCheckedChange={(checked) => updateConfig('title.show', checked)}
               />
             </div>
             {config.title.show && (
-              <>
+              <div className="space-y-3">
                 <Textarea
                   value={config.title.text || ''}
                   onChange={(e) => updateConfig('title.text', e.target.value)}
-                  className="text-sm"
+                  className="bg-gray-800 border-gray-700 text-white"
                   rows={2}
                 />
-                <div className="flex gap-2">
+                <div className="flex gap-3">
                   <Input
                     type="color"
                     value={config.title.color || '#000000'}
                     onChange={(e) => updateConfig('title.color', e.target.value)}
-                    className="w-14 h-10 p-1 cursor-pointer"
+                    className="w-16 h-16 p-1 cursor-pointer rounded-lg bg-gray-800 border-gray-700"
                   />
                   <Select
                     value={config.title.align || 'center'}
                     onValueChange={(value) => updateConfig('title.align', value)}
                   >
-                    <SelectTrigger className="flex-1 text-sm">
+                    <SelectTrigger className="flex-1 bg-gray-800 border-gray-700 text-white">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-gray-800 border-gray-700">
                       <SelectItem value="left">Left</SelectItem>
                       <SelectItem value="center">Center</SelectItem>
                       <SelectItem value="right">Right</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
-              </>
+              </div>
             )}
           </div>
         )}
