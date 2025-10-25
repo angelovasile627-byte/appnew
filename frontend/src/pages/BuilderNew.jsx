@@ -191,6 +191,10 @@ const BuilderNew = () => {
         onExport={handleExport}
         onPreview={handlePreview}
         onFTPUpload={handleFTPUpload}
+        onUndo={handleUndo}
+        onRedo={handleRedo}
+        canUndo={history.past.length > 0}
+        canRedo={history.future.length > 0}
       />
       <div className="flex-1 flex overflow-hidden">
         <BlockSidebar
