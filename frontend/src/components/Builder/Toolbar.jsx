@@ -8,7 +8,7 @@ export const Toolbar = ({ onAddBlock, onSave, onExport, onPreview, onFTPUpload, 
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg"></div>
-          <h1 className="text-xl font-bold text-gray-900">Mobirise Builder</h1>
+          <h1 className="text-xl font-bold text-gray-900">AXXO Builder</h1>
         </div>
       </div>
 
