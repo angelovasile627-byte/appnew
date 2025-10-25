@@ -316,6 +316,134 @@ export const blockTemplates = [
       ],
       button: { text: 'Get Started', show: true, color: 'transparent', textColor: '#ffffff', link: '#start' },
       sticky: false,
+      transparent: true,
+      opacity: 0.9,
+      align: 'space-between'
+    }
+  },
+  {
+    id: 'menu-4',
+    category: 'menu',
+    name: 'Menu - Sticky Navigation',
+    thumbnail: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=400&h=300&fit=crop',
+    config: {
+      type: 'menu',
+      background: { type: 'color', value: '#6366F1' },
+      fullWidth: true,
+      contentWidth: 1200,
+      padding: { top: 22, bottom: 22 },
+      logo: { text: 'StickyNav', show: true, color: '#ffffff', size: 26 },
+      menuItems: [
+        { text: 'Home', link: '#home', color: '#ffffff', show: true },
+        { text: 'Products', link: '#products', color: '#ffffff', show: true },
+        { text: 'About', link: '#about', color: '#ffffff', show: true },
+        { text: 'Contact', link: '#contact', color: '#ffffff', show: true }
+      ],
+      button: { text: 'Sign In', show: true, color: '#ffffff', textColor: '#6366F1', link: '#signin' },
+      sticky: true,
+      transparent: false,
+      opacity: 1.0,
+      align: 'space-between',
+      icons: { show: true, hamburger: true }
+    }
+  },
+  {
+    id: 'menu-5',
+    category: 'menu',
+    name: 'Menu - Minimal Light',
+    thumbnail: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=400&h=300&fit=crop',
+    config: {
+      type: 'menu',
+      background: { type: 'color', value: '#F9FAFB' },
+      fullWidth: true,
+      contentWidth: 1100,
+      padding: { top: 18, bottom: 18 },
+      logo: { text: 'Minimal', show: true, color: '#111827', size: 24 },
+      menuItems: [
+        { text: 'Work', link: '#work', color: '#374151', show: true },
+        { text: 'Studio', link: '#studio', color: '#374151', show: true },
+        { text: 'Blog', link: '#blog', color: '#374151', show: true }
+      ],
+      button: { text: 'Contact', show: true, color: '#111827', textColor: '#ffffff', link: '#contact' },
+      sticky: false,
+      transparent: false,
+      opacity: 1.0,
+      align: 'space-between'
+    }
+  },
+  {
+    id: 'menu-6',
+    category: 'menu',
+    name: 'Menu - Gradient Modern',
+    thumbnail: 'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=400&h=300&fit=crop',
+    config: {
+      type: 'menu',
+      background: { type: 'gradient', value: 'linear-gradient(90deg, #667EEA 0%, #764BA2 100%)' },
+      fullWidth: true,
+      contentWidth: 1200,
+      padding: { top: 24, bottom: 24 },
+      logo: { text: 'GradientNav', show: true, color: '#ffffff', size: 28 },
+      menuItems: [
+        { text: 'Features', link: '#features', color: '#ffffff', show: true },
+        { text: 'Pricing', link: '#pricing', color: '#ffffff', show: true },
+        { text: 'Docs', link: '#docs', color: '#ffffff', show: true },
+        { text: 'Support', link: '#support', color: '#ffffff', show: true }
+      ],
+      button: { text: 'Get Started', show: true, color: '#ffffff', textColor: '#667EEA', link: '#start' },
+      sticky: true,
+      transparent: false,
+      opacity: 1.0,
+      align: 'space-between'
+    }
+  },
+  {
+    id: 'menu-7',
+    category: 'menu',
+    name: 'Menu - E-Commerce Header',
+    thumbnail: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&h=300&fit=crop',
+    config: {
+      type: 'menu',
+      background: { type: 'color', value: '#ffffff' },
+      fullWidth: true,
+      contentWidth: 1300,
+      padding: { top: 20, bottom: 20 },
+      logo: { text: 'ShopHub', show: true, color: '#EF4444', size: 26 },
+      menuItems: [
+        { text: 'Shop', link: '#shop', color: '#1f2937', show: true },
+        { text: 'Categories', link: '#categories', color: '#1f2937', show: true },
+        { text: 'Deals', link: '#deals', color: '#1f2937', show: true },
+        { text: 'New Arrivals', link: '#new', color: '#1f2937', show: true }
+      ],
+      button: { text: 'Cart (0)', show: true, color: '#EF4444', textColor: '#ffffff', link: '#cart' },
+      sticky: false,
+      transparent: false,
+      opacity: 1.0,
+      align: 'space-between',
+      icons: { show: true, search: true, cart: true, user: true }
+    }
+  },
+  {
+    id: 'menu-8',
+    category: 'menu',
+    name: 'Menu - App Navigation',
+    thumbnail: 'https://images.unsplash.com/photo-1497215842964-222b430dc094?w=400&h=300&fit=crop',
+    config: {
+      type: 'menu',
+      background: { type: 'color', value: '#10B981' },
+      fullWidth: true,
+      contentWidth: 1200,
+      padding: { top: 20, bottom: 20 },
+      logo: { text: 'AppName', show: true, color: '#ffffff', size: 26 },
+      menuItems: [
+        { text: 'Dashboard', link: '#dashboard', color: '#ffffff', show: true },
+        { text: 'Analytics', link: '#analytics', color: '#ffffff', show: true },
+        { text: 'Reports', link: '#reports', color: '#ffffff', show: true },
+        { text: 'Settings', link: '#settings', color: '#ffffff', show: true }
+      ],
+      button: { text: 'Upgrade', show: true, color: '#FBBF24', textColor: '#1a1a2e', link: '#upgrade' },
+      sticky: true,
+      transparent: false,
+      opacity: 1.0,
       align: 'space-between'
     }
   },
