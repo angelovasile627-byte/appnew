@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Toolbar } from '../components/Builder/Toolbar';
 import { Canvas } from '../components/Builder/Canvas';
 import { BlockSidebar } from '../components/Builder/BlockSidebar';
-import { InlineEditingPanel } from '../components/Builder/InlineEditingPanel';
+import { ModernEditingPanel } from '../components/Builder/ModernEditingPanel';
 import { useToast } from '../hooks/use-toast';
 
 const BuilderNew = () => {
