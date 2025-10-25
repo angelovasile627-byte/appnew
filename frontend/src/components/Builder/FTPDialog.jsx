@@ -129,38 +129,34 @@ export const FTPDialog = ({ blocks, isOpen, onClose }) => {
         <div className="p-6 space-y-6">
           {/* Publishing options */}
           <div className="space-y-3">
-            <div className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-not-allowed opacity-50">
-              <input
-                type="radio"
-                name="publishType"
-                value="mobirise"
-                disabled
-                className="w-4 h-4"
-              />
-              <Label className="cursor-not-allowed">Mobirise</Label>
-            </div>
-
-            <div className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-not-allowed opacity-50">
+            <div 
+              className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer"
+              onClick={() => setPublishType('local')}
+            >
               <input
                 type="radio"
                 name="publishType"
                 value="local"
-                disabled
-                className="w-4 h-4"
+                checked={publishType === 'local'}
+                onChange={() => setPublishType('local')}
+                className="w-4 h-4 text-indigo-600"
               />
-              <Label className="cursor-not-allowed">Dosar local în calculator</Label>
+              <Label className="cursor-pointer">Dosar local în calculator</Label>
             </div>
 
-            <div className="flex items-center gap-3 p-3 border-2 border-indigo-600 rounded-lg bg-indigo-50">
+            <div 
+              className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer"
+              onClick={() => setPublishType('ftp')}
+            >
               <input
                 type="radio"
                 name="publishType"
                 value="ftp"
-                checked
-                readOnly
+                checked={publishType === 'ftp'}
+                onChange={() => setPublishType('ftp')}
                 className="w-4 h-4 text-indigo-600"
               />
-              <Label className="font-medium">FTP</Label>
+              <Label className="cursor-pointer font-medium">FTP</Label>
             </div>
           </div>
 
