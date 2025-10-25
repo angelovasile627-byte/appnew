@@ -267,16 +267,16 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Menu Items Align - Only for Menu type */}
         {config.type === 'menu' && config.align !== undefined && (
-          <div className="space-y-2 p-3 bg-gray-50 rounded-lg">
-            <Label className="text-sm font-semibold">Menu Items Align</Label>
+          <div className="space-y-3 border-t border-gray-800 pt-4">
+            <Label className="text-sm font-bold text-white uppercase tracking-wider">Menu Items Align</Label>
             <Select
-              value={config.align || 'space-between'}
+              value={config.align || 'left'}
               onValueChange={(value) => updateConfig('align', value)}
             >
-              <SelectTrigger className="text-sm">
+              <SelectTrigger className="bg-gray-800 border-gray-700 text-white">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-gray-800 border-gray-700">
                 <SelectItem value="left">Left</SelectItem>
                 <SelectItem value="center">Center</SelectItem>
                 <SelectItem value="right">Right</SelectItem>
