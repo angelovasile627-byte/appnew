@@ -292,7 +292,19 @@ const BuilderNew = () => {
             onMoveBlock={handleMoveBlock}
             selectedBlockRef={selectedBlockRef}
           />
-          {selectedBlock && (
+          
+          {/* Show InlineToolbar for Menu, InlineEditingPanel for others */}
+          {selectedBlock && isMenuBlock && (
+            <InlineToolbar
+              block={selectedBlock}
+              onUpdate={(newConfig) => handleUpdateBlock(selectedBlockId, newConfig)}
+              onDelete={() => handleDeleteBlock(selectedBlockId)}
+              onAddMenuItem={handleAddMenuItem}
+              position={toolbarPosition}
+            />
+          )}
+          
+          {selectedBlock && !isMenuBlock && (
             <InlineEditingPanel
               block={selectedBlock}
               onUpdate={(newConfig) => handleUpdateBlock(selectedBlockId, newConfig)}
