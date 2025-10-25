@@ -87,12 +87,12 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Size Controls for Hero */}
         {config.type === 'hero' && (
-          <div className="space-y-3 p-3 bg-gray-50 rounded-lg">
-            <Label className="text-sm font-semibold">Size</Label>
+          <div className="space-y-3 border-t border-gray-800 pt-4">
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Size</h4>
             
             {/* Full Screen */}
-            <div className="flex items-center justify-between">
-              <Label className="text-xs text-gray-600">Full Screen</Label>
+            <div className="flex items-center justify-between py-2">
+              <Label className="text-sm text-gray-300">Full Screen</Label>
               <Switch
                 checked={config.fullScreen ?? true}
                 onCheckedChange={(checked) => updateConfig('fullScreen', checked)}
@@ -100,8 +100,8 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             </div>
 
             {/* Full Width */}
-            <div className="flex items-center justify-between">
-              <Label className="text-xs text-gray-600">Full Width</Label>
+            <div className="flex items-center justify-between py-2">
+              <Label className="text-sm text-gray-300">Full Width</Label>
               <Switch
                 checked={config.fullWidth ?? false}
                 onCheckedChange={(checked) => updateConfig('fullWidth', checked)}
@@ -109,17 +109,20 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             </div>
 
             {/* Content Width */}
-            <div>
-              <Label className="text-xs text-gray-600">Content Width</Label>
-              <Input
-                type="number"
-                value={config.contentWidth || 800}
-                onChange={(e) => updateConfig('contentWidth', parseInt(e.target.value))}
-                className="text-sm"
-                min="400"
-                max="1600"
-                step="50"
-              />
+            <div className="space-y-2">
+              <Label className="text-sm text-gray-300">Content Width</Label>
+              <div className="flex items-center gap-3">
+                <Input
+                  type="range"
+                  value={config.contentWidth || 800}
+                  onChange={(e) => updateConfig('contentWidth', parseInt(e.target.value))}
+                  className="flex-1 bg-gray-800 border-gray-700"
+                  min="400"
+                  max="1600"
+                  step="50"
+                />
+                <span className="text-sm text-gray-400 w-20">{config.contentWidth || 800}px</span>
+              </div>
             </div>
           </div>
         )}
