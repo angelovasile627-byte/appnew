@@ -308,12 +308,12 @@ export const FTPDialog = ({ blocks, isOpen, onClose }) => {
             {isUploading ? (
               <>
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                Se încarcă...
+                {publishType === 'local' ? 'Se salvează...' : 'Se încarcă...'}
               </>
             ) : (
               <>
                 <Upload className="w-4 h-4" />
-                PUBLICARE
+                {publishType === 'local' ? 'SALVEAZĂ' : 'PUBLICARE'}
               </>
             )}
           </Button>
