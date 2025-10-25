@@ -2,14 +2,32 @@ import React from 'react';
 import { Button } from '../../ui/button';
 
 export const MenuBlock = ({ config, onUpdate }) => {
+  const getBackgroundStyle = () => {
+    let bgStyle = {};
+    
+    if (config.transparent) {
+      bgStyle.backgroundColor = 'transparent';
+    } else if (config.background?.type === 'gradient') {
+      bgStyle.background = config.background.value;
+    } else {
+      bgStyle.backgroundColor = config.background?.value || '#ffffff';
+    }
+    
+    if (config.opacity !== undefined) {
+      bgStyle.opacity = config.opacity;
+    }
+    
+    return bgStyle;
+  };
+
   const containerStyle = {
-    backgroundColor: config.background.value,
+    ...getBackgroundStyle(),
     width: '100%',
     position: config.sticky ? 'sticky' : 'relative',
     top: config.sticky ? 0 : 'auto',
     zIndex: config.sticky ? 100 : 'auto',
     borderBottom: '1px solid rgba(0,0,0,0.1)',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+    boxShadow: config.sticky ? '0 2px 8px rgba(0,0,0,0.05)' : 'none'
   };
 
   const contentStyle = {
