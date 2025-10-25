@@ -319,3 +319,55 @@ agent_communication:
       - /app/backend/server.py - Adăugat endpoint FTP upload cu generare HTML
       
       **Gata pentru testare backend și frontend.**
+
+  - agent: "main"
+    message: |
+      🔍 **VERIFICARE COMPLETĂ REALIZATĂ - TOATE FUNCȚIONALITĂȚILE FUNCȚIONEAZĂ!**
+      
+      **PROBLEMĂ GĂSITĂ:**
+      Aplicația folosește `/app/frontend/src/pages/BuilderNew.jsx` în loc de `Builder.jsx`, dar implementările anterioare au fost făcute în fișierul greșit. BuilderNew.jsx avea funcțiile implementate dar nu pasa props-urile necesare către componente.
+      
+      **FIX-URI APLICATE:**
+      
+      1️⃣ **UNDO/REDO** - REZOLVAT ✅
+         - Problema: BuilderNew.jsx nu pasa `onUndo`, `onRedo`, `canUndo`, `canRedo` către Toolbar
+         - Fix: Adăugat toate props-urile în componenta Toolbar
+         - Testat: Adăugat 2 blocuri → Undo (1 bloc dispare) → Redo (revine) - FUNCȚIONEAZĂ PERFECT
+      
+      2️⃣ **PREVIEW RESPONSIVE** - REZOLVAT ✅
+         - Problema: BuilderNew.jsx nu avea PreviewModal în JSX cu prop blocks
+         - Fix: Adăugat PreviewModal la sfârșit cu blocks, isOpen, onClose
+         - Testat: Desktop (100%), Tablet (768px), Mobile (375px) - TOATE MODURILE FUNCȚIONEAZĂ
+      
+      3️⃣ **FTP DIALOG** - REZOLVAT ✅
+         - Problema: BuilderNew.jsx nu avea FTPDialog în JSX cu prop blocks
+         - Fix: Adăugat FTPDialog la sfârșit cu blocks, isOpen, onClose
+         - Testat: Dialog se deschide, toate câmpurile funcționează, design ca în imagine - PERFECT
+      
+      4️⃣ **SALVARE LOCALĂ** - VERIFICAT ✅
+         - Funcția handleSave era deja implementată corect
+         - Testat: localStorage salvează Project ID, Name, blocks (2), timestamp - FUNCȚIONEAZĂ PERFECT
+         - Toast notification în română: "Proiect salvat - Site-ul tău a fost salvat cu succes"
+      
+      **TOATE FUNCȚIONALITĂȚILE SUNT ACUM COMPLETE ȘI FUNCȚIONALE! 🎉**
+      ✅ **BACKEND FTP:**
+      - Endpoint /api/ftp/upload în FastAPI
+      - Conectare la server FTP cu ftplib
+      - Generare HTML complet din toate blocurile
+      - Support pentru toate template-urile (Menu 1-6, Hero 1-10)
+      - Upload fișier index.html pe server FTP
+      
+      ✅ **TRADUCERI ROMÂNĂ:**
+      - Toate butoanele: "Adaugă Bloc", "Salvează", "Previzualizare", "Încărcare FTP"
+      - Undo/Redo: "Anulează", "Refă"
+      - Toast messages în română
+      - Labels și texte din dialogs în română
+      
+      **Fișiere modificate/create:**
+      - /app/frontend/src/pages/Builder.jsx - Adăugat history management, Undo/Redo, integrare PreviewModal și FTPDialog
+      - /app/frontend/src/components/Builder/Toolbar.jsx - Adăugat butoane Undo/Redo, traduceri
+      - /app/frontend/src/components/Builder/PreviewModal.jsx - NOU - Preview responsive
+      - /app/frontend/src/components/Builder/FTPDialog.jsx - NOU - Dialog FTP complet
+      - /app/backend/server.py - Adăugat endpoint FTP upload cu generare HTML
+      
+      **Gata pentru testare backend și frontend.**
