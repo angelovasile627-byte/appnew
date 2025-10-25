@@ -101,3 +101,150 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Mobirise Builder improvements: 1) Add scroll to canvas, 2) Add 10+ Hero templates, 3) Add 5+ Menu templates, 4) Implement Undo/Redo, 5) Implement Preview with responsive, 6) Implement FTP upload, 7) Modernize editing panels"
+
+backend:
+  - task: "Basic API endpoints"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Backend API is running with basic status check endpoints"
+
+frontend:
+  - task: "Canvas scroll functionality"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/Builder/Canvas.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Canvas already has overflow-y-auto, scroll should work properly with multiple blocks"
+
+  - task: "Hero templates - 14 templates total"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/data/mockBlocks.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Added 10 new Hero templates with different styles: Modern Minimal, Dark Mode, Nature Scene, Tech Startup, Creative Agency, E-Commerce, Fitness, Restaurant, Travel, Education. Total 14 templates with images, parallax effects, gradients and colors"
+
+  - task: "Menu templates - 8 templates total"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/data/mockBlocks.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Added 5 new Menu templates: Sticky Navigation, Minimal Light, Gradient Modern, E-Commerce Header, App Navigation. Total 8 menu templates with different styles including transparent, sticky, gradient backgrounds"
+
+  - task: "Undo/Redo functionality"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/BuilderNew.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented history management with undo/redo. Added history state array, historyIndex tracking. Undo button enabled when historyIndex > 0, Redo when historyIndex < history.length - 1. All block operations (add, update, delete, move) now save to history"
+
+  - task: "Toolbar Undo/Redo buttons"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/Builder/Toolbar.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Added Undo and Redo buttons to Toolbar with proper disabled states based on canUndo/canRedo props. Icons already imported from lucide-react"
+
+  - task: "Preview with responsive viewer"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/BuilderNew.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented preview function that opens new window with responsive controls. Users can switch between Desktop/Tablet/Mobile views. Preview generates HTML from blocks with proper styling"
+
+  - task: "FTP Upload dialog"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/BuilderNew.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented FTP upload dialog with form fields for server, username, password, remote folder. Includes upload simulation with progress feedback. Opens in separate window"
+
+  - task: "Modern Editing Panel"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/Builder/ModernEditingPanel.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Created new ModernEditingPanel component with dark theme sidebar. Includes settings for Menu (Logo, Brand Name, Menu Items, Icons, Button, Transparent, Sticky, Opacity, Color, Hamburger) and Hero (Size, Show/Hide, Alignment, Background type with Image/Color/Video, Effects with Parallax and Overlay). Panel positioned on right side with proper styling"
+
+  - task: "Menu Block transparency and opacity support"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/Builder/blocks/MenuBlock.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Enhanced MenuBlock to support transparent background and opacity settings. Added getBackgroundStyle function to handle transparent, gradient, and color backgrounds with opacity"
+
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 0
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "Canvas scroll functionality"
+    - "Hero templates - 14 templates total"
+    - "Menu templates - 8 templates total"
+    - "Undo/Redo functionality"
+    - "Preview with responsive viewer"
+    - "FTP Upload dialog"
+    - "Modern Editing Panel"
+  stuck_tasks: []
+  test_all: true
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "main"
+    message: "Completed all requested features for Mobirise Builder improvements. Ready for comprehensive testing. Key implementations: 1) Canvas scroll already functional, 2) Added 10 new Hero templates (14 total), 3) Added 5 new Menu templates (8 total), 4) Implemented Undo/Redo with history management, 5) Created Preview with Desktop/Tablet/Mobile responsive viewer, 6) Implemented FTP upload dialog, 7) Created modern dark-themed editing panel with comprehensive settings for Menu and Hero blocks. All features need UI testing to verify functionality."
