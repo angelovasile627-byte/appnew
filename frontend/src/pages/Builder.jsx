@@ -142,11 +142,7 @@ const Builder = () => {
   };
 
   const handlePreview = () => {
-    // Mock preview
-    toast({
-      title: 'Mod previzualizare',
-      description: 'Se deschide previzualizarea în fereastră nouă...'
-    });
+    setIsPreviewOpen(true);
   };
 
   const handleFTPUpload = () => {
