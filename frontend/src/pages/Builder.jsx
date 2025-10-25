@@ -114,27 +114,27 @@ const Builder = () => {
     // Mock save - will be connected to backend later
     const projectData = {
       id: 'project-' + Date.now(),
-      name: 'My Website',
+      name: 'Site-ul meu',
       blocks: blocks,
       updatedAt: new Date()
     };
     localStorage.setItem('currentProject', JSON.stringify(projectData));
     toast({
-      title: 'Project saved',
-      description: 'Your website has been saved successfully'
+      title: 'Proiect salvat',
+      description: 'Site-ul tău a fost salvat cu succes'
     });
   };
 
   const handleExport = () => {
     // Mock export - will generate HTML/CSS
     toast({
-      title: 'Export started',
-      description: 'Generating HTML and CSS files...'
+      title: 'Export inițiat',
+      description: 'Se generează fișierele HTML și CSS...'
     });
     setTimeout(() => {
       toast({
-        title: 'Export complete',
-        description: 'Your files are ready for download'
+        title: 'Export complet',
+        description: 'Fișierele tale sunt gata pentru descărcare'
       });
     }, 2000);
   };
@@ -142,16 +142,16 @@ const Builder = () => {
   const handlePreview = () => {
     // Mock preview
     toast({
-      title: 'Preview mode',
-      description: 'Opening preview in new window...'
+      title: 'Mod previzualizare',
+      description: 'Se deschide previzualizarea în fereastră nouă...'
     });
   };
 
   const handleFTPUpload = () => {
     // Mock FTP upload
     toast({
-      title: 'FTP Upload',
-      description: 'This feature will be available soon'
+      title: 'Încărcare FTP',
+      description: 'Această funcție va fi disponibilă în curând'
     });
   };
 
@@ -163,6 +163,10 @@ const Builder = () => {
         onExport={handleExport}
         onPreview={handlePreview}
         onFTPUpload={handleFTPUpload}
+        onUndo={handleUndo}
+        onRedo={handleRedo}
+        canUndo={history.past.length > 0}
+        canRedo={history.future.length > 0}
       />
       <div className="flex-1 flex overflow-hidden">
         <Canvas
