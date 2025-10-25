@@ -191,7 +191,7 @@ export const blockTemplates = [
       fullWidth: true,
       contentWidth: 1200,
       padding: { top: 20, bottom: 20 },
-      logo: { text: 'Mobirise', show: true, color: '#FF006B', size: 24 },
+      logo: { text: 'AXXO', show: true, color: '#FF006B', size: 24 },
       menuItems: [
         { text: 'About', link: '#about', color: '#1a1a2e', show: true },
         { text: 'Services', link: '#services', color: '#1a1a2e', show: true },
