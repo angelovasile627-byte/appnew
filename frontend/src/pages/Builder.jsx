@@ -186,6 +186,11 @@ const Builder = () => {
         onClose={() => setIsLibraryOpen(false)}
         onAddBlock={handleAddBlock}
       />
+      <PreviewModal
+        blocks={blocks}
+        isOpen={isPreviewOpen}
+        onClose={() => setIsPreviewOpen(false)}
+      />
     </div>
   );
 };
