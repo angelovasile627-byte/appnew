@@ -193,6 +193,97 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
           </div>
         )}
 
+        {/* Menu Items Align - Only for Menu type */}
+        {config.type === 'menu' && config.align !== undefined && (
+          <div className="space-y-2 p-3 bg-gray-50 rounded-lg">
+            <Label className="text-sm font-semibold">Menu Items Align</Label>
+            <Select
+              value={config.align || 'space-between'}
+              onValueChange={(value) => updateConfig('align', value)}
+            >
+              <SelectTrigger className="text-sm">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="left">Left</SelectItem>
+                <SelectItem value="center">Center</SelectItem>
+                <SelectItem value="right">Right</SelectItem>
+                <SelectItem value="space-between">Space Between</SelectItem>
+                <SelectItem value="split">Split</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        )}
+
+        {/* Icons - Only for Menu type */}
+        {config.type === 'menu' && (
+          <div className="space-y-2 p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between">
+              <Label className="text-sm font-semibold">Icons</Label>
+              <Switch
+                checked={config.showIcons ?? false}
+                onCheckedChange={(checked) => updateConfig('showIcons', checked)}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Styles Section - Only for Menu type */}
+        {config.type === 'menu' && (
+          <div className="space-y-3 p-3 bg-gray-50 rounded-lg">
+            <Label className="text-sm font-semibold">Styles</Label>
+            
+            {/* Transparent */}
+            <div className="flex items-center justify-between">
+              <Label className="text-xs text-gray-600">Transparent</Label>
+              <Switch
+                checked={config.transparent ?? false}
+                onCheckedChange={(checked) => updateConfig('transparent', checked)}
+              />
+            </div>
+
+            {/* Sticky */}
+            <div className="flex items-center justify-between">
+              <Label className="text-xs text-gray-600">Sticky</Label>
+              <Switch
+                checked={config.sticky ?? false}
+                onCheckedChange={(checked) => updateConfig('sticky', checked)}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Opacity - Only for Menu type */}
+        {config.type === 'menu' && (
+          <div className="space-y-2 p-3 bg-gray-50 rounded-lg">
+            <Label className="text-sm font-semibold">Opacity</Label>
+            <div className="flex items-center gap-3">
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={(config.opacity ?? 100)}
+                onChange={(e) => updateConfig('opacity', parseInt(e.target.value))}
+                className="flex-1"
+              />
+              <span className="text-xs text-gray-600 w-12">{config.opacity ?? 100}%</span>
+            </div>
+          </div>
+        )}
+
+        {/* Hamburger - Only for Menu type */}
+        {config.type === 'menu' && (
+          <div className="space-y-2 p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between">
+              <Label className="text-sm font-semibold">Hamburger</Label>
+              <Switch
+                checked={config.hamburger ?? false}
+                onCheckedChange={(checked) => updateConfig('hamburger', checked)}
+              />
+            </div>
+          </div>
+        )}
+
         {/* Title */}
         {config.title && (
           <div className="space-y-2 p-3 bg-gray-50 rounded-lg">
