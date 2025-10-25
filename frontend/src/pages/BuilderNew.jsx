@@ -248,6 +248,21 @@ const BuilderNew = () => {
     setSelectedBlockId(blockId);
   };
 
+  const handleAddMenuItem = () => {
+    if (selectedBlock && selectedBlock.config.menuItems) {
+      const newMenuItems = [
+        ...(selectedBlock.config.menuItems || []), 
+        { text: 'New Link', link: '#', color: '#1a1a2e', show: true }
+      ];
+      const newConfig = { ...selectedBlock.config, menuItems: newMenuItems };
+      handleUpdateBlock(selectedBlockId, newConfig);
+      toast({
+        title: 'Item adăugat',
+        description: 'Un nou item a fost adăugat în meniu'
+      });
+    }
+  };
+
   return (
     <div className="h-screen flex flex-col">
       <Toolbar
