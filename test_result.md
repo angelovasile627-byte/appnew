@@ -103,11 +103,12 @@
 #====================================================================================================
 
 user_problem_statement: |
-  Utilizatorul dorește următoarele îmbunătățiri pentru builder-ul Mobirise:
-  1. Adăugarea mai multor template-uri pentru Menu (5-6 modele în total)
-  2. Adăugarea mai multor template-uri pentru Hero (10 modele în total)
-  3. Rezolvarea problemei cu scroll-ul în canvas când se adaugă multe blocuri
-  4. Asigurarea că imaginile pot fi editate (resize, repoziționare)
+  Utilizatorul a raportat următoarele probleme și cerințe:
+  1. FTP nu funcționează - trebuie implementat complet cu dialog funcțional
+  2. Undo/Redo nu funcționează - trebuie adăugate butoane și funcționalitate
+  3. Preview nu funcționează corect - trebuie să arate cum se vede responsive (Desktop, Tablet, Mobile)
+  4. Toate funcționalitățile să fie la fel ca în Mobirise original
+  5. Toate textele să fie în română
 
 backend:
   - task: "N/A - Acest task este doar frontend"
