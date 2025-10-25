@@ -69,25 +69,139 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
 
       <div className="flex-1 overflow-y-auto p-4">
         <div className="space-y-3">
-          {filteredBlocks.map(block => (
-            <div
-              key={block.id}
-              className="group cursor-pointer border-2 border-gray-200 rounded-lg overflow-hidden hover:border-indigo-500 hover:shadow-md transition-all"
-              onClick={() => onAddBlock(block)}
-            >
-              <div className="aspect-video bg-gray-100 overflow-hidden">
+          {filteredBlocks.map(block => {
+            // Generate dynamic thumbnail preview based on config
+            const renderThumbnail = () => {
+              const config = block.config;
+              
+              if (config.type === 'menu') {
+                return (
+                  <div style={{
+                    background: config.background.value,
+                    padding: '8px 12px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    fontSize: '6px',
+                    height: '100%'
+                  }}>
+                    <div style={{ color: config.logo.color, fontWeight: 'bold', fontSize: '8px' }}>
+                      {config.logo.text}
+                    </div>
+                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                      {config.menuItems.slice(0, 3).map((item, i) => (
+                        <span key={i} style={{ color: item.color, fontSize: '6px' }}>
+                          {item.text}
+                        </span>
+                      ))}
+                      <div style={{
+                        background: config.button.color,
+                        color: config.button.textColor,
+                        padding: '3px 8px',
+                        borderRadius: '4px',
+                        fontSize: '6px',
+                        fontWeight: '600'
+                      }}>
+                        {config.button.text}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+              
+              if (config.type === 'hero') {
+                const bgStyle = config.background.type === 'gradient'
+                  ? { background: config.background.value }
+                  : config.background.type === 'image'
+                  ? { 
+                      backgroundImage: `url(${config.background.value})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center'
+                    }
+                  : { background: config.background.value };
+                
+                return (
+                  <div style={{
+                    ...bgStyle,
+                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '20px 12px',
+                    height: '100%',
+                    textAlign: config.title.align
+                  }}>
+                    {config.background.overlay && (
+                      <div style={{
+                        position: 'absolute',
+                        inset: 0,
+                        background: config.background.overlayColor || 'rgba(0,0,0,0.5)'
+                      }}></div>
+                    )}
+                    <div style={{ position: 'relative', zIndex: 1 }}>
+                      <div style={{
+                        color: config.title.color,
+                        fontWeight: 'bold',
+                        fontSize: '10px',
+                        marginBottom: '4px',
+                        lineHeight: 1.2
+                      }}>
+                        {config.title.text}
+                      </div>
+                      {config.description.show && (
+                        <div style={{
+                          color: config.description.color,
+                          fontSize: '5px',
+                          marginBottom: '6px',
+                          lineHeight: 1.3
+                        }}>
+                          {config.description.text.substring(0, 60)}...
+                        </div>
+                      )}
+                      {config.button.show && (
+                        <div style={{
+                          display: 'inline-block',
+                          background: config.button.color,
+                          color: config.button.textColor,
+                          padding: '4px 8px',
+                          borderRadius: '4px',
+                          fontSize: '6px',
+                          fontWeight: '600'
+                        }}>
+                          {config.button.text}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              }
+              
+              // Fallback for other block types
+              return (
                 <img
                   src={block.thumbnail}
                   alt={block.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
+              );
+            };
+            
+            return (
+              <div
+                key={block.id}
+                className="group cursor-pointer border-2 border-gray-200 rounded-lg overflow-hidden hover:border-indigo-500 hover:shadow-md transition-all"
+                onClick={() => onAddBlock(block)}
+              >
+                <div className="aspect-video bg-gray-100 overflow-hidden">
+                  {renderThumbnail()}
+                </div>
+                <div className="p-2.5">
+                  <h3 className="font-semibold text-sm text-gray-900 mb-0.5">{block.name}</h3>
+                  <p className="text-xs text-gray-500 capitalize">{block.category}</p>
+                </div>
               </div>
-              <div className="p-2.5">
-                <h3 className="font-semibold text-sm text-gray-900 mb-0.5">{block.name}</h3>
-                <p className="text-xs text-gray-500 capitalize">{block.category}</p>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
