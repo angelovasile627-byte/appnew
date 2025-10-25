@@ -61,7 +61,7 @@ export const blockTemplates = [
     thumbnail: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400&h=300&fit=crop',
     config: {
       type: 'hero',
-      background: { type: 'image', value: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1920&h=1080&fit=crop', overlay: true, overlayColor: 'rgba(10,10,30,0.6)' },
+      background: { type: 'image', value: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1920&h=1080&fit=crop', overlay: true, overlayColor: 'rgba(10,10,30,0.6)', parallax: true },
       fullScreen: false,
       fullWidth: true,
       contentWidth: 800,
@@ -70,6 +70,186 @@ export const blockTemplates = [
       description: { text: 'Create depth and motion with stunning parallax scrolling effects', show: true, color: '#e8e8e8', align: 'center' },
       button: { text: 'Discover', show: true, color: '#4ECDC4', textColor: '#ffffff', link: '#' },
       subtitle: { text: 'Scroll to experience', show: true, color: '#d0d0d0', align: 'center' }
+    }
+  },
+  {
+    id: 'hero-5',
+    category: 'hero',
+    name: 'Hero - Modern Minimal',
+    thumbnail: 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=400&h=300&fit=crop',
+    config: {
+      type: 'hero',
+      background: { type: 'color', value: '#ffffff' },
+      fullScreen: false,
+      fullWidth: false,
+      contentWidth: 900,
+      padding: { top: 140, bottom: 140 },
+      title: { text: 'Simple is Beautiful', show: true, color: '#1a1a2e', align: 'center' },
+      description: { text: 'Less is more. Discover the power of minimalism and clean design.', show: true, color: '#5a5a6e', align: 'center' },
+      button: { text: 'Get Started', show: true, color: '#1a1a2e', textColor: '#ffffff', link: '#' },
+      subtitle: { text: 'Join 10,000+ users', show: true, color: '#7a7a8e', align: 'center' }
+    }
+  },
+  {
+    id: 'hero-6',
+    category: 'hero',
+    name: 'Hero - Dark Mode',
+    thumbnail: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=300&fit=crop',
+    config: {
+      type: 'hero',
+      background: { type: 'gradient', value: 'linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%)' },
+      fullScreen: true,
+      fullWidth: false,
+      contentWidth: 850,
+      padding: { top: 120, bottom: 120 },
+      title: { text: 'Welcome to the Dark Side', show: true, color: '#ffffff', align: 'center' },
+      description: { text: 'Experience a sleek, modern interface designed for the modern web', show: true, color: '#c8c8d8', align: 'center' },
+      button: { text: 'Explore Now', show: true, color: '#764BA2', textColor: '#ffffff', link: '#' },
+      subtitle: { text: 'Powered by innovation', show: true, color: '#a8a8b8', align: 'center' }
+    }
+  },
+  {
+    id: 'hero-7',
+    category: 'hero',
+    name: 'Hero - Nature Scene',
+    thumbnail: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
+    config: {
+      type: 'hero',
+      background: { type: 'image', value: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop', overlay: true, overlayColor: 'rgba(0,0,0,0.4)' },
+      fullScreen: true,
+      fullWidth: true,
+      contentWidth: 800,
+      padding: { top: 120, bottom: 120 },
+      title: { text: 'Embrace Nature', show: true, color: '#ffffff', align: 'center' },
+      description: { text: 'Discover the beauty of the natural world in stunning detail', show: true, color: '#f8f8f8', align: 'center' },
+      button: { text: 'Start Exploring', show: true, color: '#10B981', textColor: '#ffffff', link: '#' },
+      subtitle: { text: 'Adventure awaits', show: true, color: '#e8e8e8', align: 'center' }
+    }
+  },
+  {
+    id: 'hero-8',
+    category: 'hero',
+    name: 'Hero - Tech Startup',
+    thumbnail: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=300&fit=crop',
+    config: {
+      type: 'hero',
+      background: { type: 'gradient', value: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)' },
+      fullScreen: false,
+      fullWidth: false,
+      contentWidth: 950,
+      padding: { top: 160, bottom: 160 },
+      title: { text: 'Build the Future', show: true, color: '#ffffff', align: 'center' },
+      description: { text: 'Cutting-edge technology meets innovative design. Join the revolution today.', show: true, color: '#f0f0f8', align: 'center' },
+      button: { text: 'Get Early Access', show: true, color: '#ffffff', textColor: '#667EEA', link: '#' },
+      subtitle: { text: 'Trusted by 500+ startups', show: true, color: '#d8d8e8', align: 'center' }
+    }
+  },
+  {
+    id: 'hero-9',
+    category: 'hero',
+    name: 'Hero - Creative Agency',
+    thumbnail: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
+    config: {
+      type: 'hero',
+      background: { type: 'color', value: '#FFD93D' },
+      fullScreen: false,
+      fullWidth: false,
+      contentWidth: 800,
+      padding: { top: 140, bottom: 140 },
+      title: { text: 'We Create Magic', show: true, color: '#1a1a2e', align: 'center' },
+      description: { text: 'Transform your brand with creative excellence and innovative strategies', show: true, color: '#3a3a4e', align: 'center' },
+      button: { text: 'View Portfolio', show: true, color: '#1a1a2e', textColor: '#FFD93D', link: '#' },
+      subtitle: { text: 'Award-winning agency', show: true, color: '#4a4a5e', align: 'center' }
+    }
+  },
+  {
+    id: 'hero-10',
+    category: 'hero',
+    name: 'Hero - E-Commerce',
+    thumbnail: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=300&fit=crop',
+    config: {
+      type: 'hero',
+      background: { type: 'image', value: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920&h=1080&fit=crop', overlay: true, overlayColor: 'rgba(255,255,255,0.7)' },
+      fullScreen: false,
+      fullWidth: true,
+      contentWidth: 900,
+      padding: { top: 150, bottom: 150 },
+      title: { text: 'Shop the Latest Trends', show: true, color: '#1a1a2e', align: 'center' },
+      description: { text: 'Discover amazing products at unbeatable prices. Free shipping on orders over $50.', show: true, color: '#3a3a4e', align: 'center' },
+      button: { text: 'Shop Now', show: true, color: '#EF4444', textColor: '#ffffff', link: '#' },
+      subtitle: { text: '30-day money-back guarantee', show: true, color: '#5a5a6e', align: 'center' }
+    }
+  },
+  {
+    id: 'hero-11',
+    category: 'hero',
+    name: 'Hero - Fitness & Health',
+    thumbnail: 'https://images.unsplash.com/photo-1534258936925-c58bed479fcb?w=400&h=300&fit=crop',
+    config: {
+      type: 'hero',
+      background: { type: 'image', value: 'https://images.unsplash.com/photo-1534258936925-c58bed479fcb?w=1920&h=1080&fit=crop', overlay: true, overlayColor: 'rgba(0,0,0,0.5)' },
+      fullScreen: true,
+      fullWidth: true,
+      contentWidth: 850,
+      padding: { top: 120, bottom: 120 },
+      title: { text: 'Transform Your Body', show: true, color: '#ffffff', align: 'center' },
+      description: { text: 'Join thousands who achieved their fitness goals with our proven program', show: true, color: '#f0f0f0', align: 'center' },
+      button: { text: 'Start Free Trial', show: true, color: '#10B981', textColor: '#ffffff', link: '#' },
+      subtitle: { text: 'No credit card required', show: true, color: '#d8d8d8', align: 'center' }
+    }
+  },
+  {
+    id: 'hero-12',
+    category: 'hero',
+    name: 'Hero - Restaurant',
+    thumbnail: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop',
+    config: {
+      type: 'hero',
+      background: { type: 'image', value: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&h=1080&fit=crop', overlay: true, overlayColor: 'rgba(20,20,20,0.6)' },
+      fullScreen: false,
+      fullWidth: true,
+      contentWidth: 800,
+      padding: { top: 180, bottom: 180 },
+      title: { text: 'Taste Perfection', show: true, color: '#ffffff', align: 'center' },
+      description: { text: 'Experience culinary excellence with our chef-crafted menu', show: true, color: '#f8f8f8', align: 'center' },
+      button: { text: 'Reserve Table', show: true, color: '#F59E0B', textColor: '#1a1a1a', link: '#' },
+      subtitle: { text: 'Open 7 days a week', show: true, color: '#e0e0e0', align: 'center' }
+    }
+  },
+  {
+    id: 'hero-13',
+    category: 'hero',
+    name: 'Hero - Travel & Adventure',
+    thumbnail: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=300&fit=crop',
+    config: {
+      type: 'hero',
+      background: { type: 'image', value: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1920&h=1080&fit=crop', overlay: true, overlayColor: 'rgba(0,50,100,0.5)', parallax: true },
+      fullScreen: true,
+      fullWidth: true,
+      contentWidth: 900,
+      padding: { top: 130, bottom: 130 },
+      title: { text: 'Explore the World', show: true, color: '#ffffff', align: 'center' },
+      description: { text: 'Unforgettable adventures and breathtaking destinations await you', show: true, color: '#f0f8ff', align: 'center' },
+      button: { text: 'Plan Your Trip', show: true, color: '#06B6D4', textColor: '#ffffff', link: '#' },
+      subtitle: { text: 'Curated by travel experts', show: true, color: '#d8e8f8', align: 'center' }
+    }
+  },
+  {
+    id: 'hero-14',
+    category: 'hero',
+    name: 'Hero - Education Platform',
+    thumbnail: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=300&fit=crop',
+    config: {
+      type: 'hero',
+      background: { type: 'gradient', value: 'linear-gradient(135deg, #0EA5E9 0%, #8B5CF6 100%)' },
+      fullScreen: false,
+      fullWidth: false,
+      contentWidth: 900,
+      padding: { top: 150, bottom: 150 },
+      title: { text: 'Learn Without Limits', show: true, color: '#ffffff', align: 'center' },
+      description: { text: 'Master new skills with expert-led courses and interactive learning', show: true, color: '#f0f0ff', align: 'center' },
+      button: { text: 'Browse Courses', show: true, color: '#ffffff', textColor: '#0EA5E9', link: '#' },
+      subtitle: { text: '50,000+ students enrolled', show: true, color: '#d8d8ff', align: 'center' }
     }
   },
   {
