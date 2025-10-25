@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { X, Monitor, Tablet, Smartphone } from 'lucide-react';
 import { Button } from '../ui/button';
-import { blockTemplates } from '../../data/mockBlocks';
 
 const DEVICE_SIZES = {
   desktop: { width: '100%', label: 'Desktop', icon: Monitor },
