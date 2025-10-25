@@ -64,6 +64,52 @@ const Builder = () => {
     setBlocks(newBlocks);
   };
 
+  const handleUndo = () => {
+    if (history.past.length === 0) {
+      toast({
+        title: 'Nu se poate anula',
+        description: 'Nu mai există acțiuni de anulat'
+      });
+      return;
+    }
+    
+    const previous = history.past[history.past.length - 1];
+    const newPast = history.past.slice(0, -1);
+    
+    setHistory({
+      past: newPast,
+      future: [blocks, ...history.future]
+    });
+    setBlocks(previous);
+    toast({
+      title: 'Acțiune anulată',
+      description: 'Ultima modificare a fost anulată'
+    });
+  };
+
+  const handleRedo = () => {
+    if (history.future.length === 0) {
+      toast({
+        title: 'Nu se poate reface',
+        description: 'Nu mai există acțiuni de refăcut'
+      });
+      return;
+    }
+    
+    const next = history.future[0];
+    const newFuture = history.future.slice(1);
+    
+    setHistory({
+      past: [...history.past, blocks],
+      future: newFuture
+    });
+    setBlocks(next);
+    toast({
+      title: 'Acțiune refăcută',
+      description: 'Modificarea a fost refăcută'
+    });
+  };
+
   const handleSave = () => {
     // Mock save - will be connected to backend later
     const projectData = {
