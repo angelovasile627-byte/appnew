@@ -148,11 +148,7 @@ const Builder = () => {
   };
 
   const handleFTPUpload = () => {
-    // Mock FTP upload
-    toast({
-      title: 'Încărcare FTP',
-      description: 'Această funcție va fi disponibilă în curând'
-    });
+    setIsFTPDialogOpen(true);
   };
 
   return (
