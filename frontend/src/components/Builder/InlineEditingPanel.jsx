@@ -422,72 +422,72 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Description */}
         {config.description && (
-          <div className="space-y-2 p-3 bg-gray-50 rounded-lg">
+          <div className="space-y-3 border-t border-gray-800 pt-4">
             <div className="flex items-center justify-between">
-              <Label className="text-sm font-semibold">Description</Label>
+              <Label className="text-sm font-bold text-white uppercase tracking-wider">Subtitle</Label>
               <Switch
                 checked={config.description.show ?? true}
                 onCheckedChange={(checked) => updateConfig('description.show', checked)}
               />
             </div>
             {config.description.show && (
-              <>
+              <div className="space-y-3">
                 <Textarea
                   value={config.description.text || ''}
                   onChange={(e) => updateConfig('description.text', e.target.value)}
-                  className="text-sm"
+                  className="bg-gray-800 border-gray-700 text-white"
                   rows={3}
                 />
                 <Input
                   type="color"
                   value={config.description.color || '#000000'}
                   onChange={(e) => updateConfig('description.color', e.target.value)}
-                  className="w-14 h-10 p-1 cursor-pointer"
+                  className="w-16 h-16 p-1 cursor-pointer rounded-lg bg-gray-800 border-gray-700"
                 />
-              </>
+              </div>
             )}
           </div>
         )}
 
         {/* Button */}
         {config.button && (
-          <div className="space-y-2 p-3 bg-gray-50 rounded-lg">
+          <div className="space-y-3 border-t border-gray-800 pt-4">
             <div className="flex items-center justify-between">
-              <Label className="text-sm font-semibold">Button</Label>
+              <Label className="text-sm font-bold text-white uppercase tracking-wider">Buttons</Label>
               <Switch
                 checked={config.button.show ?? true}
                 onCheckedChange={(checked) => updateConfig('button.show', checked)}
               />
             </div>
             {config.button.show && (
-              <>
+              <div className="space-y-3">
                 <Input
                   value={config.button.text || ''}
                   onChange={(e) => updateConfig('button.text', e.target.value)}
                   placeholder="Button text"
-                  className="text-sm"
+                  className="bg-gray-800 border-gray-700 text-white"
                 />
-                <div className="grid grid-cols-2 gap-2">
-                  <div>
-                    <Label className="text-xs text-gray-600">BG Color</Label>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-2">
+                    <Label className="text-sm text-gray-300">BG Color</Label>
                     <Input
                       type="color"
                       value={config.button.color || '#5B4FC9'}
                       onChange={(e) => updateConfig('button.color', e.target.value)}
-                      className="w-full h-10 p-1 cursor-pointer"
+                      className="w-full h-12 p-1 cursor-pointer rounded-lg bg-gray-800 border-gray-700"
                     />
                   </div>
-                  <div>
-                    <Label className="text-xs text-gray-600">Text Color</Label>
+                  <div className="space-y-2">
+                    <Label className="text-sm text-gray-300">Text Color</Label>
                     <Input
                       type="color"
                       value={config.button.textColor || '#ffffff'}
                       onChange={(e) => updateConfig('button.textColor', e.target.value)}
-                      className="w-full h-10 p-1 cursor-pointer"
+                      className="w-full h-12 p-1 cursor-pointer rounded-lg bg-gray-800 border-gray-700"
                     />
                   </div>
                 </div>
-              </>
+              </div>
             )}
           </div>
         )}
