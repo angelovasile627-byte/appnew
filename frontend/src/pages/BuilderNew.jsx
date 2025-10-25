@@ -3,6 +3,7 @@ import { Toolbar } from '../components/Builder/Toolbar';
 import { Canvas } from '../components/Builder/Canvas';
 import { BlockSidebar } from '../components/Builder/BlockSidebar';
 import { InlineEditingPanel } from '../components/Builder/InlineEditingPanel';
+import { InlineToolbar } from '../components/Builder/InlineToolbar';
 import { PreviewModal } from '../components/Builder/PreviewModal';
 import { FTPDialog } from '../components/Builder/FTPDialog';
 import { useToast } from '../hooks/use-toast';
