@@ -71,6 +71,58 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
       </div>
 
       <div className="p-4 space-y-4">
+        {/* Show/Hide Toggle */}
+        {config.type && (
+          <div className="space-y-2 p-3 bg-indigo-50 rounded-lg border border-indigo-200">
+            <div className="flex items-center justify-between">
+              <Label className="text-sm font-semibold">Show/Hide</Label>
+              <Switch
+                checked={config.visible ?? true}
+                onCheckedChange={(checked) => updateConfig('visible', checked)}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Size Controls for Hero */}
+        {config.type === 'hero' && (
+          <div className="space-y-3 p-3 bg-gray-50 rounded-lg">
+            <Label className="text-sm font-semibold">Size</Label>
+            
+            {/* Full Screen */}
+            <div className="flex items-center justify-between">
+              <Label className="text-xs text-gray-600">Full Screen</Label>
+              <Switch
+                checked={config.fullScreen ?? true}
+                onCheckedChange={(checked) => updateConfig('fullScreen', checked)}
+              />
+            </div>
+
+            {/* Full Width */}
+            <div className="flex items-center justify-between">
+              <Label className="text-xs text-gray-600">Full Width</Label>
+              <Switch
+                checked={config.fullWidth ?? false}
+                onCheckedChange={(checked) => updateConfig('fullWidth', checked)}
+              />
+            </div>
+
+            {/* Content Width */}
+            <div>
+              <Label className="text-xs text-gray-600">Content Width</Label>
+              <Input
+                type="number"
+                value={config.contentWidth || 800}
+                onChange={(e) => updateConfig('contentWidth', parseInt(e.target.value))}
+                className="text-sm"
+                min="400"
+                max="1600"
+                step="50"
+              />
+            </div>
+          </div>
+        )}
+
         {/* Background Color */}
         <div className="space-y-2">
           <Label className="text-sm font-semibold">Background</Label>
