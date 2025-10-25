@@ -68,16 +68,19 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         </button>
       </div>
 
-      <div className="p-4 space-y-4">
-        {/* Show/Hide Toggle */}
+      <div className="p-6 space-y-4">
+        {/* Show/Hide Section */}
         {config.type && (
-          <div className="space-y-2 p-3 bg-indigo-50 rounded-lg border border-indigo-200">
-            <div className="flex items-center justify-between">
-              <Label className="text-sm font-semibold">Show/Hide</Label>
-              <Switch
-                checked={config.visible ?? true}
-                onCheckedChange={(checked) => updateConfig('visible', checked)}
-              />
+          <div className="space-y-3">
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Show/Hide</h4>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between py-2">
+                <Label className="text-sm text-gray-300">Visibility</Label>
+                <Switch
+                  checked={config.visible ?? true}
+                  onCheckedChange={(checked) => updateConfig('visible', checked)}
+                />
+              </div>
             </div>
           </div>
         )}
