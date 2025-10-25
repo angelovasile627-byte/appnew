@@ -339,7 +339,7 @@ const BuilderNew = () => {
           onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
           onAddBlock={handleAddBlock}
         />
-        <div className="flex-1 relative">
+        <div className="flex-1 relative overflow-hidden">
           <Canvas
             blocks={blocks}
             selectedBlockId={selectedBlockId}
@@ -350,11 +350,11 @@ const BuilderNew = () => {
             selectedBlockRef={selectedBlockRef}
           />
           {selectedBlock && (
-            <InlineEditingPanel
+            <ModernEditingPanel
               block={selectedBlock}
               onUpdate={(newConfig) => handleUpdateBlock(selectedBlockId, newConfig)}
               onClose={() => setSelectedBlockId(null)}
-              position={editPanelPosition}
+              onDelete={() => handleDeleteBlock(selectedBlockId)}
             />
           )}
         </div>
