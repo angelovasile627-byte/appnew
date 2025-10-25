@@ -23,6 +23,7 @@ const Builder = () => {
   };
 
   const handleAddBlock = (template) => {
+    saveToHistory(blocks);
     const newBlock = {
       id: `block-${Date.now()}`,
       templateId: template.id,
@@ -31,29 +32,32 @@ const Builder = () => {
     setBlocks([...blocks, newBlock]);
     setSelectedBlockId(newBlock.id);
     toast({
-      title: 'Block added',
-      description: `${template.name} has been added to your page`
+      title: 'Bloc adăugat',
+      description: `${template.name} a fost adăugat pe pagină`
     });
   };
 
   const handleUpdateBlock = (blockId, newConfig) => {
+    saveToHistory(blocks);
     setBlocks(blocks.map(block => 
       block.id === blockId ? { ...block, config: newConfig } : block
     ));
   };
 
   const handleDeleteBlock = (blockId) => {
+    saveToHistory(blocks);
     setBlocks(blocks.filter(block => block.id !== blockId));
     if (selectedBlockId === blockId) {
       setSelectedBlockId(null);
     }
     toast({
-      title: 'Block deleted',
-      description: 'The block has been removed from your page'
+      title: 'Bloc șters',
+      description: 'Blocul a fost eliminat de pe pagină'
     });
   };
 
   const handleMoveBlock = (fromIndex, toIndex) => {
+    saveToHistory(blocks);
     const newBlocks = [...blocks];
     const [movedBlock] = newBlocks.splice(fromIndex, 1);
     newBlocks.splice(toIndex, 0, movedBlock);
