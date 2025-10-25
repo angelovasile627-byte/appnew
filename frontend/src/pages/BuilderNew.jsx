@@ -20,6 +20,25 @@ const BuilderNew = () => {
 
   const selectedBlock = blocks.find(b => b.id === selectedBlockId);
   
+  // Load project from localStorage on mount
+  useEffect(() => {
+    const savedProject = localStorage.getItem('currentProject');
+    if (savedProject) {
+      try {
+        const projectData = JSON.parse(savedProject);
+        if (projectData.blocks && Array.isArray(projectData.blocks)) {
+          setBlocks(projectData.blocks);
+          toast({
+            title: 'Proiect încărcat',
+            description: `Proiectul "${projectData.name}" a fost încărcat cu succes`
+          });
+        }
+      } catch (e) {
+        console.error('Error loading project:', e);
+      }
+    }
+  }, []);
+  
   // Function to save current state to history before making changes
   const saveToHistory = (currentBlocks) => {
     setHistory(prev => ({
