@@ -82,7 +82,14 @@ const BuilderNew = () => {
       templateId: template.id,
       config: JSON.parse(JSON.stringify(template.config))
     };
-    setBlocks([...blocks, newBlock]);
+    
+    // If it's a Menu block, always add it at the beginning
+    if (template.category === 'menu') {
+      setBlocks([newBlock, ...blocks]);
+    } else {
+      setBlocks([...blocks, newBlock]);
+    }
+    
     setSelectedBlockId(newBlock.id);
     toast({
       title: 'Bloc adăugat',
