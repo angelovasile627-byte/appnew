@@ -73,6 +73,73 @@ export const blockTemplates = [
     }
   },
   {
+    id: 'menu-1',
+    category: 'menu',
+    name: 'Menu - Horizontal Classic',
+    thumbnail: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=400&h=300&fit=crop',
+    config: {
+      type: 'menu',
+      background: { type: 'color', value: '#ffffff' },
+      fullWidth: true,
+      contentWidth: 1200,
+      padding: { top: 20, bottom: 20 },
+      logo: { text: 'Mobirise', show: true, color: '#FF006B', size: 24 },
+      menuItems: [
+        { text: 'About', link: '#about', color: '#1a1a2e', show: true },
+        { text: 'Services', link: '#services', color: '#1a1a2e', show: true },
+        { text: 'Contacts', link: '#contacts', color: '#1a1a2e', show: true }
+      ],
+      button: { text: 'Start Now!', show: true, color: '#A8F5D7', textColor: '#1a1a2e', link: '#start' },
+      sticky: false,
+      align: 'space-between'
+    }
+  },
+  {
+    id: 'menu-2',
+    category: 'menu',
+    name: 'Menu - Centered',
+    thumbnail: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=400&h=300&fit=crop',
+    config: {
+      type: 'menu',
+      background: { type: 'color', value: '#1a1a2e' },
+      fullWidth: true,
+      contentWidth: 1200,
+      padding: { top: 24, bottom: 24 },
+      logo: { text: 'Brand', show: true, color: '#ffffff', size: 28 },
+      menuItems: [
+        { text: 'Home', link: '#home', color: '#ffffff', show: true },
+        { text: 'Features', link: '#features', color: '#ffffff', show: true },
+        { text: 'Pricing', link: '#pricing', color: '#ffffff', show: true },
+        { text: 'Contact', link: '#contact', color: '#ffffff', show: true }
+      ],
+      button: { text: 'Sign Up', show: true, color: '#5B4FC9', textColor: '#ffffff', link: '#signup' },
+      sticky: true,
+      align: 'center'
+    }
+  },
+  {
+    id: 'menu-3',
+    category: 'menu',
+    name: 'Menu - Transparent',
+    thumbnail: 'https://images.unsplash.com/photo-1555421689-d68471e189f2?w=400&h=300&fit=crop',
+    config: {
+      type: 'menu',
+      background: { type: 'color', value: 'rgba(0,0,0,0.1)' },
+      fullWidth: true,
+      contentWidth: 1200,
+      padding: { top: 20, bottom: 20 },
+      logo: { text: 'Logo', show: true, color: '#ffffff', size: 26 },
+      menuItems: [
+        { text: 'Portfolio', link: '#portfolio', color: '#ffffff', show: true },
+        { text: 'About Us', link: '#about', color: '#ffffff', show: true },
+        { text: 'Blog', link: '#blog', color: '#ffffff', show: true }
+      ],
+      button: { text: 'Get Started', show: true, color: 'transparent', textColor: '#ffffff', link: '#start' },
+      sticky: false,
+      align: 'space-between'
+    }
+  },
+  {
     id: 'features-1',
     category: 'features',
     name: 'Features - 3 Column',
