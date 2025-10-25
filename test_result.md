@@ -144,11 +144,14 @@ frontend:
     file: "/app/frontend/src/data/mockBlocks.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Am adăugat 6 template-uri noi pentru Hero: Animated Gradient, Split Screen, Minimal Centered, Dark Bold, Image Overlay, Dual CTA. Total acum: 10 template-uri Hero"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: Found exactly 10 Hero templates as expected: Hero - Experience Future, Hero - Gradient Bold, Hero - Video Background, Hero - Parallax Image, Hero - Animated Gradient, Hero - Split Screen, Hero - Minimal Centered, Hero - Dark Bold, Hero - Image Overlay, Hero - Dual CTA. All templates display correctly and can be added to canvas."
 
   - task: "Rezolvare problemă scroll în canvas"
     implemented: true
