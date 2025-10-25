@@ -11,6 +11,7 @@ const Builder = () => {
   const [history, setHistory] = useState({ past: [], future: [] });
   const [selectedBlockId, setSelectedBlockId] = useState(null);
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const { toast } = useToast();
 
   const selectedBlock = blocks.find(b => b.id === selectedBlockId);
