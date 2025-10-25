@@ -20,10 +20,26 @@ const BuilderNew = () => {
     if (selectedBlockId && selectedBlockRef.current) {
       const rect = selectedBlockRef.current.getBoundingClientRect();
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      setEditPanelPosition({
-        top: rect.top + scrollTop - 520, // Position above the block
-        left: rect.left + (rect.width / 2) - 210 // Center horizontally
-      });
+      const panelHeight = 500; // Approximate height of the panel
+      const panelWidth = 420;
+      
+      // Calculate top position - try to position above block, but ensure it's visible
+      let top = rect.top + scrollTop - panelHeight - 20;
+      
+      // If panel would be above viewport, position it below the block instead
+      if (top < scrollTop + 80) { // 80px for toolbar
+        top = rect.bottom + scrollTop + 20;
+      }
+      
+      // Calculate left position - center horizontally but keep on screen
+      let left = rect.left + (rect.width / 2) - (panelWidth / 2);
+      
+      // Ensure panel stays within viewport horizontally
+      const maxLeft = window.innerWidth - panelWidth - 20;
+      if (left < 20) left = 20;
+      if (left > maxLeft) left = maxLeft;
+      
+      setEditPanelPosition({ top, left });
     }
   }, [selectedBlockId]);
 
