@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Menu, X } from 'lucide-react';
 import { Button } from '../../ui/button';
 
 export const MenuBlock = ({ config, onUpdate }) => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const containerStyle = {
     backgroundColor: config.background.value,
     width: '100%',
