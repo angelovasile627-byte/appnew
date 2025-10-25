@@ -3,17 +3,30 @@ import { Toolbar } from '../components/Builder/Toolbar';
 import { Canvas } from '../components/Builder/Canvas';
 import { BlockSidebar } from '../components/Builder/BlockSidebar';
 import { InlineEditingPanel } from '../components/Builder/InlineEditingPanel';
+import { PreviewModal } from '../components/Builder/PreviewModal';
+import { FTPDialog } from '../components/Builder/FTPDialog';
 import { useToast } from '../hooks/use-toast';
 
 const BuilderNew = () => {
   const [blocks, setBlocks] = useState([]);
+  const [history, setHistory] = useState({ past: [], future: [] });
   const [selectedBlockId, setSelectedBlockId] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [isFTPDialogOpen, setIsFTPDialogOpen] = useState(false);
   const [editPanelPosition, setEditPanelPosition] = useState({ top: 0, left: 0 });
   const selectedBlockRef = useRef(null);
   const { toast } = useToast();
 
   const selectedBlock = blocks.find(b => b.id === selectedBlockId);
+  
+  // Function to save current state to history before making changes
+  const saveToHistory = (currentBlocks) => {
+    setHistory(prev => ({
+      past: [...prev.past, currentBlocks],
+      future: [] // Clear future when new action is made
+    }));
+  };
 
   // Calculate position for inline editing panel
   useEffect(() => {
