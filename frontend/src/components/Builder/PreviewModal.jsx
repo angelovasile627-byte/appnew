@@ -130,8 +130,8 @@ export const PreviewModal = ({ blocks, isOpen, onClose }) => {
           >
             <iframe
               srcDoc={generateHTML}
-              className="w-full h-full"
-              style={{ minHeight: '800px', border: 'none' }}
+              className="w-full border-none"
+              style={{ minHeight: '600px', height: '100%' }}
               title="Site Preview"
             />
           </div>
