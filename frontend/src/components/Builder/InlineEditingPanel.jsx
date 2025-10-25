@@ -102,31 +102,34 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             </div>
             {config.logo.show && (
               <>
-                <Input
-                  value={config.logo.text || ''}
-                  onChange={(e) => updateConfig('logo.text', e.target.value)}
-                  placeholder="Logo text"
-                  className="text-sm"
-                />
-                <div className="flex gap-2">
-                  <div className="flex-1">
-                    <Label className="text-xs text-gray-600">Color</Label>
-                    <Input
-                      type="color"
-                      value={config.logo.color || '#000000'}
-                      onChange={(e) => updateConfig('logo.color', e.target.value)}
-                      className="w-full h-10 p-1 cursor-pointer"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <Label className="text-xs text-gray-600">Size</Label>
-                    <Input
-                      type="number"
-                      value={config.logo.size || 24}
-                      onChange={(e) => updateConfig('logo.size', parseInt(e.target.value))}
-                      className="text-sm"
-                    />
-                  </div>
+                <div>
+                  <Label className="text-xs text-gray-600">Brand Name</Label>
+                  <Input
+                    value={config.logo.text || ''}
+                    onChange={(e) => updateConfig('logo.text', e.target.value)}
+                    placeholder="Brand name"
+                    className="text-sm"
+                  />
+                </div>
+                <div>
+                  <Label className="text-xs text-gray-600">Logo Size</Label>
+                  <Input
+                    type="number"
+                    value={config.logo.size || 24}
+                    onChange={(e) => updateConfig('logo.size', parseInt(e.target.value))}
+                    className="text-sm"
+                    min="12"
+                    max="72"
+                  />
+                </div>
+                <div>
+                  <Label className="text-xs text-gray-600">Color</Label>
+                  <Input
+                    type="color"
+                    value={config.logo.color || '#000000'}
+                    onChange={(e) => updateConfig('logo.color', e.target.value)}
+                    className="w-full h-10 p-1 cursor-pointer"
+                  />
                 </div>
               </>
             )}
