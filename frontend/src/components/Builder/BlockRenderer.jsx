@@ -1,5 +1,6 @@
 import React from 'react';
 import { MoveUp, MoveDown, Trash2 } from 'lucide-react';
+import { MenuBlock } from './blocks/MenuBlock';
 import { HeroBlock } from './blocks/HeroBlock';
 import { FeaturesBlock } from './blocks/FeaturesBlock';
 import { ArticleBlock } from './blocks/ArticleBlock';
@@ -15,6 +16,7 @@ import { StatsBlock } from './blocks/StatsBlock';
 import { FAQBlock } from './blocks/FAQBlock';
 
 const blockComponents = {
+  menu: MenuBlock,
   hero: HeroBlock,
   features: FeaturesBlock,
   article: ArticleBlock,
