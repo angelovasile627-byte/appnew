@@ -46,6 +46,25 @@ export const FTPDialog = ({ blocks, isOpen, onClose }) => {
   };
 
   const handleUpload = async () => {
+    if (publishType === 'local') {
+      // Save project locally
+      const projectData = {
+        id: 'project-' + Date.now(),
+        name: 'Site-ul meu',
+        blocks: blocks,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+      localStorage.setItem('currentProject', JSON.stringify(projectData));
+      toast({
+        title: 'Proiect salvat local',
+        description: 'Proiectul a fost salvat în browser. Poți continua să lucrezi la el oricând revii.'
+      });
+      onClose();
+      return;
+    }
+
+    // FTP Upload
     // Validate inputs
     if (!ftpConfig.host || !ftpConfig.username || !ftpConfig.password) {
       toast({
