@@ -6,6 +6,7 @@ import { Label } from '../ui/label';
 import { useToast } from '../../hooks/use-toast';
 
 export const FTPDialog = ({ blocks, isOpen, onClose }) => {
+  const [publishType, setPublishType] = useState('ftp'); // 'local' or 'ftp'
   const [ftpConfig, setFtpConfig] = useState({
     host: '',
     port: '21',
