@@ -172,6 +172,18 @@ frontend:
         agent: "main"
         comment: "✅ VERIFICAT: BuilderNew.jsx nu pasa prop-ul blocks către FTPDialog. FIX APLICAT: Am adăugat FTPDialog la sfârșitul JSX-ului cu props blocks, isOpen, onClose. TESTAT: FTP Dialog funcționează perfect - se deschide corect, afișează toate câmpurile (Server FTP, Utilizator, Parolă, Port, Dosar rădăcină), toggle 'Publică doar schimbările' funcționează, design identic cu imaginea furnizată, toate textele în română (Publicare, ANULEAZĂ, PUBLICARE)."
 
+  - task: "Salvare Locală în localStorage"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/BuilderNew.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "✅ VERIFICAT: Funcția handleSave salvează proiectul în localStorage cu cheia 'currentProject'. TESTAT: Am adăugat 2 blocuri (Hero + Menu), apăsat butonul 'Salvează', verificat localStorage - datele sunt salvate corect: Project ID (project-1761424687448), Name (Site-ul meu), 2 blocks, timestamp. Toast notification 'Proiect salvat - Site-ul tău a fost salvat cu succes' apare corect în română."
+
   - task: "Traducere texte în română"
     implemented: true
     working: "NA"
