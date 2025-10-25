@@ -7,11 +7,20 @@ import { useToast } from '../hooks/use-toast';
 
 const Builder = () => {
   const [blocks, setBlocks] = useState([]);
+  const [history, setHistory] = useState({ past: [], future: [] });
   const [selectedBlockId, setSelectedBlockId] = useState(null);
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
   const { toast } = useToast();
 
   const selectedBlock = blocks.find(b => b.id === selectedBlockId);
+
+  // Function to save current state to history before making changes
+  const saveToHistory = (currentBlocks) => {
+    setHistory(prev => ({
+      past: [...prev.past, currentBlocks],
+      future: [] // Clear future when new action is made
+    }));
+  };
 
   const handleAddBlock = (template) => {
     const newBlock = {
