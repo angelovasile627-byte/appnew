@@ -3,6 +3,7 @@ import { Toolbar } from '../components/Builder/Toolbar';
 import { Canvas } from '../components/Builder/Canvas';
 import { BlockLibrary } from '../components/Builder/BlockLibrary';
 import { EditingPanel } from '../components/Builder/EditingPanel';
+import { PreviewModal } from '../components/Builder/PreviewModal';
 import { useToast } from '../hooks/use-toast';
 
 const Builder = () => {
