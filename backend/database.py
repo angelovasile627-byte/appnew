@@ -201,5 +201,248 @@ class Database:
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(executor, _delete)
 
+    # ============ PAGES METHODS ============
+    
+    async def create_page(self, project_id: str, name: str, blocks: List[Dict], is_home: bool = False) -> Dict[str, Any]:
+        """Create a new page"""
+        def _create():
+            conn = self._get_connection()
+            cursor = conn.cursor()
+            
+            page_id = str(uuid.uuid4())
+            blocks_json = json.dumps(blocks)
+            now = datetime.utcnow().isoformat()
+            
+            # Get max order for this project
+            cursor.execute('SELECT MAX(page_order) FROM pages WHERE project_id = ?', (project_id,))
+            max_order = cursor.fetchone()[0]
+            order = (max_order or 0) + 1
+            
+            # If this is home page, unset other home pages
+            if is_home:
+                cursor.execute('UPDATE pages SET is_home = 0 WHERE project_id = ?', (project_id,))
+            
+            cursor.execute(
+                'INSERT INTO pages (id, project_id, name, blocks, is_home, page_order, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                (page_id, project_id, name, blocks_json, 1 if is_home else 0, order, now, now)
+            )
+            conn.commit()
+            conn.close()
+            
+            return {
+                'id': page_id,
+                'project_id': project_id,
+                'name': name,
+                'blocks': blocks,
+                'is_home': is_home,
+                'page_order': order,
+                'created_at': now,
+                'updated_at': now
+            }
+        
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(executor, _create)
+    
+    async def get_pages(self, project_id: str) -> List[Dict[str, Any]]:
+        """Get all pages for a project"""
+        def _get():
+            conn = self._get_connection()
+            cursor = conn.cursor()
+            
+            cursor.execute('SELECT * FROM pages WHERE project_id = ? ORDER BY page_order ASC', (project_id,))
+            rows = cursor.fetchall()
+            conn.close()
+            
+            pages = []
+            for row in rows:
+                page = dict(row)
+                page['blocks'] = json.loads(page['blocks'])
+                page['is_home'] = bool(page['is_home'])
+                pages.append(page)
+            
+            return pages
+        
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(executor, _get)
+    
+    async def get_page(self, page_id: str) -> Optional[Dict[str, Any]]:
+        """Get a specific page"""
+        def _get():
+            conn = self._get_connection()
+            cursor = conn.cursor()
+            
+            cursor.execute('SELECT * FROM pages WHERE id = ?', (page_id,))
+            row = cursor.fetchone()
+            conn.close()
+            
+            if row:
+                page = dict(row)
+                page['blocks'] = json.loads(page['blocks'])
+                page['is_home'] = bool(page['is_home'])
+                return page
+            return None
+        
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(executor, _get)
+    
+    async def update_page(self, page_id: str, name: str = None, blocks: List[Dict] = None, is_home: bool = None) -> Dict[str, Any]:
+        """Update a page"""
+        def _update():
+            conn = self._get_connection()
+            cursor = conn.cursor()
+            
+            # Get current page
+            cursor.execute('SELECT * FROM pages WHERE id = ?', (page_id,))
+            row = cursor.fetchone()
+            if not row:
+                conn.close()
+                return None
+            
+            current_page = dict(row)
+            now = datetime.utcnow().isoformat()
+            
+            # Build update query
+            updates = []
+            params = []
+            
+            if name is not None:
+                updates.append('name = ?')
+                params.append(name)
+            
+            if blocks is not None:
+                updates.append('blocks = ?')
+                params.append(json.dumps(blocks))
+            
+            if is_home is not None:
+                # If setting as home, unset other home pages
+                if is_home:
+                    cursor.execute('UPDATE pages SET is_home = 0 WHERE project_id = ?', (current_page['project_id'],))
+                updates.append('is_home = ?')
+                params.append(1 if is_home else 0)
+            
+            updates.append('updated_at = ?')
+            params.append(now)
+            params.append(page_id)
+            
+            query = f'UPDATE pages SET {", ".join(updates)} WHERE id = ?'
+            cursor.execute(query, params)
+            conn.commit()
+            
+            # Get updated page
+            cursor.execute('SELECT * FROM pages WHERE id = ?', (page_id,))
+            row = cursor.fetchone()
+            conn.close()
+            
+            if row:
+                page = dict(row)
+                page['blocks'] = json.loads(page['blocks'])
+                page['is_home'] = bool(page['is_home'])
+                return page
+            return None
+        
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(executor, _update)
+    
+    async def delete_page(self, page_id: str) -> bool:
+        """Delete a page"""
+        def _delete():
+            conn = self._get_connection()
+            cursor = conn.cursor()
+            
+            cursor.execute('DELETE FROM pages WHERE id = ?', (page_id,))
+            deleted = cursor.rowcount > 0
+            conn.commit()
+            conn.close()
+            
+            return deleted
+        
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(executor, _delete)
+    
+    async def duplicate_page(self, page_id: str, new_name: str) -> Dict[str, Any]:
+        """Duplicate a page"""
+        def _duplicate():
+            conn = self._get_connection()
+            cursor = conn.cursor()
+            
+            # Get original page
+            cursor.execute('SELECT * FROM pages WHERE id = ?', (page_id,))
+            row = cursor.fetchone()
+            if not row:
+                conn.close()
+                return None
+            
+            original_page = dict(row)
+            
+            # Create new page
+            new_page_id = str(uuid.uuid4())
+            now = datetime.utcnow().isoformat()
+            
+            # Get max order for this project
+            cursor.execute('SELECT MAX(page_order) FROM pages WHERE project_id = ?', (original_page['project_id'],))
+            max_order = cursor.fetchone()[0]
+            order = (max_order or 0) + 1
+            
+            cursor.execute(
+                'INSERT INTO pages (id, project_id, name, blocks, is_home, page_order, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                (new_page_id, original_page['project_id'], new_name, original_page['blocks'], 0, order, now, now)
+            )
+            conn.commit()
+            
+            # Get new page
+            cursor.execute('SELECT * FROM pages WHERE id = ?', (new_page_id,))
+            row = cursor.fetchone()
+            conn.close()
+            
+            if row:
+                page = dict(row)
+                page['blocks'] = json.loads(page['blocks'])
+                page['is_home'] = bool(page['is_home'])
+                return page
+            return None
+        
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(executor, _duplicate)
+    
+    async def update_shared_menu(self, project_id: str, shared_menu: Dict) -> bool:
+        """Update shared menu for a project"""
+        def _update():
+            conn = self._get_connection()
+            cursor = conn.cursor()
+            
+            menu_json = json.dumps(shared_menu) if shared_menu else None
+            now = datetime.utcnow().isoformat()
+            
+            cursor.execute(
+                'UPDATE projects SET shared_menu = ?, updated_at = ? WHERE id = ?',
+                (menu_json, now, project_id)
+            )
+            updated = cursor.rowcount > 0
+            conn.commit()
+            conn.close()
+            
+            return updated
+        
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(executor, _update)
+    
+    async def get_shared_menu(self, project_id: str) -> Optional[Dict]:
+        """Get shared menu for a project"""
+        def _get():
+            conn = self._get_connection()
+            cursor = conn.cursor()
+            
+            cursor.execute('SELECT shared_menu FROM projects WHERE id = ?', (project_id,))
+            row = cursor.fetchone()
+            conn.close()
+            
+            if row and row['shared_menu']:
+                return json.loads(row['shared_menu'])
+            return None
+        
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(executor, _get)
+
+
 # Global database instance
 db = Database()
