@@ -31,8 +31,10 @@ const generateBlockHTML = (config) => {
         return config.background?.value || '#ffffff';
       };
 
+      const menuId = `menu-${Math.random().toString(36).substr(2, 9)}`;
+      
       return `
-        <nav style="
+        <nav id="${menuId}" style="
           background-color: ${getMenuBgColor()};
           width: 100%;
           position: ${config.sticky ? 'sticky' : 'relative'};
@@ -44,6 +46,8 @@ const generateBlockHTML = (config) => {
         ">
           ${(() => {
             const visibleItems = config.menuItems.filter(item => item.show);
+            const hamburgerColor = config.hamburger?.color || config.logo?.color || '#1a1a2e';
+            
             const logoHTML = config.logo.show ? `
               <div style="
                 ${config.logo.image ? '' : `font-size: ${config.logo.size}px;`}
@@ -102,9 +106,40 @@ const generateBlockHTML = (config) => {
                   flex-direction: column;
                   align-items: center;
                   gap: 20px;
+                  position: relative;
                 ">
                   ${logoHTML}
-                  <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
+                  
+                  <!-- Hamburger Button -->
+                  <button 
+                    class="mobile-menu-toggle-${menuId}" 
+                    onclick="window.toggleMobileMenu_${menuId}()"
+                    style="
+                      display: none;
+                      position: absolute;
+                      right: 24px;
+                      top: 50%;
+                      transform: translateY(-50%);
+                      background: transparent;
+                      border: none;
+                      cursor: pointer;
+                      padding: 8px;
+                      color: ${hamburgerColor};
+                      z-index: 1000;
+                    "
+                  >
+                    <svg class="hamburger-icon-${menuId}" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="3" y1="12" x2="21" y2="12"></line>
+                      <line x1="3" y1="6" x2="21" y2="6"></line>
+                      <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                    <svg class="close-icon-${menuId}" style="display: none;" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                  
+                  <div class="desktop-menu-${menuId}" style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
                     ${menuItemsHTML(visibleItems)}
                     ${buttonHTML}
                   </div>
@@ -127,10 +162,39 @@ const generateBlockHTML = (config) => {
                   align-items: center;
                   justify-content: space-between;
                   gap: 32px;
+                  position: relative;
                 ">
                   ${menuItemsHTML(leftItems)}
                   ${logoHTML}
-                  <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
+                  
+                  <!-- Hamburger Button -->
+                  <button 
+                    class="mobile-menu-toggle-${menuId}" 
+                    onclick="window.toggleMobileMenu_${menuId}()"
+                    style="
+                      display: none;
+                      position: absolute;
+                      right: 24px;
+                      background: transparent;
+                      border: none;
+                      cursor: pointer;
+                      padding: 8px;
+                      color: ${hamburgerColor};
+                      z-index: 1000;
+                    "
+                  >
+                    <svg class="hamburger-icon-${menuId}" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="3" y1="12" x2="21" y2="12"></line>
+                      <line x1="3" y1="6" x2="21" y2="6"></line>
+                      <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                    <svg class="close-icon-${menuId}" style="display: none;" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                  
+                  <div class="desktop-menu-${menuId}" style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
                     ${menuItemsHTML(rightItems)}
                     ${buttonHTML}
                   </div>
@@ -148,25 +212,130 @@ const generateBlockHTML = (config) => {
                 align-items: center;
                 justify-content: ${config.align === 'right' ? 'flex-end' : config.align === 'space-between' ? 'space-between' : 'flex-start'};
                 gap: 32px;
+                position: relative;
               ">
                 ${logoHTML}
-                <div class="desktop-menu" style="display: flex; align-items: center; gap: 32px; flex-wrap: wrap;">
+                
+                <!-- Hamburger Button -->
+                <button 
+                  class="mobile-menu-toggle-${menuId}" 
+                  onclick="window.toggleMobileMenu_${menuId}()"
+                  style="
+                    display: none;
+                    position: absolute;
+                    right: 24px;
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                    padding: 8px;
+                    color: ${hamburgerColor};
+                    z-index: 1000;
+                  "
+                >
+                  <svg class="hamburger-icon-${menuId}" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                  </svg>
+                  <svg class="close-icon-${menuId}" style="display: none;" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+                
+                <div class="desktop-menu-${menuId}" style="display: flex; align-items: center; gap: 32px; flex-wrap: wrap;">
                   ${menuItemsHTML(visibleItems)}
                   ${buttonHTML}
                 </div>
               </div>
             `;
           })()}
+          
+          <!-- Mobile Menu Dropdown -->
+          <div id="mobile-dropdown-${menuId}" class="mobile-menu-dropdown-${menuId}" style="
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background-color: ${getMenuBgColor()};
+            backdrop-filter: ${config.transparent ? 'blur(10px)' : 'none'};
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 999;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+          ">
+            <div style="padding: 16px 24px;">
+              ${config.menuItems.filter(item => item.show).map(item => `
+                <a href="${item.link}" style="
+                  display: block;
+                  font-size: 15px;
+                  font-weight: 500;
+                  color: ${item.color};
+                  text-decoration: none;
+                  padding: 12px 0;
+                  border-bottom: 1px solid rgba(0,0,0,0.1);
+                " onclick="window.toggleMobileMenu_${menuId}()">
+                  ${item.text}
+                </a>
+              `).join('')}
+              ${config.button.show ? `
+                <a href="${config.button.link}" style="
+                  display: inline-block;
+                  margin-top: 16px;
+                  background-color: ${config.button.color};
+                  color: ${config.button.textColor};
+                  padding: 10px 24px;
+                  font-size: 15px;
+                  border-radius: 8px;
+                  border: ${config.button.color === 'transparent' ? `2px solid ${config.button.textColor}` : 'none'};
+                  font-weight: 600;
+                  text-decoration: none;
+                  text-align: center;
+                  width: 100%;
+                " onclick="window.toggleMobileMenu_${menuId}()">
+                  ${config.button.text}
+                </a>
+              ` : ''}
+            </div>
+          </div>
         </nav>
           
-        <!-- Responsive CSS -->
+        <!-- Responsive CSS and JavaScript -->
         <style>
           @media (max-width: 768px) {
-            .desktop-menu {
+            .desktop-menu-${menuId} {
               display: none !important;
             }
+            .mobile-menu-toggle-${menuId} {
+              display: block !important;
+            }
+          }
+          
+          .mobile-menu-dropdown-${menuId}.active {
+            display: block !important;
+            max-height: 500px !important;
           }
         </style>
+        
+        <script>
+          window.toggleMobileMenu_${menuId} = function() {
+            const dropdown = document.getElementById('mobile-dropdown-${menuId}');
+            const hamburgerIcon = document.querySelector('.hamburger-icon-${menuId}');
+            const closeIcon = document.querySelector('.close-icon-${menuId}');
+            
+            if (dropdown.classList.contains('active')) {
+              dropdown.classList.remove('active');
+              hamburgerIcon.style.display = 'block';
+              closeIcon.style.display = 'none';
+            } else {
+              dropdown.classList.add('active');
+              hamburgerIcon.style.display = 'none';
+              closeIcon.style.display = 'block';
+            }
+          };
+        </script>
       `;
     }
 
