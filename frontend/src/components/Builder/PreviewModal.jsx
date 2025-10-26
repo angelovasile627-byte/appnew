@@ -159,15 +159,14 @@ const generateBlockHTML = (config) => {
           })()}
         </nav>
           
-          <!-- Responsive CSS -->
-          <style>
-            @media (max-width: 768px) {
-              .desktop-menu {
-                display: none !important;
-              }
+        <!-- Responsive CSS -->
+        <style>
+          @media (max-width: 768px) {
+            .desktop-menu {
+              display: none !important;
             }
-          </style>
-        </nav>
+          }
+        </style>
       `;
     }
 
