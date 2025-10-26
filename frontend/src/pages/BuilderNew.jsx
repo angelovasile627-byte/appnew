@@ -23,7 +23,6 @@ const BuilderNew = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isFTPDialogOpen, setIsFTPDialogOpen] = useState(false);
-  const [isCreatePageModalOpen, setIsCreatePageModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [editPanelPosition, setEditPanelPosition] = useState({ top: 0, left: 0 });
   const selectedBlockRef = useRef(null);
