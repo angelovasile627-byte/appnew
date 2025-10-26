@@ -34,91 +34,69 @@ const BuilderNew = () => {
   const blocks = currentPage ? currentPage.blocks : [];
   const selectedBlock = blocks.find(b => b.id === selectedBlockId);
 
-  const selectedBlock = blocks.find(b => b.id === selectedBlockId);
-  
-  // Helper function to remove duplicate blocks by ID
-  const removeDuplicates = (blocksArray) => {
-    const seen = new Set();
-    const uniqueBlocks = [];
-    
-    for (const block of blocksArray) {
-      // Use block ID as unique identifier
-      if (!seen.has(block.id)) {
-        seen.add(block.id);
-        uniqueBlocks.push(block);
-      }
-    }
-    
-    return uniqueBlocks;
-  };
-  
-  // Auto-clean duplicates whenever blocks change
-  React.useEffect(() => {
-    if (cleanupInProgressRef.current) return; // Prevent loop
-    
-    const originalLength = blocks.length;
-    const cleanedBlocks = removeDuplicates(blocks);
-    
-    if (cleanedBlocks.length < originalLength) {
-      cleanupInProgressRef.current = true;
-      
-      setBlocks(cleanedBlocks);
-      
-      // Update localStorage immediately
-      const savedProject = localStorage.getItem('currentProject');
-      if (savedProject) {
-        try {
-          const projectData = JSON.parse(savedProject);
-          projectData.blocks = cleanedBlocks;
-          localStorage.setItem('currentProject', JSON.stringify(projectData));
-        } catch (e) {
-          console.error('Error updating localStorage:', e);
-        }
-      }
-      
-      const removedCount = originalLength - cleanedBlocks.length;
-      toast({
-        title: 'Blocuri duplicate eliminate',
-        description: `${removedCount} bloc(uri) duplicate au fost eliminate automat`
-      });
-      
-      // Reset flag after a short delay
-      setTimeout(() => {
-        cleanupInProgressRef.current = false;
-      }, 500);
-    }
-  }, [blocks]);
-  
+
   // Load project from localStorage on mount
   useEffect(() => {
-    const savedProject = localStorage.getItem('currentProject');
-    if (savedProject) {
-      try {
-        const projectData = JSON.parse(savedProject);
-        if (projectData.blocks && Array.isArray(projectData.blocks)) {
-          // Remove duplicate blocks - keep only unique ones by ID
-          const cleanedBlocks = removeDuplicates(projectData.blocks);
+    const loadProject = () => {
+      const savedData = localStorage.getItem('axxo_builder_project');
+      if (savedData) {
+        try {
+          const projectData = JSON.parse(savedData);
           
-          setBlocks(cleanedBlocks);
+          setProjectId(projectData.projectId || 'project-default');
+          setPages(projectData.pages || []);
+          setSharedMenu(projectData.sharedMenu || null);
+          setCurrentPageId(projectData.currentPageId || (projectData.pages && projectData.pages[0]?.id));
           
-          const removedCount = projectData.blocks.length - cleanedBlocks.length;
-          if (removedCount > 0) {
-            toast({
-              title: 'Proiect curățat',
-              description: `${removedCount} bloc(uri) duplicate au fost eliminate automat`
-            });
-          } else {
-            toast({
-              title: 'Proiect încărcat',
-              description: `Proiectul "${projectData.name}" a fost încărcat cu succes`
-            });
-          }
+          toast({
+            title: 'Proiect încărcat',
+            description: `${projectData.pages?.length || 0} pagini încărcate`
+          });
+        } catch (e) {
+          console.error('Error loading project:', e);
+          initializeDefaultPage();
         }
-      } catch (e) {
-        console.error('Error loading project:', e);
+      } else {
+        initializeDefaultPage();
       }
-    }
+    };
+
+    loadProject();
   }, []);
+
+  // Initialize with default Home page
+  const initializeDefaultPage = () => {
+    const homePage = {
+      id: `page-${Date.now()}`,
+      name: 'Home',
+      blocks: [],
+      is_home: true,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+    
+    setPages([homePage]);
+    setCurrentPageId(homePage.id);
+    saveToLocalStorage([homePage], null, homePage.id);
+  };
+
+  // Save to localStorage whenever pages, sharedMenu, or currentPageId change
+  useEffect(() => {
+    if (pages.length > 0) {
+      saveToLocalStorage(pages, sharedMenu, currentPageId);
+    }
+  }, [pages, sharedMenu, currentPageId]);
+
+  const saveToLocalStorage = (pagesData, menuData, pageId) => {
+    const projectData = {
+      projectId: projectId,
+      pages: pagesData,
+      sharedMenu: menuData,
+      currentPageId: pageId,
+      updatedAt: new Date().toISOString()
+    };
+    localStorage.setItem('axxo_builder_project', JSON.stringify(projectData));
+  };
   
   
   // Function to save current state to history before making changes
