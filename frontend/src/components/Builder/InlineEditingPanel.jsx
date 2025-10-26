@@ -152,7 +152,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="text-sm text-gray-300">Border Radius</Label>
+                  <Label className="text-xs text-gray-300">Border Radius</Label>
                   <div className="flex items-center gap-3">
                     <Input
                       type="range"
@@ -168,7 +168,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="text-sm text-gray-300">Object Fit</Label>
+                  <Label className="text-xs text-gray-300">Object Fit</Label>
                   <Select
                     value={config.heroImage.objectFit || 'cover'}
                     onValueChange={(value) => updateConfig('heroImage.objectFit', value)}
@@ -216,7 +216,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             
             {/* Full Width */}
             <div className="flex items-center justify-between py-2">
-              <Label className="text-sm text-gray-300">Full Width</Label>
+              <Label className="text-xs text-gray-300">Full Width</Label>
               <Switch
                 checked={config.fullWidth ?? true}
                 onCheckedChange={(checked) => updateConfig('fullWidth', checked)}
@@ -226,7 +226,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             {/* Logo Size - doar pentru meniu */}
             {config.logo && (
               <div className="space-y-2">
-                <Label className="text-sm text-gray-300">Logo Size</Label>
+                <Label className="text-xs text-gray-300">Logo Size</Label>
                 <div className="flex items-center gap-3">
                   <Input
                     type="range"
@@ -259,7 +259,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                 {/* Brand Name */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <Label className="text-sm text-gray-300">Brand Name</Label>
+                    <Label className="text-xs text-gray-300">Brand Name</Label>
                     <Switch
                       checked={config.logo.text !== '' && config.logo.text !== undefined}
                       onCheckedChange={(checked) => updateConfig('logo.text', checked ? 'Brand' : '')}
@@ -334,7 +334,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             
             {/* Sticky */}
             <div className="flex items-center justify-between py-2">
-              <Label className="text-sm text-gray-300">Sticky</Label>
+              <Label className="text-xs text-gray-300">Sticky</Label>
               <Switch
                 checked={config.sticky ?? false}
                 onCheckedChange={(checked) => updateConfig('sticky', checked)}
@@ -343,7 +343,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
             {/* Collapsed */}
             <div className="flex items-center justify-between py-2">
-              <Label className="text-sm text-gray-300">Collapsed</Label>
+              <Label className="text-xs text-gray-300">Collapsed</Label>
               <Switch
                 checked={config.collapsed ?? false}
                 onCheckedChange={(checked) => updateConfig('collapsed', checked)}
@@ -352,7 +352,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
             {/* Transparent */}
             <div className="flex items-center justify-between py-2">
-              <Label className="text-sm text-gray-300">Transparent</Label>
+              <Label className="text-xs text-gray-300">Transparent</Label>
               <Switch
                 checked={config.transparent ?? false}
                 onCheckedChange={(checked) => updateConfig('transparent', checked)}
@@ -361,7 +361,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
             {/* Color (Background Color) */}
             <div className="space-y-2">
-              <Label className="text-sm text-gray-300">Color</Label>
+              <Label className="text-xs text-gray-300">Color</Label>
               <div className="flex gap-3 items-center">
                 <Input
                   type="color"
@@ -380,7 +380,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
             {/* Hamburger */}
             <div className="space-y-2">
-              <Label className="text-sm text-gray-300">Hamburger</Label>
+              <Label className="text-xs text-gray-300">Hamburger</Label>
               <div className="flex gap-3 items-center">
                 <Input
                   type="color"
@@ -492,7 +492,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                 />
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-2">
-                    <Label className="text-sm text-gray-300">BG Color</Label>
+                    <Label className="text-xs text-gray-300">BG Color</Label>
                     <Input
                       type="color"
                       value={config.button.color || '#5B4FC9'}
@@ -501,7 +501,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-sm text-gray-300">Text Color</Label>
+                    <Label className="text-xs text-gray-300">Text Color</Label>
                     <Input
                       type="color"
                       value={config.button.textColor || '#ffffff'}
