@@ -30,11 +30,11 @@ export const MenuBlock = ({ config, onUpdate }) => {
 
   // Calculează padding-ul în funcție de collapsed
   const getPadding = () => {
-    const basePadding = config.padding || { top: 20, bottom: 20 };
+    const basePadding = config.padding || { top: 12, bottom: 12 };
     if (config.collapsed) {
       return {
-        top: Math.max(basePadding.top * 0.6, 10),
-        bottom: Math.max(basePadding.bottom * 0.6, 10)
+        top: Math.max(basePadding.top * 0.6, 8),
+        bottom: Math.max(basePadding.bottom * 0.6, 8)
       };
     }
     return basePadding;
