@@ -34,6 +34,25 @@ desktop_transformation:
         comment: "Successfully transformed AXXO Builder into standalone desktop application. App now runs with single command (start.sh/start.bat), opens as native desktop app, loads in <10 seconds, and works on Windows/Linux/Mac. All optimizations complete."
 
 frontend:
+  - task: "Fix duplicate menu in preview when sticky is enabled"
+    implemented: true
+    working: "YES"
+    files: 
+      - "/app/frontend/src/components/Builder/PreviewModal.jsx" (enhanced deduplication logic)
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    changes_made:
+      - "Added menu-specific deduplication in PreviewModal"
+      - "Tracks if a menu block already exists in preview"
+      - "Prevents multiple menu blocks from rendering"
+      - "Added console warnings when duplicates are detected"
+      - "Fixed issue where sticky menu showed 2 identical menus"
+    status_history:
+      - working: "YES"
+        agent: "main"
+        comment: "Fixed duplicate menu bug in preview. Enhanced deduplication logic now ensures only ONE menu appears in preview, regardless of how many menu blocks exist in the blocks array. Issue was specifically visible when sticky was enabled."
+        
   - task: "Optimize InlineEditingPanel to be more compact and fit within half page height"
     implemented: true
     working: "YES"
