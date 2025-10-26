@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Image as ImageIcon } from 'lucide-react';
+import { X } from 'lucide-react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
@@ -12,10 +12,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
-import { ImageUploadDialog } from './ImageUploadDialog';
 
 export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
-  const [isImageDialogOpen, setIsImageDialogOpen] = useState(false);
   
   if (!block) return null;
 
