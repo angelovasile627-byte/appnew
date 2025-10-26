@@ -190,7 +190,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Background Color */}
         <div className="space-y-2 border-t border-gray-800 pt-3">
-          <Label className="text-sm font-bold text-white uppercase tracking-wider">Background</Label>
+          <Label className="text-xs font-bold text-white uppercase tracking-wider">Background</Label>
           <div className="flex gap-2 items-center">
             <div className="relative">
               <Input
@@ -212,7 +212,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         {/* Size Controls for Menu - Full Width and Logo Size */}
         {config.type === 'menu' && (
           <div className="space-y-2 border-t border-gray-800 pt-3">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Size</h4>
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider">Size</h4>
             
             {/* Full Width */}
             <div className="flex items-center justify-between py-1">
@@ -248,7 +248,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         {config.logo && (
           <div className="space-y-2 border-t border-gray-800 pt-3">
             <div className="flex items-center justify-between">
-              <Label className="text-sm font-bold text-white uppercase tracking-wider">Logo</Label>
+              <Label className="text-xs font-bold text-white uppercase tracking-wider">Logo</Label>
               <Switch
                 checked={config.logo.show ?? true}
                 onCheckedChange={(checked) => updateConfig('logo.show', checked)}
@@ -282,7 +282,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         {/* Menu Items Align - Only for Menu type */}
         {config.type === 'menu' && config.align !== undefined && (
           <div className="space-y-2 border-t border-gray-800 pt-3">
-            <Label className="text-sm font-bold text-white uppercase tracking-wider">Menu Items Align</Label>
+            <Label className="text-xs font-bold text-white uppercase tracking-wider">Menu Items Align</Label>
             <Select
               value={config.align || 'left'}
               onValueChange={(value) => updateConfig('align', value)}
@@ -305,7 +305,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         {config.type === 'menu' && config.icons !== undefined && (
           <div className="space-y-2 border-t border-gray-800 pt-3">
             <div className="flex items-center justify-between">
-              <Label className="text-sm font-bold text-white uppercase tracking-wider">Icons</Label>
+              <Label className="text-xs font-bold text-white uppercase tracking-wider">Icons</Label>
               <Switch
                 checked={config.icons?.show ?? false}
                 onCheckedChange={(checked) => updateConfig('icons.show', checked)}
@@ -318,7 +318,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         {config.type === 'menu' && config.button !== undefined && (
           <div className="space-y-2 border-t border-gray-800 pt-3">
             <div className="flex items-center justify-between">
-              <Label className="text-sm font-bold text-white uppercase tracking-wider">Button</Label>
+              <Label className="text-xs font-bold text-white uppercase tracking-wider">Button</Label>
               <Switch
                 checked={config.button?.show ?? false}
                 onCheckedChange={(checked) => updateConfig('button.show', checked)}
@@ -330,7 +330,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         {/* Styles Section - Only for Menu type */}
         {config.type === 'menu' && (
           <div className="space-y-2 border-t border-gray-800 pt-3">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Styles</h4>
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider">Styles</h4>
             
             {/* Sticky */}
             <div className="flex items-center justify-between py-1">
@@ -403,7 +403,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         {config.title && (
           <div className="space-y-2 border-t border-gray-800 pt-3">
             <div className="flex items-center justify-between">
-              <Label className="text-sm font-bold text-white uppercase tracking-wider">Title</Label>
+              <Label className="text-xs font-bold text-white uppercase tracking-wider">Title</Label>
               <Switch
                 checked={config.title.show ?? true}
                 onCheckedChange={(checked) => updateConfig('title.show', checked)}
@@ -447,7 +447,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         {config.description && (
           <div className="space-y-2 border-t border-gray-800 pt-3">
             <div className="flex items-center justify-between">
-              <Label className="text-sm font-bold text-white uppercase tracking-wider">Subtitle</Label>
+              <Label className="text-xs font-bold text-white uppercase tracking-wider">Subtitle</Label>
               <Switch
                 checked={config.description.show ?? true}
                 onCheckedChange={(checked) => updateConfig('description.show', checked)}
@@ -476,7 +476,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         {config.button && (
           <div className="space-y-2 border-t border-gray-800 pt-3">
             <div className="flex items-center justify-between">
-              <Label className="text-sm font-bold text-white uppercase tracking-wider">Buttons</Label>
+              <Label className="text-xs font-bold text-white uppercase tracking-wider">Buttons</Label>
               <Switch
                 checked={config.button.show ?? true}
                 onCheckedChange={(checked) => updateConfig('button.show', checked)}
