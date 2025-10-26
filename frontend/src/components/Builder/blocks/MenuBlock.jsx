@@ -120,7 +120,16 @@ export const MenuBlock = ({ config, onUpdate }) => {
   // Determină background-ul în funcție de setări
   const getBackgroundColor = () => {
     if (config.transparent) {
-      return 'transparent';
+      const opacity = config.opacity ?? 0.8;
+      const bgColor = config.background?.value || '#000000';
+      
+      // Convert hex to rgba
+      const hex = bgColor.replace('#', '');
+      const r = parseInt(hex.substring(0, 2), 16);
+      const g = parseInt(hex.substring(2, 4), 16);
+      const b = parseInt(hex.substring(4, 6), 16);
+      
+      return `rgba(${r}, ${g}, ${b}, ${opacity})`;
     }
     return config.background?.value || 'rgba(0,0,0,0.1)';
   };
