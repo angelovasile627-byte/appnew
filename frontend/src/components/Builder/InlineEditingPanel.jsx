@@ -553,16 +553,6 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
           </div>
         )}
       </div>
-
-      {/* Image Upload Dialog */}
-      <ImageUploadDialog
-        isOpen={isImageDialogOpen}
-        onClose={() => setIsImageDialogOpen(false)}
-        onImageSelect={(imageData) => {
-          updateConfig('logo.image', imageData.url);
-        }}
-        currentImage={config.logo?.image ? { url: config.logo.image } : null}
-      />
     </div>
   );
 };
