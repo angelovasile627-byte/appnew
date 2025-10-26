@@ -59,10 +59,13 @@ if not exist "frontend\node_modules" (
 
 REM Build frontend if build folder doesn't exist
 if not exist "frontend\build" (
-    echo Building frontend (first time only, may take a minute)...
+    echo Building frontend for desktop (first time only, may take a minute)...
     cd frontend
+    REM Copy desktop env config
+    copy .env.desktop .env.production.local >nul
     set GENERATE_SOURCEMAP=false
     call yarn build
+    del .env.production.local >nul 2>&1
     cd ..
     echo [OK] Frontend built successfully
 )
