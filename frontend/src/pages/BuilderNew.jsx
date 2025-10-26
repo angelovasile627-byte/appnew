@@ -398,6 +398,7 @@ const BuilderNew = () => {
     });
   };
 
+
   const handleExport = () => {
     toast({
       title: 'Export inițiat',
@@ -438,6 +439,9 @@ const BuilderNew = () => {
     }
   };
 
+  // Combine shared menu with current page blocks for canvas display
+  const allBlocks = sharedMenu ? [sharedMenu, ...blocks] : blocks;
+
   return (
     <div className="h-screen flex flex-col">
       <Toolbar
@@ -452,45 +456,86 @@ const BuilderNew = () => {
         canRedo={history.future.length > 0}
       />
       <div className="flex-1 flex overflow-hidden">
+        {/* Pages Sidebar */}
+        <PagesSidebar
+          pages={pages}
+          currentPageId={currentPageId}
+          onSelectPage={handleSelectPage}
+          onCreatePage={() => setIsCreatePageModalOpen(true)}
+          onDeletePage={handleDeletePage}
+          onRenamePage={handleRenamePage}
+        />
+        
+        {/* Blocks Sidebar */}
         <BlockSidebar
           isOpen={isSidebarOpen}
           onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
           onAddBlock={handleAddBlock}
         />
+        
         <div className="flex-1 relative">
-          <Canvas
-            blocks={blocks}
-            selectedBlockId={selectedBlockId}
-            onSelectBlock={handleSelectBlock}
-            onUpdateBlock={handleUpdateBlock}
-            onDeleteBlock={handleDeleteBlock}
-            onMoveBlock={handleMoveBlock}
-            selectedBlockRef={selectedBlockRef}
-          />
-          
-          {/* Show InlineEditingPanel for ALL blocks (including menu) */}
-          {selectedBlock && (
-            <InlineEditingPanel
-              block={selectedBlock}
-              onUpdate={(newConfig) => handleUpdateBlock(selectedBlockId, newConfig)}
-              onClose={() => setSelectedBlockId(null)}
-              position={editPanelPosition}
-            />
+          {currentPageId ? (
+            <>
+              <Canvas
+                blocks={allBlocks}
+                selectedBlockId={selectedBlockId}
+                onSelectBlock={handleSelectBlock}
+                onUpdateBlock={handleUpdateBlock}
+                onDeleteBlock={handleDeleteBlock}
+                onMoveBlock={handleMoveBlock}
+                selectedBlockRef={selectedBlockRef}
+              />
+              
+              {/* Show InlineEditingPanel for ALL blocks (including menu) */}
+              {selectedBlock && (
+                <InlineEditingPanel
+                  block={selectedBlock}
+                  onUpdate={(newConfig) => handleUpdateBlock(selectedBlockId, newConfig)}
+                  onClose={() => setSelectedBlockId(null)}
+                  position={editPanelPosition}
+                />
+              )}
+              
+              {/* Show InlineEditingPanel for shared menu */}
+              {sharedMenu && selectedBlockId === sharedMenu.id && (
+                <InlineEditingPanel
+                  block={sharedMenu}
+                  onUpdate={(newConfig) => handleUpdateBlock(sharedMenu.id, newConfig)}
+                  onClose={() => setSelectedBlockId(null)}
+                  position={editPanelPosition}
+                />
+              )}
+            </>
+          ) : (
+            <div className="flex items-center justify-center h-full">
+              <div className="text-center text-gray-400">
+                <p className="text-lg mb-2">Nicio pagină selectată</p>
+                <p className="text-sm">Creează sau selectează o pagină pentru a începe</p>
+              </div>
+            </div>
           )}
         </div>
       </div>
       
       {/* Modals */}
       <PreviewModal
-        blocks={blocks}
+        blocks={allBlocks}
         isOpen={isPreviewOpen}
         onClose={() => setIsPreviewOpen(false)}
       />
       
       <FTPDialog
-        blocks={blocks}
+        blocks={allBlocks}
         isOpen={isFTPDialogOpen}
         onClose={() => setIsFTPDialogOpen(false)}
+      />
+      
+      <CreatePageModal
+        isOpen={isCreatePageModalOpen}
+        onClose={() => setIsCreatePageModalOpen(false)}
+        onCreatePage={handleCreatePage}
+        onDuplicatePage={handleDuplicatePage}
+        pages={pages}
       />
     </div>
   );
