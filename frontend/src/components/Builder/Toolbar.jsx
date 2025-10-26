@@ -1,8 +1,32 @@
-import React from 'react';
-import { Plus, Save, Download, Eye, Upload, Undo, Redo } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Plus, Save, Download, Eye, Upload, Undo, Redo, Maximize, Minimize } from 'lucide-react';
 import { Button } from '../ui/button';
 
 export const Toolbar = ({ onAddBlock, onSave, onExport, onPreview, onFTPUpload, onUndo, onRedo, canUndo, canRedo }) => {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  // Check fullscreen state on mount and listen for changes
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch((err) => {
+        console.error('Error attempting to enable fullscreen:', err);
+      });
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  };
+
   return (
     <div className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shadow-sm">
       <div className="flex items-center gap-3">
@@ -79,6 +103,17 @@ export const Toolbar = ({ onAddBlock, onSave, onExport, onPreview, onFTPUpload, 
         >
           <Upload className="w-4 h-4" />
           Încărcare FTP
+        </Button>
+
+        <div className="h-6 w-px bg-gray-300"></div>
+
+        <Button
+          onClick={toggleFullscreen}
+          variant="outline"
+          className="flex items-center gap-2"
+          title={isFullscreen ? 'Ieși din modul fullscreen' : 'Activează modul fullscreen'}
+        >
+          {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
         </Button>
       </div>
     </div>
