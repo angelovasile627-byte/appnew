@@ -328,12 +328,11 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
           </div>
         )}
 
-
         {/* Icons - Only for Menu type */}
         {config.type === 'menu' && config.icons !== undefined && (
-          <div className="space-y-1 border-t border-gray-800 pt-1.5">
+          <div className="space-y-0.5 border-t border-gray-800 pt-1">
             <div className="flex items-center justify-between">
-              <Label className="text-[10px] font-bold text-white uppercase tracking-wider">Icons</Label>
+              <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Icons</Label>
               <Switch
                 checked={config.icons?.show ?? false}
                 onCheckedChange={(checked) => updateConfig('icons.show', checked)}
@@ -344,9 +343,9 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Button - Only for Menu type */}
         {config.type === 'menu' && config.button !== undefined && (
-          <div className="space-y-1 border-t border-gray-800 pt-1.5">
+          <div className="space-y-0.5 border-t border-gray-800 pt-1">
             <div className="flex items-center justify-between">
-              <Label className="text-[10px] font-bold text-white uppercase tracking-wider">Button</Label>
+              <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Button</Label>
               <Switch
                 checked={config.button?.show ?? false}
                 onCheckedChange={(checked) => updateConfig('button.show', checked)}
@@ -357,12 +356,12 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Styles Section - Only for Menu type */}
         {config.type === 'menu' && (
-          <div className="space-y-1 border-t border-gray-800 pt-1.5">
-            <h4 className="text-[10px] font-bold text-white uppercase tracking-wider">Styles</h4>
+          <div className="space-y-0.5 border-t border-gray-800 pt-1">
+            <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Styles</h4>
             
             {/* Sticky */}
             <div className="flex items-center justify-between py-0.5">
-              <Label className="text-[10px] text-gray-300">Sticky</Label>
+              <Label className="text-[9px] text-gray-300">Sticky</Label>
               <Switch
                 checked={config.sticky ?? false}
                 onCheckedChange={(checked) => updateConfig('sticky', checked)}
@@ -371,7 +370,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
             {/* Collapsed */}
             <div className="flex items-center justify-between py-0.5">
-              <Label className="text-[10px] text-gray-300">Collapsed</Label>
+              <Label className="text-[9px] text-gray-300">Collapsed</Label>
               <Switch
                 checked={config.collapsed ?? false}
                 onCheckedChange={(checked) => updateConfig('collapsed', checked)}
@@ -380,7 +379,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
             {/* Transparent */}
             <div className="flex items-center justify-between py-0.5">
-              <Label className="text-[10px] text-gray-300">Transparent</Label>
+              <Label className="text-[9px] text-gray-300">Transparent</Label>
               <Switch
                 checked={config.transparent ?? false}
                 onCheckedChange={(checked) => updateConfig('transparent', checked)}
@@ -388,39 +387,39 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             </div>
 
             {/* Color (Background Color) */}
-            <div className="space-y-1">
-              <Label className="text-[10px] text-gray-300">Color</Label>
-              <div className="flex gap-2 items-center">
+            <div className="space-y-0.5">
+              <Label className="text-[9px] text-gray-300">Color</Label>
+              <div className="flex gap-1.5 items-center">
                 <Input
                   type="color"
                   value={config.background?.value || '#000000'}
                   onChange={(e) => updateConfig('background.value', e.target.value)}
-                  className="w-8 h-8 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
+                  className="w-6 h-6 p-0.5 cursor-pointer rounded border border-gray-700 bg-transparent"
                 />
                 <Input
                   type="text"
                   value={config.background?.value || '#000000'}
                   onChange={(e) => updateConfig('background.value', e.target.value)}
-                  className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1"
+                  className="flex-1 bg-gray-800 border-gray-700 text-white text-[9px] px-2 py-1 h-7"
                 />
               </div>
             </div>
 
             {/* Hamburger */}
-            <div className="space-y-1">
-              <Label className="text-[10px] text-gray-300">Hamburger</Label>
-              <div className="flex gap-2 items-center">
+            <div className="space-y-0.5">
+              <Label className="text-[9px] text-gray-300">Hamburger</Label>
+              <div className="flex gap-1.5 items-center">
                 <Input
                   type="color"
                   value={config.hamburger?.color || '#ffffff'}
                   onChange={(e) => updateConfig('hamburger.color', e.target.value)}
-                  className="w-8 h-8 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
+                  className="w-6 h-6 p-0.5 cursor-pointer rounded border border-gray-700 bg-transparent"
                 />
                 <Input
                   type="text"
                   value={config.hamburger?.color || '#ffffff'}
                   onChange={(e) => updateConfig('hamburger.color', e.target.value)}
-                  className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1"
+                  className="flex-1 bg-gray-800 border-gray-700 text-white text-[9px] px-2 py-1 h-7"
                 />
               </div>
             </div>
