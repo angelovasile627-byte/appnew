@@ -727,6 +727,7 @@ export const PreviewModal = ({ blocks, isOpen, onClose }) => {
     // Debug: Log blocks to see if there are duplicates
     console.log('🔍 PreviewModal received blocks:', blocks);
     console.log('🔍 Block IDs:', blocks?.map(b => b.id));
+    console.log('🔍 Block types:', blocks?.map(b => b.config?.type));
     
     if (!blocks || blocks.length === 0) {
       return '<div style="padding: 40px; text-align: center; font-family: sans-serif;"><h2>Nu există blocuri de previzualizat</h2><p>Adaugă câteva blocuri pentru a vedea previzualizarea.</p></div>';
@@ -738,6 +739,8 @@ export const PreviewModal = ({ blocks, isOpen, onClose }) => {
     let hasMenu = false; // Track if we already have a menu
     
     for (const block of blocks) {
+      console.log('🔍 Processing block:', block.id, 'type:', block.config?.type);
+      
       // Skip if we already saw this ID
       if (seenIds.has(block.id)) {
         console.log('⚠️ Skipping duplicate block ID:', block.id);
@@ -746,6 +749,7 @@ export const PreviewModal = ({ blocks, isOpen, onClose }) => {
       
       // If this is a menu and we already have one, skip it
       if (block.config?.type === 'menu') {
+        console.log('🔍 Found menu block:', block.id, 'hasMenu:', hasMenu);
         if (hasMenu) {
           console.log('⚠️ Skipping duplicate menu block:', block.id);
           continue;
@@ -758,10 +762,13 @@ export const PreviewModal = ({ blocks, isOpen, onClose }) => {
     }
     
     console.log('🔍 After dedup - uniqueBlocks count:', uniqueBlocks.length);
+    console.log('🔍 Final uniqueBlocks:', uniqueBlocks.map(b => ({ id: b.id, type: b.config?.type })));
     console.log('🔍 Removed duplicates:', blocks.length - uniqueBlocks.length);
 
     const htmlBlocks = uniqueBlocks.map(block => {
-      return generateBlockHTML(block.config);
+      const html = generateBlockHTML(block.config);
+      console.log('🔍 Generated HTML for block:', block.id, 'length:', html.length);
+      return html;
     }).join('\n');
 
     return `
