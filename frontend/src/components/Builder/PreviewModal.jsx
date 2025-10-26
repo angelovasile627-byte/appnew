@@ -20,7 +20,7 @@ const generateBlockHTML = (config) => {
           width: 100%;
           position: ${config.sticky ? 'sticky' : 'relative'};
           top: ${config.sticky ? '0' : 'auto'};
-          z-index: ${config.sticky ? '100' : 'auto'};
+          z-index: ${config.sticky ? '10' : 'auto'};
           border-bottom: 1px solid rgba(0,0,0,0.1);
           box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         ">
