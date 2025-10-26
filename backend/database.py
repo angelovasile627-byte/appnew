@@ -476,6 +476,84 @@ class Database:
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(executor, _get)
 
+    # ============ SETTINGS METHODS ============
+    
+    async def get_settings(self, project_id: str) -> Optional[Dict[str, Any]]:
+        """Get settings for a project"""
+        def _get():
+            conn = self._get_connection()
+            cursor = conn.cursor()
+            
+            cursor.execute('SELECT * FROM settings WHERE project_id = ?', (project_id,))
+            row = cursor.fetchone()
+            conn.close()
+            
+            if row:
+                return dict(row)
+            return None
+        
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(executor, _get)
+    
+    async def save_settings(self, project_id: str, settings_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Save or update settings for a project"""
+        def _save():
+            conn = self._get_connection()
+            cursor = conn.cursor()
+            
+            now = datetime.utcnow().isoformat()
+            
+            # Check if settings exist
+            cursor.execute('SELECT id FROM settings WHERE project_id = ?', (project_id,))
+            existing = cursor.fetchone()
+            
+            if existing:
+                # Update existing settings
+                updates = []
+                params = []
+                
+                for key, value in settings_data.items():
+                    if key not in ['id', 'project_id', 'created_at']:
+                        updates.append(f'{key} = ?')
+                        params.append(value)
+                
+                updates.append('updated_at = ?')
+                params.append(now)
+                params.append(project_id)
+                
+                query = f'UPDATE settings SET {", ".join(updates)} WHERE project_id = ?'
+                cursor.execute(query, params)
+            else:
+                # Create new settings
+                settings_id = str(uuid.uuid4())
+                
+                columns = ['id', 'project_id', 'created_at', 'updated_at']
+                values = [settings_id, project_id, now, now]
+                placeholders = ['?', '?', '?', '?']
+                
+                for key, value in settings_data.items():
+                    if key not in ['id', 'project_id', 'created_at', 'updated_at']:
+                        columns.append(key)
+                        values.append(value)
+                        placeholders.append('?')
+                
+                query = f'INSERT INTO settings ({", ".join(columns)}) VALUES ({", ".join(placeholders)})'
+                cursor.execute(query, values)
+            
+            conn.commit()
+            
+            # Get updated settings
+            cursor.execute('SELECT * FROM settings WHERE project_id = ?', (project_id,))
+            row = cursor.fetchone()
+            conn.close()
+            
+            if row:
+                return dict(row)
+            return None
+        
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(executor, _save)
+
 
 # Global database instance
 db = Database()
