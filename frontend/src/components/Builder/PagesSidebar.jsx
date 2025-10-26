@@ -162,6 +162,17 @@ export const PagesSidebar = ({
       <div className="p-4 border-t border-gray-800 text-xs text-gray-400">
         <p>{pages.length} {pages.length === 1 ? 'pagină' : 'pagini'}</p>
       </div>
+      
+      {/* Settings Button */}
+      <div className="p-4 border-t border-gray-800">
+        <Button
+          onClick={onOpenSettings}
+          className="w-full bg-gray-800 hover:bg-gray-700 text-white flex items-center justify-center gap-2"
+        >
+          <Settings className="w-4 h-4" />
+          Setări Proiect
+        </Button>
+      </div>
     </div>
   );
 };
