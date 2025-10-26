@@ -24,22 +24,20 @@ const BuilderNew = () => {
   const selectedBlock = blocks.find(b => b.id === selectedBlockId);
   const isMenuBlock = selectedBlock && selectedBlock.config.type === 'menu';
   
-  // Helper function to remove duplicate menu blocks
-  const removeDuplicateMenus = (blocksArray) => {
-    const { blockTemplates } = require('../data/mockBlocks');
-    let foundMenu = false;
+  // Helper function to remove duplicate blocks by ID
+  const removeDuplicates = (blocksArray) => {
+    const seen = new Set();
+    const uniqueBlocks = [];
     
-    return blocksArray.filter(block => {
-      const template = blockTemplates.find(t => t.id === block.templateId);
-      if (template && template.category === 'menu') {
-        if (foundMenu) {
-          return false; // Skip duplicate menu
-        }
-        foundMenu = true;
-        return true;
+    for (const block of blocksArray) {
+      // Use block ID as unique identifier
+      if (!seen.has(block.id)) {
+        seen.add(block.id);
+        uniqueBlocks.push(block);
       }
-      return true;
-    });
+    }
+    
+    return uniqueBlocks;
   };
   
   // Auto-clean duplicates whenever blocks change
