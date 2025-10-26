@@ -327,6 +327,17 @@ export const MenuBlock = ({ config, onUpdate }) => {
           onClose={() => setShowLogoEdit(false)}
         />
       )}
+
+      {/* Compact Menu Toolbar */}
+      {selectedMenuItem !== null && (
+        <CompactMenuToolbar
+          position={toolbarPosition}
+          onAddItem={handleAddMenuItem}
+          onDelete={handleDeleteMenuItem}
+          onBack={() => setSelectedMenuItem(null)}
+          onSettings={() => setSelectedMenuItem(null)}
+        />
+      )}
     </div>
   );
 };
