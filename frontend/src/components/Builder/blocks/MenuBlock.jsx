@@ -64,6 +64,13 @@ export const MenuBlock = ({ config, onUpdate }) => {
     }
   };
 
+  const handleUpdateMenuItem = (updatedItem) => {
+    const newMenuItems = config.menuItems.map((item, i) =>
+      i === selectedMenuItem ? updatedItem : item
+    );
+    onUpdate({ ...config, menuItems: newMenuItems });
+  };
+
   // Determină background-ul în funcție de setări
   const getBackgroundColor = () => {
     if (config.transparent) {
