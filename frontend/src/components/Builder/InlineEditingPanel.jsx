@@ -405,6 +405,25 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
               />
             </div>
 
+            {/* Opacity Slider - shown when Transparent is active */}
+            {config.transparent && (
+              <div className="space-y-0.5 ml-1.5">
+                <Label className="text-[9px] text-gray-300">Opacity</Label>
+                <div className="flex items-center gap-1.5">
+                  <Input
+                    type="range"
+                    value={(config.opacity ?? 0.8) * 100}
+                    onChange={(e) => updateConfig('opacity', parseInt(e.target.value) / 100)}
+                    className="flex-1 bg-gray-800 border-gray-700"
+                    min="0"
+                    max="100"
+                    step="5"
+                  />
+                  <span className="text-[9px] text-gray-400 w-10">{Math.round((config.opacity ?? 0.8) * 100)}%</span>
+                </div>
+              </div>
+            )}
+
             {/* Color (Background Color) */}
             <div className="space-y-0.5">
               <Label className="text-[9px] text-gray-300">Color</Label>
