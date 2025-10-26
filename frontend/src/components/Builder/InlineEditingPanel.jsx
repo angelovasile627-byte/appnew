@@ -321,12 +321,12 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
               <SelectTrigger className="bg-gray-800 border-gray-700 text-white text-[9px] px-2 py-1 h-7">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-gray-800 border-gray-700">
-                <SelectItem value="left">Left</SelectItem>
-                <SelectItem value="center">Center</SelectItem>
-                <SelectItem value="right">Right</SelectItem>
-                <SelectItem value="space-between">Space Between</SelectItem>
-                <SelectItem value="split">Split</SelectItem>
+              <SelectContent className="bg-gray-800 border-gray-700 z-[10000]">
+                <SelectItem value="left" className="text-white text-[9px]">Left</SelectItem>
+                <SelectItem value="center" className="text-white text-[9px]">Center</SelectItem>
+                <SelectItem value="right" className="text-white text-[9px]">Right</SelectItem>
+                <SelectItem value="space-between" className="text-white text-[9px]">Space Between</SelectItem>
+                <SelectItem value="split" className="text-white text-[9px]">Split</SelectItem>
               </SelectContent>
             </Select>
             
