@@ -173,7 +173,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                     value={config.heroImage.objectFit || 'cover'}
                     onValueChange={(value) => updateConfig('heroImage.objectFit', value)}
                   >
-                    <SelectTrigger className="bg-gray-800 border-gray-700 text-white">
+                    <SelectTrigger className="bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-gray-800 border-gray-700">
@@ -272,7 +272,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                       value={config.logo.text || ''}
                       onChange={(e) => updateConfig('logo.text', e.target.value)}
                       placeholder="Brand name"
-                      className="bg-gray-800 border-gray-700 text-white"
+                      className="bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5"
                     />
                   )}
                 </div>
@@ -289,7 +289,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
               value={config.align || 'left'}
               onValueChange={(value) => updateConfig('align', value)}
             >
-              <SelectTrigger className="bg-gray-800 border-gray-700 text-white">
+              <SelectTrigger className="bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="bg-gray-800 border-gray-700">
@@ -416,7 +416,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                 <Textarea
                   value={config.title.text || ''}
                   onChange={(e) => updateConfig('title.text', e.target.value)}
-                  className="bg-gray-800 border-gray-700 text-white"
+                  className="bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5"
                   rows={2}
                 />
                 <div className="flex gap-2">
@@ -460,7 +460,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                 <Textarea
                   value={config.description.text || ''}
                   onChange={(e) => updateConfig('description.text', e.target.value)}
-                  className="bg-gray-800 border-gray-700 text-white"
+                  className="bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5"
                   rows={3}
                 />
                 <Input
@@ -490,7 +490,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   value={config.button.text || ''}
                   onChange={(e) => updateConfig('button.text', e.target.value)}
                   placeholder="Button text"
-                  className="bg-gray-800 border-gray-700 text-white"
+                  className="bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5"
                 />
                 <div className="grid grid-cols-2 gap-2">
                   <div className="space-y-2">
