@@ -1,4 +1,5 @@
 // Mock data for block templates library
+// Simplified version - keeping only 1-2 templates per category for easier debugging
 export const blockTemplates = [
   {
     id: 'hero-1',
