@@ -33,13 +33,14 @@ const generateBlockHTML = (config) => {
 
       return `
         <nav style="
-          background-color: ${config.background.value};
+          background-color: ${getMenuBgColor()};
           width: 100%;
           position: ${config.sticky ? 'sticky' : 'relative'};
           top: ${config.sticky ? '0' : 'auto'};
           z-index: ${config.sticky ? '10' : 'auto'};
-          border-bottom: 1px solid rgba(0,0,0,0.1);
-          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+          border-bottom: ${config.transparent ? 'none' : '1px solid rgba(0,0,0,0.1)'};
+          box-shadow: ${config.transparent ? 'none' : '0 2px 8px rgba(0,0,0,0.05)'};
+          backdrop-filter: ${config.transparent ? 'blur(10px)' : 'none'};
         ">
           <div style="
             max-width: ${config.fullWidth ? '100%' : config.contentWidth + 'px'};
