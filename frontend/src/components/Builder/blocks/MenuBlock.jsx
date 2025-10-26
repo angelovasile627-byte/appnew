@@ -53,6 +53,8 @@ export const MenuBlock = ({ config, onUpdate }) => {
         {/* Logo */}
         {config.logo.show && config.align !== 'center' && (
           <div
+            ref={logoRef}
+            onClick={handleLogoClick}
             style={{
               fontSize: config.logo.image ? 'inherit' : `${config.logo.size}px`,
               fontWeight: '800',
@@ -60,10 +62,12 @@ export const MenuBlock = ({ config, onUpdate }) => {
               cursor: 'pointer',
               transition: 'opacity 0.2s',
               display: 'flex',
-              alignItems: 'center'
+              alignItems: 'center',
+              position: 'relative'
             }}
             onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
             onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+            title="Click pentru a edita logo"
           >
             {config.logo.image ? (
               <img 
