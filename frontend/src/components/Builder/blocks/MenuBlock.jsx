@@ -60,14 +60,14 @@ export const MenuBlock = ({ config, onUpdate }) => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: config.align === 'center' ? 'center' : 'space-between',
-    gap: '40px',
+    gap: '32px',
     transition: 'all 0.3s ease'
   };
 
   const menuContainerStyle = {
     display: 'flex',
     alignItems: 'center',
-    gap: config.align === 'center' ? '60px' : '40px',
+    gap: config.align === 'center' ? '48px' : '32px',
     flexWrap: 'wrap'
   };
 
