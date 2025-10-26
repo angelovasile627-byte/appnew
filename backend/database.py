@@ -39,7 +39,23 @@ class Database:
                 name TEXT NOT NULL,
                 blocks TEXT NOT NULL,
                 created_at TEXT NOT NULL,
-                updated_at TEXT NOT NULL
+                updated_at TEXT NOT NULL,
+                shared_menu TEXT
+            )
+        ''')
+        
+        # Create pages table for multiple pages per project
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS pages (
+                id TEXT PRIMARY KEY,
+                project_id TEXT NOT NULL,
+                name TEXT NOT NULL,
+                blocks TEXT NOT NULL,
+                is_home INTEGER DEFAULT 0,
+                page_order INTEGER DEFAULT 0,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL,
+                FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
             )
         ''')
         
