@@ -74,52 +74,6 @@ export const blockTemplates = [
     }
   },
   {
-    id: 'menu-2',
-    category: 'menu',
-    name: 'Menu - Logo Centrat',
-    thumbnail: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=400&h=300&fit=crop',
-    config: {
-      type: 'menu',
-      background: { type: 'color', value: '#0F172A' },
-      fullWidth: true,
-      contentWidth: 1200,
-      padding: { top: 20, bottom: 20 },
-      logo: { 
-        text: 'BRAND', 
-        show: true, 
-        color: '#ffffff', 
-        size: 28,
-        imageSize: 48,
-        logoSize: 140
-      },
-      menuItems: [
-        { text: 'Home', link: '#home', color: '#ffffff', show: true },
-        { text: 'Features', link: '#features', color: '#ffffff', show: true },
-        { text: 'Pricing', link: '#pricing', color: '#ffffff', show: true },
-        { text: 'Contact', link: '#contact', color: '#ffffff', show: true }
-      ],
-      button: { 
-        text: 'Sign Up', 
-        show: true, 
-        color: '#A8F5B8', 
-        textColor: '#1a1a2e', 
-        link: '#signup' 
-      },
-      icons: { 
-        show: false 
-      },
-      sticky: true,
-      collapsed: false,
-      transparent: false,
-      hamburger: {
-        show: true,
-        color: '#ffffff',
-        breakpoint: 768
-      },
-      align: 'center'
-    }
-  },
-  {
     id: 'menu-3',
     category: 'menu',
     name: 'Menu - Transparent',
