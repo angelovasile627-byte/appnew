@@ -489,6 +489,7 @@ const BuilderNew = () => {
           onCreatePage={() => setIsCreatePageModalOpen(true)}
           onDeletePage={handleDeletePage}
           onRenamePage={handleRenamePage}
+          onOpenSettings={handleOpenSettings}
         />
         
         {/* Blocks Sidebar */}
