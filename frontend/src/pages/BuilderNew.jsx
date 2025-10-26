@@ -8,6 +8,7 @@ import { InlineEditingPanel } from '../components/Builder/InlineEditingPanel';
 import { InlineToolbar } from '../components/Builder/InlineToolbar';
 import { PreviewModal } from '../components/Builder/PreviewModal';
 import { FTPDialog } from '../components/Builder/FTPDialog';
+import { SettingsModal } from '../components/Builder/SettingsModal';
 import { useToast } from '../hooks/use-toast';
 
 const BuilderNew = () => {
@@ -16,6 +17,7 @@ const BuilderNew = () => {
   const [currentPageId, setCurrentPageId] = useState(null);
   const [sharedMenu, setSharedMenu] = useState(null);
   const [projectId, setProjectId] = useState('project-default');
+  const [settings, setSettings] = useState(null);
   
   // UI state
   const [history, setHistory] = useState({ past: [], future: [] });
@@ -24,6 +26,7 @@ const BuilderNew = () => {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isFTPDialogOpen, setIsFTPDialogOpen] = useState(false);
   const [isCreatePageModalOpen, setIsCreatePageModalOpen] = useState(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [editPanelPosition, setEditPanelPosition] = useState({ top: 0, left: 0 });
   const selectedBlockRef = useRef(null);
   const cleanupInProgressRef = useRef(false);
