@@ -215,11 +215,12 @@ export const MenuBlock = ({ config, onUpdate }) => {
               top: '60px',
               left: 0,
               right: 0,
-              backgroundColor: config.background.value,
+              backgroundColor: config.transparent ? 'rgba(255, 255, 255, 0.95)' : config.background?.value || 'rgba(0,0,0,0.1)',
               boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
               padding: '20px',
               zIndex: 1000,
-              display: 'none'
+              display: 'none',
+              backdropFilter: config.transparent ? 'blur(10px)' : 'none'
             }}
           >
             <nav style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
