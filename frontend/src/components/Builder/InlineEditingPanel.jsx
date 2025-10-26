@@ -377,24 +377,28 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         )}
 
         {/* Icons - Only for Menu type */}
-        {config.type === 'menu' && (
-          <div className="flex items-center justify-between py-2">
-            <Label className="text-sm text-gray-300">Icons</Label>
-            <Switch
-              checked={config.showIcons ?? false}
-              onCheckedChange={(checked) => updateConfig('showIcons', checked)}
-            />
+        {config.type === 'menu' && config.icons !== undefined && (
+          <div className="space-y-3 border-t border-gray-800 pt-4">
+            <div className="flex items-center justify-between">
+              <Label className="text-sm font-bold text-white uppercase tracking-wider">Icons</Label>
+              <Switch
+                checked={config.icons?.show ?? false}
+                onCheckedChange={(checked) => updateConfig('icons.show', checked)}
+              />
+            </div>
           </div>
         )}
 
         {/* Button - Only for Menu type */}
-        {config.type === 'menu' && (
-          <div className="flex items-center justify-between py-2">
-            <Label className="text-sm text-gray-300">Button</Label>
-            <Switch
-              checked={config.showButton ?? true}
-              onCheckedChange={(checked) => updateConfig('showButton', checked)}
-            />
+        {config.type === 'menu' && config.button !== undefined && (
+          <div className="space-y-3 border-t border-gray-800 pt-4">
+            <div className="flex items-center justify-between">
+              <Label className="text-sm font-bold text-white uppercase tracking-wider">Button</Label>
+              <Switch
+                checked={config.button?.show ?? false}
+                onCheckedChange={(checked) => updateConfig('button.show', checked)}
+              />
+            </div>
           </div>
         )}
 
@@ -403,15 +407,6 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
           <div className="space-y-3 border-t border-gray-800 pt-4">
             <h4 className="text-sm font-bold text-white uppercase tracking-wider">Styles</h4>
             
-            {/* Transparent */}
-            <div className="flex items-center justify-between py-2">
-              <Label className="text-sm text-gray-300">Transparent</Label>
-              <Switch
-                checked={config.transparent ?? false}
-                onCheckedChange={(checked) => updateConfig('transparent', checked)}
-              />
-            </div>
-
             {/* Sticky */}
             <div className="flex items-center justify-between py-2">
               <Label className="text-sm text-gray-300">Sticky</Label>
@@ -421,31 +416,39 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
               />
             </div>
 
-            {/* Opacity */}
-            <div className="space-y-2">
-              <Label className="text-sm text-gray-300">Opacity</Label>
-              <div className="flex items-center gap-3">
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={(config.opacity ?? 100)}
-                  onChange={(e) => updateConfig('opacity', parseInt(e.target.value))}
-                  className="flex-1"
-                />
-                <span className="text-sm text-gray-400 w-12">{config.opacity ?? 100}%</span>
-              </div>
+            {/* Collapsed */}
+            <div className="flex items-center justify-between py-2">
+              <Label className="text-sm text-gray-300">Collapsed</Label>
+              <Switch
+                checked={config.collapsed ?? false}
+                onCheckedChange={(checked) => updateConfig('collapsed', checked)}
+              />
             </div>
 
-            {/* Color */}
+            {/* Transparent */}
+            <div className="flex items-center justify-between py-2">
+              <Label className="text-sm text-gray-300">Transparent</Label>
+              <Switch
+                checked={config.transparent ?? false}
+                onCheckedChange={(checked) => updateConfig('transparent', checked)}
+              />
+            </div>
+
+            {/* Color (Background Color) */}
             <div className="space-y-2">
               <Label className="text-sm text-gray-300">Color</Label>
               <div className="flex gap-3 items-center">
                 <Input
                   type="color"
-                  value={config.color?.value || '#ffffff'}
-                  onChange={(e) => updateConfig('color.value', e.target.value)}
-                  className="w-16 h-16 p-1 cursor-pointer rounded-full bg-gray-800 border-gray-700"
+                  value={config.background?.value || '#000000'}
+                  onChange={(e) => updateConfig('background.value', e.target.value)}
+                  className="w-16 h-16 p-1 cursor-pointer rounded-lg bg-gray-800 border-gray-700"
+                />
+                <Input
+                  type="text"
+                  value={config.background?.value || '#000000'}
+                  onChange={(e) => updateConfig('background.value', e.target.value)}
+                  className="flex-1 bg-gray-800 border-gray-700 text-white"
                 />
               </div>
             </div>
@@ -456,9 +459,15 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
               <div className="flex gap-3 items-center">
                 <Input
                   type="color"
-                  value={config.hamburgerColor || '#000000'}
-                  onChange={(e) => updateConfig('hamburgerColor', e.target.value)}
-                  className="w-16 h-16 p-1 cursor-pointer rounded-full bg-gray-800 border-gray-700"
+                  value={config.hamburger?.color || '#ffffff'}
+                  onChange={(e) => updateConfig('hamburger.color', e.target.value)}
+                  className="w-16 h-16 p-1 cursor-pointer rounded-lg bg-gray-800 border-gray-700"
+                />
+                <Input
+                  type="text"
+                  value={config.hamburger?.color || '#ffffff'}
+                  onChange={(e) => updateConfig('hamburger.color', e.target.value)}
+                  className="flex-1 bg-gray-800 border-gray-700 text-white"
                 />
               </div>
             </div>
