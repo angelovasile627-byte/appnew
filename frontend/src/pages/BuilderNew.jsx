@@ -546,20 +546,17 @@ const BuilderNew = () => {
         onClose={() => setIsFTPDialogOpen(false)}
       />
       
-      <CreatePageModal
-        isOpen={isCreatePageModalOpen}
-        onClose={() => setIsCreatePageModalOpen(false)}
-        onCreatePage={handleCreatePage}
-        onDuplicatePage={handleDuplicatePage}
-        pages={pages}
-      />
-      
       <SettingsModal
         isOpen={isSettingsModalOpen}
         onClose={() => setIsSettingsModalOpen(false)}
         projectId={projectId}
         initialSettings={settings}
         onSave={handleSaveSettings}
+        pages={pages}
+        onCreatePage={handleCreatePage}
+        onDuplicatePage={handleDuplicatePage}
+        onRenamePage={handleRenamePage}
+        onDeletePage={handleDeletePage}
       />
     </div>
   );
