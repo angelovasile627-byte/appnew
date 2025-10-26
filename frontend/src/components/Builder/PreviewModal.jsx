@@ -77,11 +77,16 @@ const generateBlockHTML = (config) => {
             ">
               ${config.align === 'center' && config.logo.show ? `
                 <div style="
-                  font-size: ${config.logo.size}px;
+                  ${config.logo.image ? '' : `font-size: ${config.logo.size}px;`}
                   font-weight: 800;
                   color: ${config.logo.color};
+                  display: flex;
+                  align-items: center;
                 ">
-                  ${config.logo.text}
+                  ${config.logo.image ? 
+                    `<img src="${config.logo.image}" alt="${config.logo.text || 'Logo'}" style="height: ${config.logo.imageSize || 40}px; width: auto; object-fit: contain;" />` 
+                    : config.logo.text
+                  }
                 </div>
               ` : ''}
               
