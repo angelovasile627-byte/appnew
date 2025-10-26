@@ -98,6 +98,7 @@ export const blockTemplates = [
         { text: 'About', link: '#about', color: '#ffffff', show: true },
         { text: 'Blog', link: '#blog', color: '#ffffff', show: true }
       ],
+      activeColor: '#ffffff',
       button: { 
         text: 'Contact', 
         show: true, 
@@ -106,10 +107,10 @@ export const blockTemplates = [
         link: '#contact' 
       },
       icons: { 
-        show: false 
+        show: true 
       },
       sticky: true,
-      collapsed: false,
+      collapsed: true,
       transparent: true,
       hamburger: {
         show: true,
