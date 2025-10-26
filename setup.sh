@@ -26,8 +26,10 @@ cd frontend
 yarn install
 echo -e "${GREEN}✓ Frontend dependencies installed${NC}"
 
-echo -e "${YELLOW}Building optimized frontend...${NC}"
+echo -e "${YELLOW}Building optimized frontend for desktop...${NC}"
+cp .env.desktop .env.production.local
 GENERATE_SOURCEMAP=false yarn build
+rm -f .env.production.local
 cd ..
 echo -e "${GREEN}✓ Frontend built${NC}"
 
