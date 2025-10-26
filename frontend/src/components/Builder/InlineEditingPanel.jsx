@@ -238,44 +238,11 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             </div>
             {config.logo.show && (
               <div className="space-y-3 ml-4">
-                {/* Logo Image */}
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <Label className="text-sm text-gray-300">Logo Image</Label>
-                    <Switch
-                      checked={config.logo.image !== '' && config.logo.image !== undefined}
-                      onCheckedChange={(checked) => {
-                        if (!checked) {
-                          updateConfig('logo.image', '');
-                        }
-                      }}
-                    />
-                  </div>
-                  {(config.logo.image !== '' && config.logo.image !== undefined) && (
-                    <>
-                      {config.logo.image && (
-                        <div className="w-full p-4 bg-gray-700 rounded-lg flex items-center justify-center">
-                          <img 
-                            src={config.logo.image} 
-                            alt="Logo" 
-                            style={{ 
-                              maxWidth: '100%', 
-                              maxHeight: '80px',
-                              objectFit: 'contain'
-                            }}
-                          />
-                        </div>
-                      )}
-                      <Button
-                        onClick={() => setIsImageDialogOpen(true)}
-                        className="w-full bg-indigo-600 hover:bg-indigo-700"
-                        size="sm"
-                      >
-                        <ImageIcon className="w-4 h-4 mr-2" />
-                        {config.logo.image ? 'Schimbă Logo' : 'Încarcă Logo'}
-                      </Button>
-                    </>
-                  )}
+                {/* Logo Edit Info */}
+                <div className="p-3 bg-indigo-900/30 border border-indigo-700/50 rounded-lg">
+                  <p className="text-xs text-indigo-300">
+                    💡 <strong>Pentru a edita logo-ul</strong>, dă click direct pe logo în meniu
+                  </p>
                 </div>
 
                 {/* Brand Name */}
