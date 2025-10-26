@@ -110,6 +110,9 @@ const BuilderNew = () => {
   // ============ PAGES FUNCTIONS ============
   
   const handleCreatePage = (pageName) => {
+    console.log('🔵 handleCreatePage called with:', pageName);
+    console.log('🔵 Current pages:', pages);
+    
     const newPage = {
       id: `page-${Date.now()}`,
       name: pageName,
@@ -119,9 +122,13 @@ const BuilderNew = () => {
       updated_at: new Date().toISOString()
     };
     
+    console.log('🔵 New page created:', newPage);
+    
     const updatedPages = [...pages, newPage];
     setPages(updatedPages);
     setCurrentPageId(newPage.id);
+    
+    console.log('🔵 Pages updated to:', updatedPages);
     
     toast({
       title: 'Pagină creată',
