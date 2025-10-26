@@ -205,6 +205,7 @@ const BuilderNew = () => {
     setPages(updatedPages);
   };
 
+
   // Calculate position for inline editing panel
   useEffect(() => {
     if (selectedBlockId && selectedBlockRef.current) {
@@ -231,25 +232,47 @@ const BuilderNew = () => {
     }
   }, [selectedBlockId]);
 
+  // ============ BLOCKS FUNCTIONS ============
+
   const handleAddBlock = (template) => {
-    // Check if trying to add a menu when one already exists
-    if (template.category === 'menu') {
-      const hasMenuBlock = blocks.some(block => {
-        const { blockTemplates } = require('../data/mockBlocks');
-        const blockTemplate = blockTemplates.find(t => t.id === block.templateId);
-        return blockTemplate && blockTemplate.category === 'menu';
+    if (!currentPageId) {
+      toast({
+        title: 'Nicio pagină selectată',
+        description: 'Creează sau selectează o pagină mai întâi',
+        variant: 'destructive'
       });
-      
-      if (hasMenuBlock) {
+      return;
+    }
+
+    // Check if trying to add a menu
+    if (template.category === 'menu') {
+      // Menu is shared, not per-page
+      if (sharedMenu) {
         toast({
           title: 'Meniu existent',
-          description: 'Există deja un bloc de meniu pe pagină. Vă rugăm să ștergeți meniul existent înainte de a adăuga unul nou.',
+          description: 'Există deja un meniu partajat pentru toate paginile. Șterge-l mai întâi.',
           variant: 'destructive'
         });
         return;
       }
+      
+      const newMenuBlock = {
+        id: `block-${Date.now()}`,
+        templateId: template.id,
+        config: JSON.parse(JSON.stringify(template.config))
+      };
+      
+      setSharedMenu(newMenuBlock);
+      setSelectedBlockId(newMenuBlock.id);
+      
+      toast({
+        title: 'Meniu adăugat',
+        description: `${template.name} a fost adăugat ca meniu partajat`
+      });
+      return;
     }
     
+    // Regular block
     saveToHistory(blocks);
     const newBlock = {
       id: `block-${Date.now()}`,
@@ -257,12 +280,8 @@ const BuilderNew = () => {
       config: JSON.parse(JSON.stringify(template.config))
     };
     
-    // If it's a Menu block, always add it at the beginning
-    if (template.category === 'menu') {
-      setBlocks([newBlock, ...blocks]);
-    } else {
-      setBlocks([...blocks, newBlock]);
-    }
+    const newBlocks = [...blocks, newBlock];
+    updateCurrentPageBlocks(newBlocks);
     
     setSelectedBlockId(newBlock.id);
     toast({
@@ -272,15 +291,41 @@ const BuilderNew = () => {
   };
 
   const handleUpdateBlock = (blockId, newConfig) => {
+    // Check if it's the shared menu
+    if (sharedMenu && sharedMenu.id === blockId) {
+      setSharedMenu({ ...sharedMenu, config: newConfig });
+      return;
+    }
+    
+    // Regular block
     saveToHistory(blocks);
-    setBlocks(blocks.map(block => 
+    const newBlocks = blocks.map(block => 
       block.id === blockId ? { ...block, config: newConfig } : block
-    ));
+    );
+    updateCurrentPageBlocks(newBlocks);
   };
 
   const handleDeleteBlock = (blockId) => {
+    // Check if it's the shared menu
+    if (sharedMenu && sharedMenu.id === blockId) {
+      if (window.confirm('Sigur vrei să ștergi meniul partajat? Va fi eliminat de pe toate paginile.')) {
+        setSharedMenu(null);
+        if (selectedBlockId === blockId) {
+          setSelectedBlockId(null);
+        }
+        toast({
+          title: 'Meniu șters',
+          description: 'Meniul partajat a fost eliminat'
+        });
+      }
+      return;
+    }
+    
+    // Regular block
     saveToHistory(blocks);
-    setBlocks(blocks.filter(block => block.id !== blockId));
+    const newBlocks = blocks.filter(block => block.id !== blockId);
+    updateCurrentPageBlocks(newBlocks);
+    
     if (selectedBlockId === blockId) {
       setSelectedBlockId(null);
     }
@@ -291,41 +336,11 @@ const BuilderNew = () => {
   };
 
   const handleMoveBlock = (fromIndex, toIndex) => {
-    const movedBlock = blocks[fromIndex];
-    
-    // Import blockTemplates to check if it's a menu
-    const { blockTemplates } = require('../data/mockBlocks');
-    const template = blockTemplates.find(t => t.id === movedBlock.templateId);
-    
-    // If moving a menu block, it should always stay at position 0
-    if (template && template.category === 'menu' && toIndex !== 0) {
-      toast({
-        title: 'Meniul trebuie să fie primul',
-        description: 'Meniul trebuie să fie întotdeauna primul element din pagină',
-        variant: 'destructive'
-      });
-      return;
-    }
-    
-    // If moving another block to position 0 and there's a menu at position 0
-    if (toIndex === 0 && fromIndex !== 0) {
-      const firstBlock = blocks[0];
-      const firstTemplate = blockTemplates.find(t => t.id === firstBlock.templateId);
-      if (firstTemplate && firstTemplate.category === 'menu') {
-        toast({
-          title: 'Meniul trebuie să fie primul',
-          description: 'Nu poți muta alte blocuri înaintea meniului',
-          variant: 'destructive'
-        });
-        return;
-      }
-    }
-    
     saveToHistory(blocks);
     const newBlocks = [...blocks];
     const [moved] = newBlocks.splice(fromIndex, 1);
     newBlocks.splice(toIndex, 0, moved);
-    setBlocks(newBlocks);
+    updateCurrentPageBlocks(newBlocks);
   };
 
   const handleUndo = () => {
