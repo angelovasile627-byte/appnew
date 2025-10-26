@@ -49,6 +49,7 @@ const BuilderNew = () => {
           setProjectId(projectData.projectId || 'project-default');
           setPages(projectData.pages || []);
           setSharedMenu(projectData.sharedMenu || null);
+          setSettings(projectData.settings || null);
           setCurrentPageId(projectData.currentPageId || (projectData.pages && projectData.pages[0]?.id));
           
           toast({
