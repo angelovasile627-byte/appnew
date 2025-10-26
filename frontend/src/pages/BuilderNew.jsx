@@ -563,6 +563,14 @@ const BuilderNew = () => {
         onDuplicatePage={handleDuplicatePage}
         pages={pages}
       />
+      
+      <SettingsModal
+        isOpen={isSettingsModalOpen}
+        onClose={() => setIsSettingsModalOpen(false)}
+        projectId={projectId}
+        initialSettings={settings}
+        onSave={handleSaveSettings}
+      />
     </div>
   );
 };
