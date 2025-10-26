@@ -44,6 +44,8 @@ const BuilderNew = () => {
   
   // Auto-clean duplicates whenever blocks change
   React.useEffect(() => {
+    if (cleanupInProgressRef.current) return; // Prevent loop
+    
     const { blockTemplates } = require('../data/mockBlocks');
     const menuBlocks = blocks.filter(block => {
       const template = blockTemplates.find(t => t.id === block.templateId);
@@ -51,6 +53,8 @@ const BuilderNew = () => {
     });
     
     if (menuBlocks.length > 1) {
+      cleanupInProgressRef.current = true;
+      
       const cleanedBlocks = removeDuplicateMenus(blocks);
       setBlocks(cleanedBlocks);
       
@@ -70,6 +74,11 @@ const BuilderNew = () => {
         title: 'Meniuri duplicate eliminate',
         description: `${menuBlocks.length - 1} meniu(ri) duplicate au fost eliminate automat`
       });
+      
+      // Reset flag after a short delay
+      setTimeout(() => {
+        cleanupInProgressRef.current = false;
+      }, 500);
     }
   }, [blocks]);
   
