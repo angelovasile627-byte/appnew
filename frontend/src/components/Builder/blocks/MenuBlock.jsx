@@ -423,11 +423,16 @@ export const MenuBlock = ({ config, onUpdate }) => {
         <CompactMenuToolbar
           position={toolbarPosition}
           menuItem={config.menuItems[selectedMenuItem]}
+          menuItems={config.menuItems}
+          currentIndex={selectedMenuItem}
           onAddItem={handleAddMenuItem}
           onDelete={handleDeleteMenuItem}
           onBack={() => setSelectedMenuItem(null)}
           onSettings={() => setSelectedMenuItem(null)}
           onUpdateMenuItem={handleUpdateMenuItem}
+          onMoveLeft={handleMoveLeft}
+          onMoveRight={handleMoveRight}
+          onAddSubmenu={handleAddSubmenu}
         />
       )}
     </div>
