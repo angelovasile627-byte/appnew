@@ -257,7 +257,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
               />
             </div>
             {config.logo.show && (
-              <div className="space-y-1 ml-4">
+              <div className="space-y-1 ml-2">
                 {/* Brand Name */}
                 <div className="space-y-1">
                   <div className="flex items-center justify-between">
