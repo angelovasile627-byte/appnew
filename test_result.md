@@ -38,7 +38,7 @@ frontend:
     implemented: true
     working: "YES"
     files: 
-      - "/app/frontend/src/components/Builder/PreviewModal.jsx" (FIXED - z-index issue resolved)
+      - "/app/frontend/src/components/Builder/PreviewModal.jsx" (FIXED - z-index issue resolved + sticky scroll enabled)
     stuck_count: 0
     priority: "high"
     needs_retesting: false
@@ -49,10 +49,35 @@ frontend:
       - "Removed mobile menu/hamburger from preview HTML (simplified)"
       - "Added aggressive menu deduplication logic as additional safeguard"
       - "Issue COMPLETELY RESOLVED: Only ONE menu now appears in preview"
+      - "STICKY SCROLL FIX: Changed iframe scrolling='yes' and removed dynamic height"
+      - "Preview now scrolls internally, enabling sticky menu behavior"
     status_history:
       - working: "YES"
         agent: "main"
-        comment: "FULLY RESOLVED duplicate menu bug. Root cause was z-index stacking context issue - sticky menu from Canvas (z-index: 100) was appearing over PreviewModal (z-index: 50). Fixed by increasing modal z-index to 200/201. Verified working with multiple tests."
+        comment: "FULLY RESOLVED duplicate menu bug + sticky scroll. Root cause was z-index stacking context issue. Fixed by increasing modal z-index to 200/201 and enabling internal iframe scrolling for sticky menu functionality."
+
+  - task: "Fix Transparent, Opacity, Logo Size functionality and Menu Alignment"
+    implemented: true
+    working: "YES"
+    files:
+      - "/app/frontend/src/components/Builder/InlineEditingPanel.jsx" (FIXED - logo.size sync)
+      - "/app/frontend/src/components/Builder/PreviewModal.jsx" (FIXED - transparent + opacity support)
+      - "/app/frontend/src/data/mockBlocks.js" (FIXED - removed logoSize, added opacity)
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    changes_made:
+      - "LOGO SIZE FIX: Synced InlineEditingPanel to use logo.size (16-60px) instead of logo.logoSize"
+      - "TRANSPARENT + OPACITY IN PREVIEW: Added getMenuBgColor() function to PreviewModal"
+      - "Preview now properly converts hex to rgba with opacity control"
+      - "Transparent menus show backdrop-filter blur effect"
+      - "Removed redundant logoSize from menu templates"
+      - "Added default opacity values (0.95 for Classic, 0.7 for Transparent)"
+      - "MENU ALIGNMENT: Already exists in InlineEditingPanel (Left/Center/Right/Space Between/Split)"
+    status_history:
+      - working: "YES"
+        agent: "main"
+        comment: "Fixed all reported issues: Logo Size now works correctly (16-60px range), Transparent + Opacity work in preview with blur effect, Menu alignment options are available in editing panel."
         
   - task: "Optimize InlineEditingPanel to be more compact and fit within half page height"
     implemented: true
