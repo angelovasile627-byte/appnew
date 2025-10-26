@@ -822,41 +822,24 @@ export const PreviewModal = ({ blocks, isOpen, onClose }) => {
         </div>
 
         {/* Preview iframe */}
-        <div className="flex-1 overflow-auto bg-gray-100">
+        <div className="flex-1 overflow-hidden bg-gray-100 flex items-start justify-center p-4">
           <div 
-            className="mx-auto transition-all duration-300"
+            className="transition-all duration-300 h-full"
             style={{ 
               width: DEVICE_SIZES[device].width,
-              height: 'fit-content'
+              maxWidth: '100%'
             }}
           >
             <iframe
               srcDoc={generateHTML}
-              className="w-full border-none"
+              className="w-full h-full border-none bg-white shadow-lg"
               style={{ 
                 display: 'block',
                 border: 'none',
-                overflow: 'hidden'
+                borderRadius: '8px'
               }}
               title="Site Preview"
-              scrolling="no"
-              onLoad={(e) => {
-                try {
-                  const iframe = e.target;
-                  const body = iframe.contentWindow.document.body;
-                  const html = iframe.contentWindow.document.documentElement;
-                  const height = Math.max(
-                    body.scrollHeight,
-                    body.offsetHeight,
-                    html.clientHeight,
-                    html.scrollHeight,
-                    html.offsetHeight
-                  );
-                  iframe.style.height = height + 'px';
-                } catch (err) {
-                  console.error('Error setting iframe height:', err);
-                }
-              }}
+              scrolling="yes"
             />
           </div>
         </div>
