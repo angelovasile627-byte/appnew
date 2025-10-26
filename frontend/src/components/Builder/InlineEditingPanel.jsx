@@ -20,32 +20,17 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
   const { config } = block;
 
   const updateConfig = (path, value) => {
-    const newConfig = { ...config };
     const keys = path.split('.');
+    const newConfig = { ...config };
     let current = newConfig;
     
     for (let i = 0; i < keys.length - 1; i++) {
+      if (!current[keys[i]]) current[keys[i]] = {};
       current = current[keys[i]];
     }
     
     current[keys[keys.length - 1]] = value;
     onUpdate(newConfig);
-  };
-
-  const updateMenuItem = (index, field, value) => {
-    const newMenuItems = [...config.menuItems];
-    newMenuItems[index] = { ...newMenuItems[index], [field]: value };
-    updateConfig('menuItems', newMenuItems);
-  };
-
-  const addMenuItem = () => {
-    const newMenuItems = [...(config.menuItems || []), { text: 'New Link', link: '#', color: '#1a1a2e', show: true }];
-    updateConfig('menuItems', newMenuItems);
-  };
-
-  const removeMenuItem = (index) => {
-    const newMenuItems = config.menuItems.filter((_, i) => i !== index);
-    updateConfig('menuItems', newMenuItems);
   };
 
   return (
