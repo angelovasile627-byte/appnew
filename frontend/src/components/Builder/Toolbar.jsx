@@ -87,9 +87,41 @@ export const Toolbar = ({
           <div className="w-8 h-8 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg"></div>
           <h1 className="text-xl font-bold text-gray-900">AXXO Builder</h1>
         </div>
+        
+        {/* Page Selector */}
+        {pages.length > 0 && (
+          <>
+            <div className="h-6 w-px bg-gray-300 mx-2"></div>
+            <div className="flex items-center gap-2">
+              <FileText className="w-4 h-4 text-gray-600" />
+              <select
+                value={currentPageId || ''}
+                onChange={(e) => onSelectPage(e.target.value)}
+                className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent cursor-pointer"
+              >
+                {pages.map((page) => (
+                  <option key={page.id} value={page.id}>
+                    {page.name} {page.is_home ? '(Home)' : ''}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </>
+        )}
       </div>
 
       <div className="flex items-center gap-3">
+        <Button
+          onClick={onOpenSettings}
+          variant="outline"
+          className="flex items-center gap-2"
+        >
+          <Settings className="w-4 h-4" />
+          Setări Proiect
+        </Button>
+        
+        <div className="h-6 w-px bg-gray-300"></div>
+        
         <Button
           onClick={onAddBlock}
           className="bg-indigo-600 hover:bg-indigo-700 text-white flex items-center gap-2"
@@ -107,7 +139,6 @@ export const Toolbar = ({
           disabled={!canUndo}
         >
           <Undo className="w-4 h-4" />
-          Anulează
         </Button>
 
         <Button
@@ -117,7 +148,6 @@ export const Toolbar = ({
           disabled={!canRedo}
         >
           <Redo className="w-4 h-4" />
-          Refă
         </Button>
 
         <div className="h-6 w-px bg-gray-300"></div>
@@ -128,7 +158,6 @@ export const Toolbar = ({
           className="flex items-center gap-2"
         >
           <Save className="w-4 h-4" />
-          Salvează
         </Button>
 
         <Button
@@ -137,7 +166,6 @@ export const Toolbar = ({
           className="flex items-center gap-2"
         >
           <Eye className="w-4 h-4" />
-          Previzualizare
         </Button>
 
         <Button
@@ -146,7 +174,6 @@ export const Toolbar = ({
           className="flex items-center gap-2"
         >
           <Download className="w-4 h-4" />
-          Exportă
         </Button>
 
         <Button
@@ -155,7 +182,6 @@ export const Toolbar = ({
           className="flex items-center gap-2"
         >
           <Upload className="w-4 h-4" />
-          Încărcare FTP
         </Button>
 
         <div className="h-6 w-px bg-gray-300"></div>
