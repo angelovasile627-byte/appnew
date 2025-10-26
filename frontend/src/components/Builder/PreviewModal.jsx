@@ -34,6 +34,9 @@ const generateBlockHTML = (config) => {
       const menuId = `menu-${Math.random().toString(36).substr(2, 9)}`;
       
       return `
+        <!-- Hidden checkbox for mobile menu toggle -->
+        <input type="checkbox" id="mobile-toggle-${menuId}" style="display: none;" />
+        
         <nav id="${menuId}" style="
           background-color: ${getMenuBgColor()};
           width: 100%;
@@ -110,34 +113,28 @@ const generateBlockHTML = (config) => {
                 ">
                   ${logoHTML}
                   
-                  <!-- Hamburger Button -->
-                  <button 
-                    class="mobile-menu-toggle-${menuId}" 
-                    onclick="window.toggleMobileMenu_${menuId}()"
-                    style="
-                      display: none;
-                      position: absolute;
-                      right: 24px;
-                      top: 50%;
-                      transform: translateY(-50%);
-                      background: transparent;
-                      border: none;
-                      cursor: pointer;
-                      padding: 8px;
-                      color: ${hamburgerColor};
-                      z-index: 1000;
-                    "
-                  >
-                    <svg class="hamburger-icon-${menuId}" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <!-- Hamburger Label (works as button) -->
+                  <label for="mobile-toggle-${menuId}" class="mobile-menu-toggle-${menuId}" style="
+                    display: none;
+                    position: absolute;
+                    right: 24px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    cursor: pointer;
+                    padding: 8px;
+                    color: ${hamburgerColor};
+                    z-index: 1000;
+                  ">
+                    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <line x1="3" y1="12" x2="21" y2="12"></line>
                       <line x1="3" y1="6" x2="21" y2="6"></line>
                       <line x1="3" y1="18" x2="21" y2="18"></line>
                     </svg>
-                    <svg class="close-icon-${menuId}" style="display: none;" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg class="close-icon" style="display: none;" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <line x1="18" y1="6" x2="6" y2="18"></line>
                       <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
-                  </button>
+                  </label>
                   
                   <div class="desktop-menu-${menuId}" style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
                     ${menuItemsHTML(visibleItems)}
@@ -167,32 +164,26 @@ const generateBlockHTML = (config) => {
                   ${menuItemsHTML(leftItems)}
                   ${logoHTML}
                   
-                  <!-- Hamburger Button -->
-                  <button 
-                    class="mobile-menu-toggle-${menuId}" 
-                    onclick="window.toggleMobileMenu_${menuId}()"
-                    style="
-                      display: none;
-                      position: absolute;
-                      right: 24px;
-                      background: transparent;
-                      border: none;
-                      cursor: pointer;
-                      padding: 8px;
-                      color: ${hamburgerColor};
-                      z-index: 1000;
-                    "
-                  >
-                    <svg class="hamburger-icon-${menuId}" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <!-- Hamburger Label -->
+                  <label for="mobile-toggle-${menuId}" class="mobile-menu-toggle-${menuId}" style="
+                    display: none;
+                    position: absolute;
+                    right: 24px;
+                    cursor: pointer;
+                    padding: 8px;
+                    color: ${hamburgerColor};
+                    z-index: 1000;
+                  ">
+                    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <line x1="3" y1="12" x2="21" y2="12"></line>
                       <line x1="3" y1="6" x2="21" y2="6"></line>
                       <line x1="3" y1="18" x2="21" y2="18"></line>
                     </svg>
-                    <svg class="close-icon-${menuId}" style="display: none;" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg class="close-icon" style="display: none;" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <line x1="18" y1="6" x2="6" y2="18"></line>
                       <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
-                  </button>
+                  </label>
                   
                   <div class="desktop-menu-${menuId}" style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
                     ${menuItemsHTML(rightItems)}
@@ -216,32 +207,26 @@ const generateBlockHTML = (config) => {
               ">
                 ${logoHTML}
                 
-                <!-- Hamburger Button -->
-                <button 
-                  class="mobile-menu-toggle-${menuId}" 
-                  onclick="window.toggleMobileMenu_${menuId}()"
-                  style="
-                    display: none;
-                    position: absolute;
-                    right: 24px;
-                    background: transparent;
-                    border: none;
-                    cursor: pointer;
-                    padding: 8px;
-                    color: ${hamburgerColor};
-                    z-index: 1000;
-                  "
-                >
-                  <svg class="hamburger-icon-${menuId}" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <!-- Hamburger Label -->
+                <label for="mobile-toggle-${menuId}" class="mobile-menu-toggle-${menuId}" style="
+                  display: none;
+                  position: absolute;
+                  right: 24px;
+                  cursor: pointer;
+                  padding: 8px;
+                  color: ${hamburgerColor};
+                  z-index: 1000;
+                ">
+                  <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="3" y1="12" x2="21" y2="12"></line>
                     <line x1="3" y1="6" x2="21" y2="6"></line>
                     <line x1="3" y1="18" x2="21" y2="18"></line>
                   </svg>
-                  <svg class="close-icon-${menuId}" style="display: none;" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg class="close-icon" style="display: none;" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                   </svg>
-                </button>
+                </label>
                 
                 <div class="desktop-menu-${menuId}" style="display: flex; align-items: center; gap: 32px; flex-wrap: wrap;">
                   ${menuItemsHTML(visibleItems)}
@@ -254,8 +239,8 @@ const generateBlockHTML = (config) => {
           <!-- Mobile Menu Dropdown -->
           <div id="mobile-dropdown-${menuId}" class="mobile-menu-dropdown-${menuId}" style="
             display: none;
-            position: fixed;
-            top: 60px;
+            position: absolute;
+            top: 100%;
             left: 0;
             right: 0;
             background-color: ${getMenuBgColor()};
@@ -264,7 +249,8 @@ const generateBlockHTML = (config) => {
             z-index: 999;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-in-out;
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            opacity: 0;
           ">
             <div style="padding: 16px 24px;">
               ${config.menuItems.filter(item => item.show).map(item => `
@@ -276,7 +262,7 @@ const generateBlockHTML = (config) => {
                   text-decoration: none;
                   padding: 12px 0;
                   border-bottom: 1px solid rgba(0,0,0,0.1);
-                " onclick="window.toggleMobileMenu_${menuId}()">
+                ">
                   ${item.text}
                 </a>
               `).join('')}
@@ -294,7 +280,8 @@ const generateBlockHTML = (config) => {
                   text-decoration: none;
                   text-align: center;
                   width: 100%;
-                " onclick="window.toggleMobileMenu_${menuId}()">
+                  box-sizing: border-box;
+                ">
                   ${config.button.text}
                 </a>
               ` : ''}
@@ -302,8 +289,9 @@ const generateBlockHTML = (config) => {
           </div>
         </nav>
           
-        <!-- Responsive CSS and JavaScript -->
+        <!-- Responsive CSS with checkbox toggle -->
         <style>
+          /* Hide desktop menu on mobile */
           @media (max-width: 768px) {
             .desktop-menu-${menuId} {
               display: none !important;
@@ -313,29 +301,22 @@ const generateBlockHTML = (config) => {
             }
           }
           
-          .mobile-menu-dropdown-${menuId}.active {
+          /* Show mobile dropdown when checkbox is checked */
+          #mobile-toggle-${menuId}:checked ~ nav .mobile-menu-dropdown-${menuId} {
             display: block !important;
             max-height: 500px !important;
+            opacity: 1 !important;
+          }
+          
+          /* Toggle icons when checkbox is checked */
+          #mobile-toggle-${menuId}:checked ~ nav .mobile-menu-toggle-${menuId} .hamburger-icon {
+            display: none !important;
+          }
+          
+          #mobile-toggle-${menuId}:checked ~ nav .mobile-menu-toggle-${menuId} .close-icon {
+            display: block !important;
           }
         </style>
-        
-        <script>
-          window.toggleMobileMenu_${menuId} = function() {
-            const dropdown = document.getElementById('mobile-dropdown-${menuId}');
-            const hamburgerIcon = document.querySelector('.hamburger-icon-${menuId}');
-            const closeIcon = document.querySelector('.close-icon-${menuId}');
-            
-            if (dropdown.classList.contains('active')) {
-              dropdown.classList.remove('active');
-              hamburgerIcon.style.display = 'block';
-              closeIcon.style.display = 'none';
-            } else {
-              dropdown.classList.add('active');
-              hamburgerIcon.style.display = 'none';
-              closeIcon.style.display = 'block';
-            }
-          };
-        </script>
       `;
     }
 
