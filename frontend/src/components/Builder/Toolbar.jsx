@@ -31,8 +31,10 @@ export const Toolbar = ({ onAddBlock, onSave, onExport, onPreview, onFTPUpload, 
   }, []);
 
   const toggleFullscreen = async () => {
+    console.log('Toggle fullscreen clicked');
     try {
       if (!document.fullscreenElement) {
+        console.log('Entering fullscreen...');
         // Try multiple methods for better browser compatibility
         const elem = document.documentElement;
         if (elem.requestFullscreen) {
@@ -44,7 +46,9 @@ export const Toolbar = ({ onAddBlock, onSave, onExport, onPreview, onFTPUpload, 
         } else if (elem.msRequestFullscreen) {
           await elem.msRequestFullscreen();
         }
+        console.log('Fullscreen activated');
       } else {
+        console.log('Exiting fullscreen...');
         if (document.exitFullscreen) {
           await document.exitFullscreen();
         } else if (document.webkitExitFullscreen) {
@@ -54,6 +58,7 @@ export const Toolbar = ({ onAddBlock, onSave, onExport, onPreview, onFTPUpload, 
         } else if (document.msExitFullscreen) {
           await document.msExitFullscreen();
         }
+        console.log('Fullscreen exited');
       }
     } catch (err) {
       console.error('Error toggling fullscreen:', err);
