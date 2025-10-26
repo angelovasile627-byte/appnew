@@ -343,6 +343,7 @@ const BuilderNew = () => {
     updateCurrentPageBlocks(newBlocks);
   };
 
+
   const handleUndo = () => {
     if (history.past.length === 0) {
       toast({
@@ -359,7 +360,7 @@ const BuilderNew = () => {
       past: newPast,
       future: [blocks, ...history.future]
     });
-    setBlocks(previous);
+    updateCurrentPageBlocks(previous);
     toast({
       title: 'Acțiune anulată',
       description: 'Ultima modificare a fost anulată'
@@ -382,7 +383,7 @@ const BuilderNew = () => {
       past: [...history.past, blocks],
       future: newFuture
     });
-    setBlocks(next);
+    updateCurrentPageBlocks(next);
     toast({
       title: 'Acțiune refăcută',
       description: 'Modificarea a fost refăcută'
@@ -390,16 +391,10 @@ const BuilderNew = () => {
   };
 
   const handleSave = () => {
-    const projectData = {
-      id: 'project-' + Date.now(),
-      name: 'Site-ul meu',
-      blocks: blocks,
-      updatedAt: new Date()
-    };
-    localStorage.setItem('currentProject', JSON.stringify(projectData));
+    saveToLocalStorage(pages, sharedMenu, currentPageId);
     toast({
       title: 'Proiect salvat',
-      description: 'Site-ul tău a fost salvat cu succes'
+      description: `${pages.length} ${pages.length === 1 ? 'pagină salvată' : 'pagini salvate'}`
     });
   };
 
