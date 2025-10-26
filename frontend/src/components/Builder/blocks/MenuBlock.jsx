@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { LogoEditPopover } from '../LogoEditPopover';
@@ -11,6 +11,18 @@ export const MenuBlock = ({ config, onUpdate }) => {
   const [selectedMenuItem, setSelectedMenuItem] = useState(null);
   const [toolbarPosition, setToolbarPosition] = useState({ top: 0, left: 0 });
   const logoRef = useRef(null);
+
+  // Close toolbar when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (selectedMenuItem !== null) {
+        setSelectedMenuItem(null);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [selectedMenuItem]);
 
   const handleLogoClick = (e) => {
     e.stopPropagation();
@@ -25,6 +37,7 @@ export const MenuBlock = ({ config, onUpdate }) => {
   };
 
   const handleMenuItemClick = (e, index) => {
+    e.preventDefault();
     e.stopPropagation();
     const rect = e.currentTarget.getBoundingClientRect();
     setToolbarPosition({
