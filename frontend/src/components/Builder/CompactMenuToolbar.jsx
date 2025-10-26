@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { Link, Sun, Plus, List, ArrowLeft, Trash2, ChevronDown } from 'lucide-react';
+import { 
+  Link, Sun, Plus, List, ArrowLeft, ArrowRight, Trash2, ChevronDown,
+  Home, Mail, Phone, FileText, Globe, MessageCircle,
+  Heart, Star, Zap, Coffee, Music, Camera, Settings, User, Bell, Search
+} from 'lucide-react';
 
 export const CompactMenuToolbar = ({ 
   position, 
@@ -8,16 +12,56 @@ export const CompactMenuToolbar = ({
   onDelete, 
   onBack,
   menuItem,
-  onUpdateMenuItem
+  onUpdateMenuItem,
+  menuItems = [],
+  currentIndex = 0,
+  onMoveLeft,
+  onMoveRight,
+  onAddSubmenu
 }) => {
   const [showLinkDialog, setShowLinkDialog] = useState(false);
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [showMenuDropdown, setShowMenuDropdown] = useState(false);
+  const [showIconPicker, setShowIconPicker] = useState(false);
+  const [showSubmenuDialog, setShowSubmenuDialog] = useState(false);
+  const [linkTab, setLinkTab] = useState('page');
+  
+  // Link form data
+  const [linkData, setLinkData] = useState({
+    type: 'page',
+    url: '',
+    page: '',
+    block: '',
+    email: '',
+    phone: '',
+    file: '',
+    newWindow: false
+  });
 
   const colors = [
     '#A8F5B8', '#FFC0CB', '#8B4513', 
     '#8B0000', '#00CED1', '#FFD700',
-    '#FFFFFF', '#000000'
+    '#FFFFFF', '#000000', '#6366F1', '#EC4899',
+    '#10B981', '#F59E0B'
+  ];
+
+  const icons = [
+    { name: 'Home', component: Home },
+    { name: 'Mail', component: Mail },
+    { name: 'Phone', component: Phone },
+    { name: 'FileText', component: FileText },
+    { name: 'Globe', component: Globe },
+    { name: 'MessageCircle', component: MessageCircle },
+    { name: 'Heart', component: Heart },
+    { name: 'Star', component: Star },
+    { name: 'Zap', component: Zap },
+    { name: 'Coffee', component: Coffee },
+    { name: 'Music', component: Music },
+    { name: 'Camera', component: Camera },
+    { name: 'Settings', component: Settings },
+    { name: 'User', component: User },
+    { name: 'Bell', component: Bell },
+    { name: 'Search', component: Search }
   ];
 
   const handleColorSelect = (color) => {
@@ -25,6 +69,61 @@ export const CompactMenuToolbar = ({
       onUpdateMenuItem({ ...menuItem, color });
     }
     setShowColorPicker(false);
+  };
+
+  const handleMenuTypeSelect = (type) => {
+    if (onUpdateMenuItem && menuItem) {
+      onUpdateMenuItem({ ...menuItem, type });
+    }
+    setShowMenuDropdown(false);
+  };
+
+  const handleIconSelect = (iconName) => {
+    if (onUpdateMenuItem && menuItem) {
+      onUpdateMenuItem({ ...menuItem, icon: iconName });
+    }
+    setShowIconPicker(false);
+  };
+
+  const handleLinkSubmit = () => {
+    if (onUpdateMenuItem && menuItem) {
+      let link = '#';
+      
+      switch (linkTab) {
+        case 'page':
+          link = linkData.page || '#';
+          if (linkData.block) link += `#${linkData.block}`;
+          break;
+        case 'web':
+          link = linkData.url || '#';
+          break;
+        case 'email':
+          link = `mailto:${linkData.email}`;
+          break;
+        case 'phone':
+          link = `tel:${linkData.phone}`;
+          break;
+        case 'file':
+          link = linkData.file || '#';
+          break;
+      }
+      
+      onUpdateMenuItem({ 
+        ...menuItem, 
+        link,
+        linkType: linkTab,
+        newWindow: linkData.newWindow
+      });
+    }
+    setShowLinkDialog(false);
+  };
+
+  const closeAllDialogs = () => {
+    setShowLinkDialog(false);
+    setShowColorPicker(false);
+    setShowMenuDropdown(false);
+    setShowIconPicker(false);
+    setShowSubmenuDialog(false);
   };
 
   return (
