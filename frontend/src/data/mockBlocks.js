@@ -118,7 +118,8 @@ export const blockTemplates = [
         color: '#ffffff',
         breakpoint: 768
       },
-      align: 'space-between'
+      align: 'space-between',
+      splitCount: 2
     }
   }
 ];
