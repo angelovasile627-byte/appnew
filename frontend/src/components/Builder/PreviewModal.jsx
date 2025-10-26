@@ -567,11 +567,29 @@ export const PreviewModal = ({ blocks, isOpen, onClose }) => {
   const [device, setDevice] = useState('desktop');
 
   const generateHTML = useMemo(() => {
+    // Debug: Log blocks to see if there are duplicates
+    console.log('🔍 PreviewModal received blocks:', blocks);
+    console.log('🔍 Block IDs:', blocks?.map(b => b.id));
+    
     if (!blocks || blocks.length === 0) {
       return '<div style="padding: 40px; text-align: center; font-family: sans-serif;"><h2>Nu există blocuri de previzualizat</h2><p>Adaugă câteva blocuri pentru a vedea previzualizarea.</p></div>';
     }
 
-    const htmlBlocks = blocks.map(block => {
+    // Remove duplicates by ID before generating HTML
+    const uniqueBlocks = [];
+    const seenIds = new Set();
+    
+    for (const block of blocks) {
+      if (!seenIds.has(block.id)) {
+        seenIds.add(block.id);
+        uniqueBlocks.push(block);
+      }
+    }
+    
+    console.log('🔍 After dedup - uniqueBlocks count:', uniqueBlocks.length);
+    console.log('🔍 Removed duplicates:', blocks.length - uniqueBlocks.length);
+
+    const htmlBlocks = uniqueBlocks.map(block => {
       return generateBlockHTML(block.config);
     }).join('\n');
 
