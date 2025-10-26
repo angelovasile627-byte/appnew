@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import * as LucideIcons from 'lucide-react';
 import { Button } from '../../ui/button';
 import { LogoEditPopover } from '../LogoEditPopover';
 import { CompactMenuToolbar } from '../CompactMenuToolbar';
