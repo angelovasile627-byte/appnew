@@ -31,7 +31,7 @@ const generateBlockHTML = (config) => {
             display: flex;
             align-items: center;
             justify-content: ${config.align === 'center' ? 'center' : 'space-between'};
-            gap: 40px;
+            gap: 32px;
           ">
             ${config.logo.show && config.align !== 'center' ? `
               <div style="
@@ -42,7 +42,7 @@ const generateBlockHTML = (config) => {
                 align-items: center;
               ">
                 ${config.logo.image ? 
-                  `<img src="${config.logo.image}" alt="${config.logo.text || 'Logo'}" style="height: ${config.logo.imageSize || 40}px; width: auto; object-fit: contain;" />` 
+                  `<img src="${config.logo.image}" alt="${config.logo.text || 'Logo'}" style="height: ${config.logo.imageSize || 32}px; width: auto; object-fit: contain;" />` 
                   : config.logo.text
                 }
               </div>
@@ -72,7 +72,7 @@ const generateBlockHTML = (config) => {
             <div class="desktop-menu" style="
               display: flex;
               align-items: center;
-              gap: ${config.align === 'center' ? '60px' : '40px'};
+              gap: ${config.align === 'center' ? '48px' : '32px'};
               flex-wrap: wrap;
             ">
               ${config.align === 'center' && config.logo.show ? `
@@ -84,16 +84,16 @@ const generateBlockHTML = (config) => {
                   align-items: center;
                 ">
                   ${config.logo.image ? 
-                    `<img src="${config.logo.image}" alt="${config.logo.text || 'Logo'}" style="height: ${config.logo.imageSize || 40}px; width: auto; object-fit: contain;" />` 
+                    `<img src="${config.logo.image}" alt="${config.logo.text || 'Logo'}" style="height: ${config.logo.imageSize || 32}px; width: auto; object-fit: contain;" />` 
                     : config.logo.text
                   }
                 </div>
               ` : ''}
               
-              <div style="display: flex; align-items: center; gap: 32px; flex-wrap: wrap;">
+              <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
                 ${config.menuItems.filter(item => item.show).map(item => `
                   <a href="${item.link}" style="
-                    font-size: 16px;
+                    font-size: 15px;
                     font-weight: 500;
                     color: ${item.color};
                     text-decoration: none;
@@ -107,7 +107,7 @@ const generateBlockHTML = (config) => {
                 <a href="${config.button.link}" style="
                   background-color: ${config.button.color};
                   color: ${config.button.textColor};
-                  padding: 12px 28px;
+                  padding: 10px 24px;
                   font-size: 16px;
                   border-radius: 10px;
                   border: ${config.button.color === 'transparent' ? `2px solid ${config.button.textColor}` : 'none'};
