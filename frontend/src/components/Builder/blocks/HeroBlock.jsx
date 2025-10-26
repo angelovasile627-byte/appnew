@@ -35,92 +35,148 @@ export const HeroBlock = ({ config, onUpdate }) => {
   // Image-above-text layout
   if (config.layout === 'image-above-text') {
     return (
-      <div style={containerStyle}>
-        <div style={contentStyle}>
-          {config.heroImage && config.heroImage.show && (
-            <div style={{ 
-              marginBottom: '48px',
-              borderRadius: `${config.heroImage.borderRadius || 0}px`,
-              overflow: 'hidden',
-              boxShadow: '0 10px 40px rgba(0,0,0,0.1)'
-            }}>
-              <img
-                src={config.heroImage.src}
-                alt={config.heroImage.alt || 'Hero image'}
+      <>
+        <div style={containerStyle}>
+          <div style={contentStyle}>
+            {config.heroImage && config.heroImage.show && (
+              <div 
+                className="hero-image-container"
+                style={{ 
+                  marginBottom: '48px',
+                  borderRadius: `${config.heroImage.borderRadius || 0}px`,
+                  overflow: 'hidden',
+                  boxShadow: '0 10px 40px rgba(0,0,0,0.1)'
+                }}>
+                <img
+                  src={config.heroImage.src}
+                  alt={config.heroImage.alt || 'Hero image'}
+                  className="hero-image"
+                  style={{
+                    width: '100%',
+                    height: `${config.heroImage.height || 600}px`,
+                    objectFit: config.heroImage.objectFit || 'cover',
+                    display: 'block'
+                  }}
+                />
+              </div>
+            )}
+            {config.title.show && (
+              <h1
+                className="hero-title"
                 style={{
-                  width: '100%',
-                  height: `${config.heroImage.height || 600}px`,
-                  objectFit: config.heroImage.objectFit || 'cover',
-                  display: 'block'
+                  fontSize: `${config.title.size || 56}px`,
+                  fontWeight: config.title.weight || '700',
+                  color: config.title.color,
+                  textAlign: config.title.align,
+                  marginBottom: '24px',
+                  lineHeight: '1.2'
                 }}
-              />
-            </div>
-          )}
-          {config.title.show && (
-            <h1
-              style={{
-                fontSize: `${config.title.size || 56}px`,
-                fontWeight: config.title.weight || '700',
-                color: config.title.color,
-                textAlign: config.title.align,
-                marginBottom: '24px',
-                lineHeight: '1.2'
-              }}
-            >
-              {config.title.text}
-            </h1>
-          )}
-          {config.description.show && (
-            <p
-              style={{
-                fontSize: `${config.description.size || 20}px`,
-                color: config.description.color,
-                textAlign: config.description.align,
-                marginBottom: '40px',
-                maxWidth: '800px',
-                margin: config.description.align === 'center' ? '0 auto 40px' : '0 0 40px',
-                lineHeight: '1.6'
-              }}
-            >
-              {config.description.text}
-            </p>
-          )}
-          {config.button.show && (
-            <div style={{ textAlign: config.title.align }}>
-              <Button
-                style={{
-                  backgroundColor: config.button.color,
-                  color: config.button.textColor,
-                  padding: '16px 40px',
-                  fontSize: `${config.button.size || 18}px`,
-                  borderRadius: '12px',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontWeight: '600',
-                  transition: 'transform 0.2s',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
               >
-                {config.button.text}
-              </Button>
-            </div>
-          )}
-          {config.subtitle.show && config.subtitle.text && (
-            <p
-              style={{
-                fontSize: '16px',
-                color: config.subtitle.color,
-                textAlign: config.subtitle.align,
-                marginTop: '32px'
-              }}
-            >
-              {config.subtitle.text}
-            </p>
-          )}
+                {config.title.text}
+              </h1>
+            )}
+            {config.description.show && (
+              <p
+                className="hero-description"
+                style={{
+                  fontSize: `${config.description.size || 20}px`,
+                  color: config.description.color,
+                  textAlign: config.description.align,
+                  marginBottom: '40px',
+                  maxWidth: '800px',
+                  margin: config.description.align === 'center' ? '0 auto 40px' : '0 0 40px',
+                  lineHeight: '1.6'
+                }}
+              >
+                {config.description.text}
+              </p>
+            )}
+            {config.button.show && (
+              <div style={{ textAlign: config.title.align }}>
+                <Button
+                  className="hero-button"
+                  style={{
+                    backgroundColor: config.button.color,
+                    color: config.button.textColor,
+                    padding: '16px 40px',
+                    fontSize: `${config.button.size || 18}px`,
+                    borderRadius: '12px',
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontWeight: '600',
+                    transition: 'transform 0.2s',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                >
+                  {config.button.text}
+                </Button>
+              </div>
+            )}
+            {config.subtitle.show && config.subtitle.text && (
+              <p
+                className="hero-subtitle"
+                style={{
+                  fontSize: '16px',
+                  color: config.subtitle.color,
+                  textAlign: config.subtitle.align,
+                  marginTop: '32px'
+                }}
+              >
+                {config.subtitle.text}
+              </p>
+            )}
+          </div>
         </div>
-      </div>
+        <style jsx>{`
+          @media (max-width: 768px) {
+            .hero-image-container {
+              margin-bottom: 32px !important;
+            }
+            .hero-image {
+              height: 300px !important;
+            }
+            .hero-title {
+              font-size: 32px !important;
+              margin-bottom: 16px !important;
+            }
+            .hero-description {
+              font-size: 16px !important;
+              margin-bottom: 24px !important;
+            }
+            .hero-button {
+              padding: 12px 28px !important;
+              font-size: 16px !important;
+            }
+            .hero-subtitle {
+              font-size: 14px !important;
+              margin-top: 20px !important;
+            }
+          }
+          
+          @media (max-width: 480px) {
+            .hero-image-container {
+              margin-bottom: 24px !important;
+            }
+            .hero-image {
+              height: 250px !important;
+            }
+            .hero-title {
+              font-size: 28px !important;
+              margin-bottom: 12px !important;
+            }
+            .hero-description {
+              font-size: 14px !important;
+              margin-bottom: 20px !important;
+            }
+            .hero-button {
+              padding: 10px 24px !important;
+              font-size: 14px !important;
+            }
+          }
+        `}</style>
+      </>
     );
   }
 
