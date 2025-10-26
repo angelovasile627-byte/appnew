@@ -159,63 +159,196 @@ export const MenuBlock = ({ config, onUpdate }) => {
     transition: 'all 0.3s ease'
   };
 
-  const contentStyle = {
-    maxWidth: config.fullWidth ? '100%' : `${config.contentWidth}px`,
-    margin: '0 auto',
-    padding: `${padding.top}px 24px ${padding.bottom}px`,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: config.align === 'center' ? 'center' : 'space-between',
-    gap: '32px',
-    transition: 'all 0.3s ease'
-  };
+  // Helper pentru renderizarea logo-ului
+  const renderLogo = (additionalStyles = {}) => (
+    <div
+      ref={logoRef}
+      onClick={handleLogoClick}
+      style={{
+        fontSize: config.logo.image ? 'inherit' : `${config.logo.size}px`,
+        fontWeight: '800',
+        color: config.logo.color,
+        cursor: 'pointer',
+        transition: 'opacity 0.2s',
+        display: 'flex',
+        alignItems: 'center',
+        position: 'relative',
+        maxWidth: `${config.logo.logoSize || 120}px`,
+        ...additionalStyles
+      }}
+      onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
+      onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+      title="Click pentru a edita logo"
+    >
+      {config.logo.image ? (
+        <img 
+          src={config.logo.image} 
+          alt={config.logo.text || 'Logo'} 
+          style={{
+            height: `${config.logo.imageSize || 32}px`,
+            width: 'auto',
+            objectFit: 'contain',
+            maxWidth: '100%'
+          }}
+        />
+      ) : (
+        config.logo.text
+      )}
+    </div>
+  );
 
-  const menuContainerStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: config.align === 'center' ? '48px' : '32px',
-    flexWrap: 'wrap'
-  };
+  // Helper pentru renderizarea menu items
+  const renderMenuItems = (items) => (
+    <>
+      {items.map((item, index) => {
+        const IconComponent = item.icon ? LucideIcons[item.icon] : null;
+        
+        const getTextStyle = () => {
+          const baseStyle = {
+            color: item.color,
+            textDecoration: 'none',
+            transition: 'all 0.2s',
+            cursor: 'pointer',
+            padding: '4px 8px',
+            borderRadius: '4px',
+            backgroundColor: selectedMenuItem === index ? 'rgba(99, 102, 241, 0.1)' : 'transparent',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px'
+          };
 
-  return (
-    <div style={containerStyle} data-block-type="menu">
-      <div style={contentStyle}>
-        {/* Logo */}
-        {config.logo.show && config.align !== 'center' && (
-          <div
-            ref={logoRef}
-            onClick={handleLogoClick}
-            style={{
-              fontSize: config.logo.image ? 'inherit' : `${config.logo.size}px`,
-              fontWeight: '800',
-              color: config.logo.color,
-              cursor: 'pointer',
-              transition: 'opacity 0.2s',
-              display: 'flex',
-              alignItems: 'center',
-              position: 'relative',
-              maxWidth: `${config.logo.logoSize || 120}px`
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
+          switch (item.type) {
+            case 'title1':
+              return { ...baseStyle, fontSize: '24px', fontWeight: '700' };
+            case 'title2':
+              return { ...baseStyle, fontSize: '20px', fontWeight: '600' };
+            case 'title3':
+              return { ...baseStyle, fontSize: '18px', fontWeight: '500' };
+            case 'text':
+              return { ...baseStyle, fontSize: '14px', fontWeight: '400' };
+            default:
+              return { ...baseStyle, fontSize: '15px', fontWeight: '500' };
+          }
+        };
+
+        return item.show && (
+          <a
+            key={index}
+            href={item.link}
+            target={item.newWindow ? '_blank' : '_self'}
+            rel={item.newWindow ? 'noopener noreferrer' : ''}
+            onClick={(e) => handleMenuItemClick(e, index)}
+            style={getTextStyle()}
+            onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
             onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
-            title="Click pentru a edita logo"
           >
-            {config.logo.image ? (
-              <img 
-                src={config.logo.image} 
-                alt={config.logo.text || 'Logo'} 
-                style={{
-                  height: `${config.logo.imageSize || 32}px`,
-                  width: 'auto',
-                  objectFit: 'contain',
-                  maxWidth: '100%'
-                }}
-              />
-            ) : (
-              config.logo.text
-            )}
+            {IconComponent && <IconComponent size={16} />}
+            {item.text}
+          </a>
+        );
+      })}
+    </>
+  );
+
+  // Helper pentru renderizarea butonului
+  const renderButton = () => config.button.show && (
+    <Button
+      style={{
+        backgroundColor: config.button.color,
+        color: config.button.textColor,
+        padding: '10px 24px',
+        fontSize: '15px',
+        borderRadius: '8px',
+        border: config.button.color === 'transparent' ? `2px solid ${config.button.textColor}` : 'none',
+        cursor: 'pointer',
+        fontWeight: '600',
+        transition: 'transform 0.2s',
+        whiteSpace: 'nowrap'
+      }}
+      onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+      onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+    >
+      {config.button.text}
+    </Button>
+  );
+
+  // Determină layout-ul bazat pe align
+  const getLayoutContent = () => {
+    const visibleItems = config.menuItems.filter(item => item.show);
+
+    // CENTER LAYOUT - Vertical (Logo sus, menu jos)
+    if (config.align === 'center') {
+      return (
+        <div style={{
+          maxWidth: config.fullWidth ? '100%' : `${config.contentWidth}px`,
+          margin: '0 auto',
+          padding: `${padding.top}px 24px ${padding.bottom}px`,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '20px',
+          transition: 'all 0.3s ease'
+        }}>
+          {/* Logo sus */}
+          {config.logo.show && renderLogo()}
+          
+          {/* Menu items și button jos */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
+            {renderMenuItems(visibleItems)}
+            {renderButton()}
           </div>
-        )}
+        </div>
+      );
+    }
+
+    // SPLIT LAYOUT - Logo în mijloc, items împărțite stânga/dreapta
+    if (config.align === 'split') {
+      const splitCount = config.splitCount || Math.floor(visibleItems.length / 2);
+      const leftItems = visibleItems.slice(0, splitCount);
+      const rightItems = visibleItems.slice(splitCount);
+
+      return (
+        <div style={{
+          maxWidth: config.fullWidth ? '100%' : `${config.contentWidth}px`,
+          margin: '0 auto',
+          padding: `${padding.top}px 24px ${padding.bottom}px`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '32px',
+          transition: 'all 0.3s ease'
+        }}>
+          {/* Items în stânga */}
+          <nav style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
+            {renderMenuItems(leftItems)}
+          </nav>
+
+          {/* Logo în mijloc */}
+          {config.logo.show && renderLogo()}
+
+          {/* Items în dreapta + button */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
+            {renderMenuItems(rightItems)}
+            {renderButton()}
+          </div>
+        </div>
+      );
+    }
+
+    // DEFAULT LAYOUTS - Left, Right, Space Between
+    return (
+      <div style={{
+        maxWidth: config.fullWidth ? '100%' : `${config.contentWidth}px`,
+        margin: '0 auto',
+        padding: `${padding.top}px 24px ${padding.bottom}px`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: config.align === 'right' ? 'flex-end' : config.align === 'space-between' ? 'space-between' : 'flex-start',
+        gap: '32px',
+        transition: 'all 0.3s ease'
+      }}>
+        {/* Logo */}
+        {config.logo.show && renderLogo()}
 
         {/* Hamburger Menu Button - Mobile Only */}
         <button
@@ -233,112 +366,20 @@ export const MenuBlock = ({ config, onUpdate }) => {
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
 
-        {/* Desktop Menu */}
-        <div style={menuContainerStyle} className="desktop-menu">
-          {config.align === 'center' && config.logo.show && (
-            <div
-              ref={logoRef}
-              onClick={handleLogoClick}
-              style={{
-                fontSize: config.logo.image ? 'inherit' : `${config.logo.size}px`,
-                fontWeight: '800',
-                color: config.logo.color,
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                maxWidth: `${config.logo.logoSize || 120}px`
-              }}
-              title="Click pentru a edita logo"
-            >
-              {config.logo.image ? (
-                <img 
-                  src={config.logo.image} 
-                  alt={config.logo.text || 'Logo'} 
-                  style={{
-                    height: `${config.logo.imageSize || 32}px`,
-                    width: 'auto',
-                    objectFit: 'contain',
-                    maxWidth: '100%'
-                  }}
-                />
-              ) : (
-                config.logo.text
-              )}
-            </div>
-          )}
-
+        {/* Desktop Menu Container */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '32px', flexWrap: 'wrap' }} className="desktop-menu">
           <nav style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
-            {config.menuItems.map((item, index) => {
-              const IconComponent = item.icon ? LucideIcons[item.icon] : null;
-              
-              // Determină stilul în funcție de tipul de text
-              const getTextStyle = () => {
-                const baseStyle = {
-                  color: item.color,
-                  textDecoration: 'none',
-                  transition: 'all 0.2s',
-                  cursor: 'pointer',
-                  padding: '4px 8px',
-                  borderRadius: '4px',
-                  backgroundColor: selectedMenuItem === index ? 'rgba(99, 102, 241, 0.1)' : 'transparent',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px'
-                };
-
-                switch (item.type) {
-                  case 'title1':
-                    return { ...baseStyle, fontSize: '24px', fontWeight: '700' };
-                  case 'title2':
-                    return { ...baseStyle, fontSize: '20px', fontWeight: '600' };
-                  case 'title3':
-                    return { ...baseStyle, fontSize: '18px', fontWeight: '500' };
-                  case 'text':
-                    return { ...baseStyle, fontSize: '14px', fontWeight: '400' };
-                  default:
-                    return { ...baseStyle, fontSize: '15px', fontWeight: '500' };
-                }
-              };
-
-              return item.show && (
-                <a
-                  key={index}
-                  href={item.link}
-                  target={item.newWindow ? '_blank' : '_self'}
-                  rel={item.newWindow ? 'noopener noreferrer' : ''}
-                  onClick={(e) => handleMenuItemClick(e, index)}
-                  style={getTextStyle()}
-                  onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
-                  onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
-                >
-                  {IconComponent && <IconComponent size={16} />}
-                  {item.text}
-                </a>
-              );
-            })}
+            {renderMenuItems(visibleItems)}
           </nav>
-
-          {config.button.show && (
-            <Button
-              style={{
-                backgroundColor: config.button.color,
-                color: config.button.textColor,
-                padding: '10px 24px',
-                fontSize: '15px',
-                borderRadius: '8px',
-                border: config.button.color === 'transparent' ? `2px solid ${config.button.textColor}` : 'none',
-                cursor: 'pointer',
-                fontWeight: '600',
-                transition: 'transform 0.2s',
-                whiteSpace: 'nowrap'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
-              onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-            >
-              {config.button.text}
-            </Button>
-          )}
+          {renderButton()}
         </div>
+      </div>
+    );
+  };
+
+  return (
+    <div style={containerStyle} data-block-type="menu">
+      {getLayoutContent()}
 
         {/* Mobile Menu Dropdown */}
         {isMobileMenuOpen && (
