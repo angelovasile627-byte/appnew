@@ -663,16 +663,15 @@ export const PreviewModal = ({ blocks, isOpen, onClose }) => {
         {/* Preview iframe */}
         <div className="flex-1 overflow-auto bg-gray-100 p-4">
           <div 
-            className="mx-auto bg-white shadow-lg transition-all duration-300"
+            className="mx-auto shadow-lg transition-all duration-300"
             style={{ 
-              width: DEVICE_SIZES[device].width,
-              minHeight: '100%'
+              width: DEVICE_SIZES[device].width
             }}
           >
             <iframe
               srcDoc={generateHTML}
-              className="w-full border-none"
-              style={{ minHeight: '600px', height: '100%' }}
+              className="w-full border-none block"
+              style={{ minHeight: '600px', display: 'block' }}
               title="Site Preview"
             />
           </div>
