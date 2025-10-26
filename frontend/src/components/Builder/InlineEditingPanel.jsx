@@ -74,11 +74,11 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         {/* Size Controls for Hero */}
         {config.type === 'hero' && (
           <div className="space-y-0.5 border-t border-gray-800 pt-1">
-            <h4 className="text-[10px] font-bold text-white uppercase tracking-wider">Size</h4>
+            <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Size</h4>
             
             {/* Full Screen */}
             <div className="flex items-center justify-between py-0.5">
-              <Label className="text-[10px] text-gray-300">Full Screen</Label>
+              <Label className="text-[9px] text-gray-300">Full Screen</Label>
               <Switch
                 checked={config.fullScreen ?? true}
                 onCheckedChange={(checked) => updateConfig('fullScreen', checked)}
@@ -87,7 +87,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
             {/* Full Width */}
             <div className="flex items-center justify-between py-0.5">
-              <Label className="text-[10px] text-gray-300">Full Width</Label>
+              <Label className="text-[9px] text-gray-300">Full Width</Label>
               <Switch
                 checked={config.fullWidth ?? false}
                 onCheckedChange={(checked) => updateConfig('fullWidth', checked)}
@@ -95,9 +95,9 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             </div>
 
             {/* Content Width */}
-            <div className="space-y-1">
-              <Label className="text-[10px] text-gray-300">Content Width</Label>
-              <div className="flex items-center gap-2">
+            <div className="space-y-0.5">
+              <Label className="text-[9px] text-gray-300">Content Width</Label>
+              <div className="flex items-center gap-1.5">
                 <Input
                   type="range"
                   value={config.contentWidth || 800}
@@ -107,7 +107,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   max="1600"
                   step="50"
                 />
-                <span className="text-[10px] text-gray-400 w-12">{config.contentWidth || 800}px</span>
+                <span className="text-[9px] text-gray-400 w-10">{config.contentWidth || 800}px</span>
               </div>
             </div>
           </div>
@@ -115,7 +115,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Hero Image Controls */}
         {config.type === 'hero' && config.heroImage && (
-          <div className="space-y-1 border-t border-gray-800 pt-1.5">
+          <div className="space-y-0.5 border-t border-gray-800 pt-1">
             <div className="flex items-center justify-between">
               <Label className="text-[10px] font-bold text-white uppercase tracking-wider">Hero Image</Label>
               <Switch
