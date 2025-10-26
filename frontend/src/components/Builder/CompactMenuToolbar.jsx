@@ -287,40 +287,40 @@ export const CompactMenuToolbar = ({
       {/* Menu Type Dropdown */}
       {showMenuDropdown && (
         <div
-          className="fixed z-50 bg-gray-800 rounded-lg shadow-2xl py-2"
+          className="fixed z-50 bg-gray-800 rounded-lg shadow-2xl py-1"
           style={{
             top: `${position.top + 50}px`,
             left: `${position.left - 50}px`,
-            minWidth: '160px'
+            minWidth: '140px'
           }}
           onClick={(e) => e.stopPropagation()}
         >
           <button 
-            className="w-full px-4 py-2 text-left text-white hover:bg-gray-700 text-lg font-bold"
+            className="w-full px-3 py-1.5 text-left text-white hover:bg-gray-700 text-base font-bold transition-colors"
             onClick={() => handleMenuTypeSelect('title1')}
           >
             Title 1
           </button>
           <button 
-            className="w-full px-4 py-2 text-left text-white hover:bg-gray-700 text-base font-semibold"
+            className="w-full px-3 py-1.5 text-left text-white hover:bg-gray-700 text-sm font-semibold transition-colors"
             onClick={() => handleMenuTypeSelect('title2')}
           >
             Title 2
           </button>
           <button 
-            className="w-full px-4 py-2 text-left text-white hover:bg-gray-700 text-sm font-medium"
+            className="w-full px-3 py-1.5 text-left text-white hover:bg-gray-700 text-xs font-medium transition-colors"
             onClick={() => handleMenuTypeSelect('title3')}
           >
             Title 3
           </button>
           <button 
-            className="w-full px-4 py-2 text-left text-white hover:bg-gray-700 text-sm"
+            className="w-full px-3 py-1.5 text-left text-white hover:bg-gray-700 text-xs transition-colors"
             onClick={() => handleMenuTypeSelect('text')}
           >
             Text
           </button>
           <button 
-            className="w-full px-4 py-2 text-left text-white hover:bg-gray-700 text-sm flex items-center justify-between"
+            className="w-full px-3 py-1.5 text-left text-white hover:bg-gray-700 text-xs flex items-center justify-between transition-colors"
             onClick={() => handleMenuTypeSelect('menu')}
           >
             <span>Menu</span>
