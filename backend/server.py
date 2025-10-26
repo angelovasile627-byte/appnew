@@ -331,6 +331,87 @@ async def get_shared_menu(project_id: str):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# ============ SETTINGS API ENDPOINTS ============
+
+class SettingsData(BaseModel):
+    site_name: str = None
+    site_description: str = None
+    site_logo: str = None
+    favicon: str = None
+    meta_title: str = None
+    meta_description: str = None
+    meta_keywords: str = None
+    og_title: str = None
+    og_description: str = None
+    og_image: str = None
+    google_analytics_id: str = None
+    facebook_pixel_id: str = None
+    custom_css: str = None
+    custom_js: str = None
+    header_scripts: str = None
+    footer_scripts: str = None
+    primary_font: str = None
+    primary_color: str = None
+    secondary_color: str = None
+    accent_color: str = None
+    border_radius: str = None
+    spacing: str = None
+
+@api_router.get("/settings/{project_id}")
+async def get_settings(project_id: str):
+    """Get settings for a project"""
+    try:
+        settings = await db.get_settings(project_id)
+        if not settings:
+            # Return default settings if none exist
+            return {
+                "project_id": project_id,
+                "site_name": "",
+                "site_description": "",
+                "site_logo": "",
+                "favicon": "",
+                "meta_title": "",
+                "meta_description": "",
+                "meta_keywords": "",
+                "og_title": "",
+                "og_description": "",
+                "og_image": "",
+                "google_analytics_id": "",
+                "facebook_pixel_id": "",
+                "custom_css": "",
+                "custom_js": "",
+                "header_scripts": "",
+                "footer_scripts": "",
+                "primary_font": "Inter",
+                "primary_color": "#3B82F6",
+                "secondary_color": "#6B7280",
+                "accent_color": "#10B981",
+                "border_radius": "8px",
+                "spacing": "16px"
+            }
+        return settings
+    except Exception as e:
+        logger.error(f"Error getting settings: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.put("/settings/{project_id}")
+async def save_settings(project_id: str, settings_data: SettingsData):
+    """Save or update settings for a project"""
+    try:
+        # Convert to dict and remove None values
+        settings_dict = {k: v for k, v in settings_data.dict().items() if v is not None}
+        
+        settings = await db.save_settings(project_id, settings_dict)
+        if not settings:
+            raise HTTPException(status_code=500, detail="Failed to save settings")
+        return settings
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error saving settings: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
