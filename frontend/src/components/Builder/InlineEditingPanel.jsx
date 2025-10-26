@@ -303,6 +303,32 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
           </div>
         )}
 
+        {/* Active Color - Only for Menu type */}
+        {config.type === 'menu' && (
+          <div className="space-y-2 border-t border-gray-800 pt-3">
+            <Label className="text-xs font-bold text-white uppercase tracking-wider">Active Color</Label>
+            <div className="flex gap-2 items-center">
+              <div className="relative">
+                <Input
+                  type="color"
+                  value={config.activeColor || '#000000'}
+                  onChange={(e) => updateConfig('activeColor', e.target.value)}
+                  className="w-10 h-10 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
+                  style={{ padding: '2px' }}
+                />
+              </div>
+              <Input
+                type="text"
+                value={config.activeColor || '#000000'}
+                onChange={(e) => updateConfig('activeColor', e.target.value)}
+                className="flex-1 bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5"
+                placeholder="#000000"
+              />
+            </div>
+          </div>
+        )}
+
+
         {/* Icons - Only for Menu type */}
         {config.type === 'menu' && config.icons !== undefined && (
           <div className="space-y-2 border-t border-gray-800 pt-3">
