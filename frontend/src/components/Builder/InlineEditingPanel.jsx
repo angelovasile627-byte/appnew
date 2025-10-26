@@ -329,6 +329,25 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                 <SelectItem value="split">Split</SelectItem>
               </SelectContent>
             </Select>
+            
+            {/* Split Items Count - Only visible when align is 'split' */}
+            {config.align === 'split' && (
+              <div className="space-y-0.5 ml-1.5 mt-1">
+                <Label className="text-[9px] text-gray-300">Items în stânga logoului</Label>
+                <div className="flex items-center gap-1.5">
+                  <Input
+                    type="range"
+                    value={config.splitCount || 2}
+                    onChange={(e) => updateConfig('splitCount', parseInt(e.target.value))}
+                    className="flex-1 bg-gray-800 border-gray-700"
+                    min="0"
+                    max={config.menuItems ? config.menuItems.filter(i => i.show).length : 4}
+                    step="1"
+                  />
+                  <span className="text-[9px] text-gray-400 w-10">{config.splitCount || 2}</span>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
