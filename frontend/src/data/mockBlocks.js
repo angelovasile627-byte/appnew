@@ -118,5 +118,50 @@ export const blockTemplates = [
       },
       align: 'center'
     }
+  },
+  {
+    id: 'menu-3',
+    category: 'menu',
+    name: 'Menu - Transparent',
+    thumbnail: 'https://images.unsplash.com/photo-1555421689-d68471e189f2?w=400&h=300&fit=crop',
+    config: {
+      type: 'menu',
+      background: { type: 'color', value: 'rgba(255,255,255,0.1)' },
+      fullWidth: true,
+      contentWidth: 1200,
+      padding: { top: 16, bottom: 16 },
+      logo: { 
+        text: 'Logo', 
+        show: true, 
+        color: '#ffffff', 
+        size: 24,
+        imageSize: 40,
+        logoSize: 120
+      },
+      menuItems: [
+        { text: 'Portfolio', link: '#portfolio', color: '#ffffff', show: true },
+        { text: 'About', link: '#about', color: '#ffffff', show: true },
+        { text: 'Blog', link: '#blog', color: '#ffffff', show: true }
+      ],
+      button: { 
+        text: 'Contact', 
+        show: true, 
+        color: 'transparent', 
+        textColor: '#ffffff', 
+        link: '#contact' 
+      },
+      icons: { 
+        show: false 
+      },
+      sticky: true,
+      collapsed: false,
+      transparent: true,
+      hamburger: {
+        show: true,
+        color: '#ffffff',
+        breakpoint: 768
+      },
+      align: 'space-between'
+    }
   }
 ];
