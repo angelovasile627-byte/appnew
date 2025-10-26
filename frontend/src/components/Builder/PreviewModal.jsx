@@ -48,27 +48,7 @@ const generateBlockHTML = (config) => {
               </div>
             ` : ''}
             
-            <!-- Hamburger Button (Mobile) -->
-            <button 
-              id="mobile-menu-toggle" 
-              style="
-                display: none;
-                background: transparent;
-                border: none;
-                cursor: pointer;
-                padding: 8px;
-                color: ${config.logo.color || '#1a1a2e'};
-              "
-              onclick="document.getElementById('mobile-menu').classList.toggle('mobile-menu-open')"
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-              </svg>
-            </button>
-            
-            <!-- Desktop Menu -->
+            <!-- Desktop Menu Container -->
             <div class="desktop-menu" style="
               display: flex;
               align-items: center;
@@ -122,61 +102,11 @@ const generateBlockHTML = (config) => {
             </div>
           </div>
           
-          <!-- Mobile Menu Dropdown -->
-          <div 
-            id="mobile-menu" 
-            class="mobile-menu-dropdown"
-            style="
-              display: none;
-              background-color: ${config.background.value};
-              padding: 20px;
-              border-top: 1px solid rgba(0,0,0,0.1);
-            "
-          >
-            <nav style="display: flex; flex-direction: column; gap: 16px;">
-              ${config.menuItems.filter(item => item.show).map(item => `
-                <a href="${item.link}" style="
-                  font-size: 16px;
-                  font-weight: 500;
-                  color: ${item.color};
-                  text-decoration: none;
-                  padding: 12px 0;
-                  border-bottom: 1px solid rgba(0,0,0,0.1);
-                ">
-                  ${item.text}
-                </a>
-              `).join('')}
-              ${config.button.show ? `
-                <a href="${config.button.link}" style="
-                  background-color: ${config.button.color};
-                  color: ${config.button.textColor};
-                  padding: 12px 28px;
-                  font-size: 16px;
-                  border-radius: 10px;
-                  border: ${config.button.color === 'transparent' ? `2px solid ${config.button.textColor}` : 'none'};
-                  font-weight: 600;
-                  text-decoration: none;
-                  text-align: center;
-                  display: block;
-                  margin-top: 8px;
-                ">
-                  ${config.button.text}
-                </a>
-              ` : ''}
-            </nav>
-          </div>
-          
           <!-- Responsive CSS -->
           <style>
             @media (max-width: 768px) {
               .desktop-menu {
                 display: none !important;
-              }
-              #mobile-menu-toggle {
-                display: block !important;
-              }
-              .mobile-menu-dropdown.mobile-menu-open {
-                display: block !important;
               }
             }
           </style>
