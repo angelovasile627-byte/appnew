@@ -59,9 +59,12 @@ fi
 
 # Build frontend if build folder doesn't exist
 if [ ! -d "frontend/build" ]; then
-    echo -e "${YELLOW}Building frontend (first time only, may take a minute)...${NC}"
+    echo -e "${YELLOW}Building frontend for desktop (first time only, may take a minute)...${NC}"
     cd frontend
+    # Copy desktop env config
+    cp .env.desktop .env.production.local
     GENERATE_SOURCEMAP=false yarn build
+    rm -f .env.production.local
     cd ..
     echo -e "${GREEN}✓ Frontend built successfully${NC}"
 fi
