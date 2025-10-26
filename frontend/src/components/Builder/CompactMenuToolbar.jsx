@@ -332,35 +332,35 @@ export const CompactMenuToolbar = ({
       {/* Icon Picker */}
       {showIconPicker && (
         <div
-          className="fixed z-50 bg-gray-800 rounded-lg shadow-2xl p-4"
+          className="fixed z-50 bg-gray-800 rounded-lg shadow-2xl p-3"
           style={{
             top: `${position.top + 50}px`,
             left: `${position.left - 100}px`,
-            maxWidth: '280px'
+            maxWidth: '240px'
           }}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="text-white text-sm font-semibold mb-3">Alege iconită</div>
-          <div className="grid grid-cols-4 gap-2">
+          <div className="text-white text-xs font-semibold mb-2">Alege iconită</div>
+          <div className="grid grid-cols-4 gap-1.5">
             {icons.map((icon, idx) => {
               const IconComponent = icon.component;
               return (
                 <button
                   key={idx}
-                  className="p-3 rounded hover:bg-gray-700 transition-colors flex items-center justify-center"
+                  className="p-2 rounded hover:bg-gray-700 transition-colors flex items-center justify-center"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleIconSelect(icon.name);
                   }}
                   title={icon.name}
                 >
-                  <IconComponent className="w-5 h-5 text-white" />
+                  <IconComponent className="w-4 h-4 text-white" />
                 </button>
               );
             })}
           </div>
           <button
-            className="mt-3 w-full bg-gray-700 text-white px-3 py-2 rounded text-sm hover:bg-gray-600"
+            className="mt-2 w-full bg-gray-700 text-white px-2 py-1.5 rounded text-xs hover:bg-gray-600 transition-colors"
             onClick={(e) => {
               e.stopPropagation();
               handleIconSelect(null);
