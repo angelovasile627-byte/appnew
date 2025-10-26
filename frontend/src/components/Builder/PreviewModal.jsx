@@ -13,7 +13,24 @@ const generateBlockHTML = (config) => {
   if (!config) return '';
 
   switch (config.type) {
-    case 'menu':
+    case 'menu': {
+      // Handle transparent menu with opacity
+      const getMenuBgColor = () => {
+        if (config.transparent) {
+          const opacity = config.opacity ?? 0.8;
+          const bgColor = config.background?.value || '#000000';
+          
+          // Convert hex to rgba
+          const hex = bgColor.replace('#', '');
+          const r = parseInt(hex.substring(0, 2), 16);
+          const g = parseInt(hex.substring(2, 4), 16);
+          const b = parseInt(hex.substring(4, 6), 16);
+          
+          return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+        }
+        return config.background?.value || '#ffffff';
+      };
+
       return `
         <nav style="
           background-color: ${config.background.value};
