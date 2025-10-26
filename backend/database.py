@@ -59,6 +59,39 @@ class Database:
             )
         ''')
         
+        # Create settings table for project settings
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS settings (
+                id TEXT PRIMARY KEY,
+                project_id TEXT NOT NULL UNIQUE,
+                site_name TEXT,
+                site_description TEXT,
+                site_logo TEXT,
+                favicon TEXT,
+                meta_title TEXT,
+                meta_description TEXT,
+                meta_keywords TEXT,
+                og_title TEXT,
+                og_description TEXT,
+                og_image TEXT,
+                google_analytics_id TEXT,
+                facebook_pixel_id TEXT,
+                custom_css TEXT,
+                custom_js TEXT,
+                header_scripts TEXT,
+                footer_scripts TEXT,
+                primary_font TEXT,
+                primary_color TEXT,
+                secondary_color TEXT,
+                accent_color TEXT,
+                border_radius TEXT,
+                spacing TEXT,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL,
+                FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+            )
+        ''')
+        
         conn.commit()
         conn.close()
     
