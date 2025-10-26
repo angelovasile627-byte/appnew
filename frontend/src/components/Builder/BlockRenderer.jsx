@@ -45,8 +45,14 @@ export const BlockRenderer = ({ block, isSelected, onSelect, onUpdate, onDelete,
         isSelected ? 'ring-4 ring-indigo-500 ring-offset-2' : ''
       }`}
       onClick={(e) => {
-        e.stopPropagation();
-        onSelect();
+        // Prevent selection if clicking on menu items or interactive elements
+        const target = e.target;
+        const isMenuItemClick = target.closest('a') || target.closest('button');
+        
+        if (!isMenuItemClick) {
+          e.stopPropagation();
+          onSelect();
+        }
       }}
     >
       {isSelected && (
