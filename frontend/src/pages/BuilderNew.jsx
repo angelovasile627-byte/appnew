@@ -44,16 +44,12 @@ const BuilderNew = () => {
   React.useEffect(() => {
     if (cleanupInProgressRef.current) return; // Prevent loop
     
-    const { blockTemplates } = require('../data/mockBlocks');
-    const menuBlocks = blocks.filter(block => {
-      const template = blockTemplates.find(t => t.id === block.templateId);
-      return template && template.category === 'menu';
-    });
+    const originalLength = blocks.length;
+    const cleanedBlocks = removeDuplicates(blocks);
     
-    if (menuBlocks.length > 1) {
+    if (cleanedBlocks.length < originalLength) {
       cleanupInProgressRef.current = true;
       
-      const cleanedBlocks = removeDuplicateMenus(blocks);
       setBlocks(cleanedBlocks);
       
       // Update localStorage immediately
@@ -68,9 +64,10 @@ const BuilderNew = () => {
         }
       }
       
+      const removedCount = originalLength - cleanedBlocks.length;
       toast({
-        title: 'Meniuri duplicate eliminate',
-        description: `${menuBlocks.length - 1} meniu(ri) duplicate au fost eliminate automat`
+        title: 'Blocuri duplicate eliminate',
+        description: `${removedCount} bloc(uri) duplicate au fost eliminate automat`
       });
       
       // Reset flag after a short delay
