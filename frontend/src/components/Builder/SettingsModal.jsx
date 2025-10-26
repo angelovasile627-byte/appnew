@@ -68,6 +68,63 @@ export const SettingsModal = ({
     onSave(settings);
   };
 
+  // Pages management functions
+  const handleOpenPageModal = (type) => {
+    setPageModalType(type);
+    setNewPageName('');
+    setSelectedPageId('');
+    setPageModalOpen(true);
+  };
+
+  const handleClosePageModal = () => {
+    setPageModalOpen(false);
+    setNewPageName('');
+    setSelectedPageId('');
+  };
+
+  const handleCreateNewPage = () => {
+    if (!newPageName.trim()) {
+      alert('Te rog introdu un nume pentru pagină');
+      return;
+    }
+
+    if (pageModalType === 'blank') {
+      onCreatePage(newPageName);
+    } else {
+      if (!selectedPageId) {
+        alert('Te rog selectează o pagină de duplicat');
+        return;
+      }
+      onDuplicatePage(selectedPageId, newPageName);
+    }
+
+    handleClosePageModal();
+  };
+
+  const handleStartEditPage = (pageId, pageName) => {
+    setEditingPageId(pageId);
+    setEditPageName(pageName);
+  };
+
+  const handleSavePageRename = (pageId) => {
+    if (editPageName.trim()) {
+      onRenamePage(pageId, editPageName.trim());
+    }
+    setEditingPageId(null);
+    setEditPageName('');
+  };
+
+  const handleCancelEditPage = () => {
+    setEditingPageId(null);
+    setEditPageName('');
+  };
+
+  const handleDeletePageConfirm = (pageId, pageName) => {
+    if (window.confirm(`Sigur vrei să ștergi pagina "${pageName}"?`)) {
+      onDeletePage(pageId);
+    }
+  };
+
   if (!isOpen) return null;
 
   const tabs = [
