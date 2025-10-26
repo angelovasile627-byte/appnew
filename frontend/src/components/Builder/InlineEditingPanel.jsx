@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
@@ -18,6 +18,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
   if (!block) return null;
 
   const { config } = block;
+  const [topPosition, setTopPosition] = useState('0px');
 
   const updateConfig = (path, value) => {
     const keys = path.split('.');
@@ -34,20 +35,29 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
   };
 
   // Calculate top position - if editing menu, start below it
-  const getTopPosition = () => {
-    if (config.type === 'menu') {
-      // Get menu height dynamically
-      const menuElement = document.querySelector('[data-block-type="menu"]');
-      if (menuElement) {
-        const rect = menuElement.getBoundingClientRect();
-        return `${rect.bottom}px`;
+  useEffect(() => {
+    const calculatePosition = () => {
+      if (config.type === 'menu') {
+        // Get menu height dynamically
+        const menuElement = document.querySelector('[data-block-type="menu"]');
+        if (menuElement) {
+          const rect = menuElement.getBoundingClientRect();
+          setTopPosition(`${rect.bottom}px`);
+          return;
+        }
+        setTopPosition('80px'); // Fallback height for menu
+        return;
       }
-      return '80px'; // Fallback height for menu
-    }
-    return '0px';
-  };
+      setTopPosition('0px');
+    };
 
-  const topPosition = getTopPosition();
+    calculatePosition();
+    
+    // Recalculate on config changes (sticky, collapsed, etc.)
+    const timer = setTimeout(calculatePosition, 100);
+    
+    return () => clearTimeout(timer);
+  }, [config.type, config.sticky, config.collapsed, config.transparent, config.opacity]);
 
   return (
     <div
