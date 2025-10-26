@@ -113,3 +113,50 @@ code {
         border-bottom-color: inherit;
     }
 }
+
+/* Responsive Hero Block Styles */
+@media (max-width: 768px) {
+    .hero-image-container {
+        margin-bottom: 32px !important;
+    }
+    .hero-image {
+        height: 300px !important;
+    }
+    .hero-title {
+        font-size: 32px !important;
+        margin-bottom: 16px !important;
+    }
+    .hero-description {
+        font-size: 16px !important;
+        margin-bottom: 24px !important;
+    }
+    .hero-button {
+        padding: 12px 28px !important;
+        font-size: 16px !important;
+    }
+    .hero-subtitle {
+        font-size: 14px !important;
+        margin-top: 20px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-image-container {
+        margin-bottom: 24px !important;
+    }
+    .hero-image {
+        height: 250px !important;
+    }
+    .hero-title {
+        font-size: 28px !important;
+        margin-bottom: 12px !important;
+    }
+    .hero-description {
+        font-size: 14px !important;
+        margin-bottom: 20px !important;
+    }
+    .hero-button {
+        padding: 10px 24px !important;
+        font-size: 14px !important;
+    }
+}
