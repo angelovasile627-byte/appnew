@@ -22,7 +22,6 @@ const BuilderNew = () => {
   const { toast } = useToast();
 
   const selectedBlock = blocks.find(b => b.id === selectedBlockId);
-  const isMenuBlock = selectedBlock && selectedBlock.config.type === 'menu';
   
   // Helper function to remove duplicate blocks by ID
   const removeDuplicates = (blocksArray) => {
