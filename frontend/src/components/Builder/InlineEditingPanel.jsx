@@ -173,7 +173,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                     value={config.heroImage.objectFit || 'cover'}
                     onValueChange={(value) => updateConfig('heroImage.objectFit', value)}
                   >
-                    <SelectTrigger className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5">
+                    <SelectTrigger className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-gray-800 border-gray-700">
@@ -205,7 +205,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
               type="text"
               value={config.background?.value || '#ffffff'}
               onChange={(e) => updateConfig('background.value', e.target.value)}
-              className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5"
+              className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1"
               placeholder="#ffffff"
             />
           </div>
@@ -272,7 +272,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                       value={config.logo.text || ''}
                       onChange={(e) => updateConfig('logo.text', e.target.value)}
                       placeholder="Brand name"
-                      className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5"
+                      className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1"
                     />
                   )}
                 </div>
@@ -289,7 +289,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
               value={config.align || 'left'}
               onValueChange={(value) => updateConfig('align', value)}
             >
-              <SelectTrigger className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5">
+              <SelectTrigger className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="bg-gray-800 border-gray-700">
@@ -321,7 +321,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                 type="text"
                 value={config.activeColor || '#000000'}
                 onChange={(e) => updateConfig('activeColor', e.target.value)}
-                className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5"
+                className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1"
                 placeholder="#000000"
               />
             </div>
@@ -401,7 +401,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   type="text"
                   value={config.background?.value || '#000000'}
                   onChange={(e) => updateConfig('background.value', e.target.value)}
-                  className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5"
+                  className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1"
                 />
               </div>
             </div>
@@ -420,7 +420,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   type="text"
                   value={config.hamburger?.color || '#ffffff'}
                   onChange={(e) => updateConfig('hamburger.color', e.target.value)}
-                  className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5"
+                  className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1"
                 />
               </div>
             </div>
@@ -442,8 +442,8 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                 <Textarea
                   value={config.title.text || ''}
                   onChange={(e) => updateConfig('title.text', e.target.value)}
-                  className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5"
-                  rows={2}
+                  className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1"
+                  rows={1}
                 />
                 <div className="flex gap-2">
                   <Input
@@ -456,7 +456,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                     value={config.title.align || 'center'}
                     onValueChange={(value) => updateConfig('title.align', value)}
                   >
-                    <SelectTrigger className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5">
+                    <SelectTrigger className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-gray-800 border-gray-700">
@@ -486,8 +486,8 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                 <Textarea
                   value={config.description.text || ''}
                   onChange={(e) => updateConfig('description.text', e.target.value)}
-                  className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5"
-                  rows={3}
+                  className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1"
+                  rows={2}
                 />
                 <Input
                   type="color"
@@ -516,7 +516,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   value={config.button.text || ''}
                   onChange={(e) => updateConfig('button.text', e.target.value)}
                   placeholder="Button text"
-                  className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5"
+                  className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1"
                 />
                 <div className="grid grid-cols-2 gap-2">
                   <div className="space-y-1">
