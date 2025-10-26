@@ -153,7 +153,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
                 <div className="space-y-2">
                   <Label className="text-xs text-gray-300">Border Radius</Label>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2">
                     <Input
                       type="range"
                       value={config.heroImage.borderRadius || 0}
@@ -191,7 +191,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         {/* Background Color */}
         <div className="space-y-2 border-t border-gray-800 pt-3">
           <Label className="text-sm font-bold text-white uppercase tracking-wider">Background</Label>
-          <div className="flex gap-3 items-center">
+          <div className="flex gap-2 items-center">
             <div className="relative">
               <Input
                 type="color"
@@ -227,7 +227,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             {config.logo && (
               <div className="space-y-2">
                 <Label className="text-xs text-gray-300">Logo Size</Label>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
                   <Input
                     type="range"
                     value={config.logo.logoSize || 120}
@@ -237,7 +237,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                     max="300"
                     step="10"
                   />
-                  <span className="text-sm text-gray-400 w-20">{config.logo.logoSize || 120}px</span>
+                  <span className="text-sm text-gray-400 w-16">{config.logo.logoSize || 120}px</span>
                 </div>
               </div>
             )}
@@ -362,7 +362,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             {/* Color (Background Color) */}
             <div className="space-y-2">
               <Label className="text-xs text-gray-300">Color</Label>
-              <div className="flex gap-3 items-center">
+              <div className="flex gap-2 items-center">
                 <Input
                   type="color"
                   value={config.background?.value || '#000000'}
@@ -381,7 +381,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             {/* Hamburger */}
             <div className="space-y-2">
               <Label className="text-xs text-gray-300">Hamburger</Label>
-              <div className="flex gap-3 items-center">
+              <div className="flex gap-2 items-center">
                 <Input
                   type="color"
                   value={config.hamburger?.color || '#ffffff'}
@@ -417,7 +417,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   className="bg-gray-800 border-gray-700 text-white"
                   rows={2}
                 />
-                <div className="flex gap-3">
+                <div className="flex gap-2">
                   <Input
                     type="color"
                     value={config.title.color || '#000000'}
@@ -490,7 +490,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   placeholder="Button text"
                   className="bg-gray-800 border-gray-700 text-white"
                 />
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-2">
                   <div className="space-y-2">
                     <Label className="text-xs text-gray-300">BG Color</Label>
                     <Input
