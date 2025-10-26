@@ -238,12 +238,55 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             </div>
             {config.logo.show && (
               <div className="space-y-3 ml-4">
+                {/* Logo Image */}
                 <div className="space-y-2">
-                  <Label className="text-sm text-gray-300">Brand Name</Label>
-                  <Switch
-                    checked={config.logo.text !== '' && config.logo.text !== undefined}
-                    onCheckedChange={(checked) => updateConfig('logo.text', checked ? 'Brand' : '')}
-                  />
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm text-gray-300">Logo Image</Label>
+                    <Switch
+                      checked={config.logo.image !== '' && config.logo.image !== undefined}
+                      onCheckedChange={(checked) => {
+                        if (!checked) {
+                          updateConfig('logo.image', '');
+                        }
+                      }}
+                    />
+                  </div>
+                  {(config.logo.image !== '' && config.logo.image !== undefined) && (
+                    <>
+                      {config.logo.image && (
+                        <div className="w-full p-4 bg-gray-700 rounded-lg flex items-center justify-center">
+                          <img 
+                            src={config.logo.image} 
+                            alt="Logo" 
+                            style={{ 
+                              maxWidth: '100%', 
+                              maxHeight: '80px',
+                              objectFit: 'contain'
+                            }}
+                          />
+                        </div>
+                      )}
+                      <Button
+                        onClick={() => setIsImageDialogOpen(true)}
+                        className="w-full bg-indigo-600 hover:bg-indigo-700"
+                        size="sm"
+                      >
+                        <ImageIcon className="w-4 h-4 mr-2" />
+                        {config.logo.image ? 'Schimbă Logo' : 'Încarcă Logo'}
+                      </Button>
+                    </>
+                  )}
+                </div>
+
+                {/* Brand Name */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm text-gray-300">Brand Name</Label>
+                    <Switch
+                      checked={config.logo.text !== '' && config.logo.text !== undefined}
+                      onCheckedChange={(checked) => updateConfig('logo.text', checked ? 'Brand' : '')}
+                    />
+                  </div>
                   {config.logo.text && (
                     <Input
                       value={config.logo.text || ''}
@@ -253,6 +296,8 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                     />
                   )}
                 </div>
+                
+                {/* Logo Size - affects both image and text */}
                 <div className="space-y-2">
                   <Label className="text-sm text-gray-300">Logo Size</Label>
                   <div className="flex items-center gap-3">
@@ -262,22 +307,26 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                       onChange={(e) => updateConfig('logo.size', parseInt(e.target.value))}
                       className="flex-1 bg-gray-800 border-gray-700"
                       min="12"
-                      max="72"
+                      max="120"
                     />
                     <span className="text-sm text-gray-400 w-12">{config.logo.size || 24}px</span>
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <Label className="text-sm text-gray-300">Color</Label>
-                  <div className="flex gap-3 items-center">
-                    <Input
-                      type="color"
-                      value={config.logo.color || '#000000'}
-                      onChange={(e) => updateConfig('logo.color', e.target.value)}
-                      className="w-16 h-16 p-1 cursor-pointer rounded-full bg-gray-800 border-gray-700"
-                    />
+                
+                {/* Color - only for text */}
+                {config.logo.text && (
+                  <div className="space-y-2">
+                    <Label className="text-sm text-gray-300">Text Color</Label>
+                    <div className="flex gap-3 items-center">
+                      <Input
+                        type="color"
+                        value={config.logo.color || '#000000'}
+                        onChange={(e) => updateConfig('logo.color', e.target.value)}
+                        className="w-16 h-16 p-1 cursor-pointer rounded-full bg-gray-800 border-gray-700"
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             )}
           </div>
