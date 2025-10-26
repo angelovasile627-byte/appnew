@@ -52,6 +52,7 @@ export const blockTemplates = [
         { text: 'Services', link: '#services', color: '#1a1a2e', show: true },
         { text: 'Contacts', link: '#contacts', color: '#1a1a2e', show: true }
       ],
+      activeColor: '#1a1a2e',
       button: { 
         text: 'Get Started', 
         show: true, 
@@ -60,11 +61,11 @@ export const blockTemplates = [
         link: '#start' 
       },
       icons: { 
-        show: false 
+        show: true 
       },
-      sticky: false,
-      collapsed: false,
-      transparent: false,
+      sticky: true,
+      collapsed: true,
+      transparent: true,
       hamburger: {
         show: true,
         color: '#1a1a2e',
