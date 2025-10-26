@@ -139,7 +139,8 @@ export const MenuBlock = ({ config, onUpdate }) => {
                 color: config.logo.color,
                 cursor: 'pointer',
                 display: 'flex',
-                alignItems: 'center'
+                alignItems: 'center',
+                maxWidth: `${config.logo.logoSize || 120}px`
               }}
               title="Click pentru a edita logo"
             >
@@ -150,7 +151,8 @@ export const MenuBlock = ({ config, onUpdate }) => {
                   style={{
                     height: `${config.logo.imageSize || 40}px`,
                     width: 'auto',
-                    objectFit: 'contain'
+                    objectFit: 'contain',
+                    maxWidth: '100%'
                   }}
                 />
               ) : (
