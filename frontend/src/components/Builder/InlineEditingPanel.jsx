@@ -107,7 +107,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   max="1600"
                   step="50"
                 />
-                <span className="text-[10px] text-gray-400 w-16">{config.contentWidth || 800}px</span>
+                <span className="text-[10px] text-gray-400 w-12">{config.contentWidth || 800}px</span>
               </div>
             </div>
           </div>
@@ -147,7 +147,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                       max="1000"
                       step="50"
                     />
-                    <span className="text-[10px] text-gray-400 w-16">{config.heroImage.height || 600}px</span>
+                    <span className="text-[10px] text-gray-400 w-12">{config.heroImage.height || 600}px</span>
                   </div>
                 </div>
 
@@ -163,7 +163,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                       max="50"
                       step="2"
                     />
-                    <span className="text-sm text-gray-400 w-16">{config.heroImage.borderRadius || 0}px</span>
+                    <span className="text-sm text-gray-400 w-12">{config.heroImage.borderRadius || 0}px</span>
                   </div>
                 </div>
 
@@ -239,7 +239,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                     max="300"
                     step="10"
                   />
-                  <span className="text-sm text-gray-400 w-16">{config.logo.logoSize || 120}px</span>
+                  <span className="text-sm text-gray-400 w-12">{config.logo.logoSize || 120}px</span>
                 </div>
               </div>
             )}
