@@ -57,6 +57,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "build-desktop": "cp .env.desktop .env.production.local && craco build && rm .env.production.local",
     "test": "craco test"
   },
   "browserslist": {
