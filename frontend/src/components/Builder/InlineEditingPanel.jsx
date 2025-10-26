@@ -127,6 +127,81 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
           </div>
         )}
 
+        {/* Hero Image Controls */}
+        {config.type === 'hero' && config.heroImage && (
+          <div className="space-y-3 border-t border-gray-800 pt-4">
+            <div className="flex items-center justify-between">
+              <Label className="text-sm font-bold text-white uppercase tracking-wider">Hero Image</Label>
+              <Switch
+                checked={config.heroImage.show ?? true}
+                onCheckedChange={(checked) => updateConfig('heroImage.show', checked)}
+              />
+            </div>
+            {config.heroImage.show && (
+              <div className="space-y-3">
+                <div className="space-y-2">
+                  <Label className="text-sm text-gray-300">Image URL</Label>
+                  <Input
+                    value={config.heroImage.src || ''}
+                    onChange={(e) => updateConfig('heroImage.src', e.target.value)}
+                    placeholder="https://example.com/image.jpg"
+                    className="bg-gray-800 border-gray-700 text-white"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label className="text-sm text-gray-300">Image Height</Label>
+                  <div className="flex items-center gap-3">
+                    <Input
+                      type="range"
+                      value={config.heroImage.height || 600}
+                      onChange={(e) => updateConfig('heroImage.height', parseInt(e.target.value))}
+                      className="flex-1 bg-gray-800 border-gray-700"
+                      min="200"
+                      max="1000"
+                      step="50"
+                    />
+                    <span className="text-sm text-gray-400 w-20">{config.heroImage.height || 600}px</span>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-sm text-gray-300">Border Radius</Label>
+                  <div className="flex items-center gap-3">
+                    <Input
+                      type="range"
+                      value={config.heroImage.borderRadius || 0}
+                      onChange={(e) => updateConfig('heroImage.borderRadius', parseInt(e.target.value))}
+                      className="flex-1 bg-gray-800 border-gray-700"
+                      min="0"
+                      max="50"
+                      step="2"
+                    />
+                    <span className="text-sm text-gray-400 w-16">{config.heroImage.borderRadius || 0}px</span>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-sm text-gray-300">Object Fit</Label>
+                  <Select
+                    value={config.heroImage.objectFit || 'cover'}
+                    onValueChange={(value) => updateConfig('heroImage.objectFit', value)}
+                  >
+                    <SelectTrigger className="bg-gray-800 border-gray-700 text-white">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-gray-800 border-gray-700">
+                      <SelectItem value="cover">Cover</SelectItem>
+                      <SelectItem value="contain">Contain</SelectItem>
+                      <SelectItem value="fill">Fill</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Background Color */}
         <div className="space-y-3 border-t border-gray-800 pt-4">
           <Label className="text-sm font-bold text-white uppercase tracking-wider">Background</Label>
