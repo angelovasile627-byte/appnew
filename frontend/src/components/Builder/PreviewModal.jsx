@@ -42,16 +42,9 @@ const generateBlockHTML = (config) => {
           box-shadow: ${config.transparent ? 'none' : '0 2px 8px rgba(0,0,0,0.05)'};
           backdrop-filter: ${config.transparent ? 'blur(10px)' : 'none'};
         ">
-          <div style="
-            max-width: ${config.fullWidth ? '100%' : config.contentWidth + 'px'};
-            margin: 0 auto;
-            padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
-            display: flex;
-            align-items: center;
-            justify-content: ${config.align === 'center' ? 'center' : 'space-between'};
-            gap: 32px;
-          ">
-            ${config.logo.show && config.align !== 'center' ? `
+          ${(() => {
+            const visibleItems = config.menuItems.filter(item => item.show);
+            const logoHTML = config.logo.show ? `
               <div style="
                 ${config.logo.image ? '' : `font-size: ${config.logo.size}px;`}
                 font-weight: 800;
@@ -64,32 +57,11 @@ const generateBlockHTML = (config) => {
                   : config.logo.text
                 }
               </div>
-            ` : ''}
-            
-            <!-- Desktop Menu Container -->
-            <div class="desktop-menu" style="
-              display: flex;
-              align-items: center;
-              gap: ${config.align === 'center' ? '48px' : '32px'};
-              flex-wrap: wrap;
-            ">
-              ${config.align === 'center' && config.logo.show ? `
-                <div style="
-                  ${config.logo.image ? '' : `font-size: ${config.logo.size}px;`}
-                  font-weight: 800;
-                  color: ${config.logo.color};
-                  display: flex;
-                  align-items: center;
-                ">
-                  ${config.logo.image ? 
-                    `<img src="${config.logo.image}" alt="${config.logo.text || 'Logo'}" style="height: ${config.logo.imageSize || 32}px; width: auto; object-fit: contain;" />` 
-                    : config.logo.text
-                  }
-                </div>
-              ` : ''}
-              
+            ` : '';
+
+            const menuItemsHTML = (items) => `
               <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
-                ${config.menuItems.filter(item => item.show).map(item => `
+                ${items.map(item => `
                   <a href="${item.link}" style="
                     font-size: 15px;
                     font-weight: 500;
@@ -100,24 +72,91 @@ const generateBlockHTML = (config) => {
                   </a>
                 `).join('')}
               </div>
-              
-              ${config.button.show ? `
-                <a href="${config.button.link}" style="
-                  background-color: ${config.button.color};
-                  color: ${config.button.textColor};
-                  padding: 10px 24px;
-                  font-size: 15px;
-                  border-radius: 8px;
-                  border: ${config.button.color === 'transparent' ? `2px solid ${config.button.textColor}` : 'none'};
-                  font-weight: 600;
-                  text-decoration: none;
-                  display: inline-block;
-                  white-space: nowrap;
+            `;
+
+            const buttonHTML = config.button.show ? `
+              <a href="${config.button.link}" style="
+                background-color: ${config.button.color};
+                color: ${config.button.textColor};
+                padding: 10px 24px;
+                font-size: 15px;
+                border-radius: 8px;
+                border: ${config.button.color === 'transparent' ? `2px solid ${config.button.textColor}` : 'none'};
+                font-weight: 600;
+                text-decoration: none;
+                display: inline-block;
+                white-space: nowrap;
+              ">
+                ${config.button.text}
+              </a>
+            ` : '';
+
+            // CENTER LAYOUT - Vertical (Logo sus, menu jos)
+            if (config.align === 'center') {
+              return `
+                <div style="
+                  max-width: ${config.fullWidth ? '100%' : config.contentWidth + 'px'};
+                  margin: 0 auto;
+                  padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  gap: 20px;
                 ">
-                  ${config.button.text}
-                </a>
-              ` : ''}
-            </div>
+                  ${logoHTML}
+                  <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
+                    ${menuItemsHTML(visibleItems)}
+                    ${buttonHTML}
+                  </div>
+                </div>
+              `;
+            }
+
+            // SPLIT LAYOUT - Logo în mijloc, items împărțite stânga/dreapta
+            if (config.align === 'split') {
+              const splitCount = config.splitCount || Math.floor(visibleItems.length / 2);
+              const leftItems = visibleItems.slice(0, splitCount);
+              const rightItems = visibleItems.slice(splitCount);
+
+              return `
+                <div style="
+                  max-width: ${config.fullWidth ? '100%' : config.contentWidth + 'px'};
+                  margin: 0 auto;
+                  padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  gap: 32px;
+                ">
+                  ${menuItemsHTML(leftItems)}
+                  ${logoHTML}
+                  <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
+                    ${menuItemsHTML(rightItems)}
+                    ${buttonHTML}
+                  </div>
+                </div>
+              `;
+            }
+
+            // DEFAULT LAYOUTS - Left, Right, Space Between
+            return `
+              <div style="
+                max-width: ${config.fullWidth ? '100%' : config.contentWidth + 'px'};
+                margin: 0 auto;
+                padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
+                display: flex;
+                align-items: center;
+                justify-content: ${config.align === 'right' ? 'flex-end' : config.align === 'space-between' ? 'space-between' : 'flex-start'};
+                gap: 32px;
+              ">
+                ${logoHTML}
+                <div class="desktop-menu" style="display: flex; align-items: center; gap: 32px; flex-wrap: wrap;">
+                  ${menuItemsHTML(visibleItems)}
+                  ${buttonHTML}
+                </div>
+              </div>
+            `;
+          })()}
           </div>
           
           <!-- Responsive CSS -->
