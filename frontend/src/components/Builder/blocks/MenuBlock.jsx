@@ -253,6 +253,16 @@ export const MenuBlock = ({ config, onUpdate }) => {
           }
         }
       `}</style>
+
+      {/* Logo Edit Popover */}
+      {showLogoEdit && (
+        <LogoEditPopover
+          config={config}
+          onUpdate={onUpdate}
+          position={logoEditPosition}
+          onClose={() => setShowLogoEdit(false)}
+        />
+      )}
     </div>
   );
 };
