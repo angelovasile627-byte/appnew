@@ -189,7 +189,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         )}
 
         {/* Background Color */}
-        <div className="space-y-2 border-t border-gray-800 pt-4">
+        <div className="space-y-2 border-t border-gray-800 pt-3">
           <Label className="text-sm font-bold text-white uppercase tracking-wider">Background</Label>
           <div className="flex gap-3 items-center">
             <div className="relative">
@@ -211,11 +211,11 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Size Controls for Menu - Full Width and Logo Size */}
         {config.type === 'menu' && (
-          <div className="space-y-2 border-t border-gray-800 pt-4">
+          <div className="space-y-2 border-t border-gray-800 pt-3">
             <h4 className="text-sm font-bold text-white uppercase tracking-wider">Size</h4>
             
             {/* Full Width */}
-            <div className="flex items-center justify-between py-2">
+            <div className="flex items-center justify-between py-1">
               <Label className="text-xs text-gray-300">Full Width</Label>
               <Switch
                 checked={config.fullWidth ?? true}
@@ -246,7 +246,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Logo */}
         {config.logo && (
-          <div className="space-y-2 border-t border-gray-800 pt-4">
+          <div className="space-y-2 border-t border-gray-800 pt-3">
             <div className="flex items-center justify-between">
               <Label className="text-sm font-bold text-white uppercase tracking-wider">Logo</Label>
               <Switch
@@ -281,7 +281,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Menu Items Align - Only for Menu type */}
         {config.type === 'menu' && config.align !== undefined && (
-          <div className="space-y-2 border-t border-gray-800 pt-4">
+          <div className="space-y-2 border-t border-gray-800 pt-3">
             <Label className="text-sm font-bold text-white uppercase tracking-wider">Menu Items Align</Label>
             <Select
               value={config.align || 'left'}
@@ -303,7 +303,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Icons - Only for Menu type */}
         {config.type === 'menu' && config.icons !== undefined && (
-          <div className="space-y-2 border-t border-gray-800 pt-4">
+          <div className="space-y-2 border-t border-gray-800 pt-3">
             <div className="flex items-center justify-between">
               <Label className="text-sm font-bold text-white uppercase tracking-wider">Icons</Label>
               <Switch
@@ -316,7 +316,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Button - Only for Menu type */}
         {config.type === 'menu' && config.button !== undefined && (
-          <div className="space-y-2 border-t border-gray-800 pt-4">
+          <div className="space-y-2 border-t border-gray-800 pt-3">
             <div className="flex items-center justify-between">
               <Label className="text-sm font-bold text-white uppercase tracking-wider">Button</Label>
               <Switch
@@ -329,11 +329,11 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Styles Section - Only for Menu type */}
         {config.type === 'menu' && (
-          <div className="space-y-2 border-t border-gray-800 pt-4">
+          <div className="space-y-2 border-t border-gray-800 pt-3">
             <h4 className="text-sm font-bold text-white uppercase tracking-wider">Styles</h4>
             
             {/* Sticky */}
-            <div className="flex items-center justify-between py-2">
+            <div className="flex items-center justify-between py-1">
               <Label className="text-xs text-gray-300">Sticky</Label>
               <Switch
                 checked={config.sticky ?? false}
@@ -342,7 +342,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             </div>
 
             {/* Collapsed */}
-            <div className="flex items-center justify-between py-2">
+            <div className="flex items-center justify-between py-1">
               <Label className="text-xs text-gray-300">Collapsed</Label>
               <Switch
                 checked={config.collapsed ?? false}
@@ -351,7 +351,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             </div>
 
             {/* Transparent */}
-            <div className="flex items-center justify-between py-2">
+            <div className="flex items-center justify-between py-1">
               <Label className="text-xs text-gray-300">Transparent</Label>
               <Switch
                 checked={config.transparent ?? false}
@@ -401,7 +401,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Title */}
         {config.title && (
-          <div className="space-y-2 border-t border-gray-800 pt-4">
+          <div className="space-y-2 border-t border-gray-800 pt-3">
             <div className="flex items-center justify-between">
               <Label className="text-sm font-bold text-white uppercase tracking-wider">Title</Label>
               <Switch
@@ -445,7 +445,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Description */}
         {config.description && (
-          <div className="space-y-2 border-t border-gray-800 pt-4">
+          <div className="space-y-2 border-t border-gray-800 pt-3">
             <div className="flex items-center justify-between">
               <Label className="text-sm font-bold text-white uppercase tracking-wider">Subtitle</Label>
               <Switch
@@ -474,7 +474,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Button */}
         {config.button && (
-          <div className="space-y-2 border-t border-gray-800 pt-4">
+          <div className="space-y-2 border-t border-gray-800 pt-3">
             <div className="flex items-center justify-between">
               <Label className="text-sm font-bold text-white uppercase tracking-wider">Buttons</Label>
               <Switch
