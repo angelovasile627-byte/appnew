@@ -2,11 +2,14 @@ import React, { useState, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { LogoEditPopover } from '../LogoEditPopover';
+import { CompactMenuToolbar } from '../CompactMenuToolbar';
 
 export const MenuBlock = ({ config, onUpdate }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showLogoEdit, setShowLogoEdit] = useState(false);
   const [logoEditPosition, setLogoEditPosition] = useState({ top: 0, left: 0 });
+  const [selectedMenuItem, setSelectedMenuItem] = useState(null);
+  const [toolbarPosition, setToolbarPosition] = useState({ top: 0, left: 0 });
   const logoRef = useRef(null);
 
   const handleLogoClick = (e) => {
@@ -20,6 +23,34 @@ export const MenuBlock = ({ config, onUpdate }) => {
       setShowLogoEdit(true);
     }
   };
+
+  const handleMenuItemClick = (e, index) => {
+    e.stopPropagation();
+    const rect = e.currentTarget.getBoundingClientRect();
+    setToolbarPosition({
+      top: rect.bottom + window.scrollY + 10,
+      left: rect.left + rect.width / 2 + window.scrollX
+    });
+    setSelectedMenuItem(index);
+  };
+
+  const handleAddMenuItem = () => {
+    const newMenuItems = [
+      ...(config.menuItems || []),
+      { text: 'New Link', link: '#', color: config.menuItems[0]?.color || '#ffffff', show: true }
+    ];
+    onUpdate({ ...config, menuItems: newMenuItems });
+    setSelectedMenuItem(null);
+  };
+
+  const handleDeleteMenuItem = () => {
+    if (selectedMenuItem !== null) {
+      const newMenuItems = config.menuItems.filter((_, i) => i !== selectedMenuItem);
+      onUpdate({ ...config, menuItems: newMenuItems });
+      setSelectedMenuItem(null);
+    }
+  };
+
   // Determină background-ul în funcție de setări
   const getBackgroundColor = () => {
     if (config.transparent) {
