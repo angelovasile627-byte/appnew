@@ -22,9 +22,11 @@ call yarn install
 echo [OK] Frontend dependencies installed
 echo.
 
-echo Building optimized frontend...
+echo Building optimized frontend for desktop...
+copy .env.desktop .env.production.local >nul
 set GENERATE_SOURCEMAP=false
 call yarn build
+del .env.production.local >nul 2>&1
 cd ..
 echo [OK] Frontend built
 echo.
