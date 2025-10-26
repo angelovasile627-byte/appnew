@@ -33,11 +33,30 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
     onUpdate(newConfig);
   };
 
+  // Calculate top position - if editing menu, start below it
+  const getTopPosition = () => {
+    if (config.type === 'menu') {
+      // Get menu height dynamically
+      const menuElement = document.querySelector('[data-block-type="menu"]');
+      if (menuElement) {
+        const rect = menuElement.getBoundingClientRect();
+        return `${rect.bottom}px`;
+      }
+      return '80px'; // Fallback height for menu
+    }
+    return '0px';
+  };
+
+  const topPosition = getTopPosition();
+
   return (
     <div
-      className="fixed right-0 top-0 h-full bg-gray-900 shadow-2xl z-50 overflow-y-auto border-l border-gray-800"
+      className="fixed right-0 bg-gray-900 shadow-2xl overflow-y-auto border-l border-gray-800"
       style={{
-        width: '280px'
+        width: '280px',
+        top: topPosition,
+        bottom: '0',
+        zIndex: 9999
       }}
       onClick={(e) => e.stopPropagation()}
     >
