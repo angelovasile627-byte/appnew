@@ -108,8 +108,8 @@ const generateBlockHTML = (config) => {
                   background-color: ${config.button.color};
                   color: ${config.button.textColor};
                   padding: 10px 24px;
-                  font-size: 16px;
-                  border-radius: 10px;
+                  font-size: 15px;
+                  border-radius: 8px;
                   border: ${config.button.color === 'transparent' ? `2px solid ${config.button.textColor}` : 'none'};
                   font-weight: 600;
                   text-decoration: none;
