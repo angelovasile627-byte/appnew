@@ -54,7 +54,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         </button>
       </div>
 
-      <div className="p-4 space-y-3">
+      <div className="p-4 space-y-2">
         {/* Show/Hide Section */}
         {config.type && (
           <div className="space-y-2">
@@ -189,7 +189,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         )}
 
         {/* Background Color */}
-        <div className="space-y-3 border-t border-gray-800 pt-4">
+        <div className="space-y-2 border-t border-gray-800 pt-4">
           <Label className="text-sm font-bold text-white uppercase tracking-wider">Background</Label>
           <div className="flex gap-3 items-center">
             <div className="relative">
@@ -211,7 +211,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Size Controls for Menu - Full Width and Logo Size */}
         {config.type === 'menu' && (
-          <div className="space-y-3 border-t border-gray-800 pt-4">
+          <div className="space-y-2 border-t border-gray-800 pt-4">
             <h4 className="text-sm font-bold text-white uppercase tracking-wider">Size</h4>
             
             {/* Full Width */}
@@ -246,7 +246,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Logo */}
         {config.logo && (
-          <div className="space-y-3 border-t border-gray-800 pt-4">
+          <div className="space-y-2 border-t border-gray-800 pt-4">
             <div className="flex items-center justify-between">
               <Label className="text-sm font-bold text-white uppercase tracking-wider">Logo</Label>
               <Switch
@@ -255,7 +255,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
               />
             </div>
             {config.logo.show && (
-              <div className="space-y-3 ml-4">
+              <div className="space-y-2 ml-4">
                 {/* Brand Name */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
@@ -281,7 +281,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Menu Items Align - Only for Menu type */}
         {config.type === 'menu' && config.align !== undefined && (
-          <div className="space-y-3 border-t border-gray-800 pt-4">
+          <div className="space-y-2 border-t border-gray-800 pt-4">
             <Label className="text-sm font-bold text-white uppercase tracking-wider">Menu Items Align</Label>
             <Select
               value={config.align || 'left'}
@@ -303,7 +303,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Icons - Only for Menu type */}
         {config.type === 'menu' && config.icons !== undefined && (
-          <div className="space-y-3 border-t border-gray-800 pt-4">
+          <div className="space-y-2 border-t border-gray-800 pt-4">
             <div className="flex items-center justify-between">
               <Label className="text-sm font-bold text-white uppercase tracking-wider">Icons</Label>
               <Switch
@@ -316,7 +316,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Button - Only for Menu type */}
         {config.type === 'menu' && config.button !== undefined && (
-          <div className="space-y-3 border-t border-gray-800 pt-4">
+          <div className="space-y-2 border-t border-gray-800 pt-4">
             <div className="flex items-center justify-between">
               <Label className="text-sm font-bold text-white uppercase tracking-wider">Button</Label>
               <Switch
@@ -329,7 +329,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Styles Section - Only for Menu type */}
         {config.type === 'menu' && (
-          <div className="space-y-3 border-t border-gray-800 pt-4">
+          <div className="space-y-2 border-t border-gray-800 pt-4">
             <h4 className="text-sm font-bold text-white uppercase tracking-wider">Styles</h4>
             
             {/* Sticky */}
@@ -401,7 +401,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Title */}
         {config.title && (
-          <div className="space-y-3 border-t border-gray-800 pt-4">
+          <div className="space-y-2 border-t border-gray-800 pt-4">
             <div className="flex items-center justify-between">
               <Label className="text-sm font-bold text-white uppercase tracking-wider">Title</Label>
               <Switch
@@ -410,7 +410,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
               />
             </div>
             {config.title.show && (
-              <div className="space-y-3">
+              <div className="space-y-2">
                 <Textarea
                   value={config.title.text || ''}
                   onChange={(e) => updateConfig('title.text', e.target.value)}
@@ -445,7 +445,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Description */}
         {config.description && (
-          <div className="space-y-3 border-t border-gray-800 pt-4">
+          <div className="space-y-2 border-t border-gray-800 pt-4">
             <div className="flex items-center justify-between">
               <Label className="text-sm font-bold text-white uppercase tracking-wider">Subtitle</Label>
               <Switch
@@ -454,7 +454,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
               />
             </div>
             {config.description.show && (
-              <div className="space-y-3">
+              <div className="space-y-2">
                 <Textarea
                   value={config.description.text || ''}
                   onChange={(e) => updateConfig('description.text', e.target.value)}
@@ -474,7 +474,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Button */}
         {config.button && (
-          <div className="space-y-3 border-t border-gray-800 pt-4">
+          <div className="space-y-2 border-t border-gray-800 pt-4">
             <div className="flex items-center justify-between">
               <Label className="text-sm font-bold text-white uppercase tracking-wider">Buttons</Label>
               <Switch
@@ -483,7 +483,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
               />
             </div>
             {config.button.show && (
-              <div className="space-y-3">
+              <div className="space-y-2">
                 <Input
                   value={config.button.text || ''}
                   onChange={(e) => updateConfig('button.text', e.target.value)}
