@@ -130,6 +130,7 @@ const generateBlockHTML = (config) => {
           </style>
         </nav>
       `;
+    }
 
     case 'hero': {
       // Check if it's the new image-above-text layout
