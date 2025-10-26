@@ -54,7 +54,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         </button>
       </div>
 
-      <div className="p-2.5 space-y-1.5">
+      <div className="p-2.5 space-y-1">
         {/* Show/Hide Section */}
         {config.type && (
           <div className="space-y-1">
@@ -95,7 +95,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             </div>
 
             {/* Content Width */}
-            <div className="space-y-1.5">
+            <div className="space-y-1">
               <Label className="text-[10px] text-gray-300">Content Width</Label>
               <div className="flex items-center gap-2">
                 <Input
@@ -125,7 +125,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             </div>
             {config.heroImage.show && (
               <div className="space-y-1">
-                <div className="space-y-1.5">
+                <div className="space-y-1">
                   <Label className="text-[10px] text-gray-300">Image URL</Label>
                   <Input
                     value={config.heroImage.src || ''}
@@ -135,7 +135,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   />
                 </div>
                 
-                <div className="space-y-1.5">
+                <div className="space-y-1">
                   <Label className="text-[10px] text-gray-300">Image Height</Label>
                   <div className="flex items-center gap-2">
                     <Input
