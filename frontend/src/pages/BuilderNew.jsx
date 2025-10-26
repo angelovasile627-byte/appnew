@@ -84,18 +84,19 @@ const BuilderNew = () => {
     saveToLocalStorage([homePage], null, homePage.id);
   };
 
-  // Save to localStorage whenever pages, sharedMenu, or currentPageId change
+  // Save to localStorage whenever pages, sharedMenu, settings, or currentPageId change
   useEffect(() => {
     if (pages.length > 0) {
-      saveToLocalStorage(pages, sharedMenu, currentPageId);
+      saveToLocalStorage(pages, sharedMenu, settings, currentPageId);
     }
-  }, [pages, sharedMenu, currentPageId]);
+  }, [pages, sharedMenu, settings, currentPageId]);
 
-  const saveToLocalStorage = (pagesData, menuData, pageId) => {
+  const saveToLocalStorage = (pagesData, menuData, settingsData, pageId) => {
     const projectData = {
       projectId: projectId,
       pages: pagesData,
       sharedMenu: menuData,
+      settings: settingsData,
       currentPageId: pageId,
       updatedAt: new Date().toISOString()
     };
