@@ -1,9 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '../../ui/button';
+import { LogoEditPopover } from '../LogoEditPopover';
 
 export const MenuBlock = ({ config, onUpdate }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showLogoEdit, setShowLogoEdit] = useState(false);
+  const [logoEditPosition, setLogoEditPosition] = useState({ top: 0, left: 0 });
+  const logoRef = useRef(null);
+
+  const handleLogoClick = (e) => {
+    e.stopPropagation();
+    if (logoRef.current) {
+      const rect = logoRef.current.getBoundingClientRect();
+      setLogoEditPosition({
+        top: rect.bottom + window.scrollY + 10,
+        left: rect.left + window.scrollX
+      });
+      setShowLogoEdit(true);
+    }
+  };
   const containerStyle = {
     backgroundColor: config.background.value,
     width: '100%',
