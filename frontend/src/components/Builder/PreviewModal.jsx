@@ -589,8 +589,15 @@ export const PreviewModal = ({ blocks, isOpen, onClose }) => {
             padding: 0;
             box-sizing: border-box;
           }
+          html, body {
+            margin: 0;
+            padding: 0;
+            height: auto;
+            min-height: 0;
+          }
           body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            display: block;
           }
         </style>
       </head>
