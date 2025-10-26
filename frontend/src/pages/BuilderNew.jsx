@@ -366,16 +366,6 @@ const BuilderNew = () => {
             onMoveBlock={handleMoveBlock}
             selectedBlockRef={selectedBlockRef}
           />
-          
-          {/* Show InlineEditingPanel for ALL blocks (including menu) */}
-          {selectedBlock && (
-            <InlineEditingPanel
-              block={selectedBlock}
-              onUpdate={(newConfig) => handleUpdateBlock(selectedBlockId, newConfig)}
-              onClose={() => setSelectedBlockId(null)}
-              position={editPanelPosition}
-            />
-          )}
         </div>
       </div>
       
