@@ -117,27 +117,27 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         {config.type === 'hero' && config.heroImage && (
           <div className="space-y-0.5 border-t border-gray-800 pt-1">
             <div className="flex items-center justify-between">
-              <Label className="text-[10px] font-bold text-white uppercase tracking-wider">Hero Image</Label>
+              <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Hero Image</Label>
               <Switch
                 checked={config.heroImage.show ?? true}
                 onCheckedChange={(checked) => updateConfig('heroImage.show', checked)}
               />
             </div>
             {config.heroImage.show && (
-              <div className="space-y-1">
-                <div className="space-y-1">
-                  <Label className="text-[10px] text-gray-300">Image URL</Label>
+              <div className="space-y-0.5">
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Image URL</Label>
                   <Input
                     value={config.heroImage.src || ''}
                     onChange={(e) => updateConfig('heroImage.src', e.target.value)}
                     placeholder="https://example.com/image.jpg"
-                    className="bg-gray-800 border-gray-700 text-white text-[10px]"
+                    className="bg-gray-800 border-gray-700 text-white text-[9px] py-1 px-2"
                   />
                 </div>
                 
-                <div className="space-y-1">
-                  <Label className="text-[10px] text-gray-300">Image Height</Label>
-                  <div className="flex items-center gap-2">
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Image Height</Label>
+                  <div className="flex items-center gap-1.5">
                     <Input
                       type="range"
                       value={config.heroImage.height || 600}
@@ -147,13 +147,13 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                       max="1000"
                       step="50"
                     />
-                    <span className="text-[10px] text-gray-400 w-12">{config.heroImage.height || 600}px</span>
+                    <span className="text-[9px] text-gray-400 w-10">{config.heroImage.height || 600}px</span>
                   </div>
                 </div>
 
-                <div className="space-y-1">
-                  <Label className="text-[10px] text-gray-300">Border Radius</Label>
-                  <div className="flex items-center gap-2">
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Border Radius</Label>
+                  <div className="flex items-center gap-1.5">
                     <Input
                       type="range"
                       value={config.heroImage.borderRadius || 0}
@@ -163,17 +163,17 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                       max="50"
                       step="2"
                     />
-                    <span className="text-sm text-gray-400 w-12">{config.heroImage.borderRadius || 0}px</span>
+                    <span className="text-[9px] text-gray-400 w-10">{config.heroImage.borderRadius || 0}px</span>
                   </div>
                 </div>
 
-                <div className="space-y-1">
-                  <Label className="text-[10px] text-gray-300">Object Fit</Label>
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Object Fit</Label>
                   <Select
                     value={config.heroImage.objectFit || 'cover'}
                     onValueChange={(value) => updateConfig('heroImage.objectFit', value)}
                   >
-                    <SelectTrigger className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1">
+                    <SelectTrigger className="bg-gray-800 border-gray-700 text-white text-[9px] px-2 py-1 h-7">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-gray-800 border-gray-700">
@@ -189,23 +189,23 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         )}
 
         {/* Background Color */}
-        <div className="space-y-1 border-t border-gray-800 pt-1.5">
-          <Label className="text-[10px] font-bold text-white uppercase tracking-wider">Background</Label>
-          <div className="flex gap-2 items-center">
+        <div className="space-y-0.5 border-t border-gray-800 pt-1">
+          <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Background</Label>
+          <div className="flex gap-1.5 items-center">
             <div className="relative">
               <Input
                 type="color"
                 value={config.background?.value || '#ffffff'}
                 onChange={(e) => updateConfig('background.value', e.target.value)}
-                className="w-8 h-8 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
-                style={{ padding: '2px' }}
+                className="w-6 h-6 p-0.5 cursor-pointer rounded border border-gray-700 bg-transparent"
+                style={{ padding: '1px' }}
               />
             </div>
             <Input
               type="text"
               value={config.background?.value || '#ffffff'}
               onChange={(e) => updateConfig('background.value', e.target.value)}
-              className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1"
+              className="flex-1 bg-gray-800 border-gray-700 text-white text-[9px] px-2 py-1 h-7"
               placeholder="#ffffff"
             />
           </div>
@@ -213,7 +213,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Size Controls for Menu - Full Width and Logo Size */}
         {config.type === 'menu' && (
-          <div className="space-y-1 border-t border-gray-800 pt-1.5">
+          <div className="space-y-0.5 border-t border-gray-800 pt-1">
             <h4 className="text-[10px] font-bold text-white uppercase tracking-wider">Size</h4>
             
             {/* Full Width */}
