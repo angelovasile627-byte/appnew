@@ -1,17 +1,23 @@
 frontend:
-  - task: "Removed Edit Block / Menu Settings panel"
+  - task: "Activate ALL Show/Hide and Styles settings for menu blocks by default"
     implemented: true
     working: "YES"
     files: 
-      - "/app/frontend/src/components/Builder/InlineEditingPanel.jsx" (deleted)
-      - "/app/frontend/src/pages/BuilderNew.jsx" (modified)
+      - "/app/frontend/src/data/mockBlocks.js" (modified menu templates)
+      - "/app/frontend/src/components/Builder/InlineEditingPanel.jsx" (restored and enhanced)
+      - "/app/frontend/src/pages/BuilderNew.jsx" (restored InlineEditingPanel integration)
     stuck_count: 0
     priority: "high"
     needs_retesting: false
+    changes_made:
+      - "Menu - Classic (menu-1): Activated icons, sticky, collapsed, transparent, added activeColor"
+      - "Menu - Transparent (menu-3): Activated icons, collapsed, added activeColor"
+      - "Added activeColor control in InlineEditingPanel for menu customization"
+      - "All menu templates now have ALL features ON by default"
     status_history:
       - working: "YES"
         agent: "main"
-        comment: "Deleted InlineEditingPanel component and removed all references from BuilderNew.jsx. User will create a new panel later."
+        comment: "Successfully activated all Show/Hide and Styles settings for menu blocks. All features (Full Width, Logo, Brand Name, Menu Items, Active Color, Icons, Buttons, Sticky, Collapsed, Transparent, Hamburger) are now ON by default when adding a menu block."
 
 metadata:
   created_by: "testing_agent"
