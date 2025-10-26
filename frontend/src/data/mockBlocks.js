@@ -35,26 +35,26 @@ export const blockTemplates = [
     thumbnail: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=400&h=300&fit=crop',
     config: {
       type: 'menu',
-      background: { type: 'color', value: '#ffffff' },
+      background: { type: 'color', value: '#000000' },
       fullWidth: true,
       contentWidth: 1200,
-      padding: { top: 16, bottom: 16 },
+      padding: { top: 12, bottom: 12 },
       logo: { 
         text: 'AXXO', 
         show: true, 
-        color: '#1a1a2e', 
-        size: 24,
-        imageSize: 40,
-        logoSize: 120
+        color: '#ffffff', 
+        size: 20,
+        imageSize: 32,
+        logoSize: 80
       },
       menuItems: [
-        { text: 'About us', link: '#about', color: '#1a1a2e', show: true },
-        { text: 'Services', link: '#services', color: '#1a1a2e', show: true },
-        { text: 'Contacts', link: '#contacts', color: '#1a1a2e', show: true }
+        { text: 'About us', link: '#about', color: '#ffffff', show: true },
+        { text: 'Services', link: '#services', color: '#ffffff', show: true },
+        { text: 'Contacts', link: '#contacts', color: '#ffffff', show: true }
       ],
       button: { 
         text: 'Get Started', 
-        show: true, 
+        show: false, 
         color: '#6366F1', 
         textColor: '#ffffff', 
         link: '#start' 
@@ -62,12 +62,12 @@ export const blockTemplates = [
       icons: { 
         show: false 
       },
-      sticky: false,
+      sticky: true,
       collapsed: false,
-      transparent: false,
+      transparent: true,
       hamburger: {
         show: true,
-        color: '#1a1a2e',
+        color: '#ffffff',
         breakpoint: 768
       },
       align: 'space-between'
