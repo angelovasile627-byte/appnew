@@ -241,6 +241,184 @@ export const SettingsModal = ({
               </div>
             )}
 
+            {activeTab === 'pages' && (
+              <div className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold text-gray-900">Gestionare Pagini</h3>
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={() => handleOpenPageModal('blank')}
+                      className="bg-indigo-600 hover:bg-indigo-700 text-white flex items-center gap-2"
+                    >
+                      <Plus className="w-4 h-4" />
+                      Pagină Nouă
+                    </Button>
+                    <Button
+                      onClick={() => handleOpenPageModal('duplicate')}
+                      className="bg-gray-600 hover:bg-gray-700 text-white flex items-center gap-2"
+                    >
+                      <Copy className="w-4 h-4" />
+                      Duplică Pagină
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Pages List */}
+                <div className="space-y-3">
+                  {pages.length === 0 ? (
+                    <div className="text-center py-12 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
+                      <FileText className="w-12 h-12 mx-auto mb-3 text-gray-400" />
+                      <p className="text-gray-600 mb-1">Nu există pagini</p>
+                      <p className="text-sm text-gray-500">Creează prima pagină pentru proiectul tău</p>
+                    </div>
+                  ) : (
+                    pages.map((page) => (
+                      <div
+                        key={page.id}
+                        className="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
+                      >
+                        <div className="flex items-center gap-3 flex-1 min-w-0">
+                          {page.is_home ? (
+                            <Home className="w-5 h-5 text-indigo-600 flex-shrink-0" />
+                          ) : (
+                            <FileText className="w-5 h-5 text-gray-600 flex-shrink-0" />
+                          )}
+                          
+                          {editingPageId === page.id ? (
+                            <input
+                              type="text"
+                              value={editPageName}
+                              onChange={(e) => setEditPageName(e.target.value)}
+                              onBlur={() => handleSavePageRename(page.id)}
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter') handleSavePageRename(page.id);
+                                if (e.key === 'Escape') handleCancelEditPage();
+                              }}
+                              className="flex-1 px-3 py-2 border border-indigo-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                              autoFocus
+                            />
+                          ) : (
+                            <div className="flex-1 min-w-0">
+                              <p className="font-medium text-gray-900 truncate">{page.name}</p>
+                              <p className="text-xs text-gray-500">
+                                {page.is_home ? 'Pagina Home' : `Creată ${new Date(page.created_at).toLocaleDateString('ro-RO')}`}
+                              </p>
+                            </div>
+                          )}
+                        </div>
+
+                        {editingPageId !== page.id && (
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => handleStartEditPage(page.id, page.name)}
+                              className="p-2 text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition"
+                              title="Redenumește"
+                            >
+                              <Edit2 className="w-4 h-4" />
+                            </button>
+                            {!page.is_home && (
+                              <button
+                                onClick={() => handleDeletePageConfirm(page.id, page.name)}
+                                className="p-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition"
+                                title="Șterge"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    ))
+                  )}
+                </div>
+
+                {/* Page Creation/Duplication Modal */}
+                {pageModalOpen && (
+                  <div className="fixed inset-0 bg-black bg-opacity-50 z-[100] flex items-center justify-center p-4">
+                    <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
+                      <div className="flex items-center justify-between p-6 border-b border-gray-200">
+                        <h3 className="text-lg font-bold text-gray-900">
+                          {pageModalType === 'blank' ? 'Creează Pagină Nouă' : 'Duplică Pagină'}
+                        </h3>
+                        <button
+                          onClick={handleClosePageModal}
+                          className="p-2 hover:bg-gray-100 rounded-lg transition"
+                        >
+                          <X className="w-5 h-5" />
+                        </button>
+                      </div>
+
+                      <div className="p-6 space-y-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Nume pagină *
+                          </label>
+                          <input
+                            type="text"
+                            value={newPageName}
+                            onChange={(e) => setNewPageName(e.target.value)}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            placeholder="ex: Despre Noi, Servicii, Contact"
+                          />
+                        </div>
+
+                        {pageModalType === 'duplicate' && (
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              Selectează pagina de duplicat *
+                            </label>
+                            <select
+                              value={selectedPageId}
+                              onChange={(e) => setSelectedPageId(e.target.value)}
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            >
+                              <option value="">-- Selectează o pagină --</option>
+                              {pages.map((page) => (
+                                <option key={page.id} value={page.id}>
+                                  {page.name} {page.is_home ? '(Home)' : ''}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200">
+                        <Button
+                          onClick={handleClosePageModal}
+                          className="px-6 py-2 bg-gray-200 text-gray-700 hover:bg-gray-300"
+                        >
+                          Anulează
+                        </Button>
+                        <Button
+                          onClick={handleCreateNewPage}
+                          className="px-6 py-2 bg-indigo-600 text-white hover:bg-indigo-700 flex items-center gap-2"
+                        >
+                          {pageModalType === 'blank' ? (
+                            <>
+                              <Plus className="w-4 h-4" />
+                              Creează
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="w-4 h-4" />
+                              Duplică
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <p className="text-sm text-blue-800">
+                    <strong>Notă:</strong> Paginile create aici vor fi disponibile în meniul de navigare pentru linking.
+                  </p>
+                </div>
+              </div>
+            )}
+
             {activeTab === 'seo' && (
               <div className="space-y-6">
                 <h3 className="text-lg font-semibold text-gray-900">Setări SEO</h3>
