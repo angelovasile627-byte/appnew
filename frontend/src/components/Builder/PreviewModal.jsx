@@ -259,6 +259,305 @@ const generateBlockHTML = (config) => {
       `;
     }
 
+    case 'article': {
+      const bgStyle = config.background.type === 'gradient'
+        ? `background: ${config.background.value};`
+        : `background-color: ${config.background.value};`;
+
+      const layoutStyles = {
+        'image-left': 'flex-direction: row;',
+        'image-right': 'flex-direction: row-reverse;',
+        'centered': 'flex-direction: column; align-items: center;'
+      };
+
+      return `
+        <section style="
+          ${bgStyle}
+          width: 100%;
+          padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
+        ">
+          <div style="
+            max-width: ${config.contentWidth}px;
+            margin: 0 auto;
+            display: flex;
+            ${layoutStyles[config.layout] || layoutStyles['image-left']}
+            align-items: center;
+            gap: 60px;
+          ">
+            ${config.layout === 'centered' ? `
+              <img 
+                src="${config.image.src}" 
+                alt="${config.image.alt}" 
+                style="
+                  width: 100%;
+                  max-width: 800px;
+                  border-radius: 16px;
+                  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+                  margin-bottom: 40px;
+                "
+              />
+            ` : `
+              <div style="flex: 1; min-width: 0;">
+                <img 
+                  src="${config.image.src}" 
+                  alt="${config.image.alt}" 
+                  style="
+                    width: 100%;
+                    border-radius: 16px;
+                    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+                  "
+                />
+              </div>
+            `}
+            
+            <div style="
+              flex: 1;
+              text-align: ${config.title.align};
+            ">
+              ${config.title.show ? `
+                <h2 style="
+                  font-size: 42px;
+                  font-weight: 700;
+                  color: ${config.title.color};
+                  margin-bottom: 20px;
+                  line-height: 1.2;
+                ">
+                  ${config.title.text}
+                </h2>
+              ` : ''}
+              
+              ${config.description.show ? `
+                <p style="
+                  font-size: 18px;
+                  color: ${config.description.color};
+                  margin-bottom: 28px;
+                  line-height: 1.6;
+                ">
+                  ${config.description.text}
+                </p>
+              ` : ''}
+              
+              ${config.button.show ? `
+                <a href="${config.button.link}" style="
+                  background-color: ${config.button.color};
+                  color: ${config.button.textColor};
+                  padding: 14px 32px;
+                  font-size: 16px;
+                  border-radius: 10px;
+                  font-weight: 600;
+                  text-decoration: none;
+                  display: inline-block;
+                ">
+                  ${config.button.text}
+                </a>
+              ` : ''}
+            </div>
+          </div>
+          
+          <style>
+            @media (max-width: 768px) {
+              section > div {
+                flex-direction: column !important;
+                text-align: center !important;
+              }
+            }
+          </style>
+        </section>
+      `;
+    }
+
+    case 'testimonial': {
+      const bgStyle = config.background.type === 'gradient'
+        ? `background: ${config.background.value};`
+        : `background-color: ${config.background.value};`;
+
+      return `
+        <section style="
+          ${bgStyle}
+          width: 100%;
+          padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
+        ">
+          <div style="
+            max-width: ${config.contentWidth}px;
+            margin: 0 auto;
+          ">
+            ${config.title.show ? `
+              <h2 style="
+                font-size: 42px;
+                font-weight: 700;
+                color: ${config.title.color};
+                text-align: ${config.title.align};
+                margin-bottom: 16px;
+              ">
+                ${config.title.text}
+              </h2>
+            ` : ''}
+            
+            ${config.description.show ? `
+              <p style="
+                font-size: 18px;
+                color: ${config.description.color};
+                text-align: ${config.description.align};
+                margin-bottom: 60px;
+              ">
+                ${config.description.text}
+              </p>
+            ` : ''}
+            
+            <div style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+              gap: 32px;
+              margin-top: 40px;
+            ">
+              ${(config.items || []).map(item => `
+                <div style="
+                  background: white;
+                  padding: 32px;
+                  border-radius: 12px;
+                  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+                ">
+                  <div style="margin-bottom: 20px;">
+                    ${Array(item.rating || 5).fill('⭐').join('')}
+                  </div>
+                  <p style="
+                    font-size: 16px;
+                    color: #4a5568;
+                    margin-bottom: 24px;
+                    line-height: 1.6;
+                  ">
+                    "${item.text}"
+                  </p>
+                  <div style="display: flex; align-items: center; gap: 12px;">
+                    <img 
+                      src="${item.avatar}" 
+                      alt="${item.name}"
+                      style="
+                        width: 48px;
+                        height: 48px;
+                        border-radius: 50%;
+                      "
+                    />
+                    <div>
+                      <div style="font-weight: 600; color: #2d3748;">
+                        ${item.name}
+                      </div>
+                      <div style="font-size: 14px; color: #718096;">
+                        ${item.role}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    case 'footer': {
+      const bgStyle = config.background.type === 'gradient'
+        ? `background: ${config.background.value};`
+        : `background-color: ${config.background.value};`;
+
+      return `
+        <footer style="
+          ${bgStyle}
+          width: 100%;
+          padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
+        ">
+          <div style="
+            max-width: ${config.contentWidth}px;
+            margin: 0 auto;
+          ">
+            <div style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+              gap: 40px;
+              margin-bottom: 40px;
+            ">
+              ${config.logo.show ? `
+                <div>
+                  <div style="
+                    font-size: 24px;
+                    font-weight: 800;
+                    color: ${config.logo.color};
+                    margin-bottom: 16px;
+                  ">
+                    ${config.logo.text}
+                  </div>
+                </div>
+              ` : ''}
+              
+              ${(config.columns || []).map(column => `
+                <div>
+                  <h3 style="
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: ${config.logo.color};
+                    margin-bottom: 16px;
+                  ">
+                    ${column.title}
+                  </h3>
+                  <div style="display: flex; flex-direction: column; gap: 12px;">
+                    ${(column.links || []).map(link => `
+                      <a href="${link.url}" style="
+                        color: ${config.copyright?.color || '#9a9aae'};
+                        text-decoration: none;
+                        font-size: 14px;
+                      ">
+                        ${link.text}
+                      </a>
+                    `).join('')}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            
+            ${(config.social && config.social.length > 0) ? `
+              <div style="
+                display: flex;
+                gap: 16px;
+                justify-content: center;
+                margin-bottom: 24px;
+                padding-top: 24px;
+                border-top: 1px solid rgba(255,255,255,0.1);
+              ">
+                ${config.social.map(item => `
+                  <a href="${item.url}" style="
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    background: rgba(255,255,255,0.1);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: ${config.logo.color};
+                    text-decoration: none;
+                    font-weight: bold;
+                  ">
+                    ${item.icon.charAt(0)}
+                  </a>
+                `).join('')}
+              </div>
+            ` : ''}
+            
+            ${config.copyright.show ? `
+              <div style="
+                text-align: center;
+                color: ${config.copyright.color};
+                font-size: 14px;
+                padding-top: 24px;
+                border-top: 1px solid rgba(255,255,255,0.1);
+              ">
+                ${config.copyright.text}
+              </div>
+            ` : ''}
+          </div>
+        </footer>
+      `;
+    }
+
     default:
       return `<div style="padding: 40px; text-align: center; font-family: sans-serif;"><p>Bloc de tip "${config.type}" - previzualizare indisponibilă</p></div>`;
   }
