@@ -381,67 +381,66 @@ export const MenuBlock = ({ config, onUpdate }) => {
     <div style={containerStyle} data-block-type="menu">
       {getLayoutContent()}
 
-        {/* Mobile Menu Dropdown */}
-        {isMobileMenuOpen && (
-          <div
-            className="mobile-menu-dropdown"
-            style={{
-              position: 'fixed',
-              top: '60px',
-              left: 0,
-              right: 0,
-              backgroundColor: config.transparent ? 'rgba(255, 255, 255, 0.95)' : config.background?.value || 'rgba(0,0,0,0.1)',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-              padding: '20px',
-              zIndex: 1000,
-              display: 'none',
-              backdropFilter: config.transparent ? 'blur(10px)' : 'none'
-            }}
-          >
-            <nav style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              {config.menuItems.map((item, index) => (
-                item.show && (
-                  <a
-                    key={index}
-                    href={item.link}
-                    style={{
-                      fontSize: '16px',
-                      fontWeight: '500',
-                      color: item.color,
-                      textDecoration: 'none',
-                      padding: '12px 0',
-                      borderBottom: '1px solid rgba(0,0,0,0.1)'
-                    }}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.text}
-                  </a>
-                )
-              ))}
-              {config.button.show && (
+      {/* Mobile Menu Dropdown */}
+      {isMobileMenuOpen && (
+        <div
+          className="mobile-menu-dropdown"
+          style={{
+            position: 'fixed',
+            top: '60px',
+            left: 0,
+            right: 0,
+            backgroundColor: config.transparent ? 'rgba(255, 255, 255, 0.95)' : config.background?.value || 'rgba(0,0,0,0.1)',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            padding: '20px',
+            zIndex: 1000,
+            display: 'none',
+            backdropFilter: config.transparent ? 'blur(10px)' : 'none'
+          }}
+        >
+          <nav style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {config.menuItems.map((item, index) => (
+              item.show && (
                 <a
-                  href={config.button.link}
+                  key={index}
+                  href={item.link}
                   style={{
-                    backgroundColor: config.button.color,
-                    color: config.button.textColor,
-                    padding: '12px 28px',
                     fontSize: '16px',
-                    borderRadius: '10px',
-                    border: config.button.color === 'transparent' ? `2px solid ${config.button.textColor}` : 'none',
-                    fontWeight: '600',
+                    fontWeight: '500',
+                    color: item.color,
                     textDecoration: 'none',
-                    textAlign: 'center',
-                    display: 'block',
-                    marginTop: '8px'
+                    padding: '12px 0',
+                    borderBottom: '1px solid rgba(0,0,0,0.1)'
                   }}
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  {config.button.text}
+                  {item.text}
                 </a>
-              )}
-            </nav>
-          </div>
-        )}
-      </div>
+              )
+            ))}
+            {config.button.show && (
+              <a
+                href={config.button.link}
+                style={{
+                  backgroundColor: config.button.color,
+                  color: config.button.textColor,
+                  padding: '12px 28px',
+                  fontSize: '16px',
+                  borderRadius: '10px',
+                  border: config.button.color === 'transparent' ? `2px solid ${config.button.textColor}` : 'none',
+                  fontWeight: '600',
+                  textDecoration: 'none',
+                  textAlign: 'center',
+                  display: 'block',
+                  marginTop: '8px'
+                }}
+              >
+                {config.button.text}
+              </a>
+            )}
+          </nav>
+        </div>
+      )}
 
       {/* Responsive CSS */}
       <style>{`
