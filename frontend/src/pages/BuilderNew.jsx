@@ -97,7 +97,7 @@ const BuilderNew = () => {
     };
     localStorage.setItem('axxo_builder_project', JSON.stringify(projectData));
   };
-  
+
   
   // Function to save current state to history before making changes
   const saveToHistory = (currentBlocks) => {
@@ -105,6 +105,104 @@ const BuilderNew = () => {
       past: [...prev.past, currentBlocks],
       future: [] // Clear future when new action is made
     }));
+  };
+
+  // ============ PAGES FUNCTIONS ============
+  
+  const handleCreatePage = (pageName) => {
+    const newPage = {
+      id: `page-${Date.now()}`,
+      name: pageName,
+      blocks: [],
+      is_home: pages.length === 0,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+    
+    const updatedPages = [...pages, newPage];
+    setPages(updatedPages);
+    setCurrentPageId(newPage.id);
+    
+    toast({
+      title: 'Pagină creată',
+      description: `Pagina "${pageName}" a fost creată cu succes`
+    });
+  };
+
+  const handleDuplicatePage = (pageId, newPageName) => {
+    const pageToDuplicate = pages.find(p => p.id === pageId);
+    if (!pageToDuplicate) return;
+
+    const newPage = {
+      id: `page-${Date.now()}`,
+      name: newPageName,
+      blocks: JSON.parse(JSON.stringify(pageToDuplicate.blocks)), // Deep clone
+      is_home: false,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+    
+    const updatedPages = [...pages, newPage];
+    setPages(updatedPages);
+    setCurrentPageId(newPage.id);
+    
+    toast({
+      title: 'Pagină duplicată',
+      description: `Pagina "${newPageName}" a fost creată din "${pageToDuplicate.name}"`
+    });
+  };
+
+  const handleSelectPage = (pageId) => {
+    setCurrentPageId(pageId);
+    setSelectedBlockId(null);
+  };
+
+  const handleDeletePage = (pageId) => {
+    const page = pages.find(p => p.id === pageId);
+    
+    if (page?.is_home && pages.length > 1) {
+      toast({
+        title: 'Nu se poate șterge',
+        description: 'Nu poți șterge pagina Home. Setează mai întâi altă pagină ca Home.',
+        variant: 'destructive'
+      });
+      return;
+    }
+
+    const updatedPages = pages.filter(p => p.id !== pageId);
+    setPages(updatedPages);
+    
+    if (currentPageId === pageId && updatedPages.length > 0) {
+      setCurrentPageId(updatedPages[0].id);
+    }
+    
+    toast({
+      title: 'Pagină ștearsă',
+      description: `Pagina a fost eliminată`
+    });
+  };
+
+  const handleRenamePage = (pageId, newName) => {
+    const updatedPages = pages.map(p => 
+      p.id === pageId 
+        ? { ...p, name: newName, updated_at: new Date().toISOString() } 
+        : p
+    );
+    setPages(updatedPages);
+    
+    toast({
+      title: 'Pagină redenumită',
+      description: `Pagina a fost redenumită în "${newName}"`
+    });
+  };
+
+  const updateCurrentPageBlocks = (newBlocks) => {
+    const updatedPages = pages.map(p => 
+      p.id === currentPageId 
+        ? { ...p, blocks: newBlocks, updated_at: new Date().toISOString() } 
+        : p
+    );
+    setPages(updatedPages);
   };
 
   // Calculate position for inline editing panel
