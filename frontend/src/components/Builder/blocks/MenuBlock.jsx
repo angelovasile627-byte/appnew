@@ -149,7 +149,7 @@ export const MenuBlock = ({ config, onUpdate }) => {
                   src={config.logo.image} 
                   alt={config.logo.text || 'Logo'} 
                   style={{
-                    height: `${config.logo.imageSize || 40}px`,
+                    height: `${config.logo.imageSize || 32}px`,
                     width: 'auto',
                     objectFit: 'contain',
                     maxWidth: '100%'
