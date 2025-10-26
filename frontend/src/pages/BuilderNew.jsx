@@ -42,6 +42,37 @@ const BuilderNew = () => {
     });
   };
   
+  // Auto-clean duplicates whenever blocks change
+  React.useEffect(() => {
+    const { blockTemplates } = require('../data/mockBlocks');
+    const menuBlocks = blocks.filter(block => {
+      const template = blockTemplates.find(t => t.id === block.templateId);
+      return template && template.category === 'menu';
+    });
+    
+    if (menuBlocks.length > 1) {
+      const cleanedBlocks = removeDuplicateMenus(blocks);
+      setBlocks(cleanedBlocks);
+      
+      // Update localStorage immediately
+      const savedProject = localStorage.getItem('currentProject');
+      if (savedProject) {
+        try {
+          const projectData = JSON.parse(savedProject);
+          projectData.blocks = cleanedBlocks;
+          localStorage.setItem('currentProject', JSON.stringify(projectData));
+        } catch (e) {
+          console.error('Error updating localStorage:', e);
+        }
+      }
+      
+      toast({
+        title: 'Meniuri duplicate eliminate',
+        description: `${menuBlocks.length - 1} meniu(ri) duplicate au fost eliminate automat`
+      });
+    }
+  }, [blocks]);
+  
   // Load project from localStorage on mount
   useEffect(() => {
     const savedProject = localStorage.getItem('currentProject');
