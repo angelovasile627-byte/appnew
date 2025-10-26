@@ -159,10 +159,22 @@ def generate_html_from_blocks(blocks: List[Block]) -> str:
     for block in blocks:
         template_html = block_html_map.get(block.templateId, block_html_map["default"])
         
-        # Replace placeholders with actual config values
-        for key, value in block.config.items():
-            placeholder = f"{{{{{key}}}}}"
-            template_html = template_html.replace(placeholder, str(value))
+        # Special handling for hero-1 (image-above-text layout)
+        if block.templateId == "hero-1":
+            template_html = template_html.replace('{{heroImage}}', block.config.get('heroImage', {}).get('src', ''))
+            template_html = template_html.replace('{{backgroundColor}}', block.config.get('background', {}).get('value', '#F5F5F0'))
+            template_html = template_html.replace('{{title}}', block.config.get('title', {}).get('text', ''))
+            template_html = template_html.replace('{{titleColor}}', block.config.get('title', {}).get('color', '#2B2B2B'))
+            template_html = template_html.replace('{{description}}', block.config.get('description', {}).get('text', ''))
+            template_html = template_html.replace('{{descriptionColor}}', block.config.get('description', {}).get('color', '#6B6B6B'))
+            template_html = template_html.replace('{{buttonText}}', block.config.get('button', {}).get('text', ''))
+            template_html = template_html.replace('{{buttonBg}}', block.config.get('button', {}).get('color', '#A8F5B8'))
+            template_html = template_html.replace('{{buttonColor}}', block.config.get('button', {}).get('textColor', '#2B2B2B'))
+        else:
+            # Replace placeholders with actual config values for other blocks
+            for key, value in block.config.items():
+                placeholder = f"{{{{{key}}}}}"
+                template_html = template_html.replace(placeholder, str(value))
         
         html_blocks.append(template_html)
     
