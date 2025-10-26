@@ -1,8 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Save, Download, Eye, Upload, Undo, Redo, Maximize, Minimize } from 'lucide-react';
+import { Plus, Save, Download, Eye, Upload, Undo, Redo, Maximize, Minimize, Settings, FileText } from 'lucide-react';
 import { Button } from '../ui/button';
 
-export const Toolbar = ({ onAddBlock, onSave, onExport, onPreview, onFTPUpload, onUndo, onRedo, canUndo, canRedo }) => {
+export const Toolbar = ({ 
+  pages = [],
+  currentPageId,
+  onSelectPage,
+  onAddBlock, 
+  onSave, 
+  onExport, 
+  onPreview, 
+  onFTPUpload, 
+  onUndo, 
+  onRedo, 
+  onOpenSettings,
+  canUndo, 
+  canRedo 
+}) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   // Check fullscreen state on mount and listen for changes
