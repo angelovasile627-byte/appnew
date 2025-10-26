@@ -77,8 +77,8 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             <h4 className="text-[10px] font-bold text-white uppercase tracking-wider">Size</h4>
             
             {/* Full Screen */}
-            <div className="flex items-center justify-between py-1">
-              <Label className="text-xs text-gray-300">Full Screen</Label>
+            <div className="flex items-center justify-between py-0.5">
+              <Label className="text-[10px] text-gray-300">Full Screen</Label>
               <Switch
                 checked={config.fullScreen ?? true}
                 onCheckedChange={(checked) => updateConfig('fullScreen', checked)}
@@ -86,8 +86,8 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             </div>
 
             {/* Full Width */}
-            <div className="flex items-center justify-between py-1">
-              <Label className="text-xs text-gray-300">Full Width</Label>
+            <div className="flex items-center justify-between py-0.5">
+              <Label className="text-[10px] text-gray-300">Full Width</Label>
               <Switch
                 checked={config.fullWidth ?? false}
                 onCheckedChange={(checked) => updateConfig('fullWidth', checked)}
@@ -96,7 +96,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
             {/* Content Width */}
             <div className="space-y-1.5">
-              <Label className="text-xs text-gray-300">Content Width</Label>
+              <Label className="text-[10px] text-gray-300">Content Width</Label>
               <div className="flex items-center gap-2">
                 <Input
                   type="range"
@@ -107,7 +107,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   max="1600"
                   step="50"
                 />
-                <span className="text-xs text-gray-400 w-16">{config.contentWidth || 800}px</span>
+                <span className="text-[10px] text-gray-400 w-16">{config.contentWidth || 800}px</span>
               </div>
             </div>
           </div>
@@ -115,28 +115,28 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Hero Image Controls */}
         {config.type === 'hero' && config.heroImage && (
-          <div className="space-y-2 border-t border-gray-800 pt-3">
+          <div className="space-y-1 border-t border-gray-800 pt-1.5">
             <div className="flex items-center justify-between">
-              <Label className="text-xs font-bold text-white uppercase tracking-wider">Hero Image</Label>
+              <Label className="text-[10px] font-bold text-white uppercase tracking-wider">Hero Image</Label>
               <Switch
                 checked={config.heroImage.show ?? true}
                 onCheckedChange={(checked) => updateConfig('heroImage.show', checked)}
               />
             </div>
             {config.heroImage.show && (
-              <div className="space-y-2">
+              <div className="space-y-1">
                 <div className="space-y-1.5">
-                  <Label className="text-xs text-gray-300">Image URL</Label>
+                  <Label className="text-[10px] text-gray-300">Image URL</Label>
                   <Input
                     value={config.heroImage.src || ''}
                     onChange={(e) => updateConfig('heroImage.src', e.target.value)}
                     placeholder="https://example.com/image.jpg"
-                    className="bg-gray-800 border-gray-700 text-white text-xs"
+                    className="bg-gray-800 border-gray-700 text-white text-[10px]"
                   />
                 </div>
                 
                 <div className="space-y-1.5">
-                  <Label className="text-xs text-gray-300">Image Height</Label>
+                  <Label className="text-[10px] text-gray-300">Image Height</Label>
                   <div className="flex items-center gap-2">
                     <Input
                       type="range"
@@ -147,12 +147,12 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                       max="1000"
                       step="50"
                     />
-                    <span className="text-xs text-gray-400 w-16">{config.heroImage.height || 600}px</span>
+                    <span className="text-[10px] text-gray-400 w-16">{config.heroImage.height || 600}px</span>
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label className="text-xs text-gray-300">Border Radius</Label>
+                <div className="space-y-1">
+                  <Label className="text-[10px] text-gray-300">Border Radius</Label>
                   <div className="flex items-center gap-2">
                     <Input
                       type="range"
@@ -167,13 +167,13 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label className="text-xs text-gray-300">Object Fit</Label>
+                <div className="space-y-1">
+                  <Label className="text-[10px] text-gray-300">Object Fit</Label>
                   <Select
                     value={config.heroImage.objectFit || 'cover'}
                     onValueChange={(value) => updateConfig('heroImage.objectFit', value)}
                   >
-                    <SelectTrigger className="bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5">
+                    <SelectTrigger className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-gray-800 border-gray-700">
@@ -189,8 +189,8 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         )}
 
         {/* Background Color */}
-        <div className="space-y-2 border-t border-gray-800 pt-3">
-          <Label className="text-xs font-bold text-white uppercase tracking-wider">Background</Label>
+        <div className="space-y-1 border-t border-gray-800 pt-1.5">
+          <Label className="text-[10px] font-bold text-white uppercase tracking-wider">Background</Label>
           <div className="flex gap-2 items-center">
             <div className="relative">
               <Input
@@ -205,7 +205,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
               type="text"
               value={config.background?.value || '#ffffff'}
               onChange={(e) => updateConfig('background.value', e.target.value)}
-              className="flex-1 bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5"
+              className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5"
               placeholder="#ffffff"
             />
           </div>
@@ -213,12 +213,12 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Size Controls for Menu - Full Width and Logo Size */}
         {config.type === 'menu' && (
-          <div className="space-y-2 border-t border-gray-800 pt-3">
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider">Size</h4>
+          <div className="space-y-1 border-t border-gray-800 pt-1.5">
+            <h4 className="text-[10px] font-bold text-white uppercase tracking-wider">Size</h4>
             
             {/* Full Width */}
-            <div className="flex items-center justify-between py-1">
-              <Label className="text-xs text-gray-300">Full Width</Label>
+            <div className="flex items-center justify-between py-0.5">
+              <Label className="text-[10px] text-gray-300">Full Width</Label>
               <Switch
                 checked={config.fullWidth ?? true}
                 onCheckedChange={(checked) => updateConfig('fullWidth', checked)}
@@ -227,8 +227,8 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
             {/* Logo Size - doar pentru meniu */}
             {config.logo && (
-              <div className="space-y-2">
-                <Label className="text-xs text-gray-300">Logo Size</Label>
+              <div className="space-y-1">
+                <Label className="text-[10px] text-gray-300">Logo Size</Label>
                 <div className="flex items-center gap-2">
                   <Input
                     type="range"
@@ -248,20 +248,20 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Logo */}
         {config.logo && (
-          <div className="space-y-2 border-t border-gray-800 pt-3">
+          <div className="space-y-1 border-t border-gray-800 pt-1.5">
             <div className="flex items-center justify-between">
-              <Label className="text-xs font-bold text-white uppercase tracking-wider">Logo</Label>
+              <Label className="text-[10px] font-bold text-white uppercase tracking-wider">Logo</Label>
               <Switch
                 checked={config.logo.show ?? true}
                 onCheckedChange={(checked) => updateConfig('logo.show', checked)}
               />
             </div>
             {config.logo.show && (
-              <div className="space-y-2 ml-4">
+              <div className="space-y-1 ml-4">
                 {/* Brand Name */}
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <div className="flex items-center justify-between">
-                    <Label className="text-xs text-gray-300">Brand Name</Label>
+                    <Label className="text-[10px] text-gray-300">Brand Name</Label>
                     <Switch
                       checked={config.logo.text !== '' && config.logo.text !== undefined}
                       onCheckedChange={(checked) => updateConfig('logo.text', checked ? 'Brand' : '')}
@@ -272,7 +272,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                       value={config.logo.text || ''}
                       onChange={(e) => updateConfig('logo.text', e.target.value)}
                       placeholder="Brand name"
-                      className="bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5"
+                      className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5"
                     />
                   )}
                 </div>
@@ -283,13 +283,13 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Menu Items Align - Only for Menu type */}
         {config.type === 'menu' && config.align !== undefined && (
-          <div className="space-y-2 border-t border-gray-800 pt-3">
-            <Label className="text-xs font-bold text-white uppercase tracking-wider">Menu Items Align</Label>
+          <div className="space-y-1 border-t border-gray-800 pt-1.5">
+            <Label className="text-[10px] font-bold text-white uppercase tracking-wider">Menu Items Align</Label>
             <Select
               value={config.align || 'left'}
               onValueChange={(value) => updateConfig('align', value)}
             >
-              <SelectTrigger className="bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5">
+              <SelectTrigger className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="bg-gray-800 border-gray-700">
@@ -305,8 +305,8 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Active Color - Only for Menu type */}
         {config.type === 'menu' && (
-          <div className="space-y-2 border-t border-gray-800 pt-3">
-            <Label className="text-xs font-bold text-white uppercase tracking-wider">Active Color</Label>
+          <div className="space-y-1 border-t border-gray-800 pt-1.5">
+            <Label className="text-[10px] font-bold text-white uppercase tracking-wider">Active Color</Label>
             <div className="flex gap-2 items-center">
               <div className="relative">
                 <Input
@@ -321,7 +321,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                 type="text"
                 value={config.activeColor || '#000000'}
                 onChange={(e) => updateConfig('activeColor', e.target.value)}
-                className="flex-1 bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5"
+                className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5"
                 placeholder="#000000"
               />
             </div>
@@ -331,9 +331,9 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Icons - Only for Menu type */}
         {config.type === 'menu' && config.icons !== undefined && (
-          <div className="space-y-2 border-t border-gray-800 pt-3">
+          <div className="space-y-1 border-t border-gray-800 pt-1.5">
             <div className="flex items-center justify-between">
-              <Label className="text-xs font-bold text-white uppercase tracking-wider">Icons</Label>
+              <Label className="text-[10px] font-bold text-white uppercase tracking-wider">Icons</Label>
               <Switch
                 checked={config.icons?.show ?? false}
                 onCheckedChange={(checked) => updateConfig('icons.show', checked)}
@@ -344,9 +344,9 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Button - Only for Menu type */}
         {config.type === 'menu' && config.button !== undefined && (
-          <div className="space-y-2 border-t border-gray-800 pt-3">
+          <div className="space-y-1 border-t border-gray-800 pt-1.5">
             <div className="flex items-center justify-between">
-              <Label className="text-xs font-bold text-white uppercase tracking-wider">Button</Label>
+              <Label className="text-[10px] font-bold text-white uppercase tracking-wider">Button</Label>
               <Switch
                 checked={config.button?.show ?? false}
                 onCheckedChange={(checked) => updateConfig('button.show', checked)}
@@ -357,12 +357,12 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Styles Section - Only for Menu type */}
         {config.type === 'menu' && (
-          <div className="space-y-2 border-t border-gray-800 pt-3">
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider">Styles</h4>
+          <div className="space-y-1 border-t border-gray-800 pt-1.5">
+            <h4 className="text-[10px] font-bold text-white uppercase tracking-wider">Styles</h4>
             
             {/* Sticky */}
-            <div className="flex items-center justify-between py-1">
-              <Label className="text-xs text-gray-300">Sticky</Label>
+            <div className="flex items-center justify-between py-0.5">
+              <Label className="text-[10px] text-gray-300">Sticky</Label>
               <Switch
                 checked={config.sticky ?? false}
                 onCheckedChange={(checked) => updateConfig('sticky', checked)}
@@ -370,8 +370,8 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             </div>
 
             {/* Collapsed */}
-            <div className="flex items-center justify-between py-1">
-              <Label className="text-xs text-gray-300">Collapsed</Label>
+            <div className="flex items-center justify-between py-0.5">
+              <Label className="text-[10px] text-gray-300">Collapsed</Label>
               <Switch
                 checked={config.collapsed ?? false}
                 onCheckedChange={(checked) => updateConfig('collapsed', checked)}
@@ -379,8 +379,8 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             </div>
 
             {/* Transparent */}
-            <div className="flex items-center justify-between py-1">
-              <Label className="text-xs text-gray-300">Transparent</Label>
+            <div className="flex items-center justify-between py-0.5">
+              <Label className="text-[10px] text-gray-300">Transparent</Label>
               <Switch
                 checked={config.transparent ?? false}
                 onCheckedChange={(checked) => updateConfig('transparent', checked)}
@@ -388,8 +388,8 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             </div>
 
             {/* Color (Background Color) */}
-            <div className="space-y-2">
-              <Label className="text-xs text-gray-300">Color</Label>
+            <div className="space-y-1">
+              <Label className="text-[10px] text-gray-300">Color</Label>
               <div className="flex gap-2 items-center">
                 <Input
                   type="color"
@@ -401,14 +401,14 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   type="text"
                   value={config.background?.value || '#000000'}
                   onChange={(e) => updateConfig('background.value', e.target.value)}
-                  className="flex-1 bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5"
+                  className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5"
                 />
               </div>
             </div>
 
             {/* Hamburger */}
-            <div className="space-y-2">
-              <Label className="text-xs text-gray-300">Hamburger</Label>
+            <div className="space-y-1">
+              <Label className="text-[10px] text-gray-300">Hamburger</Label>
               <div className="flex gap-2 items-center">
                 <Input
                   type="color"
@@ -420,7 +420,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   type="text"
                   value={config.hamburger?.color || '#ffffff'}
                   onChange={(e) => updateConfig('hamburger.color', e.target.value)}
-                  className="flex-1 bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5"
+                  className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5"
                 />
               </div>
             </div>
@@ -429,20 +429,20 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Title */}
         {config.title && (
-          <div className="space-y-2 border-t border-gray-800 pt-3">
+          <div className="space-y-1 border-t border-gray-800 pt-1.5">
             <div className="flex items-center justify-between">
-              <Label className="text-xs font-bold text-white uppercase tracking-wider">Title</Label>
+              <Label className="text-[10px] font-bold text-white uppercase tracking-wider">Title</Label>
               <Switch
                 checked={config.title.show ?? true}
                 onCheckedChange={(checked) => updateConfig('title.show', checked)}
               />
             </div>
             {config.title.show && (
-              <div className="space-y-2">
+              <div className="space-y-1">
                 <Textarea
                   value={config.title.text || ''}
                   onChange={(e) => updateConfig('title.text', e.target.value)}
-                  className="bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5"
+                  className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5"
                   rows={2}
                 />
                 <div className="flex gap-2">
@@ -456,7 +456,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                     value={config.title.align || 'center'}
                     onValueChange={(value) => updateConfig('title.align', value)}
                   >
-                    <SelectTrigger className="flex-1 bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5">
+                    <SelectTrigger className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-gray-800 border-gray-700">
@@ -473,20 +473,20 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Description */}
         {config.description && (
-          <div className="space-y-2 border-t border-gray-800 pt-3">
+          <div className="space-y-1 border-t border-gray-800 pt-1.5">
             <div className="flex items-center justify-between">
-              <Label className="text-xs font-bold text-white uppercase tracking-wider">Subtitle</Label>
+              <Label className="text-[10px] font-bold text-white uppercase tracking-wider">Subtitle</Label>
               <Switch
                 checked={config.description.show ?? true}
                 onCheckedChange={(checked) => updateConfig('description.show', checked)}
               />
             </div>
             {config.description.show && (
-              <div className="space-y-2">
+              <div className="space-y-1">
                 <Textarea
                   value={config.description.text || ''}
                   onChange={(e) => updateConfig('description.text', e.target.value)}
-                  className="bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5"
+                  className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5"
                   rows={3}
                 />
                 <Input
@@ -502,25 +502,25 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Button */}
         {config.button && (
-          <div className="space-y-2 border-t border-gray-800 pt-3">
+          <div className="space-y-1 border-t border-gray-800 pt-1.5">
             <div className="flex items-center justify-between">
-              <Label className="text-xs font-bold text-white uppercase tracking-wider">Buttons</Label>
+              <Label className="text-[10px] font-bold text-white uppercase tracking-wider">Buttons</Label>
               <Switch
                 checked={config.button.show ?? true}
                 onCheckedChange={(checked) => updateConfig('button.show', checked)}
               />
             </div>
             {config.button.show && (
-              <div className="space-y-2">
+              <div className="space-y-1">
                 <Input
                   value={config.button.text || ''}
                   onChange={(e) => updateConfig('button.text', e.target.value)}
                   placeholder="Button text"
-                  className="bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5"
+                  className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1.5"
                 />
                 <div className="grid grid-cols-2 gap-2">
-                  <div className="space-y-2">
-                    <Label className="text-xs text-gray-300">BG Color</Label>
+                  <div className="space-y-1">
+                    <Label className="text-[10px] text-gray-300">BG Color</Label>
                     <Input
                       type="color"
                       value={config.button.color || '#5B4FC9'}
@@ -528,8 +528,8 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                       className="w-full h-10 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label className="text-xs text-gray-300">Text Color</Label>
+                  <div className="space-y-1">
+                    <Label className="text-[10px] text-gray-300">Text Color</Label>
                     <Input
                       type="color"
                       value={config.button.textColor || '#ffffff'}
