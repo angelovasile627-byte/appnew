@@ -197,7 +197,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                 type="color"
                 value={config.background?.value || '#ffffff'}
                 onChange={(e) => updateConfig('background.value', e.target.value)}
-                className="w-10 h-10 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
+                className="w-8 h-8 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
                 style={{ padding: '2px' }}
               />
             </div>
@@ -313,7 +313,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   type="color"
                   value={config.activeColor || '#000000'}
                   onChange={(e) => updateConfig('activeColor', e.target.value)}
-                  className="w-10 h-10 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
+                  className="w-8 h-8 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
                   style={{ padding: '2px' }}
                 />
               </div>
@@ -395,7 +395,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   type="color"
                   value={config.background?.value || '#000000'}
                   onChange={(e) => updateConfig('background.value', e.target.value)}
-                  className="w-10 h-10 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
+                  className="w-8 h-8 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
                 />
                 <Input
                   type="text"
@@ -414,7 +414,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   type="color"
                   value={config.hamburger?.color || '#ffffff'}
                   onChange={(e) => updateConfig('hamburger.color', e.target.value)}
-                  className="w-10 h-10 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
+                  className="w-8 h-8 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
                 />
                 <Input
                   type="text"
@@ -450,7 +450,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                     type="color"
                     value={config.title.color || '#000000'}
                     onChange={(e) => updateConfig('title.color', e.target.value)}
-                    className="w-10 h-10 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
+                    className="w-8 h-8 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
                   />
                   <Select
                     value={config.title.align || 'center'}
@@ -493,7 +493,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   type="color"
                   value={config.description.color || '#000000'}
                   onChange={(e) => updateConfig('description.color', e.target.value)}
-                  className="w-10 h-10 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
+                  className="w-8 h-8 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
                 />
               </div>
             )}
