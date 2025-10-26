@@ -403,7 +403,7 @@ const BuilderNew = () => {
   };
 
   const handleSave = () => {
-    saveToLocalStorage(pages, sharedMenu, currentPageId);
+    saveToLocalStorage(pages, sharedMenu, settings, currentPageId);
     toast({
       title: 'Proiect salvat',
       description: `${pages.length} ${pages.length === 1 ? 'pagină salvată' : 'pagini salvate'}`
@@ -430,6 +430,19 @@ const BuilderNew = () => {
 
   const handleFTPUpload = () => {
     setIsFTPDialogOpen(true);
+  };
+
+  const handleOpenSettings = () => {
+    setIsSettingsModalOpen(true);
+  };
+
+  const handleSaveSettings = (newSettings) => {
+    setSettings(newSettings);
+    setIsSettingsModalOpen(false);
+    toast({
+      title: 'Setări salvate',
+      description: 'Setările proiectului au fost actualizate'
+    });
   };
 
   const handleSelectBlock = (blockId) => {
