@@ -197,14 +197,16 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                 type="color"
                 value={config.background?.value || '#ffffff'}
                 onChange={(e) => updateConfig('background.value', e.target.value)}
-                className="w-16 h-16 p-1 cursor-pointer rounded-lg bg-gray-800 border-gray-700"
+                className="w-10 h-10 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
+                style={{ padding: '2px' }}
               />
             </div>
             <Input
               type="text"
               value={config.background?.value || '#ffffff'}
               onChange={(e) => updateConfig('background.value', e.target.value)}
-              className="flex-1 bg-gray-800 border-gray-700 text-white"
+              className="flex-1 bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5"
+              placeholder="#ffffff"
             />
           </div>
         </div>
