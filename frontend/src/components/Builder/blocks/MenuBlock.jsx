@@ -161,14 +161,14 @@ export const MenuBlock = ({ config, onUpdate }) => {
             </div>
           )}
 
-          <nav style={{ display: 'flex', alignItems: 'center', gap: '32px', flexWrap: 'wrap' }}>
+          <nav style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
             {config.menuItems.map((item, index) => (
               item.show && (
                 <a
                   key={index}
                   href={item.link}
                   style={{
-                    fontSize: '16px',
+                    fontSize: '15px',
                     fontWeight: '500',
                     color: item.color,
                     textDecoration: 'none',
