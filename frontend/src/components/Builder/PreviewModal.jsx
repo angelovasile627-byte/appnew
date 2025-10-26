@@ -735,12 +735,26 @@ export const PreviewModal = ({ blocks, isOpen, onClose }) => {
     // Remove duplicates by ID before generating HTML
     const uniqueBlocks = [];
     const seenIds = new Set();
+    let hasMenu = false; // Track if we already have a menu
     
     for (const block of blocks) {
-      if (!seenIds.has(block.id)) {
-        seenIds.add(block.id);
-        uniqueBlocks.push(block);
+      // Skip if we already saw this ID
+      if (seenIds.has(block.id)) {
+        console.log('⚠️ Skipping duplicate block ID:', block.id);
+        continue;
       }
+      
+      // If this is a menu and we already have one, skip it
+      if (block.config?.type === 'menu') {
+        if (hasMenu) {
+          console.log('⚠️ Skipping duplicate menu block:', block.id);
+          continue;
+        }
+        hasMenu = true;
+      }
+      
+      seenIds.add(block.id);
+      uniqueBlocks.push(block);
     }
     
     console.log('🔍 After dedup - uniqueBlocks count:', uniqueBlocks.length);
