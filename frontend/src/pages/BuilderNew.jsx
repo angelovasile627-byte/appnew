@@ -83,7 +83,6 @@ const BuilderNew = () => {
           const cleanedBlocks = removeDuplicateMenus(projectData.blocks);
           
           setBlocks(cleanedBlocks);
-          hasCleanedMenusRef.current = true;
           
           const removedCount = projectData.blocks.length - cleanedBlocks.length;
           if (removedCount > 0) {
