@@ -105,6 +105,8 @@ export const MenuBlock = ({ config, onUpdate }) => {
         <div style={menuContainerStyle} className="desktop-menu">
           {config.align === 'center' && config.logo.show && (
             <div
+              ref={logoRef}
+              onClick={handleLogoClick}
               style={{
                 fontSize: config.logo.image ? 'inherit' : `${config.logo.size}px`,
                 fontWeight: '800',
@@ -113,6 +115,7 @@ export const MenuBlock = ({ config, onUpdate }) => {
                 display: 'flex',
                 alignItems: 'center'
               }}
+              title="Click pentru a edita logo"
             >
               {config.logo.image ? (
                 <img 
