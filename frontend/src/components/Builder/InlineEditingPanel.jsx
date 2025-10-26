@@ -428,34 +428,34 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Title */}
         {config.title && (
-          <div className="space-y-1 border-t border-gray-800 pt-1.5">
+          <div className="space-y-0.5 border-t border-gray-800 pt-1">
             <div className="flex items-center justify-between">
-              <Label className="text-[10px] font-bold text-white uppercase tracking-wider">Title</Label>
+              <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Title</Label>
               <Switch
                 checked={config.title.show ?? true}
                 onCheckedChange={(checked) => updateConfig('title.show', checked)}
               />
             </div>
             {config.title.show && (
-              <div className="space-y-1">
+              <div className="space-y-0.5">
                 <Textarea
                   value={config.title.text || ''}
                   onChange={(e) => updateConfig('title.text', e.target.value)}
-                  className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1"
+                  className="bg-gray-800 border-gray-700 text-white text-[9px] px-2 py-1"
                   rows={1}
                 />
-                <div className="flex gap-2">
+                <div className="flex gap-1.5">
                   <Input
                     type="color"
                     value={config.title.color || '#000000'}
                     onChange={(e) => updateConfig('title.color', e.target.value)}
-                    className="w-8 h-8 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
+                    className="w-6 h-6 p-0.5 cursor-pointer rounded border border-gray-700 bg-transparent"
                   />
                   <Select
                     value={config.title.align || 'center'}
                     onValueChange={(value) => updateConfig('title.align', value)}
                   >
-                    <SelectTrigger className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1">
+                    <SelectTrigger className="flex-1 bg-gray-800 border-gray-700 text-white text-[9px] px-2 py-1 h-7">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-gray-800 border-gray-700">
@@ -472,27 +472,27 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Description */}
         {config.description && (
-          <div className="space-y-1 border-t border-gray-800 pt-1.5">
+          <div className="space-y-0.5 border-t border-gray-800 pt-1">
             <div className="flex items-center justify-between">
-              <Label className="text-[10px] font-bold text-white uppercase tracking-wider">Subtitle</Label>
+              <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Subtitle</Label>
               <Switch
                 checked={config.description.show ?? true}
                 onCheckedChange={(checked) => updateConfig('description.show', checked)}
               />
             </div>
             {config.description.show && (
-              <div className="space-y-1">
+              <div className="space-y-0.5">
                 <Textarea
                   value={config.description.text || ''}
                   onChange={(e) => updateConfig('description.text', e.target.value)}
-                  className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1"
-                  rows={2}
+                  className="bg-gray-800 border-gray-700 text-white text-[9px] px-2 py-1"
+                  rows={1}
                 />
                 <Input
                   type="color"
                   value={config.description.color || '#000000'}
                   onChange={(e) => updateConfig('description.color', e.target.value)}
-                  className="w-8 h-8 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
+                  className="w-6 h-6 p-0.5 cursor-pointer rounded border border-gray-700 bg-transparent"
                 />
               </div>
             )}
@@ -501,39 +501,39 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Button */}
         {config.button && (
-          <div className="space-y-1 border-t border-gray-800 pt-1.5">
+          <div className="space-y-0.5 border-t border-gray-800 pt-1">
             <div className="flex items-center justify-between">
-              <Label className="text-[10px] font-bold text-white uppercase tracking-wider">Buttons</Label>
+              <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Buttons</Label>
               <Switch
                 checked={config.button.show ?? true}
                 onCheckedChange={(checked) => updateConfig('button.show', checked)}
               />
             </div>
             {config.button.show && (
-              <div className="space-y-1">
+              <div className="space-y-0.5">
                 <Input
                   value={config.button.text || ''}
                   onChange={(e) => updateConfig('button.text', e.target.value)}
                   placeholder="Button text"
-                  className="bg-gray-800 border-gray-700 text-white text-[10px] px-2 py-1"
+                  className="bg-gray-800 border-gray-700 text-white text-[9px] px-2 py-1 h-7"
                 />
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="space-y-1">
-                    <Label className="text-[10px] text-gray-300">BG Color</Label>
+                <div className="grid grid-cols-2 gap-1.5">
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">BG Color</Label>
                     <Input
                       type="color"
                       value={config.button.color || '#5B4FC9'}
                       onChange={(e) => updateConfig('button.color', e.target.value)}
-                      className="w-full h-10 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
+                      className="w-full h-8 p-0.5 cursor-pointer rounded border border-gray-700 bg-transparent"
                     />
                   </div>
-                  <div className="space-y-1">
-                    <Label className="text-[10px] text-gray-300">Text Color</Label>
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Text Color</Label>
                     <Input
                       type="color"
                       value={config.button.textColor || '#ffffff'}
                       onChange={(e) => updateConfig('button.textColor', e.target.value)}
-                      className="w-full h-10 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
+                      className="w-full h-8 p-0.5 cursor-pointer rounded border border-gray-700 bg-transparent"
                     />
                   </div>
                 </div>
