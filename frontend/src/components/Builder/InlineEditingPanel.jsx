@@ -224,6 +224,41 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
           </div>
         </div>
 
+        {/* Size Controls for Menu - Full Width and Logo Size */}
+        {config.type === 'menu' && (
+          <div className="space-y-3 border-t border-gray-800 pt-4">
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Size</h4>
+            
+            {/* Full Width */}
+            <div className="flex items-center justify-between py-2">
+              <Label className="text-sm text-gray-300">Full Width</Label>
+              <Switch
+                checked={config.fullWidth ?? true}
+                onCheckedChange={(checked) => updateConfig('fullWidth', checked)}
+              />
+            </div>
+
+            {/* Logo Size - doar pentru meniu */}
+            {config.logo && (
+              <div className="space-y-2">
+                <Label className="text-sm text-gray-300">Logo Size</Label>
+                <div className="flex items-center gap-3">
+                  <Input
+                    type="range"
+                    value={config.logo.logoSize || 120}
+                    onChange={(e) => updateConfig('logo.logoSize', parseInt(e.target.value))}
+                    className="flex-1 bg-gray-800 border-gray-700"
+                    min="60"
+                    max="300"
+                    step="10"
+                  />
+                  <span className="text-sm text-gray-400 w-20">{config.logo.logoSize || 120}px</span>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Logo */}
         {config.logo && (
           <div className="space-y-3 border-t border-gray-800 pt-4">
@@ -236,13 +271,6 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             </div>
             {config.logo.show && (
               <div className="space-y-3 ml-4">
-                {/* Logo Edit Info */}
-                <div className="p-3 bg-indigo-900/30 border border-indigo-700/50 rounded-lg">
-                  <p className="text-xs text-indigo-300">
-                    💡 <strong>Pentru a edita logo-ul</strong>, dă click direct pe logo în meniu
-                  </p>
-                </div>
-
                 {/* Brand Name */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
