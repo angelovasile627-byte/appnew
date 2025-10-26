@@ -72,6 +72,22 @@ const BuilderNew = () => {
     }
   }, []);
   
+  // Check for duplicate menus in current blocks and clean if found
+  useEffect(() => {
+    if (blocks.length > 0) {
+      const cleanedBlocks = removeDuplicateMenus(blocks);
+      if (cleanedBlocks.length < blocks.length) {
+        setBlocks(cleanedBlocks);
+        toast({
+          title: 'Meniuri duplicate eliminate',
+          description: `${blocks.length - cleanedBlocks.length} meniu(ri) duplicate au fost eliminate`,
+          variant: 'default'
+        });
+      }
+    }
+  }, [blocks.length]); // Only run when block count changes
+  
+  
   // Function to save current state to history before making changes
   const saveToHistory = (currentBlocks) => {
     setHistory(prev => ({
