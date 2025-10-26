@@ -198,13 +198,17 @@ export const MenuBlock = ({ config, onUpdate }) => {
                 <a
                   key={index}
                   href={item.link}
+                  onClick={(e) => handleMenuItemClick(e, index)}
                   style={{
                     fontSize: '15px',
                     fontWeight: '500',
                     color: item.color,
                     textDecoration: 'none',
-                    transition: 'opacity 0.2s',
-                    cursor: 'pointer'
+                    transition: 'all 0.2s',
+                    cursor: 'pointer',
+                    padding: '4px 8px',
+                    borderRadius: '4px',
+                    backgroundColor: selectedMenuItem === index ? 'rgba(99, 102, 241, 0.1)' : 'transparent'
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
                   onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
