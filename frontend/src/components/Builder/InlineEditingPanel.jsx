@@ -499,7 +499,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                       type="color"
                       value={config.button.color || '#5B4FC9'}
                       onChange={(e) => updateConfig('button.color', e.target.value)}
-                      className="w-full h-12 p-1 cursor-pointer rounded-lg bg-gray-800 border-gray-700"
+                      className="w-full h-10 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
                     />
                   </div>
                   <div className="space-y-2">
@@ -508,7 +508,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                       type="color"
                       value={config.button.textColor || '#ffffff'}
                       onChange={(e) => updateConfig('button.textColor', e.target.value)}
-                      className="w-full h-12 p-1 cursor-pointer rounded-lg bg-gray-800 border-gray-700"
+                      className="w-full h-10 p-0.5 cursor-pointer rounded border-2 border-gray-700 bg-transparent"
                     />
                   </div>
                 </div>
