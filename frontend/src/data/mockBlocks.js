@@ -38,13 +38,14 @@ export const blockTemplates = [
       background: { type: 'color', value: 'rgba(0,0,0,0.1)' },
       fullWidth: true,
       contentWidth: 1200,
-      padding: { top: 20, bottom: 20 },
+      padding: { top: 12, bottom: 12 },
       logo: { 
         text: 'Mobirise', 
         show: true, 
         color: '#ffffff', 
-        size: 26,
-        logoSize: 120 // Dimensiunea logo-ului/brand name
+        size: 20,
+        imageSize: 32,
+        logoSize: 100
       },
       menuItems: [
         { text: 'About us', link: '#about', color: '#ffffff', show: true },
@@ -61,13 +62,13 @@ export const blockTemplates = [
       icons: { 
         show: false 
       },
-      sticky: true, // Bara fixată în partea de sus la scroll
-      collapsed: false, // Bara se micșorează la scroll
-      transparent: true, // Fundal transparent inițial
+      sticky: true,
+      collapsed: false,
+      transparent: true,
       hamburger: {
         show: true,
         color: '#ffffff',
-        breakpoint: 768 // Breakpoint pentru afișarea hamburger menu
+        breakpoint: 768
       },
       align: 'space-between'
     }
