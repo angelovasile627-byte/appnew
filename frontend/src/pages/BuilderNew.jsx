@@ -74,21 +74,37 @@ const BuilderNew = () => {
     }
   }, []);
   
-  // Check for duplicate menus in current blocks and clean if found (only once)
+  // Check for duplicate menus in current blocks and clean if found (runs immediately and continuously)
   useEffect(() => {
-    if (blocks.length > 0 && !hasCleanedMenusRef.current) {
+    if (blocks.length > 0) {
       const cleanedBlocks = removeDuplicateMenus(blocks);
-      if (cleanedBlocks.length < blocks.length) {
-        setBlocks(cleanedBlocks);
-        hasCleanedMenusRef.current = true;
-        toast({
-          title: 'Meniuri duplicate eliminate',
-          description: `${blocks.length - cleanedBlocks.length} meniu(ri) duplicate au fost eliminate automat`,
-          variant: 'default'
-        });
+      if (cleanedBlocks.length < blocks.length && !hasCleanedMenusRef.current) {
+        // Use setTimeout to avoid state update during render
+        setTimeout(() => {
+          setBlocks(cleanedBlocks);
+          hasCleanedMenusRef.current = true;
+          
+          // Also update localStorage
+          const savedProject = localStorage.getItem('currentProject');
+          if (savedProject) {
+            try {
+              const projectData = JSON.parse(savedProject);
+              projectData.blocks = cleanedBlocks;
+              localStorage.setItem('currentProject', JSON.stringify(projectData));
+            } catch (e) {
+              console.error('Error updating localStorage:', e);
+            }
+          }
+          
+          toast({
+            title: 'Meniuri duplicate eliminate',
+            description: `${blocks.length - cleanedBlocks.length} meniu(ri) duplicate au fost eliminate automat`,
+            variant: 'default'
+          });
+        }, 100);
       }
     }
-  }, [blocks]);
+  }, [blocks.length]);
   
   
   // Function to save current state to history before making changes
