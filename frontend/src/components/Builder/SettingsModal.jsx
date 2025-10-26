@@ -16,6 +16,15 @@ export const SettingsModal = ({
   onDeletePage
 }) => {
   const [activeTab, setActiveTab] = useState('general');
+  
+  // Pages tab state
+  const [pageModalOpen, setPageModalOpen] = useState(false);
+  const [pageModalType, setPageModalType] = useState('blank'); // 'blank' or 'duplicate'
+  const [newPageName, setNewPageName] = useState('');
+  const [selectedPageId, setSelectedPageId] = useState('');
+  const [editingPageId, setEditingPageId] = useState(null);
+  const [editPageName, setEditPageName] = useState('');
+  
   const [settings, setSettings] = useState({
     // General
     site_name: '',
