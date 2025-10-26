@@ -177,7 +177,7 @@ const generateBlockHTML = (config) => {
       // Check if it's the new image-above-text layout
       if (config.layout === 'image-above-text') {
         return `
-          <section style="
+          <section class="hero-image-above" style="
             background-color: ${config.background.value};
             width: 100%;
             padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
@@ -187,7 +187,7 @@ const generateBlockHTML = (config) => {
               margin: 0 auto;
             ">
               ${config.heroImage && config.heroImage.show ? `
-                <div style="
+                <div class="hero-image-container" style="
                   margin-bottom: 48px;
                   border-radius: ${config.heroImage.borderRadius || 0}px;
                   overflow: hidden;
@@ -196,6 +196,7 @@ const generateBlockHTML = (config) => {
                   <img
                     src="${config.heroImage.src}"
                     alt="${config.heroImage.alt || 'Hero image'}"
+                    class="hero-image"
                     style="
                       width: 100%;
                       height: ${config.heroImage.height || 600}px;
@@ -206,9 +207,9 @@ const generateBlockHTML = (config) => {
                 </div>
               ` : ''}
               
-              <div style="text-align: ${config.title.align};">
+              <div class="hero-content" style="text-align: ${config.title.align};">
                 ${config.title.show ? `
-                  <h1 style="
+                  <h1 class="hero-title" style="
                     font-size: ${config.title.size || 56}px;
                     font-weight: ${config.title.weight || 700};
                     color: ${config.title.color};
@@ -220,7 +221,7 @@ const generateBlockHTML = (config) => {
                 ` : ''}
                 
                 ${config.description.show ? `
-                  <p style="
+                  <p class="hero-description" style="
                     font-size: ${config.description.size || 20}px;
                     color: ${config.description.color};
                     margin-bottom: 40px;
@@ -234,7 +235,7 @@ const generateBlockHTML = (config) => {
                 ` : ''}
                 
                 ${config.button.show ? `
-                  <a href="${config.button.link}" style="
+                  <a href="${config.button.link}" class="hero-button" style="
                     background-color: ${config.button.color};
                     color: ${config.button.textColor};
                     padding: 16px 40px;
@@ -251,7 +252,7 @@ const generateBlockHTML = (config) => {
                 ` : ''}
                 
                 ${config.subtitle.show && config.subtitle.text ? `
-                  <p style="
+                  <p class="hero-subtitle" style="
                     font-size: 16px;
                     color: ${config.subtitle.color};
                     margin-top: 32px;
@@ -261,6 +262,60 @@ const generateBlockHTML = (config) => {
                 ` : ''}
               </div>
             </div>
+            
+            <style>
+              @media (max-width: 768px) {
+                .hero-image-above {
+                  padding: 40px 16px !important;
+                }
+                .hero-image-container {
+                  margin-bottom: 32px !important;
+                }
+                .hero-image {
+                  height: 300px !important;
+                }
+                .hero-title {
+                  font-size: 32px !important;
+                  margin-bottom: 16px !important;
+                }
+                .hero-description {
+                  font-size: 16px !important;
+                  margin-bottom: 24px !important;
+                }
+                .hero-button {
+                  padding: 12px 28px !important;
+                  font-size: 16px !important;
+                }
+                .hero-subtitle {
+                  font-size: 14px !important;
+                  margin-top: 20px !important;
+                }
+              }
+              
+              @media (max-width: 480px) {
+                .hero-image-above {
+                  padding: 30px 12px !important;
+                }
+                .hero-image-container {
+                  margin-bottom: 24px !important;
+                }
+                .hero-image {
+                  height: 250px !important;
+                }
+                .hero-title {
+                  font-size: 28px !important;
+                  margin-bottom: 12px !important;
+                }
+                .hero-description {
+                  font-size: 14px !important;
+                  margin-bottom: 20px !important;
+                }
+                .hero-button {
+                  padding: 10px 24px !important;
+                  font-size: 14px !important;
+                }
+              }
+            </style>
           </section>
         `;
       }
