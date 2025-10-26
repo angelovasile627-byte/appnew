@@ -20,26 +20,26 @@ export const blockTemplates = [
     }
   },
   {
-    id: 'menu-5',
+    id: 'menu-2',
     category: 'menu',
-    name: 'Menu - Split Navigation',
-    thumbnail: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
+    name: 'Menu - Centered',
+    thumbnail: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=400&h=300&fit=crop',
     config: {
       type: 'menu',
-      background: { type: 'color', value: '#0F172A' },
+      background: { type: 'color', value: '#1a1a2e' },
       fullWidth: true,
-      contentWidth: 1400,
-      padding: { top: 22, bottom: 22 },
-      logo: { text: 'STUDIO', show: true, color: '#F59E0B', size: 28 },
+      contentWidth: 1200,
+      padding: { top: 24, bottom: 24 },
+      logo: { text: 'Brand', show: true, color: '#ffffff', size: 28 },
       menuItems: [
-        { text: 'Work', link: '#work', color: '#F3F4F6', show: true },
-        { text: 'Studio', link: '#studio', color: '#F3F4F6', show: true },
-        { text: 'News', link: '#news', color: '#F3F4F6', show: true },
-        { text: 'Careers', link: '#careers', color: '#F3F4F6', show: true }
+        { text: 'Home', link: '#home', color: '#ffffff', show: true },
+        { text: 'Features', link: '#features', color: '#ffffff', show: true },
+        { text: 'Pricing', link: '#pricing', color: '#ffffff', show: true },
+        { text: 'Contact', link: '#contact', color: '#ffffff', show: true }
       ],
-      button: { text: 'Let\'s Talk', show: true, color: '#F59E0B', textColor: '#0F172A', link: '#contact' },
+      button: { text: 'Sign Up', show: true, color: '#5B4FC9', textColor: '#ffffff', link: '#signup' },
       sticky: true,
-      align: 'split'
+      align: 'center'
     }
   }
 ];
