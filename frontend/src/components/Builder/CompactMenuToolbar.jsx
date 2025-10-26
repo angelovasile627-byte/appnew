@@ -261,18 +261,18 @@ export const CompactMenuToolbar = ({
       {/* Color Picker Dropdown */}
       {showColorPicker && (
         <div
-          className="fixed z-50 bg-gray-800 rounded-lg shadow-2xl p-3"
+          className="fixed z-50 bg-gray-800 rounded-lg shadow-2xl p-2"
           style={{
             top: `${position.top + 50}px`,
             left: `${position.left - 60}px`,
           }}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-4 gap-1.5">
             {colors.map((color, idx) => (
               <button
                 key={idx}
-                className="w-8 h-8 rounded-full border-2 border-gray-600 hover:border-white transition-colors"
+                className="w-6 h-6 rounded-full border-2 border-gray-600 hover:border-white transition-colors"
                 style={{ backgroundColor: color }}
                 onClick={(e) => {
                   e.stopPropagation();
