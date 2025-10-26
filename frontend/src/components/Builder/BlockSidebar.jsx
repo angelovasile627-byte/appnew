@@ -176,13 +176,299 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                 );
               }
               
-              // Fallback for other block types
+              // Article block
+              if (config.type === 'article') {
+                return (
+                  <div style={{
+                    background: config.background?.value || '#ffffff',
+                    padding: '12px',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '6px'
+                  }}>
+                    {config.title?.show && (
+                      <div style={{
+                        color: config.title.color || '#000',
+                        fontWeight: 'bold',
+                        fontSize: '9px',
+                        lineHeight: 1.2
+                      }}>
+                        {config.title.text}
+                      </div>
+                    )}
+                    {config.content && (
+                      <div style={{
+                        color: '#666',
+                        fontSize: '5px',
+                        lineHeight: 1.4,
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis'
+                      }}>
+                        {config.content.text?.substring(0, 80)}...
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+              
+              // Footer block
+              if (config.type === 'footer') {
+                return (
+                  <div style={{
+                    background: config.background?.value || '#1a1a2e',
+                    padding: '10px',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    gap: '4px'
+                  }}>
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(3, 1fr)',
+                      gap: '6px',
+                      fontSize: '4px',
+                      color: '#ffffff'
+                    }}>
+                      <div>
+                        <div style={{ fontWeight: 'bold', marginBottom: '2px' }}>Company</div>
+                        <div style={{ opacity: 0.7 }}>About</div>
+                        <div style={{ opacity: 0.7 }}>Contact</div>
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: 'bold', marginBottom: '2px' }}>Products</div>
+                        <div style={{ opacity: 0.7 }}>Services</div>
+                        <div style={{ opacity: 0.7 }}>Pricing</div>
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: 'bold', marginBottom: '2px' }}>Legal</div>
+                        <div style={{ opacity: 0.7 }}>Privacy</div>
+                        <div style={{ opacity: 0.7 }}>Terms</div>
+                      </div>
+                    </div>
+                    <div style={{
+                      borderTop: '1px solid rgba(255,255,255,0.2)',
+                      paddingTop: '4px',
+                      fontSize: '4px',
+                      color: 'rgba(255,255,255,0.6)',
+                      textAlign: 'center'
+                    }}>
+                      © 2024 Company
+                    </div>
+                  </div>
+                );
+              }
+              
+              // Features block
+              if (config.type === 'features') {
+                return (
+                  <div style={{
+                    background: config.background?.value || '#f9fafb',
+                    padding: '12px',
+                    height: '100%'
+                  }}>
+                    {config.title?.show && (
+                      <div style={{
+                        color: config.title.color || '#000',
+                        fontWeight: 'bold',
+                        fontSize: '8px',
+                        marginBottom: '6px',
+                        textAlign: 'center'
+                      }}>
+                        {config.title.text}
+                      </div>
+                    )}
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(3, 1fr)',
+                      gap: '4px'
+                    }}>
+                      {[1, 2, 3].map(i => (
+                        <div key={i} style={{
+                          background: '#fff',
+                          padding: '4px',
+                          borderRadius: '3px',
+                          textAlign: 'center'
+                        }}>
+                          <div style={{ fontSize: '10px', marginBottom: '2px' }}>✨</div>
+                          <div style={{ fontSize: '5px', fontWeight: 'bold', color: '#333' }}>Feature {i}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+              
+              // Gallery block
+              if (config.type === 'gallery') {
+                return (
+                  <div style={{
+                    background: config.background?.value || '#ffffff',
+                    padding: '8px',
+                    height: '100%'
+                  }}>
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(3, 1fr)',
+                      gap: '3px',
+                      height: '100%'
+                    }}>
+                      {[1, 2, 3, 4, 5, 6].map(i => (
+                        <div key={i} style={{
+                          background: `hsl(${i * 60}, 70%, 70%)`,
+                          borderRadius: '2px',
+                          minHeight: '20px'
+                        }} />
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+              
+              // Testimonial block
+              if (config.type === 'testimonial') {
+                return (
+                  <div style={{
+                    background: config.background?.value || '#f9fafb',
+                    padding: '12px',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    <div style={{ textAlign: 'center' }}>
+                      <div style={{
+                        fontSize: '6px',
+                        color: '#666',
+                        marginBottom: '4px',
+                        lineHeight: 1.3
+                      }}>
+                        "Great experience..."
+                      </div>
+                      <div style={{
+                        width: '12px',
+                        height: '12px',
+                        borderRadius: '50%',
+                        background: '#e0e0e0',
+                        margin: '0 auto 2px'
+                      }} />
+                      <div style={{ fontSize: '5px', fontWeight: 'bold', color: '#333' }}>John Doe</div>
+                    </div>
+                  </div>
+                );
+              }
+              
+              // Contact block
+              if (config.type === 'contact') {
+                return (
+                  <div style={{
+                    background: config.background?.value || '#ffffff',
+                    padding: '12px',
+                    height: '100%'
+                  }}>
+                    <div style={{
+                      fontSize: '8px',
+                      fontWeight: 'bold',
+                      marginBottom: '6px',
+                      textAlign: 'center'
+                    }}>
+                      Get in Touch
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                      {[1, 2, 3].map(i => (
+                        <div key={i} style={{
+                          height: '8px',
+                          background: '#f0f0f0',
+                          borderRadius: '2px'
+                        }} />
+                      ))}
+                      <div style={{
+                        height: '10px',
+                        background: '#5B4FC9',
+                        borderRadius: '2px',
+                        marginTop: '2px'
+                      }} />
+                    </div>
+                  </div>
+                );
+              }
+              
+              // Pricing block
+              if (config.type === 'pricing') {
+                return (
+                  <div style={{
+                    background: config.background?.value || '#f9fafb',
+                    padding: '10px',
+                    height: '100%'
+                  }}>
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(3, 1fr)',
+                      gap: '4px',
+                      height: '100%'
+                    }}>
+                      {[1, 2, 3].map(i => (
+                        <div key={i} style={{
+                          background: '#fff',
+                          padding: '4px',
+                          borderRadius: '3px',
+                          border: i === 2 ? '2px solid #5B4FC9' : '1px solid #e0e0e0',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}>
+                          <div style={{ fontSize: '5px', fontWeight: 'bold', marginBottom: '2px' }}>
+                            Plan {i}
+                          </div>
+                          <div style={{ fontSize: '8px', fontWeight: 'bold', color: '#5B4FC9' }}>
+                            ${i * 10}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+              
+              // Generic fallback for remaining types
               return (
-                <img
-                  src={block.thumbnail}
-                  alt={block.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
+                <div style={{
+                  background: config.background?.value || '#f9fafb',
+                  padding: '12px',
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexDirection: 'column',
+                  gap: '4px'
+                }}>
+                  <div style={{
+                    fontSize: '16px',
+                    opacity: 0.5
+                  }}>
+                    📄
+                  </div>
+                  {config.title?.text && (
+                    <div style={{
+                      fontSize: '7px',
+                      fontWeight: 'bold',
+                      color: '#333',
+                      textAlign: 'center',
+                      lineHeight: 1.2
+                    }}>
+                      {config.title.text.substring(0, 30)}
+                    </div>
+                  )}
+                  <div style={{
+                    fontSize: '5px',
+                    color: '#999',
+                    textTransform: 'capitalize'
+                  }}>
+                    {config.type}
+                  </div>
+                </div>
               );
             };
             
