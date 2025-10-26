@@ -113,32 +113,6 @@ const BuilderNew = () => {
     }));
   };
 
-  // Calculate position for inline editing panel
-  useEffect(() => {
-    if (selectedBlockId && selectedBlockRef.current) {
-      const rect = selectedBlockRef.current.getBoundingClientRect();
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      
-      // Always use panel positioning for all blocks (including menu)
-      const panelHeight = 500;
-      const panelWidth = 420;
-      
-      let top = rect.top + scrollTop - panelHeight - 20;
-      
-      if (top < scrollTop + 80) {
-        top = rect.bottom + scrollTop + 20;
-      }
-      
-      let left = rect.left + (rect.width / 2) - (panelWidth / 2);
-      
-      const maxLeft = window.innerWidth - panelWidth - 20;
-      if (left < 20) left = 20;
-      if (left > maxLeft) left = maxLeft;
-      
-      setEditPanelPosition({ top, left });
-    }
-  }, [selectedBlockId]);
-
   const handleAddBlock = (template) => {
     // Check if trying to add a menu when one already exists
     if (template.category === 'menu') {
