@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Home, FileText, Plus, MoreVertical, Trash2, Edit2, Copy } from 'lucide-react';
+import { Home, FileText, Plus, MoreVertical, Trash2, Edit2, Copy, Settings } from 'lucide-react';
 import { Button } from '../ui/button';
 
 export const PagesSidebar = ({ 
@@ -8,7 +8,8 @@ export const PagesSidebar = ({
   onSelectPage, 
   onCreatePage, 
   onDeletePage,
-  onRenamePage 
+  onRenamePage,
+  onOpenSettings
 }) => {
   const [menuOpenId, setMenuOpenId] = useState(null);
   const [editingId, setEditingId] = useState(null);
