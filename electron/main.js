@@ -5,6 +5,7 @@ const waitOn = require('wait-on');
 
 let mainWindow;
 let backendProcess;
+let frontendProcess;
 
 // Backend server configuration
 const BACKEND_PORT = 8001;
@@ -37,7 +38,11 @@ function startBackend() {
         });
 
         backendProcess.stderr.on('data', (data) => {
-            console.error(`Backend Error: ${data}`);
+            // Only show actual errors, not INFO logs
+            const message = data.toString();
+            if (message.includes('ERROR') || message.includes('CRITICAL')) {
+                console.error(`Backend Error: ${message}`);
+            }
         });
 
         backendProcess.on('error', (error) => {
@@ -52,13 +57,56 @@ function startBackend() {
                 timeout: 30000,
                 interval: 500
             }).then(() => {
-                console.log('Backend is ready!');
+                console.log('✓ Backend is ready!');
                 resolve();
             }).catch((err) => {
                 console.error('Backend failed to start:', err);
                 reject(err);
             });
         }, 2000);
+    });
+}
+
+function startFrontend() {
+    return new Promise((resolve, reject) => {
+        console.log('Starting frontend server...');
+        
+        const pythonPath = process.platform === 'win32' ? 'python' : 'python3';
+        const backendPath = path.join(__dirname, '..', 'backend');
+        
+        frontendProcess = spawn(pythonPath, [
+            'serve_frontend.py'
+        ], {
+            cwd: backendPath
+        });
+
+        frontendProcess.stdout.on('data', (data) => {
+            console.log(`Frontend: ${data}`);
+        });
+
+        frontendProcess.stderr.on('data', (data) => {
+            console.error(`Frontend Error: ${data}`);
+        });
+
+        frontendProcess.on('error', (error) => {
+            console.error('Failed to start frontend:', error);
+            reject(error);
+        });
+
+        // Wait for frontend to be ready
+        setTimeout(() => {
+            waitOn({
+                resources: [`http://localhost:${FRONTEND_PORT}`],
+                timeout: 30000,
+                interval: 500
+            }).then(() => {
+                console.log('✓ Frontend is ready!');
+                resolve();
+            }).catch((err) => {
+                console.error('Frontend failed to start:', err);
+                reject(err);
+            });
+        }, 1000);
     });
 }
 
