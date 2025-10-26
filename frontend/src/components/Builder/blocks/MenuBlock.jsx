@@ -20,24 +20,48 @@ export const MenuBlock = ({ config, onUpdate }) => {
       setShowLogoEdit(true);
     }
   };
+  // Determină background-ul în funcție de setări
+  const getBackgroundColor = () => {
+    if (config.transparent) {
+      return 'transparent';
+    }
+    return config.background?.value || 'rgba(0,0,0,0.1)';
+  };
+
+  // Calculează padding-ul în funcție de collapsed
+  const getPadding = () => {
+    const basePadding = config.padding || { top: 20, bottom: 20 };
+    if (config.collapsed) {
+      return {
+        top: Math.max(basePadding.top * 0.6, 10),
+        bottom: Math.max(basePadding.bottom * 0.6, 10)
+      };
+    }
+    return basePadding;
+  };
+
+  const padding = getPadding();
+
   const containerStyle = {
-    backgroundColor: config.background.value,
+    backgroundColor: getBackgroundColor(),
     width: '100%',
     position: config.sticky ? 'sticky' : 'relative',
     top: config.sticky ? 0 : 'auto',
     zIndex: config.sticky ? 100 : 'auto',
-    borderBottom: '1px solid rgba(0,0,0,0.1)',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+    borderBottom: config.transparent ? 'none' : '1px solid rgba(0,0,0,0.1)',
+    boxShadow: config.transparent ? 'none' : '0 2px 8px rgba(0,0,0,0.05)',
+    transition: 'all 0.3s ease'
   };
 
   const contentStyle = {
     maxWidth: config.fullWidth ? '100%' : `${config.contentWidth}px`,
     margin: '0 auto',
-    padding: `${config.padding.top}px 24px ${config.padding.bottom}px`,
+    padding: `${padding.top}px 24px ${padding.bottom}px`,
     display: 'flex',
     alignItems: 'center',
     justifyContent: config.align === 'center' ? 'center' : 'space-between',
-    gap: '40px'
+    gap: '40px',
+    transition: 'all 0.3s ease'
   };
 
   const menuContainerStyle = {
