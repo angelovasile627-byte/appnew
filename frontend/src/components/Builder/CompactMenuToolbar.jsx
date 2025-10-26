@@ -268,7 +268,7 @@ export const CompactMenuToolbar = ({
           }}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-4 gap-2">
             {colors.map((color, idx) => (
               <button
                 key={idx}
@@ -281,19 +281,10 @@ export const CompactMenuToolbar = ({
               />
             ))}
           </div>
-          <button
-            className="mt-2 w-full bg-indigo-600 text-white px-3 py-1 rounded text-sm hover:bg-indigo-700 flex items-center justify-center gap-1"
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowColorPicker(false);
-            }}
-          >
-            <Link className="w-3 h-3" />
-          </button>
         </div>
       )}
 
-      {/* Menu Dropdown */}
+      {/* Menu Type Dropdown */}
       {showMenuDropdown && (
         <div
           className="fixed z-50 bg-gray-800 rounded-lg shadow-2xl py-2"
@@ -304,21 +295,78 @@ export const CompactMenuToolbar = ({
           }}
           onClick={(e) => e.stopPropagation()}
         >
-          <button className="w-full px-4 py-2 text-left text-white hover:bg-gray-700 text-sm">
+          <button 
+            className="w-full px-4 py-2 text-left text-white hover:bg-gray-700 text-lg font-bold"
+            onClick={() => handleMenuTypeSelect('title1')}
+          >
             Title 1
           </button>
-          <button className="w-full px-4 py-2 text-left text-white hover:bg-gray-700 text-sm">
+          <button 
+            className="w-full px-4 py-2 text-left text-white hover:bg-gray-700 text-base font-semibold"
+            onClick={() => handleMenuTypeSelect('title2')}
+          >
             Title 2
           </button>
-          <button className="w-full px-4 py-2 text-left text-white hover:bg-gray-700 text-sm">
+          <button 
+            className="w-full px-4 py-2 text-left text-white hover:bg-gray-700 text-sm font-medium"
+            onClick={() => handleMenuTypeSelect('title3')}
+          >
             Title 3
           </button>
-          <button className="w-full px-4 py-2 text-left text-white hover:bg-gray-700 text-sm">
+          <button 
+            className="w-full px-4 py-2 text-left text-white hover:bg-gray-700 text-sm"
+            onClick={() => handleMenuTypeSelect('text')}
+          >
             Text
           </button>
-          <button className="w-full px-4 py-2 text-left text-white hover:bg-gray-700 text-sm flex items-center justify-between">
+          <button 
+            className="w-full px-4 py-2 text-left text-white hover:bg-gray-700 text-sm flex items-center justify-between"
+            onClick={() => handleMenuTypeSelect('menu')}
+          >
             <span>Menu</span>
             <Link className="w-3 h-3" />
+          </button>
+        </div>
+      )}
+
+      {/* Icon Picker */}
+      {showIconPicker && (
+        <div
+          className="fixed z-50 bg-gray-800 rounded-lg shadow-2xl p-4"
+          style={{
+            top: `${position.top + 50}px`,
+            left: `${position.left - 100}px`,
+            maxWidth: '280px'
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="text-white text-sm font-semibold mb-3">Alege iconită</div>
+          <div className="grid grid-cols-4 gap-2">
+            {icons.map((icon, idx) => {
+              const IconComponent = icon.component;
+              return (
+                <button
+                  key={idx}
+                  className="p-3 rounded hover:bg-gray-700 transition-colors flex items-center justify-center"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleIconSelect(icon.name);
+                  }}
+                  title={icon.name}
+                >
+                  <IconComponent className="w-5 h-5 text-white" />
+                </button>
+              );
+            })}
+          </div>
+          <button
+            className="mt-3 w-full bg-gray-700 text-white px-3 py-2 rounded text-sm hover:bg-gray-600"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleIconSelect(null);
+            }}
+          >
+            Fără iconită
           </button>
         </div>
       )}
