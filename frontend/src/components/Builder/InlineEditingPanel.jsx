@@ -279,66 +279,6 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
           </div>
         )}
 
-        {/* Menu Items */}
-        {config.menuItems && (
-          <div className="space-y-3 border-t border-gray-800 pt-4">
-            <div className="flex items-center justify-between">
-              <Label className="text-sm font-bold text-white uppercase tracking-wider">Menu Items</Label>
-              <Button
-                onClick={addMenuItem}
-                size="sm"
-                className="h-8 px-3 bg-indigo-600 hover:bg-indigo-700"
-              >
-                + Add
-              </Button>
-            </div>
-            {config.menuItems.map((item, index) => (
-              <div key={index} className="p-4 bg-gray-800 rounded-lg space-y-3 border border-gray-700">
-                <div className="flex items-center justify-between">
-                  <Label className="text-sm font-semibold text-white">Item {index + 1}</Label>
-                  <div className="flex items-center gap-3">
-                    <Switch
-                      checked={item.show ?? true}
-                      onCheckedChange={(checked) => updateMenuItem(index, 'show', checked)}
-                    />
-                    <button
-                      onClick={() => removeMenuItem(index)}
-                      className="text-red-400 hover:text-red-300 text-sm font-medium"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </div>
-                {item.show && (
-                  <>
-                    <Input
-                      value={item.text}
-                      onChange={(e) => updateMenuItem(index, 'text', e.target.value)}
-                      placeholder="Link text"
-                      className="bg-gray-900 border-gray-700 text-white"
-                    />
-                    <Input
-                      value={item.link}
-                      onChange={(e) => updateMenuItem(index, 'link', e.target.value)}
-                      placeholder="Link URL"
-                      className="bg-gray-900 border-gray-700 text-white"
-                    />
-                    <div className="space-y-2">
-                      <Label className="text-sm text-gray-300">Color</Label>
-                      <Input
-                        type="color"
-                        value={item.color}
-                        onChange={(e) => updateMenuItem(index, 'color', e.target.value)}
-                        className="w-full h-10 p-1 cursor-pointer bg-gray-900 border-gray-700"
-                      />
-                    </div>
-                  </>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-
         {/* Menu Items Align - Only for Menu type */}
         {config.type === 'menu' && config.align !== undefined && (
           <div className="space-y-3 border-t border-gray-800 pt-4">
