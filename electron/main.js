@@ -117,7 +117,6 @@ function createWindow() {
         minWidth: 1024,
         minHeight: 768,
         backgroundColor: '#ffffff',
-        icon: path.join(__dirname, 'icon.png'),
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
@@ -125,7 +124,8 @@ function createWindow() {
             webSecurity: true
         },
         show: false,
-        autoHideMenuBar: true
+        autoHideMenuBar: true,
+        title: 'AXXO Builder'
     });
 
     // Load frontend
@@ -138,7 +138,9 @@ function createWindow() {
     // Show window when ready
     mainWindow.once('ready-to-show', () => {
         mainWindow.show();
-        console.log('AXXO Builder is ready!');
+        console.log('\n========================================');
+        console.log('  ✓ AXXO Builder is ready!');
+        console.log('========================================\n');
     });
 
     mainWindow.on('closed', () => {
@@ -152,12 +154,19 @@ function createWindow() {
 }
 
 async function startApp() {
+    console.log('\n========================================');
+    console.log('  Starting AXXO Builder...');
+    console.log('========================================\n');
+    
     try {
         // Start backend first
         await startBackend();
         
-        // Wait a bit for frontend to be ready
-        await new Promise(resolve => setTimeout(resolve, 3000));
+        // Start frontend server
+        await startFrontend();
+        
+        // Small delay to ensure everything is stable
+        await new Promise(resolve => setTimeout(resolve, 1000));
         
         // Create Electron window
         createWindow();
@@ -170,9 +179,12 @@ async function startApp() {
 app.whenReady().then(startApp);
 
 app.on('window-all-closed', () => {
-    // Kill backend process
+    // Kill processes
     if (backendProcess) {
         backendProcess.kill();
+    }
+    if (frontendProcess) {
+        frontendProcess.kill();
     }
     
     if (process.platform !== 'darwin') {
@@ -187,9 +199,12 @@ app.on('activate', () => {
 });
 
 app.on('quit', () => {
-    // Ensure backend is killed
+    // Ensure processes are killed
     if (backendProcess) {
         backendProcess.kill();
+    }
+    if (frontendProcess) {
+        frontendProcess.kill();
     }
 });
 
