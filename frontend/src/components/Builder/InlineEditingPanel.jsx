@@ -37,24 +37,24 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
     <div
       className="fixed right-0 top-0 h-full bg-gray-900 shadow-2xl z-50 overflow-y-auto border-l border-gray-800"
       style={{
-        width: '320px'
+        width: '300px'
       }}
       onClick={(e) => e.stopPropagation()}
     >
-      <div className="sticky top-0 bg-gray-900 border-b border-gray-800 px-4 py-3 flex items-center justify-between z-10">
+      <div className="sticky top-0 bg-gray-900 border-b border-gray-800 px-3 py-2 flex items-center justify-between z-10">
         <div>
-          <h3 className="font-bold text-white text-base">Edit Block</h3>
-          <p className="text-xs text-gray-400 capitalize">{config.type} Settings</p>
+          <h3 className="font-bold text-white text-sm">Edit Block</h3>
+          <p className="text-[10px] text-gray-400 capitalize">{config.type} Settings</p>
         </div>
         <button
           onClick={onClose}
-          className="p-1.5 hover:bg-gray-800 rounded-lg transition-colors"
+          className="p-1 hover:bg-gray-800 rounded transition-colors"
         >
-          <X className="w-4 h-4 text-gray-400" />
+          <X className="w-3.5 h-3.5 text-gray-400" />
         </button>
       </div>
 
-      <div className="p-4 space-y-2">
+      <div className="p-2.5 space-y-1.5">
         {/* Show/Hide Section */}
         {config.type && (
           <div className="space-y-2">
