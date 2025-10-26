@@ -85,6 +85,24 @@ const BuilderNew = () => {
   }, [selectedBlockId, isMenuBlock]);
 
   const handleAddBlock = (template) => {
+    // Check if trying to add a menu when one already exists
+    if (template.category === 'menu') {
+      const hasMenuBlock = blocks.some(block => {
+        const { blockTemplates } = require('../data/mockBlocks');
+        const blockTemplate = blockTemplates.find(t => t.id === block.templateId);
+        return blockTemplate && blockTemplate.category === 'menu';
+      });
+      
+      if (hasMenuBlock) {
+        toast({
+          title: 'Meniu existent',
+          description: 'Există deja un bloc de meniu pe pagină. Vă rugăm să ștergeți meniul existent înainte de a adăuga unul nou.',
+          variant: 'destructive'
+        });
+        return;
+      }
+    }
+    
     saveToHistory(blocks);
     const newBlock = {
       id: `block-${Date.now()}`,
