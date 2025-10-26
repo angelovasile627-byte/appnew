@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Toolbar } from '../components/Builder/Toolbar';
 import { Canvas } from '../components/Builder/Canvas';
 import { BlockSidebar } from '../components/Builder/BlockSidebar';
+import { PagesSidebar } from '../components/Builder/PagesSidebar';
+import { CreatePageModal } from '../components/Builder/CreatePageModal';
 import { InlineEditingPanel } from '../components/Builder/InlineEditingPanel';
 import { InlineToolbar } from '../components/Builder/InlineToolbar';
 import { PreviewModal } from '../components/Builder/PreviewModal';
@@ -9,16 +11,28 @@ import { FTPDialog } from '../components/Builder/FTPDialog';
 import { useToast } from '../hooks/use-toast';
 
 const BuilderNew = () => {
-  const [blocks, setBlocks] = useState([]);
+  // Pages state
+  const [pages, setPages] = useState([]);
+  const [currentPageId, setCurrentPageId] = useState(null);
+  const [sharedMenu, setSharedMenu] = useState(null);
+  const [projectId, setProjectId] = useState('project-default');
+  
+  // UI state
   const [history, setHistory] = useState({ past: [], future: [] });
   const [selectedBlockId, setSelectedBlockId] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isFTPDialogOpen, setIsFTPDialogOpen] = useState(false);
+  const [isCreatePageModalOpen, setIsCreatePageModalOpen] = useState(false);
   const [editPanelPosition, setEditPanelPosition] = useState({ top: 0, left: 0 });
   const selectedBlockRef = useRef(null);
   const cleanupInProgressRef = useRef(false);
   const { toast } = useToast();
+
+  // Get current page
+  const currentPage = pages.find(p => p.id === currentPageId);
+  const blocks = currentPage ? currentPage.blocks : [];
+  const selectedBlock = blocks.find(b => b.id === selectedBlockId);
 
   const selectedBlock = blocks.find(b => b.id === selectedBlockId);
   
