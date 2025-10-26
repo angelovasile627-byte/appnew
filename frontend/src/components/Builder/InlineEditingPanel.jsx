@@ -57,11 +57,11 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
       <div className="p-2 space-y-0.5">
         {/* Show/Hide Section */}
         {config.type && (
-          <div className="space-y-1">
-            <h4 className="text-[10px] font-bold text-white uppercase tracking-wider">Show/Hide</h4>
-            <div className="space-y-0.5">
+          <div className="space-y-0.5">
+            <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Show/Hide</h4>
+            <div className="space-y-0">
               <div className="flex items-center justify-between py-0.5">
-                <Label className="text-[10px] text-gray-300">Visibility</Label>
+                <Label className="text-[9px] text-gray-300">Visibility</Label>
                 <Switch
                   checked={config.visible ?? true}
                   onCheckedChange={(checked) => updateConfig('visible', checked)}
@@ -73,7 +73,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Size Controls for Hero */}
         {config.type === 'hero' && (
-          <div className="space-y-1 border-t border-gray-800 pt-1.5">
+          <div className="space-y-0.5 border-t border-gray-800 pt-1">
             <h4 className="text-[10px] font-bold text-white uppercase tracking-wider">Size</h4>
             
             {/* Full Screen */}
