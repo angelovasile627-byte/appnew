@@ -23,6 +23,24 @@ const BuilderNew = () => {
   const selectedBlock = blocks.find(b => b.id === selectedBlockId);
   const isMenuBlock = selectedBlock && selectedBlock.config.type === 'menu';
   
+  // Helper function to remove duplicate menu blocks
+  const removeDuplicateMenus = (blocksArray) => {
+    const { blockTemplates } = require('../data/mockBlocks');
+    let foundMenu = false;
+    
+    return blocksArray.filter(block => {
+      const template = blockTemplates.find(t => t.id === block.templateId);
+      if (template && template.category === 'menu') {
+        if (foundMenu) {
+          return false; // Skip duplicate menu
+        }
+        foundMenu = true;
+        return true;
+      }
+      return true;
+    });
+  };
+  
   // Load project from localStorage on mount
   useEffect(() => {
     const savedProject = localStorage.getItem('currentProject');
