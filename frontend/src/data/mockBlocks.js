@@ -29,48 +29,94 @@ export const blockTemplates = [
     }
   },
   {
-    id: 'menu-3',
+    id: 'menu-1',
     category: 'menu',
-    name: 'Menu - Transparent',
-    thumbnail: 'https://images.unsplash.com/photo-1555421689-d68471e189f2?w=400&h=300&fit=crop',
+    name: 'Menu - Classic',
+    thumbnail: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=400&h=300&fit=crop',
     config: {
       type: 'menu',
-      background: { type: 'color', value: 'rgba(0,0,0,0.1)' },
+      background: { type: 'color', value: '#ffffff' },
       fullWidth: true,
       contentWidth: 1200,
-      padding: { top: 12, bottom: 12 },
+      padding: { top: 16, bottom: 16 },
       logo: { 
-        text: 'Mobirise', 
+        text: 'AXXO', 
         show: true, 
-        color: '#ffffff', 
-        size: 20,
-        imageSize: 32,
-        logoSize: 100
+        color: '#1a1a2e', 
+        size: 24,
+        imageSize: 40,
+        logoSize: 120
       },
       menuItems: [
-        { text: 'About us', link: '#about', color: '#ffffff', show: true },
-        { text: 'Services', link: '#services', color: '#ffffff', show: true },
-        { text: 'Contacts', link: '#contacts', color: '#ffffff', show: true }
+        { text: 'About us', link: '#about', color: '#1a1a2e', show: true },
+        { text: 'Services', link: '#services', color: '#1a1a2e', show: true },
+        { text: 'Contacts', link: '#contacts', color: '#1a1a2e', show: true }
       ],
       button: { 
         text: 'Get Started', 
-        show: false, 
-        color: 'transparent', 
+        show: true, 
+        color: '#6366F1', 
         textColor: '#ffffff', 
         link: '#start' 
       },
       icons: { 
         show: false 
       },
+      sticky: false,
+      collapsed: false,
+      transparent: false,
+      hamburger: {
+        show: true,
+        color: '#1a1a2e',
+        breakpoint: 768
+      },
+      align: 'space-between'
+    }
+  },
+  {
+    id: 'menu-2',
+    category: 'menu',
+    name: 'Menu - Logo Centrat',
+    thumbnail: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=400&h=300&fit=crop',
+    config: {
+      type: 'menu',
+      background: { type: 'color', value: '#0F172A' },
+      fullWidth: true,
+      contentWidth: 1200,
+      padding: { top: 20, bottom: 20 },
+      logo: { 
+        text: 'BRAND', 
+        show: true, 
+        color: '#ffffff', 
+        size: 28,
+        imageSize: 48,
+        logoSize: 140
+      },
+      menuItems: [
+        { text: 'Home', link: '#home', color: '#ffffff', show: true },
+        { text: 'Features', link: '#features', color: '#ffffff', show: true },
+        { text: 'Pricing', link: '#pricing', color: '#ffffff', show: true },
+        { text: 'Contact', link: '#contact', color: '#ffffff', show: true }
+      ],
+      button: { 
+        text: 'Sign Up', 
+        show: true, 
+        color: '#A8F5B8', 
+        textColor: '#1a1a2e', 
+        link: '#signup' 
+      },
+      icons: { 
+        show: false 
+      },
       sticky: true,
       collapsed: false,
-      transparent: true,
+      transparent: false,
       hamburger: {
         show: true,
         color: '#ffffff',
         breakpoint: 768
       },
-      align: 'space-between'
+      align: 'center'
     }
   }
 ];
