@@ -4,19 +4,28 @@ export const blockTemplates = [
   {
     id: 'hero-1',
     category: 'hero',
-    name: 'Hero - Experience Future',
-    thumbnail: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop',
+    name: 'Hero - Image Above Text',
+    thumbnail: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=300&fit=crop',
     config: {
       type: 'hero',
-      background: { type: 'color', value: '#5B4FC9' },
-      fullScreen: true,
-      fullWidth: false,
-      contentWidth: 800,
-      padding: { top: 120, bottom: 120 },
-      title: { text: 'Experience the future', show: true, color: '#ffffff', align: 'center' },
-      description: { text: 'Stay ahead with our cutting-edge software. Give it a try today and step into a future filled with innovation, making your tasks easier and more enjoyable.', show: true, color: '#e8e8f0', align: 'center' },
-      button: { text: 'Download Software', show: true, color: '#A8F5D7', textColor: '#1a1a2e', link: '#' },
-      subtitle: { text: 'Compatible with Windows and macOS.', show: true, color: '#d0d0e8', align: 'center' }
+      layout: 'image-above-text',
+      background: { type: 'color', value: '#F5F5F0' },
+      fullScreen: false,
+      fullWidth: true,
+      contentWidth: 1000,
+      padding: { top: 80, bottom: 80 },
+      heroImage: { 
+        src: 'https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=1200&h=800&fit=crop', 
+        show: true,
+        alt: 'Hero image',
+        height: 600,
+        objectFit: 'cover',
+        borderRadius: 12
+      },
+      title: { text: 'From ordinary to extraordinary', show: true, color: '#2B2B2B', align: 'center', size: 56, weight: 700 },
+      description: { text: 'Intro with an image above text. Click on the image to replace it.', show: true, color: '#6B6B6B', align: 'center', size: 18 },
+      button: { text: 'Download now', show: true, color: '#A8F5B8', textColor: '#2B2B2B', link: '#', size: 18 },
+      subtitle: { text: '', show: false, color: '#888888', align: 'center' }
     }
   },
   {
