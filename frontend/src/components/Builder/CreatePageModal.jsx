@@ -10,18 +10,22 @@ export const CreatePageModal = ({ isOpen, onClose, onCreatePage, onDuplicatePage
   const [selectedPageId, setSelectedPageId] = useState('');
 
   const handleCreate = () => {
+    console.log('🔷 handleCreate called', { pageName, pageType, selectedPageId });
+    
     if (!pageName.trim()) {
       alert('Te rog introdu un nume pentru pagină');
       return;
     }
 
     if (pageType === 'blank') {
+      console.log('🔷 Creating blank page:', pageName);
       onCreatePage(pageName);
     } else {
       if (!selectedPageId) {
         alert('Te rog selectează o pagină de duplicat');
         return;
       }
+      console.log('🔷 Duplicating page:', selectedPageId, 'as', pageName);
       onDuplicatePage(selectedPageId, pageName);
     }
 
@@ -29,6 +33,7 @@ export const CreatePageModal = ({ isOpen, onClose, onCreatePage, onDuplicatePage
     setPageName('');
     setPageType('blank');
     setSelectedPageId('');
+    console.log('🔷 Closing modal');
     onClose();
   };
 
