@@ -375,7 +375,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   type="text"
                   value={config.background?.value || '#000000'}
                   onChange={(e) => updateConfig('background.value', e.target.value)}
-                  className="flex-1 bg-gray-800 border-gray-700 text-white"
+                  className="flex-1 bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5"
                 />
               </div>
             </div>
@@ -394,7 +394,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   type="text"
                   value={config.hamburger?.color || '#ffffff'}
                   onChange={(e) => updateConfig('hamburger.color', e.target.value)}
-                  className="flex-1 bg-gray-800 border-gray-700 text-white"
+                  className="flex-1 bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5"
                 />
               </div>
             </div>
@@ -430,7 +430,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                     value={config.title.align || 'center'}
                     onValueChange={(value) => updateConfig('title.align', value)}
                   >
-                    <SelectTrigger className="flex-1 bg-gray-800 border-gray-700 text-white">
+                    <SelectTrigger className="flex-1 bg-gray-800 border-gray-700 text-white text-xs px-2 py-1.5">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-gray-800 border-gray-700">
