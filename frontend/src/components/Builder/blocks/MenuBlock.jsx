@@ -38,16 +38,30 @@ export const MenuBlock = ({ config, onUpdate }) => {
         {config.logo.show && config.align !== 'center' && (
           <div
             style={{
-              fontSize: `${config.logo.size}px`,
+              fontSize: config.logo.image ? 'inherit' : `${config.logo.size}px`,
               fontWeight: '800',
               color: config.logo.color,
               cursor: 'pointer',
-              transition: 'opacity 0.2s'
+              transition: 'opacity 0.2s',
+              display: 'flex',
+              alignItems: 'center'
             }}
             onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
             onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
           >
-            {config.logo.text}
+            {config.logo.image ? (
+              <img 
+                src={config.logo.image} 
+                alt={config.logo.text || 'Logo'} 
+                style={{
+                  height: `${config.logo.imageSize || 40}px`,
+                  width: 'auto',
+                  objectFit: 'contain'
+                }}
+              />
+            ) : (
+              config.logo.text
+            )}
           </div>
         )}
 
