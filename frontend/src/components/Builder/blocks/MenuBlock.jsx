@@ -87,7 +87,8 @@ export const MenuBlock = ({ config, onUpdate }) => {
               transition: 'opacity 0.2s',
               display: 'flex',
               alignItems: 'center',
-              position: 'relative'
+              position: 'relative',
+              maxWidth: `${config.logo.logoSize || 120}px`
             }}
             onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
             onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
@@ -100,7 +101,8 @@ export const MenuBlock = ({ config, onUpdate }) => {
                 style={{
                   height: `${config.logo.imageSize || 40}px`,
                   width: 'auto',
-                  objectFit: 'contain'
+                  objectFit: 'contain',
+                  maxWidth: '100%'
                 }}
               />
             ) : (
@@ -118,7 +120,7 @@ export const MenuBlock = ({ config, onUpdate }) => {
             border: 'none',
             cursor: 'pointer',
             padding: '8px',
-            color: config.logo.color || '#1a1a2e'
+            color: config.hamburger?.color || config.logo?.color || '#1a1a2e'
           }}
           className="mobile-menu-toggle"
         >
