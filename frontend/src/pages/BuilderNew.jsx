@@ -49,20 +49,7 @@ const BuilderNew = () => {
         const projectData = JSON.parse(savedProject);
         if (projectData.blocks && Array.isArray(projectData.blocks)) {
           // Remove duplicate menu blocks - keep only the first one
-          const { blockTemplates } = require('../data/mockBlocks');
-          let foundMenu = false;
-          const cleanedBlocks = projectData.blocks.filter(block => {
-            const template = blockTemplates.find(t => t.id === block.templateId);
-            if (template && template.category === 'menu') {
-              if (foundMenu) {
-                // Skip this menu block as we already have one
-                return false;
-              }
-              foundMenu = true;
-              return true;
-            }
-            return true;
-          });
+          const cleanedBlocks = removeDuplicateMenus(projectData.blocks);
           
           setBlocks(cleanedBlocks);
           
