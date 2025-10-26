@@ -263,46 +263,6 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                     />
                   )}
                 </div>
-                
-                {/* Logo Size - affects both image and text */}
-                <div className="space-y-2">
-                  <Label className="text-sm text-gray-300">Logo Size</Label>
-                  <div className="flex items-center gap-3">
-                    <Input
-                      type="range"
-                      value={config.logo.image ? (config.logo.imageSize || 40) : (config.logo.size || 24)}
-                      onChange={(e) => {
-                        const value = parseInt(e.target.value);
-                        if (config.logo.image) {
-                          updateConfig('logo.imageSize', value);
-                        } else {
-                          updateConfig('logo.size', value);
-                        }
-                      }}
-                      className="flex-1 bg-gray-800 border-gray-700"
-                      min={config.logo.image ? "20" : "12"}
-                      max={config.logo.image ? "200" : "120"}
-                    />
-                    <span className="text-sm text-gray-400 w-12">
-                      {config.logo.image ? (config.logo.imageSize || 40) : (config.logo.size || 24)}px
-                    </span>
-                  </div>
-                </div>
-                
-                {/* Color - only for text */}
-                {config.logo.text && (
-                  <div className="space-y-2">
-                    <Label className="text-sm text-gray-300">Text Color</Label>
-                    <div className="flex gap-3 items-center">
-                      <Input
-                        type="color"
-                        value={config.logo.color || '#000000'}
-                        onChange={(e) => updateConfig('logo.color', e.target.value)}
-                        className="w-16 h-16 p-1 cursor-pointer rounded-full bg-gray-800 border-gray-700"
-                      />
-                    </div>
-                  </div>
-                )}
               </div>
             )}
           </div>
