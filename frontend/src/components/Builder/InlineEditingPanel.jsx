@@ -303,13 +303,22 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   <div className="flex items-center gap-3">
                     <Input
                       type="range"
-                      value={config.logo.size || 24}
-                      onChange={(e) => updateConfig('logo.size', parseInt(e.target.value))}
+                      value={config.logo.image ? (config.logo.imageSize || 40) : (config.logo.size || 24)}
+                      onChange={(e) => {
+                        const value = parseInt(e.target.value);
+                        if (config.logo.image) {
+                          updateConfig('logo.imageSize', value);
+                        } else {
+                          updateConfig('logo.size', value);
+                        }
+                      }}
                       className="flex-1 bg-gray-800 border-gray-700"
-                      min="12"
-                      max="120"
+                      min={config.logo.image ? "20" : "12"}
+                      max={config.logo.image ? "200" : "120"}
                     />
-                    <span className="text-sm text-gray-400 w-12">{config.logo.size || 24}px</span>
+                    <span className="text-sm text-gray-400 w-12">
+                      {config.logo.image ? (config.logo.imageSize || 40) : (config.logo.size || 24)}px
+                    </span>
                   </div>
                 </div>
                 
