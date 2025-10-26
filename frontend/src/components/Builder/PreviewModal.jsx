@@ -157,7 +157,7 @@ const generateBlockHTML = (config) => {
               </div>
             `;
           })()}
-          </div>
+        </nav>
           
           <!-- Responsive CSS -->
           <style>
