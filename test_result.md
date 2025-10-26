@@ -38,31 +38,34 @@ frontend:
     implemented: true
     working: "YES"
     files: 
-      - "/app/frontend/src/components/Builder/InlineEditingPanel.jsx" (optimized for ultra-compact display)
+      - "/app/frontend/src/components/Builder/InlineEditingPanel.jsx" (optimized for ultra-compact display + dynamic positioning)
+      - "/app/frontend/src/components/Builder/blocks/MenuBlock.jsx" (added opacity support for transparent menus)
     stuck_count: 0
     priority: "high"
     needs_retesting: false
     changes_made:
-      - "Reduced panel width from 320px to 300px to 280px"
-      - "Reduced header padding (py-3 → py-2 → py-1.5, px-4 → px-3 → px-2)"
-      - "Reduced header text (text-sm → text-xs, text-[10px] → text-[9px])"
-      - "Reduced close icon (w-3.5 h-3.5 → w-3 h-3)"
-      - "Reduced all font sizes (text-xs → text-[10px] → text-[9px])"
-      - "Reduced all vertical spacing (space-y-2 → space-y-1 → space-y-0.5)"
-      - "Reduced section padding (pt-3 → pt-1.5 → pt-1)"
-      - "Reduced color picker size (w-10 h-10 → w-8 h-8 → w-6 h-6)"
-      - "Reduced button color picker height (h-10 → h-8)"
-      - "Reduced textarea rows (2 → 1)"
-      - "Reduced indentation margins (ml-4 → ml-2 → ml-1.5)"
-      - "Reduced value display width (w-16 → w-12 → w-10)"
-      - "Reduced input/select heights (default → h-7)"
-      - "Reduced gaps (gap-2 → gap-1.5)"
-      - "Reduced borders (border-2 → border)"
-      - "All menu settings now visible in ultra-compact space without scrolling"
+      - "Panel width: 320px → 300px → 280px"
+      - "Header: py-3 → py-2 → py-1.5, px-4 → px-3 → px-2"
+      - "Text sizes: text-xs → text-[10px] → text-[9px]"
+      - "Close icon: w-3.5 h-3.5 → w-3 h-3"
+      - "Spacing: space-y-2 → space-y-1 → space-y-0.5"
+      - "Section padding: pt-3 → pt-1.5 → pt-1"
+      - "Color pickers: w-10 h-10 → w-8 h-8 → w-6 h-6"
+      - "Button colors: h-10 → h-8"
+      - "Textarea rows: 2 → 1"
+      - "Indentation: ml-4 → ml-2 → ml-1.5"
+      - "Value display: w-16 → w-12 → w-10"
+      - "Input heights: default → h-7"
+      - "Gaps: gap-2 → gap-1.5"
+      - "Borders: border-2 → border"
+      - "ADDED: Opacity slider (0-100%) when Transparent is ON"
+      - "ADDED: Dynamic positioning - panel starts below menu when editing menu blocks"
+      - "ADDED: Z-index increased to 9999 to prevent sticky menu buttons overlapping"
+      - "ADDED: useEffect to recalculate position on menu config changes"
     status_history:
       - working: "YES"
         agent: "main"
-        comment: "Successfully optimized InlineEditingPanel to ultra-compact size. Panel now 280px wide (from 300px) with all elements further compressed while maintaining full functionality. Menu editor is significantly smaller with improved space efficiency."
+        comment: "Menu editor fully optimized with 3 major improvements: 1) Ultra-compact 280px panel, 2) Opacity slider for transparent menus (0-100%), 3) Dynamic positioning - panel now starts exactly below menu (no overlap), 4) Z-index fix prevents sticky menu buttons from covering panel."
 
   - task: "Activate ALL Show/Hide and Styles settings for menu blocks by default"
     implemented: true
