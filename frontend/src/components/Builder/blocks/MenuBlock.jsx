@@ -189,9 +189,9 @@ export const MenuBlock = ({ config, onUpdate }) => {
               style={{
                 backgroundColor: config.button.color,
                 color: config.button.textColor,
-                padding: '12px 28px',
-                fontSize: '16px',
-                borderRadius: '10px',
+                padding: '10px 24px',
+                fontSize: '15px',
+                borderRadius: '8px',
                 border: config.button.color === 'transparent' ? `2px solid ${config.button.textColor}` : 'none',
                 cursor: 'pointer',
                 fontWeight: '600',
