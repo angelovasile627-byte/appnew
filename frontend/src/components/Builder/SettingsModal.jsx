@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { X, Settings, Globe, Search, Code, Palette } from 'lucide-react';
+import { X, Settings, Globe, Search, Code, Palette, FileText, Plus, Copy, Edit2, Trash2, Home } from 'lucide-react';
 import { Button } from '../ui/button';
 
-export const SettingsModal = ({ isOpen, onClose, projectId, initialSettings, onSave }) => {
+export const SettingsModal = ({ 
+  isOpen, 
+  onClose, 
+  projectId, 
+  initialSettings, 
+  onSave,
+  // Pages management props
+  pages = [],
+  onCreatePage,
+  onDuplicatePage,
+  onRenamePage,
+  onDeletePage
+}) => {
   const [activeTab, setActiveTab] = useState('general');
   const [settings, setSettings] = useState({
     // General
