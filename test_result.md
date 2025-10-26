@@ -112,6 +112,66 @@ frontend:
         agent: "main"
         comment: "Menu editor fully optimized with 3 major improvements: 1) Ultra-compact 280px panel, 2) Opacity slider for transparent menus (0-100%), 3) Dynamic positioning - panel now starts exactly below menu (no overlap), 4) Z-index fix prevents sticky menu buttons from covering panel."
 
+  - task: "Implement Center and Split menu alignment with proper element distribution"
+    implemented: true
+    working: "YES"
+    files:
+      - "/app/frontend/src/components/Builder/InlineEditingPanel.jsx" (added splitCount slider)
+      - "/app/frontend/src/components/Builder/blocks/MenuBlock.jsx" (refactored with new layout logic)
+      - "/app/frontend/src/components/Builder/PreviewModal.jsx" (updated with same layout logic)
+      - "/app/frontend/src/data/mockBlocks.js" (added splitCount default value)
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    changes_made:
+      - "CENTER ALIGNMENT: Implemented vertical layout - Logo sus (centrat), menu items jos (centrat)"
+      - "SPLIT ALIGNMENT: Implemented logo în mijloc cu elemente împărțite stânga/dreapta"
+      - "Added 'Items în stânga logoului' slider control (0 to total items) in InlineEditingPanel"
+      - "Refactored MenuBlock.jsx with helper functions: renderLogo(), renderMenuItems(), renderButton()"
+      - "Created getLayoutContent() function with 3 layout modes: CENTER (vertical), SPLIT (logo middle), DEFAULT (left/right/space-between)"
+      - "Updated PreviewModal.jsx with identical layout logic using IIFE for dynamic HTML generation"
+      - "Button is included in menu items group (goes bottom for center, right for split)"
+      - "Added splitCount: 2 default value to all menu templates in mockBlocks.js"
+      - "Both Canvas and Preview render identically for all alignment options"
+    status_history:
+      - working: "YES"
+        agent: "main"
+        comment: "Successfully implemented Center (vertical) and Split (logo middle) menu alignments. Center: Logo deasupra, menu items dedesubt. Split: Selectare manuală câte elemente în stânga logoului (slider), rest în dreapta. Butonul merge în mijloc cu restul elementelor. Funcționează perfect în Canvas și Preview."
+        
+  - task: "Optimize InlineEditingPanel to be more compact and fit within half page height (PREVIOUS)"
+    implemented: true
+    working: "YES"
+    files: 
+      - "/app/frontend/src/components/Builder/InlineEditingPanel.jsx" (optimized for ultra-compact display + dynamic positioning)
+      - "/app/frontend/src/components/Builder/blocks/MenuBlock.jsx" (added opacity support for transparent menus)
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    changes_made:
+      - "Panel width: 320px → 300px → 280px"
+      - "Header: py-3 → py-2 → py-1.5, px-4 → px-3 → px-2"
+      - "Text sizes: text-xs → text-[10px] → text-[9px]"
+      - "Close icon: w-3.5 h-3.5 → w-3 h-3"
+      - "Spacing: space-y-2 → space-y-1 → space-y-0.5"
+      - "Section padding: pt-3 → pt-1.5 → pt-1"
+      - "Color pickers: w-10 h-10 → w-8 h-8 → w-6 h-6"
+      - "Button colors: h-10 → h-8"
+      - "Textarea rows: 2 → 1"
+      - "Indentation: ml-4 → ml-2 → ml-1.5"
+      - "Value display: w-16 → w-12 → w-10"
+      - "Input heights: default → h-7"
+      - "Gaps: gap-2 → gap-1.5"
+      - "Borders: border-2 → border"
+      - "ADDED: Opacity slider (0-100%) when Transparent is ON"
+      - "ADDED: Dynamic positioning - panel starts below menu when editing menu blocks"
+      - "ADDED: Z-index increased to 9999 to prevent sticky menu buttons overlapping"
+      - "ADDED: useEffect to recalculate position on menu config changes"
+    status_history:
+      - working: "YES"
+        agent: "main"
+        comment: "Menu editor fully optimized with 3 major improvements: 1) Ultra-compact 280px panel, 2) Opacity slider for transparent menus (0-100%), 3) Dynamic positioning - panel now starts exactly below menu (no overlap), 4) Z-index fix prevents sticky menu buttons from covering panel."
+
+
   - task: "Activate ALL Show/Hide and Styles settings for menu blocks by default"
     implemented: true
     working: "YES"
