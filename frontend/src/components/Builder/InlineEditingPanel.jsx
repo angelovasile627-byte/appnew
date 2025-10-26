@@ -57,11 +57,11 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
       <div className="p-4 space-y-3">
         {/* Show/Hide Section */}
         {config.type && (
-          <div className="space-y-3">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Show/Hide</h4>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between py-2">
-                <Label className="text-sm text-gray-300">Visibility</Label>
+          <div className="space-y-2">
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider">Show/Hide</h4>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between py-1">
+                <Label className="text-xs text-gray-300">Visibility</Label>
                 <Switch
                   checked={config.visible ?? true}
                   onCheckedChange={(checked) => updateConfig('visible', checked)}
@@ -73,12 +73,12 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Size Controls for Hero */}
         {config.type === 'hero' && (
-          <div className="space-y-3 border-t border-gray-800 pt-4">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Size</h4>
+          <div className="space-y-2 border-t border-gray-800 pt-3">
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider">Size</h4>
             
             {/* Full Screen */}
-            <div className="flex items-center justify-between py-2">
-              <Label className="text-sm text-gray-300">Full Screen</Label>
+            <div className="flex items-center justify-between py-1">
+              <Label className="text-xs text-gray-300">Full Screen</Label>
               <Switch
                 checked={config.fullScreen ?? true}
                 onCheckedChange={(checked) => updateConfig('fullScreen', checked)}
@@ -86,8 +86,8 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             </div>
 
             {/* Full Width */}
-            <div className="flex items-center justify-between py-2">
-              <Label className="text-sm text-gray-300">Full Width</Label>
+            <div className="flex items-center justify-between py-1">
+              <Label className="text-xs text-gray-300">Full Width</Label>
               <Switch
                 checked={config.fullWidth ?? false}
                 onCheckedChange={(checked) => updateConfig('fullWidth', checked)}
@@ -95,9 +95,9 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
             </div>
 
             {/* Content Width */}
-            <div className="space-y-2">
-              <Label className="text-sm text-gray-300">Content Width</Label>
-              <div className="flex items-center gap-3">
+            <div className="space-y-1.5">
+              <Label className="text-xs text-gray-300">Content Width</Label>
+              <div className="flex items-center gap-2">
                 <Input
                   type="range"
                   value={config.contentWidth || 800}
@@ -107,7 +107,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                   max="1600"
                   step="50"
                 />
-                <span className="text-sm text-gray-400 w-20">{config.contentWidth || 800}px</span>
+                <span className="text-xs text-gray-400 w-16">{config.contentWidth || 800}px</span>
               </div>
             </div>
           </div>
@@ -115,29 +115,29 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
         {/* Hero Image Controls */}
         {config.type === 'hero' && config.heroImage && (
-          <div className="space-y-3 border-t border-gray-800 pt-4">
+          <div className="space-y-2 border-t border-gray-800 pt-3">
             <div className="flex items-center justify-between">
-              <Label className="text-sm font-bold text-white uppercase tracking-wider">Hero Image</Label>
+              <Label className="text-xs font-bold text-white uppercase tracking-wider">Hero Image</Label>
               <Switch
                 checked={config.heroImage.show ?? true}
                 onCheckedChange={(checked) => updateConfig('heroImage.show', checked)}
               />
             </div>
             {config.heroImage.show && (
-              <div className="space-y-3">
-                <div className="space-y-2">
-                  <Label className="text-sm text-gray-300">Image URL</Label>
+              <div className="space-y-2">
+                <div className="space-y-1.5">
+                  <Label className="text-xs text-gray-300">Image URL</Label>
                   <Input
                     value={config.heroImage.src || ''}
                     onChange={(e) => updateConfig('heroImage.src', e.target.value)}
                     placeholder="https://example.com/image.jpg"
-                    className="bg-gray-800 border-gray-700 text-white"
+                    className="bg-gray-800 border-gray-700 text-white text-xs"
                   />
                 </div>
                 
-                <div className="space-y-2">
-                  <Label className="text-sm text-gray-300">Image Height</Label>
-                  <div className="flex items-center gap-3">
+                <div className="space-y-1.5">
+                  <Label className="text-xs text-gray-300">Image Height</Label>
+                  <div className="flex items-center gap-2">
                     <Input
                       type="range"
                       value={config.heroImage.height || 600}
@@ -147,7 +147,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                       max="1000"
                       step="50"
                     />
-                    <span className="text-sm text-gray-400 w-20">{config.heroImage.height || 600}px</span>
+                    <span className="text-xs text-gray-400 w-16">{config.heroImage.height || 600}px</span>
                   </div>
                 </div>
 
