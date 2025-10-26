@@ -72,6 +72,7 @@ export const SettingsModal = ({
 
   const tabs = [
     { id: 'general', label: 'General', icon: Globe },
+    { id: 'pages', label: 'Pagini', icon: FileText },
     { id: 'seo', label: 'SEO', icon: Search },
     { id: 'technical', label: 'Tehnic', icon: Code },
     { id: 'design', label: 'Design', icon: Palette }
