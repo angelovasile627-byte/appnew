@@ -734,38 +734,49 @@ export const PreviewModal = ({ blocks, isOpen, onClose }) => {
       return '<div style="padding: 40px; text-align: center; font-family: sans-serif;"><h2>Nu există blocuri de previzualizat</h2><p>Adaugă câteva blocuri pentru a vedea previzualizarea.</p></div>';
     }
 
-    // Remove duplicates by ID before generating HTML
+    // AGGRESSIVE DEDUPLICATION: Remove all duplicates by ID AND type
     const uniqueBlocks = [];
     const seenIds = new Set();
-    let menuCount = 0; // Count menus instead of boolean
+    const seenTypes = new Set();
+    let menuCount = 0;
     
     for (const block of blocks) {
       console.log('🔍 Processing block:', block.id, 'type:', block.config?.type, 'sticky:', block.config?.sticky);
       
-      // Skip if we already saw this ID
+      // Skip if we already saw this exact ID
       if (seenIds.has(block.id)) {
         console.log('⚠️ Skipping duplicate block ID:', block.id);
         continue;
       }
       
-      // If this is a menu and we already have one, skip it
+      // CRITICAL FIX: For menu blocks, ONLY allow ONE menu total
       if (block.config?.type === 'menu') {
         menuCount++;
         console.log('🔍 Found menu block #', menuCount, '- id:', block.id, 'sticky:', block.config?.sticky);
+        
+        // If this is not the first menu, SKIP IT
         if (menuCount > 1) {
-          console.log('⚠️ Skipping duplicate menu block:', block.id);
+          console.log('⚠️ BLOCKING duplicate menu block:', block.id);
           continue;
         }
+        
+        // Also check if we've seen menu type before
+        if (seenTypes.has('menu')) {
+          console.log('⚠️ BLOCKING duplicate menu by type check:', block.id);
+          continue;
+        }
+        
+        seenTypes.add('menu');
       }
       
       seenIds.add(block.id);
       uniqueBlocks.push(block);
     }
     
-    console.log('🔍 After dedup - uniqueBlocks count:', uniqueBlocks.length);
+    console.log('🔍 After AGGRESSIVE dedup - uniqueBlocks count:', uniqueBlocks.length);
     console.log('🔍 Final uniqueBlocks:', uniqueBlocks.map(b => ({ id: b.id, type: b.config?.type, sticky: b.config?.sticky })));
     console.log('🔍 Removed duplicates:', blocks.length - uniqueBlocks.length);
-    console.log('🔍 Total menus found:', menuCount);
+    console.log('🔍 Total menus allowed:', menuCount > 0 ? 1 : 0);
 
     const htmlBlocks = uniqueBlocks.map(block => {
       const html = generateBlockHTML(block.config);
@@ -774,18 +785,18 @@ export const PreviewModal = ({ blocks, isOpen, onClose }) => {
       
       // Count how many <nav> tags are in this HTML
       const navCount = (html.match(/<nav/g) || []).length;
-      if (navCount > 1) {
-        console.error('❌ ERROR: Block', block.id, 'generated', navCount, '<nav> tags!');
+      if (navCount > 2) {
+        console.error('❌ WARNING: Block', block.id, 'generated', navCount, '<nav> tags (expected max 2 for desktop+mobile)');
       }
       
       return html;
     }).join('\n');
     
-    // Final check: count total <nav> tags in combined HTML
-    const totalNavTags = (htmlBlocks.match(/<nav/g) || []).length;
-    console.log('🔍 Total <nav> tags in final HTML:', totalNavTags);
-    if (totalNavTags > 1) {
-      console.error('❌ DUPLICATE MENU ERROR: Found', totalNavTags, '<nav> tags in generated HTML!');
+    // Final check: count total outer <nav> tags (should be 1 for menu)
+    const outerNavTags = (htmlBlocks.match(/<nav\s+style/g) || []).length;
+    console.log('🔍 Total outer <nav> tags in final HTML:', outerNavTags);
+    if (outerNavTags > 1) {
+      console.error('❌ DUPLICATE MENU ERROR: Found', outerNavTags, 'outer <nav> tags in generated HTML!');
     }
 
     return `
