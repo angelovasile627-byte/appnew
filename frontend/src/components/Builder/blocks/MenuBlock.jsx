@@ -86,13 +86,27 @@ export const MenuBlock = ({ config, onUpdate }) => {
           {config.align === 'center' && config.logo.show && (
             <div
               style={{
-                fontSize: `${config.logo.size}px`,
+                fontSize: config.logo.image ? 'inherit' : `${config.logo.size}px`,
                 fontWeight: '800',
                 color: config.logo.color,
-                cursor: 'pointer'
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center'
               }}
             >
-              {config.logo.text}
+              {config.logo.image ? (
+                <img 
+                  src={config.logo.image} 
+                  alt={config.logo.text || 'Logo'} 
+                  style={{
+                    height: `${config.logo.imageSize || 40}px`,
+                    width: 'auto',
+                    objectFit: 'contain'
+                  }}
+                />
+              ) : (
+                config.logo.text
+              )}
             </div>
           )}
 
