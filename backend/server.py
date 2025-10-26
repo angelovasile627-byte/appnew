@@ -200,6 +200,137 @@ def generate_html_from_blocks(blocks: List[Block]) -> str:
     
     return full_html
 
+
+# ============ PAGES API ENDPOINTS ============
+
+class PageCreate(BaseModel):
+    project_id: str
+    name: str
+    blocks: List[Dict[str, Any]] = []
+    is_home: bool = False
+
+class PageUpdate(BaseModel):
+    name: str = None
+    blocks: List[Dict[str, Any]] = None
+    is_home: bool = None
+
+class PageDuplicate(BaseModel):
+    new_name: str
+
+class SharedMenuUpdate(BaseModel):
+    shared_menu: Dict[str, Any]
+
+@api_router.post("/pages")
+async def create_page(page_data: PageCreate):
+    """Create a new page"""
+    try:
+        page = await db.create_page(
+            project_id=page_data.project_id,
+            name=page_data.name,
+            blocks=page_data.blocks,
+            is_home=page_data.is_home
+        )
+        return page
+    except Exception as e:
+        logger.error(f"Error creating page: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.get("/pages/{project_id}")
+async def get_pages(project_id: str):
+    """Get all pages for a project"""
+    try:
+        pages = await db.get_pages(project_id)
+        return pages
+    except Exception as e:
+        logger.error(f"Error getting pages: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.get("/page/{page_id}")
+async def get_page(page_id: str):
+    """Get a specific page"""
+    try:
+        page = await db.get_page(page_id)
+        if not page:
+            raise HTTPException(status_code=404, detail="Page not found")
+        return page
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting page: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.put("/page/{page_id}")
+async def update_page(page_id: str, page_data: PageUpdate):
+    """Update a page"""
+    try:
+        page = await db.update_page(
+            page_id=page_id,
+            name=page_data.name,
+            blocks=page_data.blocks,
+            is_home=page_data.is_home
+        )
+        if not page:
+            raise HTTPException(status_code=404, detail="Page not found")
+        return page
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating page: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.delete("/page/{page_id}")
+async def delete_page(page_id: str):
+    """Delete a page"""
+    try:
+        deleted = await db.delete_page(page_id)
+        if not deleted:
+            raise HTTPException(status_code=404, detail="Page not found")
+        return {"success": True, "message": "Page deleted successfully"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error deleting page: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.post("/page/{page_id}/duplicate")
+async def duplicate_page(page_id: str, data: PageDuplicate):
+    """Duplicate a page"""
+    try:
+        page = await db.duplicate_page(page_id, data.new_name)
+        if not page:
+            raise HTTPException(status_code=404, detail="Page not found")
+        return page
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error duplicating page: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.put("/project/{project_id}/shared-menu")
+async def update_shared_menu(project_id: str, data: SharedMenuUpdate):
+    """Update shared menu for a project"""
+    try:
+        updated = await db.update_shared_menu(project_id, data.shared_menu)
+        if not updated:
+            raise HTTPException(status_code=404, detail="Project not found")
+        return {"success": True, "message": "Shared menu updated successfully"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating shared menu: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.get("/project/{project_id}/shared-menu")
+async def get_shared_menu(project_id: str):
+    """Get shared menu for a project"""
+    try:
+        menu = await db.get_shared_menu(project_id)
+        return {"shared_menu": menu}
+    except Exception as e:
+        logger.error(f"Error getting shared menu: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
