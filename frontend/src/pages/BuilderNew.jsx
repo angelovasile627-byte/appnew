@@ -84,8 +84,8 @@ const BuilderNew = () => {
       try {
         const projectData = JSON.parse(savedProject);
         if (projectData.blocks && Array.isArray(projectData.blocks)) {
-          // Remove duplicate menu blocks - keep only the first one
-          const cleanedBlocks = removeDuplicateMenus(projectData.blocks);
+          // Remove duplicate blocks - keep only unique ones by ID
+          const cleanedBlocks = removeDuplicates(projectData.blocks);
           
           setBlocks(cleanedBlocks);
           
@@ -93,7 +93,7 @@ const BuilderNew = () => {
           if (removedCount > 0) {
             toast({
               title: 'Proiect curățat',
-              description: `${removedCount} meniu(ri) duplicate au fost eliminate automat`
+              description: `${removedCount} bloc(uri) duplicate au fost eliminate automat`
             });
           } else {
             toast({
