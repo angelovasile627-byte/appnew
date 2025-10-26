@@ -53,7 +53,7 @@ if __name__ == '__main__':
     
     # Check if index.html exists
     index_html = DIRECTORY / "index.html"
-    if not index.html.exists():
+    if not index_html.exists():
         print(f"Error: index.html not found in {DIRECTORY}", file=sys.stderr)
         print("Frontend build may be incomplete. Please rebuild.", file=sys.stderr)
         sys.exit(1)
