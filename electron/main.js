@@ -2,6 +2,8 @@ const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const { spawn } = require('child_process');
 const waitOn = require('wait-on');
+const net = require('net');
+const fs = require('fs');
 
 let mainWindow;
 let backendProcess;
@@ -11,12 +13,69 @@ let frontendProcess;
 const BACKEND_PORT = 8001;
 const FRONTEND_PORT = 3000;
 
+// Helper function to check if port is in use
+function isPortOpen(port, host = '127.0.0.1') {
+    return new Promise((resolve) => {
+        const socket = new net.Socket();
+        
+        socket.setTimeout(1000);
+        socket.on('connect', () => {
+            socket.destroy();
+            resolve(true);
+        });
+        socket.on('timeout', () => {
+            socket.destroy();
+            resolve(false);
+        });
+        socket.on('error', () => {
+            resolve(false);
+        });
+        
+        socket.connect(port, host);
+    });
+}
+
+// Helper function to find Python executable (prefer venv)
+function findPythonPath() {
+    const rootDir = path.join(__dirname, '..');
+    const venvPath = path.join(rootDir, 'backend', 'venv');
+    
+    if (process.platform === 'win32') {
+        const venvPython = path.join(venvPath, 'Scripts', 'python.exe');
+        if (fs.existsSync(venvPython)) {
+            console.log(`Using venv Python: ${venvPython}`);
+            return venvPython;
+        }
+        return 'python';
+    } else {
+        const venvPython = path.join(venvPath, 'bin', 'python3');
+        if (fs.existsSync(venvPython)) {
+            console.log(`Using venv Python: ${venvPython}`);
+            return venvPython;
+        }
+        return 'python3';
+    }
+}
+
 function startBackend() {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
+        console.log('Checking backend port...');
+        
+        // Check if backend is already running
+        const backendAlreadyRunning = await isPortOpen(BACKEND_PORT);
+        if (backendAlreadyRunning) {
+            console.log(`✓ Backend already running on port ${BACKEND_PORT}`);
+            resolve();
+            return;
+        }
+        
         console.log('Starting FastAPI backend...');
         
-        const pythonPath = process.platform === 'win32' ? 'python' : 'python3';
+        const pythonPath = findPythonPath();
         const backendPath = path.join(__dirname, '..', 'backend');
+        
+        console.log(`Python path: ${pythonPath}`);
+        console.log(`Backend path: ${backendPath}`);
         
         backendProcess = spawn(pythonPath, [
             '-m', 'uvicorn',
@@ -38,24 +97,35 @@ function startBackend() {
         });
 
         backendProcess.stderr.on('data', (data) => {
-            // Only show actual errors, not INFO logs
             const message = data.toString();
-            if (message.includes('ERROR') || message.includes('CRITICAL')) {
-                console.error(`Backend Error: ${message}`);
+            console.error(`Backend stderr: ${message}`);
+            
+            // Handle EADDRINUSE error
+            if (message.includes('address already in use') || message.includes('EADDRINUSE')) {
+                console.log('Port already in use, checking if backend is accessible...');
+                // Don't reject, will wait for port check below
             }
         });
 
         backendProcess.on('error', (error) => {
-            console.error('Failed to start backend:', error);
+            console.error('Failed to start backend process:', error);
             reject(error);
         });
 
-        // Wait for backend to be ready
+        backendProcess.on('exit', (code, signal) => {
+            if (code !== 0 && code !== null) {
+                console.error(`Backend process exited with code ${code}`);
+            }
+        });
+
+        // Wait for backend to be ready using TCP check
+        console.log('Waiting for backend to be ready...');
         setTimeout(() => {
             waitOn({
-                resources: [`http://localhost:${BACKEND_PORT}/api`],
+                resources: [`tcp:127.0.0.1:${BACKEND_PORT}`],
                 timeout: 30000,
-                interval: 500
+                interval: 500,
+                verbose: true
             }).then(() => {
                 console.log('✓ Backend is ready!');
                 resolve();
@@ -68,16 +138,43 @@ function startBackend() {
 }
 
 function startFrontend() {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
+        console.log('Checking frontend port...');
+        
+        // Check if frontend is already running
+        const frontendAlreadyRunning = await isPortOpen(FRONTEND_PORT);
+        if (frontendAlreadyRunning) {
+            console.log(`✓ Frontend already running on port ${FRONTEND_PORT}`);
+            resolve();
+            return;
+        }
+        
         console.log('Starting frontend server...');
         
-        const pythonPath = process.platform === 'win32' ? 'python' : 'python3';
+        const pythonPath = findPythonPath();
         const backendPath = path.join(__dirname, '..', 'backend');
+        const frontendBuildPath = path.join(__dirname, '..', 'frontend', 'build');
+        
+        // Check if frontend build exists
+        const indexHtmlPath = path.join(frontendBuildPath, 'index.html');
+        if (!fs.existsSync(indexHtmlPath)) {
+            console.error(`Error: Frontend build not found at ${frontendBuildPath}`);
+            console.error('Please run setup script first to build the frontend');
+            reject(new Error('Frontend build not found'));
+            return;
+        }
+        
+        console.log(`Python path: ${pythonPath}`);
+        console.log(`Frontend build path: ${frontendBuildPath}`);
         
         frontendProcess = spawn(pythonPath, [
             'serve_frontend.py'
         ], {
-            cwd: backendPath
+            cwd: backendPath,
+            env: {
+                ...process.env,
+                PYTHONUNBUFFERED: '1'
+            }
         });
 
         frontendProcess.stdout.on('data', (data) => {
@@ -85,20 +182,35 @@ function startFrontend() {
         });
 
         frontendProcess.stderr.on('data', (data) => {
-            console.error(`Frontend Error: ${data}`);
+            const message = data.toString();
+            console.error(`Frontend stderr: ${message}`);
+            
+            // Handle EADDRINUSE error
+            if (message.includes('Address already in use') || message.includes('EADDRINUSE')) {
+                console.log('Port already in use, checking if frontend is accessible...');
+                // Don't reject, will wait for port check below
+            }
         });
 
         frontendProcess.on('error', (error) => {
-            console.error('Failed to start frontend:', error);
+            console.error('Failed to start frontend process:', error);
             reject(error);
         });
 
-        // Wait for frontend to be ready
+        frontendProcess.on('exit', (code, signal) => {
+            if (code !== 0 && code !== null) {
+                console.error(`Frontend process exited with code ${code}`);
+            }
+        });
+
+        // Wait for frontend to be ready using TCP check
+        console.log('Waiting for frontend to be ready...');
         setTimeout(() => {
             waitOn({
-                resources: [`http://localhost:${FRONTEND_PORT}`],
+                resources: [`tcp:127.0.0.1:${FRONTEND_PORT}`],
                 timeout: 30000,
-                interval: 500
+                interval: 500,
+                verbose: true
             }).then(() => {
                 console.log('✓ Frontend is ready!');
                 resolve();
@@ -128,8 +240,10 @@ function createWindow() {
         title: 'AXXO Builder'
     });
 
-    // Load frontend
-    const frontendUrl = `http://localhost:${FRONTEND_PORT}`;
+    // Load frontend using 127.0.0.1 to avoid localhost resolution issues
+    const frontendUrl = `http://127.0.0.1:${FRONTEND_PORT}`;
+    
+    console.log(`Loading frontend from: ${frontendUrl}`);
     
     mainWindow.loadURL(frontendUrl).catch((err) => {
         console.error('Failed to load frontend:', err);
@@ -179,11 +293,13 @@ async function startApp() {
 app.whenReady().then(startApp);
 
 app.on('window-all-closed', () => {
-    // Kill processes
-    if (backendProcess) {
+    // Kill processes only if we spawned them
+    if (backendProcess && !backendProcess.killed) {
+        console.log('Stopping backend...');
         backendProcess.kill();
     }
-    if (frontendProcess) {
+    if (frontendProcess && !frontendProcess.killed) {
+        console.log('Stopping frontend...');
         frontendProcess.kill();
     }
     
@@ -200,10 +316,10 @@ app.on('activate', () => {
 
 app.on('quit', () => {
     // Ensure processes are killed
-    if (backendProcess) {
+    if (backendProcess && !backendProcess.killed) {
         backendProcess.kill();
     }
-    if (frontendProcess) {
+    if (frontendProcess && !frontendProcess.killed) {
         frontendProcess.kill();
     }
 });
