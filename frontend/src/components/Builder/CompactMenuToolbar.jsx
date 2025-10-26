@@ -378,7 +378,7 @@ export const CompactMenuToolbar = ({
           onClick={() => setShowLinkDialog(false)}
         >
           <div
-            className="bg-gray-800 rounded-lg p-6 w-[500px]"
+            className="bg-gray-800 rounded-lg p-6 w-[500px] max-h-[80vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-4">
@@ -391,50 +391,147 @@ export const CompactMenuToolbar = ({
               </button>
             </div>
 
-            <div className="flex gap-2 mb-4 border-b border-gray-700">
-              <button className="px-3 py-2 text-sm text-white bg-gray-700 rounded-t">
+            {/* Tabs */}
+            <div className="flex gap-2 mb-4 border-b border-gray-700 flex-wrap">
+              <button 
+                className={`px-3 py-2 text-sm ${linkTab === 'page' ? 'text-white bg-gray-700' : 'text-gray-400 hover:text-white'} rounded-t`}
+                onClick={() => setLinkTab('page')}
+              >
                 Pagină
               </button>
-              <button className="px-3 py-2 text-sm text-gray-400 hover:text-white">
+              <button 
+                className={`px-3 py-2 text-sm ${linkTab === 'web' ? 'text-white bg-gray-700' : 'text-gray-400 hover:text-white'} rounded-t`}
+                onClick={() => setLinkTab('web')}
+              >
                 Adresă Web
               </button>
-              <button className="px-3 py-2 text-sm text-gray-400 hover:text-white">
+              <button 
+                className={`px-3 py-2 text-sm ${linkTab === 'email' ? 'text-white bg-gray-700' : 'text-gray-400 hover:text-white'} rounded-t`}
+                onClick={() => setLinkTab('email')}
+              >
                 Email
               </button>
-              <button className="px-3 py-2 text-sm text-gray-400 hover:text-white">
+              <button 
+                className={`px-3 py-2 text-sm ${linkTab === 'phone' ? 'text-white bg-gray-700' : 'text-gray-400 hover:text-white'} rounded-t`}
+                onClick={() => setLinkTab('phone')}
+              >
                 Phone/chat
               </button>
-              <button className="px-3 py-2 text-sm text-gray-400 hover:text-white">
+              <button 
+                className={`px-3 py-2 text-sm ${linkTab === 'file' ? 'text-white bg-gray-700' : 'text-gray-400 hover:text-white'} rounded-t`}
+                onClick={() => setLinkTab('file')}
+              >
                 Fișier
-              </button>
-              <button className="px-3 py-2 text-sm text-gray-400 hover:text-white">
-                ...
               </button>
             </div>
 
+            {/* Tab Content */}
             <div className="space-y-4">
-              <div>
-                <label className="text-sm text-gray-400 block mb-2">Paginile site-ului</label>
-                <select className="w-full bg-gray-700 text-white px-3 py-2 rounded">
-                  <option value="">Selectează pagină</option>
-                </select>
-              </div>
+              {/* Page Tab */}
+              {linkTab === 'page' && (
+                <>
+                  <div>
+                    <label className="text-sm text-gray-400 block mb-2">Paginile site-ului</label>
+                    <select 
+                      className="w-full bg-gray-700 text-white px-3 py-2 rounded"
+                      value={linkData.page}
+                      onChange={(e) => setLinkData({...linkData, page: e.target.value})}
+                    >
+                      <option value="">Selectează pagină</option>
+                      <option value="/">Home</option>
+                      <option value="/about">About</option>
+                      <option value="/contact">Contact</option>
+                    </select>
+                  </div>
 
-              <div>
-                <label className="text-sm text-gray-400 block mb-2">Bloc în pagina 'Home'</label>
-                <select className="w-full bg-gray-700 text-white px-3 py-2 rounded">
-                  <option value="">Home</option>
-                </select>
-              </div>
+                  <div>
+                    <label className="text-sm text-gray-400 block mb-2">Bloc în pagină (opțional)</label>
+                    <input
+                      type="text"
+                      className="w-full bg-gray-700 text-white px-3 py-2 rounded"
+                      placeholder="ex: hero, features"
+                      value={linkData.block}
+                      onChange={(e) => setLinkData({...linkData, block: e.target.value})}
+                    />
+                  </div>
+                </>
+              )}
 
+              {/* Web Tab */}
+              {linkTab === 'web' && (
+                <div>
+                  <label className="text-sm text-gray-400 block mb-2">Adresă URL</label>
+                  <input
+                    type="url"
+                    className="w-full bg-gray-700 text-white px-3 py-2 rounded"
+                    placeholder="https://example.com"
+                    value={linkData.url}
+                    onChange={(e) => setLinkData({...linkData, url: e.target.value})}
+                  />
+                </div>
+              )}
+
+              {/* Email Tab */}
+              {linkTab === 'email' && (
+                <div>
+                  <label className="text-sm text-gray-400 block mb-2">Adresă Email</label>
+                  <input
+                    type="email"
+                    className="w-full bg-gray-700 text-white px-3 py-2 rounded"
+                    placeholder="contact@example.com"
+                    value={linkData.email}
+                    onChange={(e) => setLinkData({...linkData, email: e.target.value})}
+                  />
+                </div>
+              )}
+
+              {/* Phone Tab */}
+              {linkTab === 'phone' && (
+                <div>
+                  <label className="text-sm text-gray-400 block mb-2">Număr telefon</label>
+                  <input
+                    type="tel"
+                    className="w-full bg-gray-700 text-white px-3 py-2 rounded"
+                    placeholder="+40 123 456 789"
+                    value={linkData.phone}
+                    onChange={(e) => setLinkData({...linkData, phone: e.target.value})}
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Pentru WhatsApp: +40123456789</p>
+                </div>
+              )}
+
+              {/* File Tab */}
+              {linkTab === 'file' && (
+                <div>
+                  <label className="text-sm text-gray-400 block mb-2">URL Fișier</label>
+                  <input
+                    type="url"
+                    className="w-full bg-gray-700 text-white px-3 py-2 rounded"
+                    placeholder="https://example.com/document.pdf"
+                    value={linkData.file}
+                    onChange={(e) => setLinkData({...linkData, file: e.target.value})}
+                  />
+                </div>
+              )}
+
+              {/* New Window Option */}
               <div className="flex items-center gap-2">
-                <input type="checkbox" id="newWindow" className="rounded" />
+                <input 
+                  type="checkbox" 
+                  id="newWindow" 
+                  className="rounded"
+                  checked={linkData.newWindow}
+                  onChange={(e) => setLinkData({...linkData, newWindow: e.target.checked})}
+                />
                 <label htmlFor="newWindow" className="text-sm text-white">
                   Deschide în fereastră nouă
                 </label>
               </div>
 
-              <button className="w-full bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
+              <button 
+                className="w-full bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
+                onClick={handleLinkSubmit}
+              >
                 INTRODU LEGĂTURĂ
               </button>
             </div>
