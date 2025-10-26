@@ -30,11 +30,36 @@ const BuilderNew = () => {
       try {
         const projectData = JSON.parse(savedProject);
         if (projectData.blocks && Array.isArray(projectData.blocks)) {
-          setBlocks(projectData.blocks);
-          toast({
-            title: 'Proiect încărcat',
-            description: `Proiectul "${projectData.name}" a fost încărcat cu succes`
+          // Remove duplicate menu blocks - keep only the first one
+          const { blockTemplates } = require('../data/mockBlocks');
+          let foundMenu = false;
+          const cleanedBlocks = projectData.blocks.filter(block => {
+            const template = blockTemplates.find(t => t.id === block.templateId);
+            if (template && template.category === 'menu') {
+              if (foundMenu) {
+                // Skip this menu block as we already have one
+                return false;
+              }
+              foundMenu = true;
+              return true;
+            }
+            return true;
           });
+          
+          setBlocks(cleanedBlocks);
+          
+          const removedCount = projectData.blocks.length - cleanedBlocks.length;
+          if (removedCount > 0) {
+            toast({
+              title: 'Proiect curățat',
+              description: `${removedCount} meniu(ri) duplicate au fost eliminate automat`
+            });
+          } else {
+            toast({
+              title: 'Proiect încărcat',
+              description: `Proiectul "${projectData.name}" a fost încărcat cu succes`
+            });
+          }
         }
       } catch (e) {
         console.error('Error loading project:', e);
