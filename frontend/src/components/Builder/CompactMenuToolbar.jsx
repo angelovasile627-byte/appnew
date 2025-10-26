@@ -143,17 +143,11 @@ export const CompactMenuToolbar = ({
           title="Legătură"
           onClick={(e) => {
             e.stopPropagation();
-            setShowLinkDialog(!showLinkDialog);
-            setShowColorPicker(false);
-            setShowMenuDropdown(false);
+            closeAllDialogs();
+            setShowLinkDialog(true);
           }}
         >
           <Link className="w-4 h-4 text-white" />
-          {showLinkDialog && (
-            <div className="absolute top-0 right-0 text-xs bg-gray-900 text-white px-2 py-1 rounded -mt-6">
-              Legătură
-            </div>
-          )}
         </button>
 
         {/* Color Picker */}
@@ -162,53 +156,47 @@ export const CompactMenuToolbar = ({
           title="Culoare"
           onClick={(e) => {
             e.stopPropagation();
-            setShowColorPicker(!showColorPicker);
-            setShowLinkDialog(false);
-            setShowMenuDropdown(false);
+            closeAllDialogs();
+            setShowColorPicker(true);
           }}
         >
           <div 
             className="w-4 h-4 rounded-full border border-white" 
             style={{ backgroundColor: menuItem?.color || '#ffffff' }}
           />
-          {showColorPicker && (
-            <div className="absolute top-0 right-0 text-xs bg-gray-900 text-white px-2 py-1 rounded -mt-6">
-              Color
-            </div>
-          )}
         </button>
 
         {/* Menu Dropdown */}
         <button
           className="px-3 py-2 hover:bg-gray-700 transition-colors border-r border-gray-700 flex items-center gap-1 relative"
-          title="Menu"
+          title="Menu Type"
           onClick={(e) => {
             e.stopPropagation();
-            setShowMenuDropdown(!showMenuDropdown);
-            setShowLinkDialog(false);
-            setShowColorPicker(false);
+            closeAllDialogs();
+            setShowMenuDropdown(true);
           }}
         >
           <span className="text-white text-sm font-medium">Menu</span>
           <ChevronDown className="w-3 h-3 text-white" />
         </button>
 
-        {/* Settings/Styles */}
+        {/* Icon Picker */}
         <button
           className="p-2 hover:bg-gray-700 transition-colors border-r border-gray-700 relative"
-          title="Stiluri"
+          title="Iconită"
           onClick={(e) => {
             e.stopPropagation();
-            if (onSettings) onSettings();
+            closeAllDialogs();
+            setShowIconPicker(true);
           }}
         >
           <Sun className="w-4 h-4 text-white" />
         </button>
 
-        {/* Add Item */}
+        {/* Add Item (Duplicate) */}
         <button
           className="p-2 hover:bg-gray-700 transition-colors border-r border-gray-700"
-          title="Adaugă item"
+          title="Adaugă item (dublează)"
           onClick={(e) => {
             e.stopPropagation();
             if (onAddItem) onAddItem();
@@ -217,27 +205,44 @@ export const CompactMenuToolbar = ({
           <Plus className="w-4 h-4 text-white" />
         </button>
 
-        {/* Reorder */}
+        {/* Add Submenu */}
         <button
           className="p-2 hover:bg-gray-700 transition-colors border-r border-gray-700"
-          title="Reordonează"
+          title="Adaugă submeniu"
           onClick={(e) => {
             e.stopPropagation();
+            if (onAddSubmenu) onAddSubmenu();
           }}
         >
           <List className="w-4 h-4 text-white" />
         </button>
 
-        {/* Back */}
+        {/* Move Left */}
         <button
           className="p-2 hover:bg-gray-700 transition-colors border-r border-gray-700"
-          title="Înapoi"
+          title="Mută stânga"
           onClick={(e) => {
             e.stopPropagation();
-            if (onBack) onBack();
+            if (onMoveLeft && currentIndex > 0) onMoveLeft();
           }}
+          disabled={currentIndex === 0}
+          style={{ opacity: currentIndex === 0 ? 0.5 : 1 }}
         >
           <ArrowLeft className="w-4 h-4 text-white" />
+        </button>
+
+        {/* Move Right */}
+        <button
+          className="p-2 hover:bg-gray-700 transition-colors border-r border-gray-700"
+          title="Mută dreapta"
+          onClick={(e) => {
+            e.stopPropagation();
+            if (onMoveRight && currentIndex < menuItems.length - 1) onMoveRight();
+          }}
+          disabled={currentIndex >= menuItems.length - 1}
+          style={{ opacity: currentIndex >= menuItems.length - 1 ? 0.5 : 1 }}
+        >
+          <ArrowRight className="w-4 h-4 text-white" />
         </button>
 
         {/* Delete */}
