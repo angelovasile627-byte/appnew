@@ -174,6 +174,98 @@ const generateBlockHTML = (config) => {
       `;
 
     case 'hero': {
+      // Check if it's the new image-above-text layout
+      if (config.layout === 'image-above-text') {
+        return `
+          <section style="
+            background-color: ${config.background.value};
+            width: 100%;
+            padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
+          ">
+            <div style="
+              max-width: ${config.contentWidth}px;
+              margin: 0 auto;
+            ">
+              ${config.heroImage && config.heroImage.show ? `
+                <div style="
+                  margin-bottom: 48px;
+                  border-radius: ${config.heroImage.borderRadius || 0}px;
+                  overflow: hidden;
+                  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+                ">
+                  <img
+                    src="${config.heroImage.src}"
+                    alt="${config.heroImage.alt || 'Hero image'}"
+                    style="
+                      width: 100%;
+                      height: ${config.heroImage.height || 600}px;
+                      object-fit: ${config.heroImage.objectFit || 'cover'};
+                      display: block;
+                    "
+                  />
+                </div>
+              ` : ''}
+              
+              <div style="text-align: ${config.title.align};">
+                ${config.title.show ? `
+                  <h1 style="
+                    font-size: ${config.title.size || 56}px;
+                    font-weight: ${config.title.weight || 700};
+                    color: ${config.title.color};
+                    margin-bottom: 24px;
+                    line-height: 1.2;
+                  ">
+                    ${config.title.text}
+                  </h1>
+                ` : ''}
+                
+                ${config.description.show ? `
+                  <p style="
+                    font-size: ${config.description.size || 20}px;
+                    color: ${config.description.color};
+                    margin-bottom: 40px;
+                    line-height: 1.6;
+                    max-width: 800px;
+                    margin-left: ${config.description.align === 'center' ? 'auto' : '0'};
+                    margin-right: ${config.description.align === 'center' ? 'auto' : '0'};
+                  ">
+                    ${config.description.text}
+                  </p>
+                ` : ''}
+                
+                ${config.button.show ? `
+                  <a href="${config.button.link}" style="
+                    background-color: ${config.button.color};
+                    color: ${config.button.textColor};
+                    padding: 16px 40px;
+                    font-size: ${config.button.size || 18}px;
+                    border-radius: 12px;
+                    font-weight: 600;
+                    text-decoration: none;
+                    display: inline-block;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    transition: transform 0.2s;
+                  ">
+                    ${config.button.text}
+                  </a>
+                ` : ''}
+                
+                ${config.subtitle.show && config.subtitle.text ? `
+                  <p style="
+                    font-size: 16px;
+                    color: ${config.subtitle.color};
+                    margin-top: 32px;
+                  ">
+                    ${config.subtitle.text}
+                  </p>
+                ` : ''}
+              </div>
+            </div>
+          </section>
+        `;
+      }
+      
+      // Default layout (background-based)
       const bgStyle = config.background.type === 'image' 
         ? `background-image: url('${config.background.value}'); background-size: cover; background-position: center;`
         : config.background.type === 'gradient'
