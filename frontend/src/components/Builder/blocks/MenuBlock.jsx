@@ -48,9 +48,18 @@ export const MenuBlock = ({ config, onUpdate }) => {
   };
 
   const handleAddMenuItem = () => {
+    const currentItem = config.menuItems[selectedMenuItem];
     const newMenuItems = [
       ...(config.menuItems || []),
-      { text: 'New Link', link: '#', color: config.menuItems[0]?.color || '#ffffff', show: true }
+      { 
+        text: currentItem?.text || 'New Link', 
+        link: '#', 
+        color: currentItem?.color || config.menuItems[0]?.color || '#ffffff', 
+        show: true,
+        type: currentItem?.type || 'menu',
+        icon: currentItem?.icon || null,
+        submenu: []
+      }
     ];
     onUpdate({ ...config, menuItems: newMenuItems });
     setSelectedMenuItem(null);
@@ -69,6 +78,42 @@ export const MenuBlock = ({ config, onUpdate }) => {
       i === selectedMenuItem ? updatedItem : item
     );
     onUpdate({ ...config, menuItems: newMenuItems });
+  };
+
+  const handleMoveLeft = () => {
+    if (selectedMenuItem > 0) {
+      const newMenuItems = [...config.menuItems];
+      const temp = newMenuItems[selectedMenuItem];
+      newMenuItems[selectedMenuItem] = newMenuItems[selectedMenuItem - 1];
+      newMenuItems[selectedMenuItem - 1] = temp;
+      onUpdate({ ...config, menuItems: newMenuItems });
+      setSelectedMenuItem(selectedMenuItem - 1);
+    }
+  };
+
+  const handleMoveRight = () => {
+    if (selectedMenuItem < config.menuItems.length - 1) {
+      const newMenuItems = [...config.menuItems];
+      const temp = newMenuItems[selectedMenuItem];
+      newMenuItems[selectedMenuItem] = newMenuItems[selectedMenuItem + 1];
+      newMenuItems[selectedMenuItem + 1] = temp;
+      onUpdate({ ...config, menuItems: newMenuItems });
+      setSelectedMenuItem(selectedMenuItem + 1);
+    }
+  };
+
+  const handleAddSubmenu = () => {
+    if (selectedMenuItem !== null) {
+      const currentItem = config.menuItems[selectedMenuItem];
+      const updatedItem = {
+        ...currentItem,
+        submenu: [
+          ...(currentItem.submenu || []),
+          { text: 'Submenu Item', link: '#', color: currentItem.color }
+        ]
+      };
+      handleUpdateMenuItem(updatedItem);
+    }
   };
 
   // Determină background-ul în funcție de setări
