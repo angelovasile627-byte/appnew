@@ -178,7 +178,7 @@ export const MenuBlock = ({ config, onUpdate }) => {
   };
 
   return (
-    <div style={containerStyle}>
+    <div style={containerStyle} data-block-type="menu">
       <div style={contentStyle}>
         {/* Logo */}
         {config.logo.show && config.align !== 'center' && (
