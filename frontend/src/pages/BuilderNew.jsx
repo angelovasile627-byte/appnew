@@ -467,6 +467,9 @@ const BuilderNew = () => {
   return (
     <div className="h-screen flex flex-col">
       <Toolbar
+        pages={pages}
+        currentPageId={currentPageId}
+        onSelectPage={handleSelectPage}
         onAddBlock={() => setIsSidebarOpen(true)}
         onSave={handleSave}
         onExport={handleExport}
@@ -474,21 +477,11 @@ const BuilderNew = () => {
         onFTPUpload={handleFTPUpload}
         onUndo={handleUndo}
         onRedo={handleRedo}
+        onOpenSettings={handleOpenSettings}
         canUndo={history.past.length > 0}
         canRedo={history.future.length > 0}
       />
       <div className="flex-1 flex overflow-hidden">
-        {/* Pages Sidebar */}
-        <PagesSidebar
-          pages={pages}
-          currentPageId={currentPageId}
-          onSelectPage={handleSelectPage}
-          onCreatePage={() => setIsCreatePageModalOpen(true)}
-          onDeletePage={handleDeletePage}
-          onRenamePage={handleRenamePage}
-          onOpenSettings={handleOpenSettings}
-        />
-        
         {/* Blocks Sidebar */}
         <BlockSidebar
           isOpen={isSidebarOpen}
