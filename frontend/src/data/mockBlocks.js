@@ -44,8 +44,7 @@ export const blockTemplates = [
         show: true, 
         color: '#1a1a2e', 
         size: 24,
-        imageSize: 40,
-        logoSize: 120
+        imageSize: 40
       },
       menuItems: [
         { text: 'About us', link: '#about', color: '#1a1a2e', show: true },
@@ -66,6 +65,7 @@ export const blockTemplates = [
       sticky: true,
       collapsed: true,
       transparent: true,
+      opacity: 0.95,
       hamburger: {
         show: true,
         color: '#1a1a2e',
@@ -81,7 +81,7 @@ export const blockTemplates = [
     thumbnail: 'https://images.unsplash.com/photo-1555421689-d68471e189f2?w=400&h=300&fit=crop',
     config: {
       type: 'menu',
-      background: { type: 'color', value: 'rgba(255,255,255,0.1)' },
+      background: { type: 'color', value: '#000000' },
       fullWidth: true,
       contentWidth: 1200,
       padding: { top: 16, bottom: 16 },
@@ -90,8 +90,7 @@ export const blockTemplates = [
         show: true, 
         color: '#ffffff', 
         size: 24,
-        imageSize: 40,
-        logoSize: 120
+        imageSize: 40
       },
       menuItems: [
         { text: 'Portfolio', link: '#portfolio', color: '#ffffff', show: true },
@@ -112,6 +111,7 @@ export const blockTemplates = [
       sticky: true,
       collapsed: true,
       transparent: true,
+      opacity: 0.7,
       hamburger: {
         show: true,
         color: '#ffffff',
