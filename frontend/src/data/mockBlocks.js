@@ -39,14 +39,36 @@ export const blockTemplates = [
       fullWidth: true,
       contentWidth: 1200,
       padding: { top: 20, bottom: 20 },
-      logo: { text: 'Logo', show: true, color: '#ffffff', size: 26 },
+      logo: { 
+        text: 'Mobirise', 
+        show: true, 
+        color: '#ffffff', 
+        size: 26,
+        logoSize: 120 // Dimensiunea logo-ului/brand name
+      },
       menuItems: [
-        { text: 'Portfolio', link: '#portfolio', color: '#ffffff', show: true },
-        { text: 'About Us', link: '#about', color: '#ffffff', show: true },
-        { text: 'Blog', link: '#blog', color: '#ffffff', show: true }
+        { text: 'About us', link: '#about', color: '#ffffff', show: true },
+        { text: 'Services', link: '#services', color: '#ffffff', show: true },
+        { text: 'Contacts', link: '#contacts', color: '#ffffff', show: true }
       ],
-      button: { text: 'Get Started', show: true, color: 'transparent', textColor: '#ffffff', link: '#start' },
-      sticky: false,
+      button: { 
+        text: 'Get Started', 
+        show: false, 
+        color: 'transparent', 
+        textColor: '#ffffff', 
+        link: '#start' 
+      },
+      icons: { 
+        show: false 
+      },
+      sticky: true, // Bara fixată în partea de sus la scroll
+      collapsed: false, // Bara se micșorează la scroll
+      transparent: true, // Fundal transparent inițial
+      hamburger: {
+        show: true,
+        color: '#ffffff',
+        breakpoint: 768 // Breakpoint pentru afișarea hamburger menu
+      },
       align: 'space-between'
     }
   }
