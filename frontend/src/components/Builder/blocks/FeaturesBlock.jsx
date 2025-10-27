@@ -34,14 +34,18 @@ export const FeaturesBlock = ({ config, onUpdate }) => {
   };
 
   // Simple cards with icons (original)
-  const renderSimpleCards = () => (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: `repeat(${config.columns}, 1fr)`,
-        gap: '40px'
-      }}
-    >
+  const renderSimpleCards = () => {
+    // Use the minimum between config.columns and actual items count
+    const actualColumns = Math.min(config.columns, config.items.length);
+    
+    return (
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: `repeat(${actualColumns}, 1fr)`,
+          gap: '40px'
+        }}
+      >
       {config.items.map((item, index) => {
         const IconComponent = Icons[item.icon] || Icons.Box;
         return (
