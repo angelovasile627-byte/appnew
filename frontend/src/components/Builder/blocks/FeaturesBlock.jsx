@@ -105,10 +105,14 @@ export const FeaturesBlock = ({ config, onUpdate }) => {
       })}
     </div>
   );
+};
 
   // Gradient cards (4 columns)
-  const renderGradientCards = () => (
-    <div
+  const renderGradientCards = () => {
+    const actualColumns = Math.min(config.columns, config.items.length);
+    
+    return (
+      <div
       style={{
         display: 'grid',
         gridTemplateColumns: `repeat(${config.columns}, 1fr)`,
