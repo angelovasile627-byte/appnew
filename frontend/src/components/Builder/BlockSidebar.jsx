@@ -320,6 +320,9 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
               
               // Features block
               if (config.type === 'features') {
+                const columns = config.columns || 3;
+                const itemsToShow = Math.min((config.items || []).length, columns);
+                
                 return (
                   <div style={{
                     background: config.background?.value || '#f9fafb',
@@ -339,10 +342,10 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                     )}
                     <div style={{
                       display: 'grid',
-                      gridTemplateColumns: 'repeat(3, 1fr)',
+                      gridTemplateColumns: `repeat(${columns}, 1fr)`,
                       gap: '4px'
                     }}>
-                      {[1, 2, 3].map(i => (
+                      {(config.items || []).slice(0, itemsToShow).map((item, i) => (
                         <div key={i} style={{
                           background: '#fff',
                           padding: '4px',
@@ -350,7 +353,9 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                           textAlign: 'center'
                         }}>
                           <div style={{ fontSize: '10px', marginBottom: '2px' }}>✨</div>
-                          <div style={{ fontSize: '5px', fontWeight: 'bold', color: '#333' }}>Feature {i}</div>
+                          <div style={{ fontSize: '5px', fontWeight: 'bold', color: '#333' }}>
+                            {item.title?.substring(0, 10) || `Feature ${i + 1}`}
+                          </div>
                         </div>
                       ))}
                     </div>
