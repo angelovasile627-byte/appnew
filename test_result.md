@@ -227,8 +227,32 @@ test_plan:
         agent: "testing"
         comment: "COMPREHENSIVE TESTING COMPLETED: ✅ Settings button found in Pages Sidebar, ✅ Settings modal opens with all 4 tabs (General, SEO, Tehnic, Design), ✅ All form fields editable, ✅ Save functionality works, ✅ Toast notification appears, ✅ Design settings persist. Minor: General/SEO/Technical data persistence needs localStorage integration improvement."
 
+  - task: "Add White Space controls (Top/Bottom) for Hero Parallax block"
+    implemented: true
+    working: "YES"
+    files:
+      - "/app/frontend/src/data/mockBlocks.js" (added whiteSpace config)
+      - "/app/frontend/src/components/Builder/InlineEditingPanel.jsx" (added White Space controls section)
+      - "/app/frontend/src/components/Builder/blocks/HeroParallaxBlock.jsx" (added white space rendering)
+      - "/app/frontend/src/components/Builder/PreviewModal.jsx" (added hero-parallax preview support)
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    changes_made:
+      - "Added whiteSpace property to hero-parallax default config: { top: 200, bottom: 200 }"
+      - "Created White Space section in InlineEditingPanel with Top and Bottom sliders (0-600px range)"
+      - "Implemented white space rendering in HeroParallaxBlock: top and bottom white divs with z-index 3"
+      - "Added hero-parallax case in PreviewModal generateBlockHTML for preview support"
+      - "White space creates effect where content passes over fixed background image on scroll"
+    status_history:
+      - working: "YES"
+        agent: "main"
+        comment: "Successfully implemented White Space controls for Hero Parallax block. Users can now adjust Top (0-600px) and Bottom (0-600px) white space areas. The white overlays create the desired parallax effect where content scrolls over the fixed background image. Controls are visible in InlineEditingPanel and working in both Canvas and Preview."
+
 agent_communication:
   - agent: "main"
     message: "FIXED duplicate menu bug in PreviewModal. Implemented aggressive deduplication with both ID and type checking. Verified working - only ONE menu now appears in preview."
   - agent: "testing"
     message: "Settings functionality FULLY TESTED and WORKING. All core features operational: modal opens, 4 tabs functional, form fields editable, save works, toast notifications appear, design settings persist. Ready for production use."
+  - agent: "main"
+    message: "Added White Space controls for Hero Parallax block. Top and Bottom sliders (0-600px) allow users to control white overlay areas, creating parallax effect where content scrolls over background image."
