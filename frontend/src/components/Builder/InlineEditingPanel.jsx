@@ -1113,6 +1113,436 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
             )}
           </div>
         )}
+
+        {/* Article Block Controls */}
+        {config.type === 'article' && (
+          <div className="space-y-0.5 border-t border-gray-800 pt-1">
+            <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">
+              Article {selectedElementId ? `- Element` : '- General'}
+            </h4>
+            
+            {!selectedElementId ? (
+              /* General Article Settings */
+              <>
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Layout</Label>
+                  <Select
+                    value={config.layout || 'grid'}
+                    onValueChange={(value) => updateConfig('layout', value)}
+                  >
+                    <SelectTrigger className="h-7 bg-gray-800 border-gray-700 text-[9px]">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="grid">Grid Masonry</SelectItem>
+                      <SelectItem value="vertical">Vertical Layout</SelectItem>
+                      <SelectItem value="split">Split Layout</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {config.layout === 'grid' && (
+                  <>
+                    <div className="space-y-0.5">
+                      <Label className="text-[9px] text-gray-300">Columns</Label>
+                      <div className="flex items-center gap-1.5">
+                        <Input
+                          type="range"
+                          value={config.columns || 3}
+                          onChange={(e) => updateConfig('columns', parseInt(e.target.value))}
+                          className="flex-1 bg-gray-800 border-gray-700 h-7"
+                          min="2"
+                          max="4"
+                          step="1"
+                        />
+                        <span className="text-[9px] text-gray-400 w-10 text-right">{config.columns || 3}</span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-0.5">
+                      <Label className="text-[9px] text-gray-300">Gap (px)</Label>
+                      <div className="flex items-center gap-1.5">
+                        <Input
+                          type="range"
+                          value={config.gap || 24}
+                          onChange={(e) => updateConfig('gap', parseInt(e.target.value))}
+                          className="flex-1 bg-gray-800 border-gray-700 h-7"
+                          min="0"
+                          max="60"
+                          step="4"
+                        />
+                        <span className="text-[9px] text-gray-400 w-10 text-right">{config.gap || 24}px</span>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {config.title && (
+                  <>
+                    <div className="flex items-center justify-between py-0.5">
+                      <Label className="text-[9px] text-gray-300">Show Title</Label>
+                      <Switch
+                        checked={config.title.show ?? true}
+                        onCheckedChange={(checked) => updateConfig('title.show', checked)}
+                      />
+                    </div>
+                    
+                    {config.title.show && (
+                      <>
+                        <div className="space-y-0.5">
+                          <Label className="text-[9px] text-gray-300">Title Text</Label>
+                          <Input
+                            type="text"
+                            value={config.title.text || ''}
+                            onChange={(e) => updateConfig('title.text', e.target.value)}
+                            className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                          />
+                        </div>
+                        
+                        <div className="space-y-0.5">
+                          <Label className="text-[9px] text-gray-300">Title Color</Label>
+                          <Input
+                            type="color"
+                            value={config.title.color || '#ffffff'}
+                            onChange={(e) => updateConfig('title.color', e.target.value)}
+                            className="w-6 h-6 bg-gray-800 border-gray-700"
+                          />
+                        </div>
+                      </>
+                    )}
+                  </>
+                )}
+
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Background Color</Label>
+                  <Input
+                    type="color"
+                    value={config.background?.value || '#f7fafc'}
+                    onChange={(e) => updateConfig('background.value', e.target.value)}
+                    className="w-6 h-6 bg-gray-800 border-gray-700"
+                  />
+                </div>
+
+                <div className="pt-1 border-t border-gray-700">
+                  <p className="text-[9px] text-indigo-400 italic">
+                    💡 Click on any card/element to edit it individually
+                  </p>
+                </div>
+              </>
+            ) : (
+              /* Individual Element Editing */
+              (() => {
+                const element = config.layout === 'split' 
+                  ? (selectedElementId === 'left-content' ? config.leftContent : config.rightContent)
+                  : config.elements?.find(el => el.id === selectedElementId);
+                
+                if (!element) return <p className="text-[9px] text-gray-400">Element not found</p>;
+
+                return (
+                  <>
+                    <div className="space-y-0.5">
+                      <Label className="text-[9px] text-white font-bold">
+                        Editing: {element.title?.text?.substring(0, 30) || 'Element'}
+                      </Label>
+                    </div>
+
+                    {/* Image Controls */}
+                    {element.image && (
+                      <>
+                        <div className="flex items-center justify-between py-0.5">
+                          <Label className="text-[9px] text-gray-300">Show Image</Label>
+                          <Switch
+                            checked={element.image.show ?? true}
+                            onCheckedChange={(checked) => updateElementConfig(selectedElementId, 'image.show', checked)}
+                          />
+                        </div>
+                        
+                        {element.image.show && (
+                          <>
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Image URL</Label>
+                              <Input
+                                type="text"
+                                value={element.image.src || ''}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'image.src', e.target.value)}
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                              />
+                            </div>
+                            
+                            {element.image.height !== undefined && (
+                              <div className="space-y-0.5">
+                                <Label className="text-[9px] text-gray-300">Image Height (px)</Label>
+                                <div className="flex items-center gap-1.5">
+                                  <Input
+                                    type="range"
+                                    value={element.image.height || 300}
+                                    onChange={(e) => updateElementConfig(selectedElementId, 'image.height', parseInt(e.target.value))}
+                                    className="flex-1 bg-gray-800 border-gray-700 h-7"
+                                    min="200"
+                                    max="600"
+                                    step="50"
+                                  />
+                                  <span className="text-[9px] text-gray-400 w-10 text-right">{element.image.height || 300}px</span>
+                                </div>
+                              </div>
+                            )}
+                          </>
+                        )}
+                      </>
+                    )}
+
+                    {/* Tag Controls */}
+                    {element.tag && (
+                      <>
+                        <div className="flex items-center justify-between py-0.5 border-t border-gray-800 pt-1">
+                          <Label className="text-[9px] text-gray-300">Show Tag</Label>
+                          <Switch
+                            checked={element.tag.show ?? false}
+                            onCheckedChange={(checked) => updateElementConfig(selectedElementId, 'tag.show', checked)}
+                          />
+                        </div>
+                        
+                        {element.tag.show && (
+                          <>
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Tag Text</Label>
+                              <Input
+                                type="text"
+                                value={element.tag.text || ''}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'tag.text', e.target.value)}
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                              />
+                            </div>
+                            
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Tag Color</Label>
+                              <Input
+                                type="color"
+                                value={element.tag.color || '#10b981'}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'tag.color', e.target.value)}
+                                className="w-6 h-6 bg-gray-800 border-gray-700"
+                              />
+                            </div>
+                          </>
+                        )}
+                      </>
+                    )}
+
+                    {/* Title Controls */}
+                    {element.title && (
+                      <>
+                        <div className="flex items-center justify-between py-0.5 border-t border-gray-800 pt-1">
+                          <Label className="text-[9px] text-gray-300">Show Title</Label>
+                          <Switch
+                            checked={element.title.show ?? true}
+                            onCheckedChange={(checked) => updateElementConfig(selectedElementId, 'title.show', checked)}
+                          />
+                        </div>
+                        
+                        {element.title.show && (
+                          <>
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Title Text</Label>
+                              <Textarea
+                                value={element.title.text || ''}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'title.text', e.target.value)}
+                                className="bg-gray-800 border-gray-700 text-[9px]"
+                                rows={1}
+                              />
+                            </div>
+                            
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Title Color</Label>
+                              <Input
+                                type="color"
+                                value={element.title.color || '#1a202c'}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'title.color', e.target.value)}
+                                className="w-6 h-6 bg-gray-800 border-gray-700"
+                              />
+                            </div>
+                            
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Title Size (px)</Label>
+                              <div className="flex items-center gap-1.5">
+                                <Input
+                                  type="range"
+                                  value={element.title.size || 24}
+                                  onChange={(e) => updateElementConfig(selectedElementId, 'title.size', parseInt(e.target.value))}
+                                  className="flex-1 bg-gray-800 border-gray-700 h-7"
+                                  min="16"
+                                  max="64"
+                                  step="2"
+                                />
+                                <span className="text-[9px] text-gray-400 w-10 text-right">{element.title.size || 24}px</span>
+                              </div>
+                            </div>
+                          </>
+                        )}
+                      </>
+                    )}
+
+                    {/* Description Controls */}
+                    {element.description && (
+                      <>
+                        <div className="flex items-center justify-between py-0.5 border-t border-gray-800 pt-1">
+                          <Label className="text-[9px] text-gray-300">Show Description</Label>
+                          <Switch
+                            checked={element.description.show ?? true}
+                            onCheckedChange={(checked) => updateElementConfig(selectedElementId, 'description.show', checked)}
+                          />
+                        </div>
+                        
+                        {element.description.show && (
+                          <>
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Description Text</Label>
+                              <Textarea
+                                value={element.description.text || ''}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'description.text', e.target.value)}
+                                className="bg-gray-800 border-gray-700 text-[9px]"
+                                rows={3}
+                              />
+                            </div>
+                            
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Description Color</Label>
+                              <Input
+                                type="color"
+                                value={element.description.color || '#4a5568'}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'description.color', e.target.value)}
+                                className="w-6 h-6 bg-gray-800 border-gray-700"
+                              />
+                            </div>
+                          </>
+                        )}
+                      </>
+                    )}
+
+                    {/* Button Controls */}
+                    {element.button && (
+                      <>
+                        <div className="flex items-center justify-between py-0.5 border-t border-gray-800 pt-1">
+                          <Label className="text-[9px] text-gray-300">Show Button</Label>
+                          <Switch
+                            checked={element.button.show ?? true}
+                            onCheckedChange={(checked) => updateElementConfig(selectedElementId, 'button.show', checked)}
+                          />
+                        </div>
+                        
+                        {element.button.show && (
+                          <>
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Button Text</Label>
+                              <Input
+                                type="text"
+                                value={element.button.text || ''}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'button.text', e.target.value)}
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                              />
+                            </div>
+                            
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Button Color</Label>
+                              <Input
+                                type="color"
+                                value={element.button.color || '#667eea'}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'button.color', e.target.value)}
+                                className="w-6 h-6 bg-gray-800 border-gray-700"
+                              />
+                            </div>
+                            
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Button Text Color</Label>
+                              <Input
+                                type="color"
+                                value={element.button.textColor || '#ffffff'}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'button.textColor', e.target.value)}
+                                className="w-6 h-6 bg-gray-800 border-gray-700"
+                              />
+                            </div>
+
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Button Link</Label>
+                              <Input
+                                type="text"
+                                value={element.button.link || '#'}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'button.link', e.target.value)}
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                              />
+                            </div>
+                          </>
+                        )}
+                      </>
+                    )}
+
+                    {/* Date Controls */}
+                    {element.date && (
+                      <>
+                        <div className="flex items-center justify-between py-0.5 border-t border-gray-800 pt-1">
+                          <Label className="text-[9px] text-gray-300">Show Date</Label>
+                          <Switch
+                            checked={element.date.show ?? false}
+                            onCheckedChange={(checked) => updateElementConfig(selectedElementId, 'date.show', checked)}
+                          />
+                        </div>
+                        
+                        {element.date.show && (
+                          <div className="space-y-0.5">
+                            <Label className="text-[9px] text-gray-300">Date Text</Label>
+                            <Input
+                              type="text"
+                              value={element.date.text || ''}
+                              onChange={(e) => updateElementConfig(selectedElementId, 'date.text', e.target.value)}
+                              className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                            />
+                          </div>
+                        )}
+                      </>
+                    )}
+
+                    {/* Icon Controls */}
+                    {element.icon && (
+                      <>
+                        <div className="flex items-center justify-between py-0.5 border-t border-gray-800 pt-1">
+                          <Label className="text-[9px] text-gray-300">Show Icon</Label>
+                          <Switch
+                            checked={element.icon.show ?? false}
+                            onCheckedChange={(checked) => updateElementConfig(selectedElementId, 'icon.show', checked)}
+                          />
+                        </div>
+                        
+                        {element.icon.show && (
+                          <>
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Icon Name</Label>
+                              <Input
+                                type="text"
+                                value={element.icon.name || 'Circle'}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'icon.name', e.target.value)}
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                                placeholder="Camera, Heart, Star, etc."
+                              />
+                            </div>
+                            
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Icon Color</Label>
+                              <Input
+                                type="color"
+                                value={element.icon.color || '#667eea'}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'icon.color', e.target.value)}
+                                className="w-6 h-6 bg-gray-800 border-gray-700"
+                              />
+                            </div>
+                          </>
+                        )}
+                      </>
+                    )}
+                  </>
+                );
+              })()
+            )}
+          </div>
+        )}
       </div>
 
       {/* Social Icons Modal */}
