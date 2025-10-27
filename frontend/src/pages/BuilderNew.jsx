@@ -325,20 +325,13 @@ const BuilderNew = () => {
   const handleDeleteBlock = (blockId) => {
     // Check if it's the shared menu
     if (sharedMenu && sharedMenu.id === blockId) {
-      if (window.confirm('Sigur vrei să ștergi meniul partajat? Va fi eliminat de pe toate paginile.')) {
-        setSharedMenu(null);
-        if (selectedBlockId === blockId) {
-          setSelectedBlockId(null);
-        }
-        toast({
-          title: 'Meniu șters',
-          description: 'Meniul partajat a fost eliminat'
-        });
-      }
+      // Show confirm dialog for menu deletion
+      setBlockToDelete(blockId);
+      setIsConfirmDeleteOpen(true);
       return;
     }
     
-    // Regular block
+    // Regular block - delete immediately
     saveToHistory(blocks);
     const newBlocks = blocks.filter(block => block.id !== blockId);
     updateCurrentPageBlocks(newBlocks);
@@ -349,6 +342,18 @@ const BuilderNew = () => {
     toast({
       title: 'Bloc șters',
       description: 'Blocul a fost eliminat de pe pagină'
+    });
+  };
+
+  const confirmDeleteMenu = () => {
+    setSharedMenu(null);
+    if (selectedBlockId === blockToDelete) {
+      setSelectedBlockId(null);
+    }
+    setBlockToDelete(null);
+    toast({
+      title: 'Meniu șters',
+      description: 'Meniul partajat a fost eliminat de pe toate paginile'
     });
   };
 
