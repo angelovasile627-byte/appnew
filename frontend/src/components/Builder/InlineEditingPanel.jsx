@@ -402,6 +402,47 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
           </div>
         )}
 
+        {/* Social Icons - Only for Menu type */}
+        {config.type === 'menu' && config.socialIcons !== undefined && (
+          <div className="space-y-0.5 border-t border-gray-800 pt-1">
+            <div className="flex items-center justify-between mb-1">
+              <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Social Icons</Label>
+              <Switch
+                checked={config.socialIcons?.show ?? false}
+                onCheckedChange={(checked) => updateConfig('socialIcons.show', checked)}
+              />
+            </div>
+            
+            {config.socialIcons?.show && (
+              <div className="space-y-0.5 ml-1.5">
+                <Button
+                  onClick={() => setShowSocialIconsModal(true)}
+                  className="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-[9px] py-1.5 h-7 flex items-center justify-center gap-1"
+                >
+                  <Settings size={12} />
+                  Configurează Iconițe ({config.socialIcons?.items?.length || 0})
+                </Button>
+                
+                {/* Preview Selected Icons */}
+                {config.socialIcons?.items?.length > 0 && (
+                  <div className="flex gap-1 flex-wrap mt-1">
+                    {config.socialIcons.items.filter(icon => icon.show).map((iconData, index) => (
+                      <div
+                        key={index}
+                        className="w-6 h-6 rounded flex items-center justify-center"
+                        style={{ backgroundColor: iconData.color }}
+                        title={iconData.name}
+                      >
+                        <span className="text-white text-xs">•</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Button - Only for Menu type */}
         {config.type === 'menu' && config.button !== undefined && (
           <div className="space-y-0.5 border-t border-gray-800 pt-1">
