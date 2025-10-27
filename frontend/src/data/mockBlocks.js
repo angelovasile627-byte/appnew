@@ -336,9 +336,9 @@ export const blockTemplates = [
       contentWidth: 1200,
       padding: { top: 80, bottom: 80 },
       title: { text: 'What Our Clients Say', show: true, color: '#1a1a2e', align: 'center', size: 42 },
-      testimonials: [
-        { text: 'Amazing service! Highly recommended.', author: 'John Doe', role: 'CEO, Company', avatar: 'https://i.pravatar.cc/150?img=1' },
-        { text: 'The best decision we ever made.', author: 'Jane Smith', role: 'Founder, Startup', avatar: 'https://i.pravatar.cc/150?img=2' }
+      items: [
+        { text: 'Amazing service! Highly recommended.', author: 'John Doe', role: 'CEO, Company', avatar: 'https://i.pravatar.cc/150?img=1', rating: 5 },
+        { text: 'The best decision we ever made.', author: 'Jane Smith', role: 'Founder, Startup', avatar: 'https://i.pravatar.cc/150?img=2', rating: 5 }
       ]
     }
   },
