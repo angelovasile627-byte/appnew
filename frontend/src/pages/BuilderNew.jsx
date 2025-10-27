@@ -25,6 +25,8 @@ const BuilderNew = () => {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isFTPDialogOpen, setIsFTPDialogOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
+  const [blockToDelete, setBlockToDelete] = useState(null);
   const [editPanelPosition, setEditPanelPosition] = useState({ top: 0, left: 0 });
   const selectedBlockRef = useRef(null);
   const cleanupInProgressRef = useRef(false);
