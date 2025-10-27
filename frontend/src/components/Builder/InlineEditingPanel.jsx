@@ -274,24 +274,83 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
         {/* Background Color */}
         <div className="space-y-0.5 border-t border-gray-800 pt-1">
           <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Background</Label>
-          <div className="flex gap-1.5 items-center">
-            <div className="relative">
+          
+          {/* Special handling for hero-parallax with image upload */}
+          {config.type === 'hero-parallax' && config.background?.type === 'image' ? (
+            <div className="space-y-1">
+              <div className="flex gap-1.5 items-center">
+                <Input
+                  type="text"
+                  value={config.background?.value || ''}
+                  onChange={(e) => updateConfig('background.value', e.target.value)}
+                  className="flex-1 bg-gray-800 border-gray-700 text-white text-[9px] px-2 py-1 h-7"
+                  placeholder="Image URL sau încarcă din calculator"
+                />
+              </div>
+              
+              <label className="flex items-center justify-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-[9px] py-1.5 px-2 rounded cursor-pointer transition-colors">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span>Încarcă Imagine</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    
+                    // Show loading state
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    
+                    try {
+                      const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
+                      const response = await fetch(`${backendUrl}/api/upload/image`, {
+                        method: 'POST',
+                        body: formData
+                      });
+                      
+                      if (!response.ok) throw new Error('Upload failed');
+                      
+                      const data = await response.json();
+                      if (data.success && data.url) {
+                        // Convert relative URL to absolute
+                        const fullUrl = `${backendUrl}${data.url}`;
+                        updateConfig('background.value', fullUrl);
+                      }
+                    } catch (error) {
+                      console.error('Upload error:', error);
+                      alert('Eroare la încărcarea imaginii');
+                    }
+                    
+                    // Reset input
+                    e.target.value = '';
+                  }}
+                />
+              </label>
+            </div>
+          ) : (
+            <div className="flex gap-1.5 items-center">
+              <div className="relative">
+                <Input
+                  type="color"
+                  value={config.background?.value || '#ffffff'}
+                  onChange={(e) => updateConfig('background.value', e.target.value)}
+                  className="w-6 h-6 p-0.5 cursor-pointer rounded border border-gray-700 bg-transparent"
+                  style={{ padding: '1px' }}
+                />
+              </div>
               <Input
-                type="color"
+                type="text"
                 value={config.background?.value || '#ffffff'}
                 onChange={(e) => updateConfig('background.value', e.target.value)}
-                className="w-6 h-6 p-0.5 cursor-pointer rounded border border-gray-700 bg-transparent"
-                style={{ padding: '1px' }}
+                className="flex-1 bg-gray-800 border-gray-700 text-white text-[9px] px-2 py-1 h-7"
+                placeholder="#ffffff"
               />
             </div>
-            <Input
-              type="text"
-              value={config.background?.value || '#ffffff'}
-              onChange={(e) => updateConfig('background.value', e.target.value)}
-              className="flex-1 bg-gray-800 border-gray-700 text-white text-[9px] px-2 py-1 h-7"
-              placeholder="#ffffff"
-            />
-          </div>
+          )}
         </div>
 
         {/* Size Controls for Menu - Full Width and Logo Size */}
