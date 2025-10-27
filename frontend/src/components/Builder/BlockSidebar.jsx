@@ -50,12 +50,12 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
             className="pl-10 text-sm"
           />
         </div>
-        <div className="flex gap-1.5 flex-wrap">
+        <div className="flex gap-1 flex-wrap">
           {categories.map(category => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+              className={`px-2 py-1 rounded-md text-[10px] font-medium transition-colors ${
                 selectedCategory === category
                   ? 'bg-indigo-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
