@@ -1028,8 +1028,12 @@ const generateBlockHTML = (config) => {
       const layout = config.layout || 'cards-simple';
       
       // Simple cards with icons
-      const renderSimpleCards = () => `
-        <div class="feature-grid-simple" style="display: grid; grid-template-columns: repeat(${config.columns}, 1fr); gap: 40px;">
+      const renderSimpleCards = () => {
+        const itemCount = (config.items || []).length;
+        const actualColumns = Math.min(config.columns || 3, itemCount);
+        
+        return `
+        <div class="feature-grid-simple" style="display: grid; grid-template-columns: repeat(${actualColumns}, 1fr); gap: 40px;">
           ${(config.items || []).map((item, idx) => `
             <div class="feature-card-simple-${idx}" style="text-align: center; padding: 32px; border-radius: 16px; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;">
               <div style="width: 80px; height: 80px; border-radius: 50%; background-color: ${item.color}33; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
@@ -1064,6 +1068,7 @@ const generateBlockHTML = (config) => {
           }
         </style>
       `;
+      };
 
       // Gradient cards
       const renderGradientCards = () => `
