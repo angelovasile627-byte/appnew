@@ -29,6 +29,60 @@ export const blockTemplates = [
     }
   },
   {
+    id: 'hero-parallax',
+    category: 'hero',
+    name: 'Hero - Parallax Effect',
+    thumbnail: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
+    config: {
+      type: 'hero-parallax',
+      background: { 
+        type: 'image', 
+        value: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop'
+      },
+      overlay: {
+        show: true,
+        color: '#000000',
+        opacity: 0.4
+      },
+      parallax: {
+        enabled: true,
+        speed: 0.5
+      },
+      fullScreen: true,
+      fullWidth: true,
+      contentWidth: 1000,
+      padding: { top: 100, bottom: 100 },
+      title: { 
+        text: 'Experience Depth with Parallax', 
+        show: true, 
+        color: '#FFFFFF', 
+        align: 'center', 
+        size: 64, 
+        weight: 700 
+      },
+      description: { 
+        text: 'Watch the background move at a different speed as you scroll, creating a stunning 3D effect.', 
+        show: true, 
+        color: '#FFFFFF', 
+        align: 'center', 
+        size: 20 
+      },
+      button: { 
+        text: 'Explore More', 
+        show: true, 
+        color: '#6366F1', 
+        textColor: '#FFFFFF', 
+        link: '#', 
+        size: 18 
+      },
+      wrap: {
+        show: true,
+        width: 800,
+        backgroundColor: 'transparent'
+      }
+    }
+  },
+  {
     id: 'menu-1',
     category: 'menu',
     name: 'Menu - Classic',
