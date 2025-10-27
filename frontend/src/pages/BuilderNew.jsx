@@ -32,7 +32,12 @@ const BuilderNew = () => {
   // Get current page
   const currentPage = pages.find(p => p.id === currentPageId);
   const blocks = currentPage ? currentPage.blocks : [];
-  const selectedBlock = blocks.find(b => b.id === selectedBlockId);
+  
+  // Combine shared menu with current page blocks
+  const allBlocks = sharedMenu ? [sharedMenu, ...blocks] : blocks;
+  
+  // Find selected block in allBlocks (includes menu)
+  const selectedBlock = allBlocks.find(b => b.id === selectedBlockId);
 
 
   // Load project from localStorage on mount
