@@ -21,6 +21,7 @@ const BuilderNew = () => {
   // UI state
   const [history, setHistory] = useState({ past: [], future: [] });
   const [selectedBlockId, setSelectedBlockId] = useState(null);
+  const [selectedElementId, setSelectedElementId] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isFTPDialogOpen, setIsFTPDialogOpen] = useState(false);
