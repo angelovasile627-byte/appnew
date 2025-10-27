@@ -95,6 +95,21 @@ export const HeroParallaxBlock = ({ config, onUpdate }) => {
 
   return (
     <div ref={parallaxRef} style={containerStyle} data-block-type="hero-parallax">
+      {/* Top White Space */}
+      {config.whiteSpace?.top > 0 && (
+        <div 
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: `${config.whiteSpace.top}px`,
+            backgroundColor: '#ffffff',
+            zIndex: 3
+          }}
+        />
+      )}
+
       {/* Background Layer */}
       {config.background.type === 'image' && (
         <div style={getBackground()} />
@@ -244,6 +259,21 @@ export const HeroParallaxBlock = ({ config, onUpdate }) => {
           </>
         )}
       </div>
+      
+      {/* Bottom White Space */}
+      {config.whiteSpace?.bottom > 0 && (
+        <div 
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: `${config.whiteSpace.bottom}px`,
+            backgroundColor: '#ffffff',
+            zIndex: 3
+          }}
+        />
+      )}
     </div>
   );
 };
