@@ -1117,7 +1117,7 @@ const generateBlockHTML = (config) => {
 
       // Cards with images
       const renderCardsWithImages = () => `
-        <div style="display: grid; grid-template-columns: repeat(${config.columns}, 1fr); gap: 40px;">
+        <div class="feature-grid-with-images" style="display: grid; grid-template-columns: repeat(${config.columns}, 1fr); gap: 40px;">
           ${(config.items || []).map((item, idx) => `
             <div class="feature-card-image-${idx}" style="border-radius: 20px; overflow: hidden; background: ${item.cardBackground || '#1a1a2e'}; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;">
               ${item.image ? `
@@ -1142,6 +1142,21 @@ const generateBlockHTML = (config) => {
               box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             }
           `).join('')}
+          
+          /* Responsive grid for image cards */
+          @media (max-width: 768px) {
+            .feature-grid-with-images {
+              grid-template-columns: repeat(2, 1fr) !important;
+              gap: 24px !important;
+            }
+          }
+          
+          @media (max-width: 480px) {
+            .feature-grid-with-images {
+              grid-template-columns: 1fr !important;
+              gap: 20px !important;
+            }
+          }
         </style>
       `;
 
