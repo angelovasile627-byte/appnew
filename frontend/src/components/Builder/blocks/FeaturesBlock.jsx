@@ -228,119 +228,104 @@ export const FeaturesBlock = ({ config, onUpdate }) => {
 
   // Cards with images on top
   const renderCardsWithImages = () => {
-    const actualColumns = Math.min(config.columns, config.items.length);
+    const responsiveColumns = getResponsiveColumns(config.columns, config.items.length);
     
     return (
-      <>
-        <style>
-          {`
-            .${blockId}-images-grid {
-              display: grid;
-              grid-template-columns: repeat(${actualColumns}, 1fr);
-              gap: 40px;
-            }
-            @media (max-width: 1024px) {
-              .${blockId}-images-grid {
-                grid-template-columns: repeat(${Math.min(2, actualColumns)}, 1fr);
-              }
-            }
-            @media (max-width: 640px) {
-              .${blockId}-images-grid {
-                grid-template-columns: 1fr;
-              }
-            }
-          `}
-        </style>
-        <div className={`${blockId}-images-grid`}>
-          {config.items.map((item, index) => (
-            <div
-              key={index}
-              style={{
-                borderRadius: '20px',
-                overflow: 'hidden',
-                background: item.cardBackground || '#1a1a2e',
-                transition: 'transform 0.3s, box-shadow 0.3s',
-                cursor: 'pointer'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-8px)';
-                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.3)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
-            >
-              {item.image && (
-                <div
-                  style={{
-                    width: '100%',
-                    height: '250px',
-                    background: `url(${item.image}) center/cover`,
-                    position: 'relative'
-                  }}
-                >
-                  {item.imageOverlay && (
-                    <div style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      background: item.imageOverlay
-                    }} />
-                  )}
-                </div>
-              )}
-              <div style={{ padding: '32px' }}>
-                <h3
-                  style={{
-                    fontSize: '24px',
-                    fontWeight: '700',
-                    marginBottom: '12px',
-                    color: item.titleColor || '#ffffff'
-                  }}
-                >
-                  {item.title}
-                </h3>
-                <p
-                  style={{
-                    fontSize: '15px',
-                    lineHeight: '1.6',
-                    marginBottom: '20px',
-                    color: item.descColor || 'rgba(255,255,255,0.8)'
-                  }}
-                >
-                  {item.description}
-                </p>
-                {item.button && (
-                  <button
-                    style={{
-                      background: item.button.gradient || 'linear-gradient(90deg, #667eea 0%, #764ba2 100%)',
-                      border: 'none',
-                      color: '#ffffff',
-                      padding: '12px 28px',
-                      borderRadius: '8px',
-                      fontSize: '15px',
-                      fontWeight: '600',
-                      cursor: 'pointer',
-                      transition: 'opacity 0.3s'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.opacity = '0.9';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.opacity = '1';
-                    }}
-                  >
-                    {item.button.text}
-                  </button>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: `repeat(${responsiveColumns}, 1fr)`,
+          gap: '40px'
+        }}
+      >
+        {config.items.map((item, index) => (
+          <div
+            key={index}
+            style={{
+              borderRadius: '20px',
+              overflow: 'hidden',
+              background: item.cardBackground || '#1a1a2e',
+              transition: 'transform 0.3s, box-shadow 0.3s',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-8px)';
+              e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.3)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            {item.image && (
+              <div
+                style={{
+                  width: '100%',
+                  height: '250px',
+                  background: `url(${item.image}) center/cover`,
+                  position: 'relative'
+                }}
+              >
+                {item.imageOverlay && (
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: item.imageOverlay
+                  }} />
                 )}
               </div>
+            )}
+            <div style={{ padding: '32px' }}>
+              <h3
+                style={{
+                  fontSize: '24px',
+                  fontWeight: '700',
+                  marginBottom: '12px',
+                  color: item.titleColor || '#ffffff'
+                }}
+              >
+                {item.title}
+              </h3>
+              <p
+                style={{
+                  fontSize: '15px',
+                  lineHeight: '1.6',
+                  marginBottom: '20px',
+                  color: item.descColor || 'rgba(255,255,255,0.8)'
+                }}
+              >
+                {item.description}
+              </p>
+              {item.button && (
+                <button
+                  style={{
+                    background: item.button.gradient || 'linear-gradient(90deg, #667eea 0%, #764ba2 100%)',
+                    border: 'none',
+                    color: '#ffffff',
+                    padding: '12px 28px',
+                    borderRadius: '8px',
+                    fontSize: '15px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'opacity 0.3s'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.opacity = '0.9';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.opacity = '1';
+                  }}
+                >
+                  {item.button.text}
+                </button>
+              )}
             </div>
-          ))}
-        </div>
-      </>
+          </div>
+        ))}
+      </div>
     );
   };
 
