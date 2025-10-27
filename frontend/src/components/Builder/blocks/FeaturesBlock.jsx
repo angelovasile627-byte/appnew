@@ -313,104 +313,105 @@ export const FeaturesBlock = ({ config, onUpdate }) => {
   // Cards with image on side
   const renderCardsImageSide = () => {
     return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
-      {config.items.map((item, index) => (
-        <div
-          key={index}
-          style={{
-            display: 'flex',
-            flexDirection: index % 2 === 0 ? 'row' : 'row-reverse',
-            gap: '40px',
-            alignItems: 'center',
-            background: item.cardBackground || '#ffffff',
-            borderRadius: '20px',
-            padding: '40px',
-            transition: 'transform 0.3s, box-shadow 0.3s',
-            cursor: 'pointer'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateX(' + (index % 2 === 0 ? '8px' : '-8px') + ')';
-            e.currentTarget.style.boxShadow = '0 12px 30px rgba(0,0,0,0.1)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateX(0)';
-            e.currentTarget.style.boxShadow = 'none';
-          }}
-        >
-          {item.image && (
-            <div
-              style={{
-                flex: '0 0 45%',
-                height: '300px',
-                background: `url(${item.image}) center/cover`,
-                borderRadius: '12px'
-              }}
-            />
-          )}
-          <div style={{ flex: 1 }}>
-            {item.label && (
-              <span
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+        {config.items.map((item, index) => (
+          <div
+            key={index}
+            style={{
+              display: 'flex',
+              flexDirection: index % 2 === 0 ? 'row' : 'row-reverse',
+              gap: '40px',
+              alignItems: 'center',
+              background: item.cardBackground || '#ffffff',
+              borderRadius: '20px',
+              padding: '40px',
+              transition: 'transform 0.3s, box-shadow 0.3s',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateX(' + (index % 2 === 0 ? '8px' : '-8px') + ')';
+              e.currentTarget.style.boxShadow = '0 12px 30px rgba(0,0,0,0.1)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateX(0)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            {item.image && (
+              <div
                 style={{
-                  display: 'inline-block',
-                  fontSize: '12px',
-                  fontWeight: '600',
-                  color: item.labelColor || '#667eea',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px',
-                  marginBottom: '12px'
+                  flex: '0 0 45%',
+                  height: '300px',
+                  background: `url(${item.image}) center/cover`,
+                  borderRadius: '12px'
+                }}
+              />
+            )}
+            <div style={{ flex: 1 }}>
+              {item.label && (
+                <span
+                  style={{
+                    display: 'inline-block',
+                    fontSize: '12px',
+                    fontWeight: '600',
+                    color: item.labelColor || '#667eea',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px',
+                    marginBottom: '12px'
+                  }}
+                >
+                  {item.label}
+                </span>
+              )}
+              <h3
+                style={{
+                  fontSize: '32px',
+                  fontWeight: '700',
+                  marginBottom: '16px',
+                  color: item.titleColor || '#1a1a2e'
                 }}
               >
-                {item.label}
-              </span>
-            )}
-            <h3
-              style={{
-                fontSize: '32px',
-                fontWeight: '700',
-                marginBottom: '16px',
-                color: item.titleColor || '#1a1a2e'
-              }}
-            >
-              {item.title}
-            </h3>
-            <p
-              style={{
-                fontSize: '16px',
-                lineHeight: '1.7',
-                color: item.descColor || '#5a5a6e',
-                marginBottom: '24px'
-              }}
-            >
-              {item.description}
-            </p>
-            {item.button && (
-              <button
+                {item.title}
+              </h3>
+              <p
                 style={{
-                  background: item.button.color || '#667eea',
-                  border: 'none',
-                  color: '#ffffff',
-                  padding: '14px 32px',
-                  borderRadius: '8px',
                   fontSize: '16px',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'transform 0.3s'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'scale(1.05)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'scale(1)';
+                  lineHeight: '1.7',
+                  color: item.descColor || '#5a5a6e',
+                  marginBottom: '24px'
                 }}
               >
-                {item.button.text}
-              </button>
-            )}
+                {item.description}
+              </p>
+              {item.button && (
+                <button
+                  style={{
+                    background: item.button.color || '#667eea',
+                    border: 'none',
+                    color: '#ffffff',
+                    padding: '14px 32px',
+                    borderRadius: '8px',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'transform 0.3s'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                  }}
+                >
+                  {item.button.text}
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
-  );
+        ))}
+      </div>
+    );
+  };
 
   // Dark cards with gradient accents
   const renderDarkCards = () => {
