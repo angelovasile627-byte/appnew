@@ -1053,8 +1053,8 @@ const generateBlockHTML = (config) => {
       // Gradient cards
       const renderGradientCards = () => `
         <div style="display: grid; grid-template-columns: repeat(${config.columns}, 1fr); gap: 30px;">
-          ${(config.items || []).map(item => `
-            <div style="background: ${item.gradient || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}; border-radius: 20px; padding: 40px 30px; color: #ffffff;">
+          ${(config.items || []).map((item, idx) => `
+            <div class="feature-card-gradient-${idx}" style="background: ${item.gradient || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}; border-radius: 20px; padding: 40px 30px; color: #ffffff; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;">
               <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 16px; color: #ffffff;">${item.title}</h3>
               <p style="font-size: 15px; line-height: 1.6; margin-bottom: 20px; color: rgba(255,255,255,0.9);">${item.description}</p>
               ${item.features && item.features.length > 0 ? `
@@ -1075,6 +1075,14 @@ const generateBlockHTML = (config) => {
             </div>
           `).join('')}
         </div>
+        <style>
+          ${(config.items || []).map((item, idx) => `
+            .feature-card-gradient-${idx}:hover {
+              transform: translateY(-8px);
+              box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            }
+          `).join('')}
+        </style>
       `;
 
       // Cards with images
