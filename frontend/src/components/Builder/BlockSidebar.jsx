@@ -131,7 +131,7 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                 );
               }
               
-              if (config.type === 'hero') {
+              if (config.type === 'hero' || config.type === 'hero-parallax') {
                 const bgStyle = config.background.type === 'gradient'
                   ? { background: config.background.value }
                   : config.background.type === 'image'
@@ -144,6 +144,9 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                 
                 // Check if hero has image above text layout
                 const hasHeroImage = config.heroImage?.show && config.heroImage?.src;
+                const hasOverlay = config.overlay?.show || config.background.overlay;
+                const overlayColor = config.overlay?.color || config.background.overlayColor || 'rgba(0,0,0,0.5)';
+                const overlayOpacity = config.overlay?.opacity ?? 0.5;
                 
                 return (
                   <div style={{
@@ -157,11 +160,12 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                     height: '100%',
                     gap: '6px'
                   }}>
-                    {config.background.overlay && (
+                    {hasOverlay && (
                       <div style={{
                         position: 'absolute',
                         inset: 0,
-                        background: config.background.overlayColor || 'rgba(0,0,0,0.5)'
+                        background: overlayColor,
+                        opacity: overlayOpacity
                       }}></div>
                     )}
                     
