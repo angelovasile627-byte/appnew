@@ -142,16 +142,20 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                     }
                   : { background: config.background.value };
                 
+                // Check if hero has image above text layout
+                const hasHeroImage = config.heroImage?.show && config.heroImage?.src;
+                
                 return (
                   <div style={{
                     ...bgStyle,
                     position: 'relative',
                     display: 'flex',
+                    flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    padding: '20px 12px',
+                    padding: hasHeroImage ? '8px' : '20px 12px',
                     height: '100%',
-                    textAlign: config.title.align
+                    gap: '6px'
                   }}>
                     {config.background.overlay && (
                       <div style={{
@@ -160,24 +164,52 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                         background: config.background.overlayColor || 'rgba(0,0,0,0.5)'
                       }}></div>
                     )}
-                    <div style={{ position: 'relative', zIndex: 1 }}>
+                    
+                    {hasHeroImage && (
+                      <div style={{
+                        position: 'relative',
+                        zIndex: 1,
+                        width: '100%',
+                        height: '45px',
+                        borderRadius: '4px',
+                        overflow: 'hidden',
+                        marginBottom: '4px'
+                      }}>
+                        <img 
+                          src={config.heroImage.src} 
+                          alt="Hero preview"
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover'
+                          }}
+                        />
+                      </div>
+                    )}
+                    
+                    <div style={{ 
+                      position: 'relative', 
+                      zIndex: 1,
+                      textAlign: config.title.align,
+                      width: '100%'
+                    }}>
                       <div style={{
                         color: config.title.color,
                         fontWeight: 'bold',
-                        fontSize: '10px',
-                        marginBottom: '4px',
+                        fontSize: hasHeroImage ? '8px' : '10px',
+                        marginBottom: '3px',
                         lineHeight: 1.2
                       }}>
-                        {config.title.text}
+                        {config.title.text.substring(0, 30)}
                       </div>
                       {config.description.show && (
                         <div style={{
                           color: config.description.color,
                           fontSize: '5px',
-                          marginBottom: '6px',
+                          marginBottom: '5px',
                           lineHeight: 1.3
                         }}>
-                          {config.description.text.substring(0, 60)}...
+                          {config.description.text.substring(0, 45)}...
                         </div>
                       )}
                       {config.button.show && (
@@ -185,9 +217,9 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                           display: 'inline-block',
                           background: config.button.color,
                           color: config.button.textColor,
-                          padding: '4px 8px',
-                          borderRadius: '4px',
-                          fontSize: '6px',
+                          padding: '3px 6px',
+                          borderRadius: '3px',
+                          fontSize: '5px',
                           fontWeight: '600'
                         }}>
                           {config.button.text}
