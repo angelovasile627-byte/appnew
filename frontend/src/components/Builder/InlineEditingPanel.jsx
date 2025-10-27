@@ -663,6 +663,14 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
           </div>
         )}
       </div>
+
+      {/* Social Icons Modal */}
+      <SocialIconsModal
+        isOpen={showSocialIconsModal}
+        onClose={() => setShowSocialIconsModal(false)}
+        currentIcons={config.socialIcons?.items || []}
+        onSave={handleSaveSocialIcons}
+      />
     </div>
   );
 };
