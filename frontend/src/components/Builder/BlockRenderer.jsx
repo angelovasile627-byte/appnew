@@ -34,7 +34,7 @@ const blockComponents = {
   faq: FAQBlock
 };
 
-export const BlockRenderer = ({ block, isSelected, onSelect, onUpdate, onDelete, onMoveUp, onMoveDown }) => {
+export const BlockRenderer = ({ block, isSelected, onSelect, onUpdate, onDelete, onMoveUp, onMoveDown, selectedElementId, onSelectElement }) => {
   const BlockComponent = blockComponents[block.config.type];
 
   if (!BlockComponent) {
@@ -42,6 +42,7 @@ export const BlockRenderer = ({ block, isSelected, onSelect, onUpdate, onDelete,
   }
 
   const isMenuBlock = block.config.type === 'menu';
+  const isArticleBlock = block.config.type === 'article';
   
   return (
     <div
@@ -49,11 +50,12 @@ export const BlockRenderer = ({ block, isSelected, onSelect, onUpdate, onDelete,
         isSelected ? 'ring-4 ring-indigo-500 ring-offset-2' : ''
       }`}
       onClick={(e) => {
-        // Prevent selection if clicking on menu items or interactive elements
+        // Prevent selection if clicking on menu items, article elements, or interactive elements
         const target = e.target;
         const isMenuItemClick = target.closest('a') || target.closest('button');
+        const isArticleElementClick = isArticleBlock && target.closest('[data-element-id]');
         
-        if (!isMenuItemClick) {
+        if (!isMenuItemClick && !isArticleElementClick) {
           e.stopPropagation();
           onSelect();
         }
@@ -97,7 +99,12 @@ export const BlockRenderer = ({ block, isSelected, onSelect, onUpdate, onDelete,
           </button>
         </div>
       )}
-      <BlockComponent config={block.config} onUpdate={onUpdate} />
+      <BlockComponent 
+        config={block.config} 
+        onUpdate={onUpdate}
+        selectedElementId={selectedElementId}
+        onSelectElement={onSelectElement}
+      />
     </div>
   );
 };
