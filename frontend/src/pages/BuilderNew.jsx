@@ -533,6 +533,8 @@ const BuilderNew = () => {
                 onDeleteBlock={handleDeleteBlock}
                 onMoveBlock={handleMoveBlock}
                 selectedBlockRef={selectedBlockRef}
+                selectedElementId={selectedElementId}
+                onSelectElement={handleSelectElement}
               />
               
               {/* Show InlineEditingPanel for ALL blocks (including menu) */}
