@@ -274,6 +274,60 @@ export const MenuBlock = ({ config, onUpdate }) => {
     </Button>
   );
 
+  // Helper pentru renderizarea social icons
+  const renderSocialIcons = () => {
+    if (!config.socialIcons?.show || !config.socialIcons?.items?.length) return null;
+
+    return (
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: `${config.socialIcons.spacing || 12}px`
+      }}>
+        {config.socialIcons.items.filter(icon => icon.show).map((iconData, index) => {
+          // Try to get icon from both libraries
+          const IconComponent = FaIcons[iconData.icon] || Fa6Icons[iconData.icon];
+          
+          if (!IconComponent) return null;
+
+          return (
+            <a
+              key={index}
+              href={iconData.link || '#'}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: `${(config.socialIcons.size || 18) + 12}px`,
+                height: `${(config.socialIcons.size || 18) + 12}px`,
+                borderRadius: '6px',
+                backgroundColor: iconData.color === 'auto' ? 'rgba(0,0,0,0.1)' : iconData.color,
+                transition: 'all 0.2s',
+                cursor: 'pointer'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.1)';
+                e.currentTarget.style.opacity = '0.8';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.opacity = '1';
+              }}
+              title={iconData.name}
+            >
+              <IconComponent 
+                size={config.socialIcons.size || 18} 
+                color="white"
+              />
+            </a>
+          );
+        })}
+      </div>
+    );
+  };
+
   // Determină layout-ul bazat pe align
   const getLayoutContent = () => {
     const visibleItems = config.menuItems.filter(item => item.show);
