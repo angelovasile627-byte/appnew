@@ -466,9 +466,6 @@ const BuilderNew = () => {
     }
   };
 
-  // Combine shared menu with current page blocks for canvas display
-  const allBlocks = sharedMenu ? [sharedMenu, ...blocks] : blocks;
-
   return (
     <div className="h-screen flex flex-col">
       <Toolbar
