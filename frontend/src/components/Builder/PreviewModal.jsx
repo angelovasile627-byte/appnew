@@ -1119,7 +1119,7 @@ const generateBlockHTML = (config) => {
       const renderCardsImageSide = () => `
         <div style="display: flex; flex-direction: column; gap: 40px;">
           ${(config.items || []).map((item, index) => `
-            <div style="display: flex; flex-direction: ${index % 2 === 0 ? 'row' : 'row-reverse'}; gap: 40px; align-items: center; background: ${item.cardBackground || '#ffffff'}; border-radius: 20px; padding: 40px;">
+            <div class="feature-card-side-${index}" style="display: flex; flex-direction: ${index % 2 === 0 ? 'row' : 'row-reverse'}; gap: 40px; align-items: center; background: ${item.cardBackground || '#ffffff'}; border-radius: 20px; padding: 40px; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;">
               ${item.image ? `
                 <div style="flex: 0 0 45%; height: 300px; background: url(${item.image}) center/cover; border-radius: 12px;"></div>
               ` : ''}
@@ -1138,6 +1138,14 @@ const generateBlockHTML = (config) => {
             </div>
           `).join('')}
         </div>
+        <style>
+          ${(config.items || []).map((item, idx) => `
+            .feature-card-side-${idx}:hover {
+              transform: translateY(-8px);
+              box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            }
+          `).join('')}
+        </style>
       `;
 
       // Dark cards
