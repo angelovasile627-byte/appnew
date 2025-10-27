@@ -352,6 +352,7 @@ export const MenuBlock = ({ config, onUpdate }) => {
           <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
             {renderMenuItems(visibleItems)}
             {renderButton()}
+            {renderSocialIcons()}
           </div>
         </div>
       );
@@ -386,6 +387,7 @@ export const MenuBlock = ({ config, onUpdate }) => {
           <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
             {renderMenuItems(rightItems)}
             {renderButton()}
+            {renderSocialIcons()}
           </div>
         </div>
       );
