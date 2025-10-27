@@ -2,6 +2,7 @@ import React from 'react';
 import { MoveUp, MoveDown, Trash2 } from 'lucide-react';
 import { MenuBlock } from './blocks/MenuBlock';
 import { HeroBlock } from './blocks/HeroBlock';
+import { HeroParallaxBlock } from './blocks/HeroParallaxBlock';
 import { FeaturesBlock } from './blocks/FeaturesBlock';
 import { ArticleBlock } from './blocks/ArticleBlock';
 import { IntroBlock } from './blocks/IntroBlock';
@@ -18,6 +19,7 @@ import { FAQBlock } from './blocks/FAQBlock';
 const blockComponents = {
   menu: MenuBlock,
   hero: HeroBlock,
+  'hero-parallax': HeroParallaxBlock,
   features: FeaturesBlock,
   article: ArticleBlock,
   intro: IntroBlock,
