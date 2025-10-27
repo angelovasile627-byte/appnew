@@ -271,6 +271,32 @@ test_plan:
         agent: "main"
         comment: "Successfully added image upload functionality for Hero Parallax background. Users can now either paste an image URL OR click 'Încarcă Imagine' to upload from their computer. Backend endpoint handles validation, generates unique filenames, saves files, and returns the URL. Frontend automatically updates the background image after successful upload. Tested and fully functional."
 
+  - task: "Fix animations not visible in preview + Fix thumbnail layout for features blocks"
+    implemented: true
+    working: "YES"
+    files:
+      - "/app/frontend/src/components/Builder/PreviewModal.jsx" (added CSS hover animations for all features layouts)
+      - "/app/frontend/src/components/Builder/BlockSidebar.jsx" (fixed dynamic thumbnail grid based on columns)
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    changes_made:
+      - "ANIMATIONS FIXED: Added CSS :hover styles for all Features block layouts in PreviewModal"
+      - "cards-simple: Already had hover animations ✓"
+      - "cards-gradient: Added hover with translateY(-8px) + box-shadow"
+      - "cards-with-images: Added hover with translateY(-8px) + box-shadow"
+      - "cards-image-side: Added hover with translateY(-8px) + box-shadow"
+      - "cards-dark (AI Goals in Business): Added hover with translateY(-8px) + box-shadow + border-color glow"
+      - "All animations use transition: transform 0.3s ease, box-shadow 0.3s ease for smooth effects"
+      - "THUMBNAIL LAYOUT FIXED: Changed from static 3-column grid to dynamic based on config.columns"
+      - "Thumbnails now show correct number of columns (3 or 4) matching block configuration"
+      - "Items displayed limited to config.columns to prevent overcrowding"
+      - "When features are added/removed, thumbnails maintain proper grid layout"
+    status_history:
+      - working: "YES"
+        agent: "main"
+        comment: "Successfully fixed both issues: 1) Animations now work in preview for ALL Features block layouts (simple, gradient, with-images, image-side, dark) with smooth hover effects, 2) Thumbnail grid is now dynamic and displays correct number of columns based on block configuration. Tested with 'AI Goals in Business' block - hover animations confirmed working in preview iframe."
+
 agent_communication:
   - agent: "main"
     message: "FIXED duplicate menu bug in PreviewModal. Implemented aggressive deduplication with both ID and type checking. Verified working - only ONE menu now appears in preview."
