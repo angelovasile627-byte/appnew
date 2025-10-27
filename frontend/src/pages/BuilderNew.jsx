@@ -585,6 +585,17 @@ const BuilderNew = () => {
         onRenamePage={handleRenamePage}
         onDeletePage={handleDeletePage}
       />
+      
+      <ConfirmDialog
+        isOpen={isConfirmDeleteOpen}
+        onClose={() => {
+          setIsConfirmDeleteOpen(false);
+          setBlockToDelete(null);
+        }}
+        onConfirm={confirmDeleteMenu}
+        title="Șterge Meniul"
+        message="Ești sigur că vrei să ștergi meniul partajat? Va fi eliminat de pe toate paginile din proiect."
+      />
     </div>
   );
 };
