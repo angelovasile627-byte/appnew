@@ -7,6 +7,7 @@ import { InlineToolbar } from '../components/Builder/InlineToolbar';
 import { PreviewModal } from '../components/Builder/PreviewModal';
 import { FTPDialog } from '../components/Builder/FTPDialog';
 import { SettingsModal } from '../components/Builder/SettingsModal';
+import { ConfirmDialog } from '../components/Builder/ConfirmDialog';
 import { useToast } from '../hooks/use-toast';
 
 const BuilderNew = () => {
