@@ -411,14 +411,17 @@ export const FeaturesBlock = ({ config, onUpdate }) => {
   );
 
   // Dark cards with gradient accents
-  const renderDarkCards = () => (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: `repeat(${config.columns}, 1fr)`,
-        gap: '30px'
-      }}
-    >
+  const renderDarkCards = () => {
+    const actualColumns = Math.min(config.columns, config.items.length);
+    
+    return (
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: `repeat(${actualColumns}, 1fr)`,
+          gap: '30px'
+        }}
+      >
       {config.items.map((item, index) => {
         const IconComponent = item.icon ? Icons[item.icon] || Icons.Box : null;
         return (
