@@ -604,6 +604,407 @@ const generateBlockHTML = (config) => {
         ? `background: ${config.background.value};`
         : `background-color: ${config.background.value};`;
 
+      // NEW ARTICLE LAYOUTS: Grid, Vertical, Split
+      if (config.layout === 'grid') {
+        // Grid Masonry Layout
+        return `
+          <section style="
+            ${bgStyle}
+            width: 100%;
+            padding: ${config.padding?.top || 80}px 24px ${config.padding?.bottom || 80}px;
+          ">
+            <div style="
+              max-width: ${config.fullWidth ? '100%' : (config.contentWidth || 1400) + 'px'};
+              margin: 0 auto;
+            ">
+              ${config.title?.show ? `
+                <h2 style="
+                  font-size: ${config.title.size || 32}px;
+                  font-weight: 700;
+                  color: ${config.title.color};
+                  text-align: ${config.title.align || 'left'};
+                  margin-bottom: 40px;
+                ">
+                  ${config.title.text}
+                </h2>
+              ` : ''}
+              
+              <div style="
+                display: grid;
+                grid-template-columns: repeat(${config.columns || 3}, 1fr);
+                gap: ${config.gap || 24}px;
+              ">
+                ${(config.elements || []).map(element => `
+                  <div style="
+                    width: ${element.width || 100}%;
+                    border-radius: 12px;
+                    overflow: hidden;
+                    background: #ffffff;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                    transition: transform 0.3s ease;
+                  ">
+                    ${element.image?.show ? `
+                      <img 
+                        src="${element.image.src || ''}" 
+                        alt="${element.image.alt || ''}" 
+                        style="
+                          width: 100%;
+                          height: ${element.image.height || 300}px;
+                          object-fit: ${element.image.objectFit || 'cover'};
+                        "
+                      />
+                    ` : ''}
+                    <div style="padding: 24px;">
+                      ${element.tag?.show ? `
+                        <span style="
+                          display: inline-block;
+                          font-size: 12px;
+                          font-weight: 600;
+                          color: ${element.tag.color};
+                          background-color: ${element.tag.bgColor};
+                          padding: 4px 12px;
+                          border-radius: 4px;
+                          margin-bottom: 12px;
+                        ">${element.tag.text}</span>
+                      ` : ''}
+                      ${element.title?.show ? `
+                        <h3 style="
+                          font-size: ${element.title.size || 24}px;
+                          font-weight: ${element.title.weight || 700};
+                          color: ${element.title.color};
+                          margin-bottom: 12px;
+                        ">${element.title.text}</h3>
+                      ` : ''}
+                      ${element.description?.show ? `
+                        <p style="
+                          font-size: ${element.description.size || 16}px;
+                          color: ${element.description.color};
+                          line-height: 1.6;
+                          margin-bottom: 16px;
+                        ">${element.description.text}</p>
+                      ` : ''}
+                      ${element.button?.show ? `
+                        <a href="${element.button.link || '#'}" style="
+                          display: inline-block;
+                          background-color: ${element.button.color};
+                          color: ${element.button.textColor};
+                          padding: 10px 20px;
+                          border-radius: 6px;
+                          text-decoration: none;
+                          font-weight: 600;
+                          font-size: 14px;
+                        ">${element.button.text}</a>
+                      ` : ''}
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </section>
+        `;
+      } else if (config.layout === 'vertical') {
+        // Vertical Layout with multiple sections
+        return `
+          <section style="
+            ${bgStyle}
+            width: 100%;
+            padding: ${config.padding?.top || 60}px 24px ${config.padding?.bottom || 60}px;
+          ">
+            <div style="
+              max-width: ${config.fullWidth ? '100%' : (config.contentWidth || 1200) + 'px'};
+              margin: 0 auto;
+            ">
+              ${config.title?.show ? `
+                <h2 style="
+                  font-size: ${config.title.size || 32}px;
+                  font-weight: 700;
+                  color: ${config.title.color};
+                  text-align: ${config.title.align || 'left'};
+                  margin-bottom: 40px;
+                ">
+                  ${config.title.text}
+                </h2>
+              ` : ''}
+              
+              <div style="display: flex; flex-direction: column; gap: ${config.gap || 48}px;">
+                ${(config.elements || []).map(element => {
+                  const sectionBg = element.background?.type === 'gradient' 
+                    ? `background: ${element.background.value};` 
+                    : `background-color: ${element.background?.value || '#ffffff'};`;
+                  
+                  return `
+                    <div style="
+                      ${sectionBg}
+                      border-radius: 12px;
+                      overflow: hidden;
+                    ">
+                      ${element.layout === 'split' ? `
+                        <div style="
+                          display: flex;
+                          gap: ${element.gap || 40}px;
+                          padding: 40px;
+                        ">
+                          <div style="flex: ${element.leftWidth || 50}; min-width: 0;">
+                            ${element.leftContent?.type === 'text' ? `
+                              ${element.leftContent.title?.show ? `
+                                <h3 style="
+                                  font-size: ${element.leftContent.title.size || 32}px;
+                                  font-weight: ${element.leftContent.title.weight || 700};
+                                  color: ${element.leftContent.title.color};
+                                  font-style: ${element.leftContent.title.style || 'normal'};
+                                  margin-bottom: 16px;
+                                ">${element.leftContent.title.text}</h3>
+                              ` : ''}
+                              ${element.leftContent.description?.show ? `
+                                <p style="
+                                  font-size: ${element.leftContent.description.size || 16}px;
+                                  color: ${element.leftContent.description.color};
+                                  line-height: 1.6;
+                                  margin-bottom: 20px;
+                                ">${element.leftContent.description.text}</p>
+                              ` : ''}
+                              ${element.leftContent.button?.show ? `
+                                <a href="${element.leftContent.button.link || '#'}" style="
+                                  display: inline-block;
+                                  background-color: ${element.leftContent.button.color};
+                                  color: ${element.leftContent.button.textColor};
+                                  padding: 12px 28px;
+                                  border-radius: 6px;
+                                  border: ${element.leftContent.button.color === 'transparent' ? `2px solid ${element.leftContent.button.borderColor || element.leftContent.button.textColor}` : 'none'};
+                                  text-decoration: none;
+                                  font-weight: 600;
+                                  margin-right: 12px;
+                                ">${element.leftContent.button.text}</a>
+                              ` : ''}
+                              ${element.leftContent.button2?.show ? `
+                                <a href="${element.leftContent.button2.link || '#'}" style="
+                                  display: inline-block;
+                                  background-color: ${element.leftContent.button2.color};
+                                  color: ${element.leftContent.button2.textColor};
+                                  padding: 12px 28px;
+                                  border-radius: 6px;
+                                  border: ${element.leftContent.button2.color === 'transparent' ? `2px solid ${element.leftContent.button2.borderColor || element.leftContent.button2.textColor}` : 'none'};
+                                  text-decoration: none;
+                                  font-weight: 600;
+                                ">${element.leftContent.button2.text}</a>
+                              ` : ''}
+                            ` : ''}
+                          </div>
+                          <div style="flex: ${element.rightWidth || 50}; min-width: 0;">
+                            ${element.rightContent?.type === 'text' ? `
+                              ${element.rightContent.title?.show ? `
+                                <h3 style="
+                                  font-size: ${element.rightContent.title.size || 40}px;
+                                  font-weight: ${element.rightContent.title.weight || 700};
+                                  color: ${element.rightContent.title.color};
+                                  margin-bottom: 16px;
+                                ">${element.rightContent.title.text}</h3>
+                              ` : ''}
+                              ${element.rightContent.subtitle?.show ? `
+                                <h4 style="
+                                  font-size: ${element.rightContent.subtitle.size || 18}px;
+                                  color: ${element.rightContent.subtitle.color};
+                                  margin-bottom: 12px;
+                                ">${element.rightContent.subtitle.text}</h4>
+                              ` : ''}
+                              ${element.rightContent.description?.show ? `
+                                <p style="
+                                  font-size: ${element.rightContent.description.size || 14}px;
+                                  color: ${element.rightContent.description.color};
+                                  line-height: 1.6;
+                                  margin-bottom: 20px;
+                                  white-space: pre-wrap;
+                                ">${element.rightContent.description.text}</p>
+                              ` : ''}
+                              ${element.rightContent.button?.show ? `
+                                <a href="${element.rightContent.button.link || '#'}" style="
+                                  display: inline-block;
+                                  background-color: ${element.rightContent.button.color};
+                                  color: ${element.rightContent.button.textColor};
+                                  padding: 12px 28px;
+                                  border-radius: 6px;
+                                  border: ${element.rightContent.button.color === 'transparent' ? `2px solid ${element.rightContent.button.borderColor || element.rightContent.button.textColor}` : 'none'};
+                                  text-decoration: none;
+                                  font-weight: 600;
+                                ">${element.rightContent.button.text}</a>
+                              ` : ''}
+                            ` : element.rightContent?.type === 'image' ? `
+                              ${element.rightContent.image?.show ? `
+                                <img 
+                                  src="${element.rightContent.image.src || ''}" 
+                                  alt="${element.rightContent.image.alt || ''}" 
+                                  style="
+                                    width: 100%;
+                                    height: auto;
+                                    object-fit: ${element.rightContent.image.objectFit || 'cover'};
+                                    border-radius: 12px;
+                                    margin-bottom: 20px;
+                                  "
+                                />
+                              ` : ''}
+                              ${element.rightContent.title?.show ? `
+                                <h3 style="
+                                  font-size: ${element.rightContent.title.size || 32}px;
+                                  font-weight: ${element.rightContent.title.weight || 700};
+                                  color: ${element.rightContent.title.color};
+                                  margin-bottom: 12px;
+                                ">${element.rightContent.title.text}</h3>
+                              ` : ''}
+                              ${element.rightContent.description?.show ? `
+                                <p style="
+                                  font-size: ${element.rightContent.description.size || 14}px;
+                                  color: ${element.rightContent.description.color};
+                                  line-height: 1.6;
+                                  margin-bottom: 20px;
+                                  white-space: pre-wrap;
+                                ">${element.rightContent.description.text}</p>
+                              ` : ''}
+                              ${element.rightContent.button?.show ? `
+                                <a href="${element.rightContent.button.link || '#'}" style="
+                                  display: inline-block;
+                                  background-color: ${element.rightContent.button.color};
+                                  color: ${element.rightContent.button.textColor};
+                                  padding: 12px 28px;
+                                  border-radius: 6px;
+                                  border: ${element.rightContent.button.color === 'transparent' ? `2px solid ${element.rightContent.button.borderColor || element.rightContent.button.textColor}` : 'none'};
+                                  text-decoration: none;
+                                  font-weight: 600;
+                                  margin-right: 12px;
+                                ">${element.rightContent.button.text}</a>
+                              ` : ''}
+                              ${element.rightContent.button2?.show ? `
+                                <a href="${element.rightContent.button2.link || '#'}" style="
+                                  display: inline-block;
+                                  background-color: ${element.rightContent.button2.color};
+                                  color: ${element.rightContent.button2.textColor};
+                                  padding: 12px 28px;
+                                  border-radius: 6px;
+                                  border: ${element.rightContent.button2.color === 'transparent' ? `2px solid ${element.rightContent.button2.borderColor || element.rightContent.button2.textColor}` : 'none'};
+                                  text-decoration: none;
+                                  font-weight: 600;
+                                ">${element.rightContent.button2.text}</a>
+                              ` : ''}
+                            ` : ''}
+                          </div>
+                        </div>
+                      ` : ''}
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </section>
+        `;
+      } else if (config.layout === 'split') {
+        // Split Layout - 50/50 split with image and text
+        return `
+          <section style="
+            ${bgStyle}
+            width: 100%;
+            padding: ${config.padding?.top || 0}px 0 ${config.padding?.bottom || 0}px;
+            min-height: ${config.minHeight || 600}px;
+          ">
+            <div style="
+              max-width: ${config.fullWidth ? '100%' : (config.contentWidth || 1400) + 'px'};
+              margin: 0 auto;
+              display: flex;
+              height: 100%;
+              min-height: ${config.minHeight || 600}px;
+            ">
+              <div style="
+                flex: ${config.leftWidth || 50};
+                background-color: ${config.leftContent?.background?.value || '#ffffff'};
+                padding: ${config.leftContent?.padding?.top || 80}px ${config.leftContent?.padding?.right || 60}px ${config.leftContent?.padding?.bottom || 80}px ${config.leftContent?.padding?.left || 60}px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+              ">
+                ${config.leftContent?.tag?.show ? `
+                  <span style="
+                    display: inline-block;
+                    font-size: 12px;
+                    font-weight: 600;
+                    color: ${config.leftContent.tag.color};
+                    background-color: ${config.leftContent.tag.bgColor};
+                    padding: 6px 16px;
+                    border-radius: 20px;
+                    margin-bottom: 20px;
+                    width: fit-content;
+                  ">${config.leftContent.tag.text}</span>
+                ` : ''}
+                ${config.leftContent?.title?.show ? `
+                  <h2 style="
+                    font-size: ${config.leftContent.title.size || 48}px;
+                    font-weight: ${config.leftContent.title.weight || 700};
+                    color: ${config.leftContent.title.color};
+                    margin-bottom: 24px;
+                    line-height: 1.2;
+                  ">${config.leftContent.title.text}</h2>
+                ` : ''}
+                ${config.leftContent?.description?.show ? `
+                  <p style="
+                    font-size: ${config.leftContent.description.size || 18}px;
+                    color: ${config.leftContent.description.color};
+                    line-height: ${config.leftContent.description.lineHeight || 1.7};
+                    margin-bottom: 32px;
+                  ">${config.leftContent.description.text}</p>
+                ` : ''}
+                ${config.leftContent?.metadata?.show ? `
+                  <div style="
+                    font-size: 14px;
+                    color: ${config.leftContent.metadata.color};
+                    margin-bottom: 24px;
+                  ">
+                    ${config.leftContent.metadata.author} • ${config.leftContent.metadata.date} • ${config.leftContent.metadata.readTime}
+                  </div>
+                ` : ''}
+                ${config.leftContent?.button?.show ? `
+                  <a href="${config.leftContent.button.link || '#'}" style="
+                    display: inline-block;
+                    background-color: ${config.leftContent.button.color};
+                    color: ${config.leftContent.button.textColor};
+                    padding: 14px 32px;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    width: fit-content;
+                  ">${config.leftContent.button.text}</a>
+                ` : ''}
+              </div>
+              <div style="
+                flex: ${config.rightWidth || 50};
+                position: relative;
+                overflow: hidden;
+              ">
+                ${config.rightContent?.image?.show ? `
+                  <img 
+                    src="${config.rightContent.image.src || ''}" 
+                    alt="${config.rightContent.image.alt || ''}" 
+                    style="
+                      width: 100%;
+                      height: 100%;
+                      object-fit: ${config.rightContent.image.objectFit || 'cover'};
+                    "
+                  />
+                ` : ''}
+                ${config.rightContent?.overlay?.show ? `
+                  <div style="
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background-color: ${config.rightContent.overlay.color};
+                    opacity: ${config.rightContent.overlay.opacity || 0.1};
+                  "></div>
+                ` : ''}
+              </div>
+            </div>
+          </section>
+        `;
+      }
+
+      // CLASSIC ARTICLE LAYOUTS: image-left, image-right, centered
       const layoutStyles = {
         'image-left': 'flex-direction: row;',
         'image-right': 'flex-direction: row-reverse;',
@@ -626,8 +1027,8 @@ const generateBlockHTML = (config) => {
           ">
             ${config.layout === 'centered' ? `
               <img 
-                src="${config.image.src}" 
-                alt="${config.image.alt}" 
+                src="${config.image?.src || ''}" 
+                alt="${config.image?.alt || ''}" 
                 style="
                   width: 100%;
                   max-width: 800px;
@@ -639,8 +1040,8 @@ const generateBlockHTML = (config) => {
             ` : `
               <div style="flex: 1; min-width: 0;">
                 <img 
-                  src="${config.image.src}" 
-                  alt="${config.image.alt}" 
+                  src="${config.image?.src || ''}" 
+                  alt="${config.image?.alt || ''}" 
                   style="
                     width: 100%;
                     border-radius: 16px;
@@ -652,9 +1053,9 @@ const generateBlockHTML = (config) => {
             
             <div style="
               flex: 1;
-              text-align: ${config.title.align};
+              text-align: ${config.title?.align || 'left'};
             ">
-              ${config.title.show ? `
+              ${config.title?.show ? `
                 <h2 style="
                   font-size: 42px;
                   font-weight: 700;
@@ -666,7 +1067,7 @@ const generateBlockHTML = (config) => {
                 </h2>
               ` : ''}
               
-              ${config.description.show ? `
+              ${config.description?.show ? `
                 <p style="
                   font-size: 18px;
                   color: ${config.description.color};
@@ -677,7 +1078,7 @@ const generateBlockHTML = (config) => {
                 </p>
               ` : ''}
               
-              ${config.button.show ? `
+              ${config.button?.show ? `
                 <a href="${config.button.link}" style="
                   background-color: ${config.button.color};
                   color: ${config.button.textColor};
