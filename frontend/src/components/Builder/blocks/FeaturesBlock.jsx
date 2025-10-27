@@ -2,6 +2,14 @@ import React from 'react';
 import * as Icons from 'lucide-react';
 
 export const FeaturesBlock = ({ config, onUpdate }) => {
+  const [windowWidth, setWindowWidth] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1920);
+
+  React.useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const containerStyle = {
     background: config.background.type === 'gradient' ? config.background.value : config.background.value,
     paddingTop: `${config.padding.top}px`,
@@ -15,8 +23,17 @@ export const FeaturesBlock = ({ config, onUpdate }) => {
     padding: '0 24px'
   };
 
-  // Generate unique ID for this block instance
-  const blockId = React.useMemo(() => `features-${Math.random().toString(36).substr(2, 9)}`, []);
+  // Calculate responsive columns based on window width
+  const getResponsiveColumns = (configColumns, itemsLength) => {
+    const actualColumns = Math.min(configColumns, itemsLength);
+    
+    if (windowWidth <= 640) {
+      return 1; // Mobile
+    } else if (windowWidth <= 1024) {
+      return Math.min(2, actualColumns); // Tablet
+    }
+    return actualColumns; // Desktop
+  };
 
   // Render based on layout type
   const renderLayout = () => {
