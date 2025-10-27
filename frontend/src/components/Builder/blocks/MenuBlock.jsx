@@ -428,6 +428,7 @@ export const MenuBlock = ({ config, onUpdate }) => {
             {renderMenuItems(visibleItems)}
           </nav>
           {renderButton()}
+          {renderSocialIcons()}
         </div>
       </div>
     );
