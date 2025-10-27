@@ -58,7 +58,7 @@ export const BlockRenderer = ({ block, isSelected, onSelect, onUpdate, onDelete,
       }}
     >
       {isSelected && (
-        <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-4 py-2 rounded-lg flex items-center gap-2 z-10 shadow-lg">
+        <div className="absolute -left-14 top-4 bg-gray-900 text-white p-2 rounded-lg flex flex-col items-center gap-2 z-[9999] shadow-lg">
           {onMoveUp && (
             <button
               onClick={(e) => {
