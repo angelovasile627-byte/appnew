@@ -450,10 +450,11 @@ export const blockTemplates = [
       contentWidth: 800,
       padding: { top: 80, bottom: 80 },
       title: { text: 'Frequently Asked Questions', show: true, color: '#1a1a2e', align: 'center', size: 42 },
-      questions: [
-        { question: 'How does it work?', answer: 'Simply sign up and get started in minutes.' },
-        { question: 'What is included?', answer: 'All features are included in every plan.' },
-        { question: 'Can I cancel anytime?', answer: 'Yes, you can cancel your subscription at any time.' }
+      description: { text: 'Find answers to common questions', show: false, color: '#6B6B6B', align: 'center', size: 16 },
+      items: [
+        { question: 'How does it work?', answer: 'Simply sign up and get started in minutes.', open: false },
+        { question: 'What is included?', answer: 'All features are included in every plan.', open: false },
+        { question: 'Can I cancel anytime?', answer: 'Yes, you can cancel your subscription at any time.', open: false }
       ]
     }
   }
