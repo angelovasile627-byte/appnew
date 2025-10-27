@@ -249,12 +249,13 @@ export const blockTemplates = [
       fullWidth: true,
       contentWidth: 1200,
       padding: { top: 80, bottom: 80 },
+      columns: 3,
       title: { text: 'Amazing Features', show: true, color: '#1a1a2e', align: 'center', size: 48 },
       description: { text: 'Everything you need to succeed', show: true, color: '#6B6B6B', align: 'center', size: 18 },
-      features: [
-        { title: 'Fast Performance', description: 'Lightning fast load times', icon: '⚡', show: true },
-        { title: 'Secure', description: 'Enterprise-grade security', icon: '🔒', show: true },
-        { title: 'Scalable', description: 'Grows with your business', icon: '📈', show: true }
+      items: [
+        { title: 'Fast Performance', description: 'Lightning fast load times', icon: 'Zap', color: '#6366F1' },
+        { title: 'Secure', description: 'Enterprise-grade security', icon: 'Lock', color: '#10B981' },
+        { title: 'Scalable', description: 'Grows with your business', icon: 'TrendingUp', color: '#F59E0B' }
       ]
     }
   },
