@@ -77,32 +77,82 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
               if (config.type === 'menu') {
                 return (
                   <div style={{
-                    background: config.background.value,
-                    padding: '8px 12px',
+                    background: '#f8f9fa',
+                    padding: '6px',
+                    height: '100%',
                     display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    fontSize: '6px',
-                    height: '100%'
+                    flexDirection: 'column',
+                    gap: '4px'
                   }}>
-                    <div style={{ color: config.logo.color, fontWeight: 'bold', fontSize: '8px' }}>
-                      {config.logo.text}
+                    {/* Header cu title și descriere */}
+                    <div style={{
+                      fontSize: '7px',
+                      fontWeight: '600',
+                      color: '#1a1a2e',
+                      lineHeight: '1.2'
+                    }}>
+                      {block.name}
                     </div>
-                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                      {config.menuItems.slice(0, 3).map((item, i) => (
-                        <span key={i} style={{ color: item.color, fontSize: '6px' }}>
-                          {item.text}
-                        </span>
-                      ))}
-                      <div style={{
-                        background: config.button.color,
-                        color: config.button.textColor,
-                        padding: '3px 8px',
-                        borderRadius: '4px',
-                        fontSize: '6px',
-                        fontWeight: '600'
-                      }}>
-                        {config.button.text}
+                    <div style={{
+                      fontSize: '5px',
+                      color: '#6b7280',
+                      lineHeight: '1.2'
+                    }}>
+                      {config.type.charAt(0).toUpperCase() + config.type.slice(1)}
+                    </div>
+                    
+                    {/* Menu Preview cu chenar */}
+                    <div style={{
+                      background: config.background.value,
+                      border: '1px solid #e5e7eb',
+                      borderRadius: '3px',
+                      padding: '6px 8px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      marginTop: '2px'
+                    }}>
+                      <div style={{ color: config.logo.color, fontWeight: 'bold', fontSize: '7px' }}>
+                        {config.logo.text}
+                      </div>
+                      <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                        {config.menuItems.slice(0, 3).map((item, i) => (
+                          <span key={i} style={{ color: item.color, fontSize: '5px' }}>
+                            {item.text}
+                          </span>
+                        ))}
+                        {config.button?.show && (
+                          <div style={{
+                            background: config.button.color,
+                            color: config.button.textColor,
+                            padding: '2px 6px',
+                            borderRadius: '3px',
+                            fontSize: '5px',
+                            fontWeight: '600'
+                          }}>
+                            {config.button.text}
+                          </div>
+                        )}
+                        {config.socialIcons?.show && config.socialIcons?.items?.length > 0 && (
+                          <div style={{ display: 'flex', gap: '3px', marginLeft: '4px' }}>
+                            {config.socialIcons.items.slice(0, 3).map((icon, i) => (
+                              <div
+                                key={i}
+                                style={{
+                                  width: '8px',
+                                  height: '8px',
+                                  borderRadius: '2px',
+                                  background: icon.color,
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center'
+                                }}
+                              >
+                                <span style={{ color: 'white', fontSize: '6px' }}>•</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
