@@ -607,8 +607,9 @@ const generateBlockHTML = (config) => {
       // NEW ARTICLE LAYOUTS: Grid, Vertical, Split
       if (config.layout === 'grid') {
         // Grid Masonry Layout
+        const gridId = `article-grid-${Math.random().toString(36).substr(2, 9)}`;
         return `
-          <section style="
+          <section class="${gridId}" style="
             ${bgStyle}
             width: 100%;
             padding: ${config.padding?.top || 80}px 24px ${config.padding?.bottom || 80}px;
@@ -618,7 +619,7 @@ const generateBlockHTML = (config) => {
               margin: 0 auto;
             ">
               ${config.title?.show ? `
-                <h2 style="
+                <h2 class="${gridId}-title" style="
                   font-size: ${config.title.size || 32}px;
                   font-weight: 700;
                   color: ${config.title.color};
@@ -629,13 +630,13 @@ const generateBlockHTML = (config) => {
                 </h2>
               ` : ''}
               
-              <div style="
+              <div class="${gridId}-grid" style="
                 display: grid;
                 grid-template-columns: repeat(${config.columns || 3}, 1fr);
                 gap: ${config.gap || 24}px;
               ">
                 ${(config.elements || []).map(element => `
-                  <div style="
+                  <div class="${gridId}-card" style="
                     width: ${element.width || 100}%;
                     border-radius: 12px;
                     overflow: hidden;
@@ -668,7 +669,7 @@ const generateBlockHTML = (config) => {
                         ">${element.tag.text}</span>
                       ` : ''}
                       ${element.title?.show ? `
-                        <h3 style="
+                        <h3 class="${gridId}-card-title" style="
                           font-size: ${element.title.size || 24}px;
                           font-weight: ${element.title.weight || 700};
                           color: ${element.title.color};
@@ -676,7 +677,7 @@ const generateBlockHTML = (config) => {
                         ">${element.title.text}</h3>
                       ` : ''}
                       ${element.description?.show ? `
-                        <p style="
+                        <p class="${gridId}-card-desc" style="
                           font-size: ${element.description.size || 16}px;
                           color: ${element.description.color};
                           line-height: 1.6;
@@ -700,6 +701,52 @@ const generateBlockHTML = (config) => {
                 `).join('')}
               </div>
             </div>
+            
+            <style>
+              /* Responsive Grid Layout */
+              @media (max-width: 1024px) {
+                .${gridId} {
+                  padding: 60px 20px !important;
+                }
+                .${gridId}-grid {
+                  grid-template-columns: repeat(2, 1fr) !important;
+                  gap: 20px !important;
+                }
+                .${gridId}-title {
+                  font-size: 28px !important;
+                  margin-bottom: 30px !important;
+                }
+                .${gridId}-card-title {
+                  font-size: 20px !important;
+                }
+                .${gridId}-card-desc {
+                  font-size: 14px !important;
+                }
+              }
+              
+              @media (max-width: 640px) {
+                .${gridId} {
+                  padding: 40px 16px !important;
+                }
+                .${gridId}-grid {
+                  grid-template-columns: 1fr !important;
+                  gap: 16px !important;
+                }
+                .${gridId}-title {
+                  font-size: 24px !important;
+                  margin-bottom: 24px !important;
+                }
+                .${gridId}-card-title {
+                  font-size: 18px !important;
+                }
+                .${gridId}-card-desc {
+                  font-size: 14px !important;
+                }
+                .${gridId}-card img {
+                  height: 200px !important;
+                }
+              }
+            </style>
           </section>
         `;
       } else if (config.layout === 'vertical') {
