@@ -299,7 +299,7 @@ export const FeaturesBlock = ({ config, onUpdate }) => {
               >
                 {item.description}
               </p>
-              {item.button && (
+              {item.button && item.button.show !== false && (
                 <button
                   style={{
                     background: item.button.gradient || 'linear-gradient(90deg, #667eea 0%, #764ba2 100%)',
