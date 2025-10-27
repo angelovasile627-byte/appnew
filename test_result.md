@@ -249,6 +249,28 @@ test_plan:
         agent: "main"
         comment: "Successfully implemented White Space controls for Hero Parallax block. Users can now adjust Top (0-600px) and Bottom (0-600px) white space areas. The white overlays create the desired parallax effect where content scrolls over the fixed background image. Controls are visible in InlineEditingPanel and working in both Canvas and Preview."
 
+  - task: "Add image upload from computer for Hero Parallax background"
+    implemented: true
+    working: "YES"
+    files:
+      - "/app/backend/server.py" (added image upload endpoint + StaticFiles mount)
+      - "/app/frontend/src/components/Builder/InlineEditingPanel.jsx" (added upload button for hero-parallax)
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    changes_made:
+      - "Created /api/upload/image endpoint: accepts jpg, jpeg, png, gif, webp files"
+      - "Images saved in /app/backend/uploads/ with unique UUID filenames"
+      - "Mounted /api/uploads route to serve uploaded images via StaticFiles"
+      - "Added 'Încarcă Imagine' button in Background section for hero-parallax blocks"
+      - "Button appears below URL input with nice indigo styling and upload icon"
+      - "On upload: sends FormData to backend, gets URL, updates background.value automatically"
+      - "Both URL input and file upload work seamlessly together"
+    status_history:
+      - working: "YES"
+        agent: "main"
+        comment: "Successfully added image upload functionality for Hero Parallax background. Users can now either paste an image URL OR click 'Încarcă Imagine' to upload from their computer. Backend endpoint handles validation, generates unique filenames, saves files, and returns the URL. Frontend automatically updates the background image after successful upload. Tested and fully functional."
+
 agent_communication:
   - agent: "main"
     message: "FIXED duplicate menu bug in PreviewModal. Implemented aggressive deduplication with both ID and type checking. Verified working - only ONE menu now appears in preview."
@@ -256,3 +278,5 @@ agent_communication:
     message: "Settings functionality FULLY TESTED and WORKING. All core features operational: modal opens, 4 tabs functional, form fields editable, save works, toast notifications appear, design settings persist. Ready for production use."
   - agent: "main"
     message: "Added White Space controls for Hero Parallax block. Top and Bottom sliders (0-600px) allow users to control white overlay areas, creating parallax effect where content scrolls over background image."
+  - agent: "main"
+    message: "Added image upload from computer for Hero Parallax background. Backend endpoint /api/upload/image handles file uploads (jpg, jpeg, png, gif, webp), saves with unique filenames, and returns URL. Frontend shows 'Încarcă Imagine' button that uploads file and auto-updates background image. Works alongside URL input option."
