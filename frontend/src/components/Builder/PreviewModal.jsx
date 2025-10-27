@@ -1088,8 +1088,8 @@ const generateBlockHTML = (config) => {
       // Cards with images
       const renderCardsWithImages = () => `
         <div style="display: grid; grid-template-columns: repeat(${config.columns}, 1fr); gap: 40px;">
-          ${(config.items || []).map(item => `
-            <div style="border-radius: 20px; overflow: hidden; background: ${item.cardBackground || '#1a1a2e'};">
+          ${(config.items || []).map((item, idx) => `
+            <div class="feature-card-image-${idx}" style="border-radius: 20px; overflow: hidden; background: ${item.cardBackground || '#1a1a2e'}; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;">
               ${item.image ? `
                 <div style="width: 100%; height: 250px; background: url(${item.image}) center/cover;"></div>
               ` : ''}
@@ -1105,6 +1105,14 @@ const generateBlockHTML = (config) => {
             </div>
           `).join('')}
         </div>
+        <style>
+          ${(config.items || []).map((item, idx) => `
+            .feature-card-image-${idx}:hover {
+              transform: translateY(-8px);
+              box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            }
+          `).join('')}
+        </style>
       `;
 
       // Cards with image on side
