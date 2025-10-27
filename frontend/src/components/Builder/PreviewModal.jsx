@@ -1225,7 +1225,7 @@ const generateBlockHTML = (config) => {
               </div>
               <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 12px; color: ${item.titleColor || '#ffffff'};">${item.title}</h3>
               <p style="font-size: 15px; line-height: 1.6; color: ${item.descColor || 'rgba(255,255,255,0.7)'}; margin-bottom: 20px;">${item.description}</p>
-              ${item.button ? `
+              ${item.button && item.button.show !== false ? `
                 <button style="background: transparent; border: 1px solid rgba(102, 126, 234, 0.5); color: #667eea; padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;">
                   ${item.button.text}
                 </button>
