@@ -402,7 +402,7 @@ export const FeaturesBlock = ({ config, onUpdate }) => {
               >
                 {item.description}
               </p>
-              {item.button && (
+              {item.button && item.button.show !== false && (
                 <button
                   style={{
                     background: item.button.color || '#667eea',
