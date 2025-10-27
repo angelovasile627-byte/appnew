@@ -36,6 +36,47 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
     onUpdate(newConfig);
   };
 
+  const updateElementConfig = (elementId, path, value) => {
+    const newConfig = { ...config };
+    
+    // Handle different layout types
+    if (config.layout === 'grid' || config.layout === 'vertical') {
+      const elements = [...(config.elements || [])];
+      const elementIndex = elements.findIndex(el => el.id === elementId);
+      
+      if (elementIndex !== -1) {
+        const keys = path.split('.');
+        const updatedElement = JSON.parse(JSON.stringify(elements[elementIndex]));
+        let current = updatedElement;
+        
+        for (let i = 0; i < keys.length - 1; i++) {
+          if (!current[keys[i]]) current[keys[i]] = {};
+          current = current[keys[i]];
+        }
+        
+        current[keys[keys.length - 1]] = value;
+        elements[elementIndex] = updatedElement;
+        newConfig.elements = elements;
+      }
+    } else if (config.layout === 'split') {
+      // For split layout, update leftContent or rightContent
+      const keys = path.split('.');
+      const contentType = elementId === 'left-content' ? 'leftContent' : 'rightContent';
+      
+      if (!newConfig[contentType]) newConfig[contentType] = {};
+      let current = newConfig[contentType];
+      
+      for (let i = 0; i < keys.length - 1; i++) {
+        if (!current[keys[i]]) current[keys[i]] = {};
+        current = current[keys[i]];
+      }
+      
+      current[keys[keys.length - 1]] = value;
+    }
+    
+    onUpdate(newConfig);
+  };
+
   const handleSaveSocialIcons = (icons) => {
     const newConfig = {
       ...config,
