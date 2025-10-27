@@ -1151,8 +1151,8 @@ const generateBlockHTML = (config) => {
       // Dark cards
       const renderDarkCards = () => `
         <div style="display: grid; grid-template-columns: repeat(${config.columns}, 1fr); gap: 30px;">
-          ${(config.items || []).map(item => `
-            <div style="background: ${item.cardBackground || 'rgba(30, 30, 46, 0.8)'}; border: 1px solid rgba(102, 126, 234, 0.2); border-radius: 20px; padding: 40px 32px; position: relative; overflow: hidden;">
+          ${(config.items || []).map((item, idx) => `
+            <div class="feature-card-dark-${idx}" style="background: ${item.cardBackground || 'rgba(30, 30, 46, 0.8)'}; border: 1px solid rgba(102, 126, 234, 0.2); border-radius: 20px; padding: 40px 32px; position: relative; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; cursor: pointer;">
               ${item.glowEffect ? `
                 <div style="position: absolute; top: -50%; right: -50%; width: 200px; height: 200px; background: ${item.glowColor || 'radial-gradient(circle, rgba(102,126,234,0.3) 0%, transparent 70%)'}; border-radius: 50%; filter: blur(40px); pointer-events: none;"></div>
               ` : ''}
@@ -1169,6 +1169,15 @@ const generateBlockHTML = (config) => {
             </div>
           `).join('')}
         </div>
+        <style>
+          ${(config.items || []).map((item, idx) => `
+            .feature-card-dark-${idx}:hover {
+              transform: translateY(-8px);
+              box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+              border-color: rgba(102, 126, 234, 0.5);
+            }
+          `).join('')}
+        </style>
       `;
 
       let itemsHTML = '';
