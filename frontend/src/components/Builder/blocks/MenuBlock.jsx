@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
+import * as FaIcons from 'react-icons/fa';
+import * as Fa6Icons from 'react-icons/fa6';
 import { Button } from '../../ui/button';
 import { LogoEditPopover } from '../LogoEditPopover';
 import { CompactMenuToolbar } from '../CompactMenuToolbar';
