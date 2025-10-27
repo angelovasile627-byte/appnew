@@ -466,119 +466,134 @@ export const FeaturesBlock = ({ config, onUpdate }) => {
     const actualColumns = Math.min(config.columns, config.items.length);
     
     return (
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: `repeat(${actualColumns}, 1fr)`,
-          gap: '30px'
-        }}
-      >
-        {config.items.map((item, index) => {
-          const IconComponent = item.icon ? Icons[item.icon] || Icons.Box : null;
-          return (
-            <div
-              key={index}
-              style={{
-                background: item.cardBackground || 'rgba(30, 30, 46, 0.8)',
-                border: '1px solid rgba(102, 126, 234, 0.2)',
-                borderRadius: '20px',
-                padding: '40px 32px',
-                transition: 'all 0.3s',
-                cursor: 'pointer',
-                position: 'relative',
-                overflow: 'hidden'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-8px)';
-                e.currentTarget.style.borderColor = 'rgba(102, 126, 234, 0.5)';
-                e.currentTarget.style.boxShadow = '0 20px 40px rgba(102, 126, 234, 0.2)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = 'rgba(102, 126, 234, 0.2)';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
-            >
-              {item.glowEffect && (
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: '-50%',
-                    right: '-50%',
-                    width: '200px',
-                    height: '200px',
-                    background: item.glowColor || 'radial-gradient(circle, rgba(102,126,234,0.3) 0%, transparent 70%)',
-                    borderRadius: '50%',
-                    filter: 'blur(40px)',
-                    pointerEvents: 'none'
-                  }}
-                />
-              )}
-              {IconComponent && (
-                <div
-                  style={{
-                    width: '64px',
-                    height: '64px',
-                    background: item.iconBackground || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                    borderRadius: '12px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '24px'
-                  }}
-                >
-                  <IconComponent style={{ width: '32px', height: '32px', color: '#ffffff' }} />
-                </div>
-              )}
-              <h3
+      <>
+        <style>
+          {`
+            .${blockId}-dark-grid {
+              display: grid;
+              grid-template-columns: repeat(${actualColumns}, 1fr);
+              gap: 30px;
+            }
+            @media (max-width: 1024px) {
+              .${blockId}-dark-grid {
+                grid-template-columns: repeat(${Math.min(2, actualColumns)}, 1fr);
+              }
+            }
+            @media (max-width: 640px) {
+              .${blockId}-dark-grid {
+                grid-template-columns: 1fr;
+              }
+            }
+          `}
+        </style>
+        <div className={`${blockId}-dark-grid`}>
+          {config.items.map((item, index) => {
+            const IconComponent = item.icon ? Icons[item.icon] || Icons.Box : null;
+            return (
+              <div
+                key={index}
                 style={{
-                  fontSize: '24px',
-                  fontWeight: '700',
-                  marginBottom: '12px',
-                  color: item.titleColor || '#ffffff'
+                  background: item.cardBackground || 'rgba(30, 30, 46, 0.8)',
+                  border: '1px solid rgba(102, 126, 234, 0.2)',
+                  borderRadius: '20px',
+                  padding: '40px 32px',
+                  transition: 'all 0.3s',
+                  cursor: 'pointer',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-8px)';
+                  e.currentTarget.style.borderColor = 'rgba(102, 126, 234, 0.5)';
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(102, 126, 234, 0.2)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.borderColor = 'rgba(102, 126, 234, 0.2)';
+                  e.currentTarget.style.boxShadow = 'none';
                 }}
               >
-                {item.title}
-              </h3>
-              <p
-                style={{
-                  fontSize: '15px',
-                  lineHeight: '1.6',
-                  color: item.descColor || 'rgba(255,255,255,0.7)',
-                  marginBottom: '20px'
-                }}
-              >
-                {item.description}
-              </p>
-              {item.button && (
-                <button
+                {item.glowEffect && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '-50%',
+                      right: '-50%',
+                      width: '200px',
+                      height: '200px',
+                      background: item.glowColor || 'radial-gradient(circle, rgba(102,126,234,0.3) 0%, transparent 70%)',
+                      borderRadius: '50%',
+                      filter: 'blur(40px)',
+                      pointerEvents: 'none'
+                    }}
+                  />
+                )}
+                {IconComponent && (
+                  <div
+                    style={{
+                      width: '64px',
+                      height: '64px',
+                      background: item.iconBackground || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                      borderRadius: '12px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginBottom: '24px'
+                    }}
+                  >
+                    <IconComponent style={{ width: '32px', height: '32px', color: '#ffffff' }} />
+                  </div>
+                )}
+                <h3
                   style={{
-                    background: 'transparent',
-                    border: '1px solid rgba(102, 126, 234, 0.5)',
-                    color: '#667eea',
-                    padding: '10px 24px',
-                    borderRadius: '8px',
-                    fontSize: '14px',
-                    fontWeight: '600',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(102, 126, 234, 0.1)';
-                    e.currentTarget.style.borderColor = '#667eea';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'transparent';
-                    e.currentTarget.style.borderColor = 'rgba(102, 126, 234, 0.5)';
+                    fontSize: '24px',
+                    fontWeight: '700',
+                    marginBottom: '12px',
+                    color: item.titleColor || '#ffffff'
                   }}
                 >
-                  {item.button.text}
-                </button>
-              )}
-            </div>
-          );
-        })}
-      </div>
+                  {item.title}
+                </h3>
+                <p
+                  style={{
+                    fontSize: '15px',
+                    lineHeight: '1.6',
+                    color: item.descColor || 'rgba(255,255,255,0.7)',
+                    marginBottom: '20px'
+                  }}
+                >
+                  {item.description}
+                </p>
+                {item.button && (
+                  <button
+                    style={{
+                      background: 'transparent',
+                      border: '1px solid rgba(102, 126, 234, 0.5)',
+                      color: '#667eea',
+                      padding: '10px 24px',
+                      borderRadius: '8px',
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(102, 126, 234, 0.1)';
+                      e.currentTarget.style.borderColor = '#667eea';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'transparent';
+                      e.currentTarget.style.borderColor = 'rgba(102, 126, 234, 0.5)';
+                    }}
+                  >
+                    {item.button.text}
+                  </button>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </>
     );
   };
 
