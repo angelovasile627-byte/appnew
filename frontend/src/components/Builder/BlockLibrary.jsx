@@ -74,9 +74,8 @@ export const BlockLibrary = ({ isOpen, onClose, onAddBlock }) => {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                   />
                 </div>
-                <div className="p-4">
-                  <h3 className="font-semibold text-gray-900 mb-1">{block.name}</h3>
-                  <p className="text-sm text-gray-500 capitalize">{block.category}</p>
+                <div className="p-3">
+                  <h3 className="font-semibold text-gray-900">{block.name}</h3>
                 </div>
               </div>
             ))}
