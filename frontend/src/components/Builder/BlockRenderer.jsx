@@ -58,7 +58,7 @@ export const BlockRenderer = ({ block, isSelected, onSelect, onUpdate, onDelete,
       }}
     >
       {isSelected && (
-        <div className="absolute -left-14 top-4 bg-gray-900 text-white p-2 rounded-lg flex flex-col items-center gap-2 z-[9999] shadow-lg">
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 bg-gray-900 text-white p-2 rounded-lg flex flex-col items-center gap-2 z-[9999] shadow-xl border-2 border-indigo-500">
           {onMoveUp && (
             <button
               onClick={(e) => {
@@ -66,7 +66,7 @@ export const BlockRenderer = ({ block, isSelected, onSelect, onUpdate, onDelete,
                 onMoveUp();
               }}
               className="p-1.5 hover:bg-gray-700 rounded transition-colors"
-              title="Move Up"
+              title="Mută Sus"
             >
               <MoveUp className="w-4 h-4" />
             </button>
@@ -78,7 +78,7 @@ export const BlockRenderer = ({ block, isSelected, onSelect, onUpdate, onDelete,
                 onMoveDown();
               }}
               className="p-1.5 hover:bg-gray-700 rounded transition-colors"
-              title="Move Down"
+              title="Mută Jos"
             >
               <MoveDown className="w-4 h-4" />
             </button>
@@ -89,7 +89,7 @@ export const BlockRenderer = ({ block, isSelected, onSelect, onUpdate, onDelete,
               onDelete();
             }}
             className="p-1.5 hover:bg-red-600 rounded transition-colors"
-            title="Delete"
+            title="Șterge"
           >
             <Trash2 className="w-4 h-4" />
           </button>
