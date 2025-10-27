@@ -350,10 +350,27 @@ const BuilderNew = () => {
   };
 
   const handleMoveBlock = (fromIndex, toIndex) => {
+    // If menu is present, adjust indices (menu is at index 0 in allBlocks)
+    const hasMenu = sharedMenu !== null;
+    
+    // Check if trying to move the menu
+    if (hasMenu && (fromIndex === 0 || toIndex === 0)) {
+      toast({
+        title: 'Nu se poate muta meniul',
+        description: 'Meniul trebuie să rămână în partea de sus',
+        variant: 'destructive'
+      });
+      return;
+    }
+    
+    // Adjust indices to account for menu offset
+    const adjustedFromIndex = hasMenu ? fromIndex - 1 : fromIndex;
+    const adjustedToIndex = hasMenu ? toIndex - 1 : toIndex;
+    
     saveToHistory(blocks);
     const newBlocks = [...blocks];
-    const [moved] = newBlocks.splice(fromIndex, 1);
-    newBlocks.splice(toIndex, 0, moved);
+    const [moved] = newBlocks.splice(adjustedFromIndex, 1);
+    newBlocks.splice(adjustedToIndex, 0, moved);
     updateCurrentPageBlocks(newBlocks);
   };
 
