@@ -544,6 +544,7 @@ const BuilderNew = () => {
                   onUpdate={(newConfig) => handleUpdateBlock(selectedBlockId, newConfig)}
                   onClose={() => setSelectedBlockId(null)}
                   position={editPanelPosition}
+                  selectedElementId={selectedElementId}
                 />
               )}
               
@@ -554,6 +555,7 @@ const BuilderNew = () => {
                   onUpdate={(newConfig) => handleUpdateBlock(sharedMenu.id, newConfig)}
                   onClose={() => setSelectedBlockId(null)}
                   position={editPanelPosition}
+                  selectedElementId={selectedElementId}
                 />
               )}
             </>
