@@ -866,25 +866,77 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
                 )}
 
                 {/* Color/Gradient */}
-                {(config.layout === 'cards-simple' || config.layout === 'cards-gradient') && (
+                {config.layout === 'cards-simple' && (
                   <div className="space-y-0.5">
-                    <Label className="text-[8px] text-gray-400">
-                      {config.layout === 'cards-gradient' ? 'Gradient' : 'Color'}
-                    </Label>
+                    <Label className="text-[8px] text-gray-400">Color</Label>
                     <Input
-                      value={config.layout === 'cards-gradient' ? (item.gradient || '') : (item.color || '#667eea')}
+                      type="color"
+                      value={item.color || '#667eea'}
                       onChange={(e) => {
                         const newItems = [...config.items];
-                        if (config.layout === 'cards-gradient') {
-                          newItems[index] = { ...newItems[index], gradient: e.target.value };
-                        } else {
-                          newItems[index] = { ...newItems[index], color: e.target.value };
-                        }
+                        newItems[index] = { ...newItems[index], color: e.target.value };
                         updateConfig('items', newItems);
                       }}
-                      placeholder={config.layout === 'cards-gradient' ? 'linear-gradient(...)' : '#667eea'}
-                      className="bg-gray-900 border-gray-600 text-white text-[9px] px-1.5 py-0.5 h-6"
+                      className="w-full h-7 p-0.5 cursor-pointer rounded border border-gray-600 bg-transparent"
                     />
+                  </div>
+                )}
+                
+                {/* Gradient (2-3 colors) */}
+                {config.layout === 'cards-gradient' && (
+                  <div className="space-y-0.5">
+                    <Label className="text-[8px] text-gray-400">Gradient Colors</Label>
+                    <div className="grid grid-cols-3 gap-1">
+                      <div className="space-y-0.5">
+                        <Label className="text-[7px] text-gray-500">Color 1</Label>
+                        <Input
+                          type="color"
+                          value={item.gradientColors?.[0] || '#667eea'}
+                          onChange={(e) => {
+                            const newItems = [...config.items];
+                            const colors = item.gradientColors || ['#667eea', '#764ba2'];
+                            colors[0] = e.target.value;
+                            const gradient = `linear-gradient(135deg, ${colors[0]} 0%, ${colors[1]} 100%)`;
+                            newItems[index] = { ...newItems[index], gradientColors: colors, gradient };
+                            updateConfig('items', newItems);
+                          }}
+                          className="w-full h-6 p-0.5 cursor-pointer rounded border border-gray-600 bg-transparent"
+                        />
+                      </div>
+                      <div className="space-y-0.5">
+                        <Label className="text-[7px] text-gray-500">Color 2</Label>
+                        <Input
+                          type="color"
+                          value={item.gradientColors?.[1] || '#764ba2'}
+                          onChange={(e) => {
+                            const newItems = [...config.items];
+                            const colors = item.gradientColors || ['#667eea', '#764ba2'];
+                            colors[1] = e.target.value;
+                            const gradient = `linear-gradient(135deg, ${colors[0]} 0%, ${colors[1]} 100%)`;
+                            newItems[index] = { ...newItems[index], gradientColors: colors, gradient };
+                            updateConfig('items', newItems);
+                          }}
+                          className="w-full h-6 p-0.5 cursor-pointer rounded border border-gray-600 bg-transparent"
+                        />
+                      </div>
+                      <div className="space-y-0.5">
+                        <Label className="text-[7px] text-gray-500">Angle</Label>
+                        <Input
+                          type="number"
+                          value={item.gradientAngle || 135}
+                          onChange={(e) => {
+                            const newItems = [...config.items];
+                            const colors = item.gradientColors || ['#667eea', '#764ba2'];
+                            const angle = e.target.value;
+                            const gradient = `linear-gradient(${angle}deg, ${colors[0]} 0%, ${colors[1]} 100%)`;
+                            newItems[index] = { ...newItems[index], gradientAngle: angle, gradient };
+                            updateConfig('items', newItems);
+                          }}
+                          placeholder="135"
+                          className="bg-gray-900 border-gray-600 text-white text-[8px] px-1 py-0.5 h-6"
+                        />
+                      </div>
+                    </div>
                   </div>
                 )}
 
