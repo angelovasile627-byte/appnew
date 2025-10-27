@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
+import { X, Settings } from 'lucide-react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
+import { SocialIconsModal } from './SocialIconsModal';
 
 export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
   
