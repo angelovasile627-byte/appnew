@@ -205,16 +205,20 @@ export const FeaturesBlock = ({ config, onUpdate }) => {
       })}
     </div>
   );
+};
 
   // Cards with images on top
-  const renderCardsWithImages = () => (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: `repeat(${config.columns}, 1fr)`,
-        gap: '40px'
-      }}
-    >
+  const renderCardsWithImages = () => {
+    const actualColumns = Math.min(config.columns, config.items.length);
+    
+    return (
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: `repeat(${actualColumns}, 1fr)`,
+          gap: '40px'
+        }}
+      >
       {config.items.map((item, index) => (
         <div
           key={index}
