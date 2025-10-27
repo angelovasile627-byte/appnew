@@ -155,6 +155,47 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
           </div>
         )}
 
+        {/* Parallax White Space Controls */}
+        {config.type === 'hero-parallax' && config.whiteSpace && (
+          <div className="space-y-0.5 border-t border-gray-800 pt-1">
+            <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">White Space</h4>
+            
+            {/* Top White Space */}
+            <div className="space-y-0.5">
+              <Label className="text-[9px] text-gray-300">Top</Label>
+              <div className="flex items-center gap-1.5">
+                <Input
+                  type="range"
+                  value={config.whiteSpace.top || 200}
+                  onChange={(e) => updateConfig('whiteSpace.top', parseInt(e.target.value))}
+                  className="flex-1 bg-gray-800 border-gray-700"
+                  min="0"
+                  max="600"
+                  step="10"
+                />
+                <span className="text-[9px] text-gray-400 w-10">{config.whiteSpace.top || 200}px</span>
+              </div>
+            </div>
+
+            {/* Bottom White Space */}
+            <div className="space-y-0.5">
+              <Label className="text-[9px] text-gray-300">Bottom</Label>
+              <div className="flex items-center gap-1.5">
+                <Input
+                  type="range"
+                  value={config.whiteSpace.bottom || 200}
+                  onChange={(e) => updateConfig('whiteSpace.bottom', parseInt(e.target.value))}
+                  className="flex-1 bg-gray-800 border-gray-700"
+                  min="0"
+                  max="600"
+                  step="10"
+                />
+                <span className="text-[9px] text-gray-400 w-10">{config.whiteSpace.bottom || 200}px</span>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Hero Image Controls */}
         {config.type === 'hero' && config.heroImage && (
           <div className="space-y-0.5 border-t border-gray-800 pt-1">
