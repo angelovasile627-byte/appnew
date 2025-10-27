@@ -78,19 +78,19 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                 return (
                   <div style={{
                     background: config.background.value,
-                    padding: '4px 6px',
+                    padding: '2px 4px',
                     height: '100%',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     border: '1px solid #e5e7eb'
                   }}>
-                    <div style={{ color: config.logo.color, fontWeight: 'bold', fontSize: '6px' }}>
+                    <div style={{ color: config.logo.color, fontWeight: 'bold', fontSize: '5px' }}>
                       {config.logo.text}
                     </div>
-                    <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', gap: '3px', alignItems: 'center' }}>
                       {config.menuItems.slice(0, 3).map((item, i) => (
-                        <span key={i} style={{ color: item.color, fontSize: '4px' }}>
+                        <span key={i} style={{ color: item.color, fontSize: '3.5px' }}>
                           {item.text}
                         </span>
                       ))}
@@ -98,22 +98,22 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                         <div style={{
                           background: config.button.color,
                           color: config.button.textColor,
-                          padding: '1px 4px',
-                          borderRadius: '2px',
-                          fontSize: '4px',
+                          padding: '1px 3px',
+                          borderRadius: '1px',
+                          fontSize: '3.5px',
                           fontWeight: '600'
                         }}>
                           {config.button.text}
                         </div>
                       )}
                       {config.socialIcons?.show && config.socialIcons?.items?.length > 0 && (
-                        <div style={{ display: 'flex', gap: '2px', marginLeft: '2px' }}>
+                        <div style={{ display: 'flex', gap: '1.5px', marginLeft: '2px' }}>
                           {config.socialIcons.items.slice(0, 3).map((icon, i) => (
                             <div
                               key={i}
                               style={{
-                                width: '6px',
-                                height: '6px',
+                                width: '4px',
+                                height: '4px',
                                 borderRadius: '1px',
                                 background: icon.color,
                                 display: 'flex',
@@ -121,7 +121,7 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                                 justifyContent: 'center'
                               }}
                             >
-                              <span style={{ color: 'white', fontSize: '4px' }}>•</span>
+                              <span style={{ color: 'white', fontSize: '3px' }}>•</span>
                             </div>
                           ))}
                         </div>
