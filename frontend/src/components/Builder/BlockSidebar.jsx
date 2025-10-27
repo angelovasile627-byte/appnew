@@ -503,9 +503,8 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                 <div className={`bg-gray-100 overflow-hidden ${block.config.type === 'menu' ? 'h-6' : 'aspect-video'}`}>
                   {renderThumbnail()}
                 </div>
-                <div className="p-2.5">
-                  <h3 className="font-semibold text-sm text-gray-900 mb-0.5">{block.name}</h3>
-                  <p className="text-xs text-gray-500 capitalize">{block.category}</p>
+                <div className="p-2">
+                  <h3 className="font-semibold text-xs text-gray-900">{block.name}</h3>
                 </div>
               </div>
             );
