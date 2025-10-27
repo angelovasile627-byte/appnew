@@ -15,6 +15,9 @@ export const FeaturesBlock = ({ config, onUpdate }) => {
     padding: '0 24px'
   };
 
+  // Generate unique ID for this block instance
+  const blockId = React.useMemo(() => `features-${Math.random().toString(36).substr(2, 9)}`, []);
+
   // Render based on layout type
   const renderLayout = () => {
     const layout = config.layout || 'cards-simple';
