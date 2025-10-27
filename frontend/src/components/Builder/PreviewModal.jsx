@@ -1140,7 +1140,7 @@ const generateBlockHTML = (config) => {
               <div style="padding: 32px;">
                 <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 12px; color: ${item.titleColor || '#ffffff'};">${item.title}</h3>
                 <p style="font-size: 15px; line-height: 1.6; margin-bottom: 20px; color: ${item.descColor || 'rgba(255,255,255,0.8)'};">${item.description}</p>
-                ${item.button ? `
+                ${item.button && item.button.show !== false ? `
                   <button style="background: ${item.button.gradient || 'linear-gradient(90deg, #667eea 0%, #764ba2 100%)'}; border: none; color: #ffffff; padding: 12px 28px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer;">
                     ${item.button.text}
                   </button>
