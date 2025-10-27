@@ -1001,21 +1001,22 @@ const generateBlockHTML = (config) => {
         `;
       } else if (config.layout === 'split') {
         // Split Layout - 50/50 split with image and text
+        const splitId = `article-split-${Math.random().toString(36).substr(2, 9)}`;
         return `
-          <section style="
+          <section class="${splitId}" style="
             ${bgStyle}
             width: 100%;
             padding: ${config.padding?.top || 0}px 0 ${config.padding?.bottom || 0}px;
             min-height: ${config.minHeight || 600}px;
           ">
-            <div style="
+            <div class="${splitId}-container" style="
               max-width: ${config.fullWidth ? '100%' : (config.contentWidth || 1400) + 'px'};
               margin: 0 auto;
               display: flex;
               height: 100%;
               min-height: ${config.minHeight || 600}px;
             ">
-              <div style="
+              <div class="${splitId}-left" style="
                 flex: ${config.leftWidth || 50};
                 background-color: ${config.leftContent?.background?.value || '#ffffff'};
                 padding: ${config.leftContent?.padding?.top || 80}px ${config.leftContent?.padding?.right || 60}px ${config.leftContent?.padding?.bottom || 80}px ${config.leftContent?.padding?.left || 60}px;
@@ -1037,7 +1038,7 @@ const generateBlockHTML = (config) => {
                   ">${config.leftContent.tag.text}</span>
                 ` : ''}
                 ${config.leftContent?.title?.show ? `
-                  <h2 style="
+                  <h2 class="${splitId}-title" style="
                     font-size: ${config.leftContent.title.size || 48}px;
                     font-weight: ${config.leftContent.title.weight || 700};
                     color: ${config.leftContent.title.color};
@@ -1046,7 +1047,7 @@ const generateBlockHTML = (config) => {
                   ">${config.leftContent.title.text}</h2>
                 ` : ''}
                 ${config.leftContent?.description?.show ? `
-                  <p style="
+                  <p class="${splitId}-desc" style="
                     font-size: ${config.leftContent.description.size || 18}px;
                     color: ${config.leftContent.description.color};
                     line-height: ${config.leftContent.description.lineHeight || 1.7};
@@ -1054,7 +1055,7 @@ const generateBlockHTML = (config) => {
                   ">${config.leftContent.description.text}</p>
                 ` : ''}
                 ${config.leftContent?.metadata?.show ? `
-                  <div style="
+                  <div class="${splitId}-metadata" style="
                     font-size: 14px;
                     color: ${config.leftContent.metadata.color};
                     margin-bottom: 24px;
@@ -1075,7 +1076,7 @@ const generateBlockHTML = (config) => {
                   ">${config.leftContent.button.text}</a>
                 ` : ''}
               </div>
-              <div style="
+              <div class="${splitId}-right" style="
                 flex: ${config.rightWidth || 50};
                 position: relative;
                 overflow: hidden;
@@ -1104,6 +1105,69 @@ const generateBlockHTML = (config) => {
                 ` : ''}
               </div>
             </div>
+            
+            <style>
+              /* Responsive Split Layout */
+              @media (max-width: 1024px) {
+                .${splitId} {
+                  min-height: auto !important;
+                }
+                .${splitId}-container {
+                  flex-direction: column !important;
+                  min-height: auto !important;
+                }
+                .${splitId}-left {
+                  flex: 1 !important;
+                  padding: 60px 40px !important;
+                }
+                .${splitId}-right {
+                  flex: 1 !important;
+                  min-height: 400px !important;
+                }
+                .${splitId}-title {
+                  font-size: 36px !important;
+                }
+                .${splitId}-desc {
+                  font-size: 16px !important;
+                }
+              }
+              
+              @media (max-width: 768px) {
+                .${splitId}-left {
+                  padding: 40px 24px !important;
+                }
+                .${splitId}-right {
+                  min-height: 300px !important;
+                }
+                .${splitId}-title {
+                  font-size: 28px !important;
+                  margin-bottom: 16px !important;
+                }
+                .${splitId}-desc {
+                  font-size: 16px !important;
+                  margin-bottom: 24px !important;
+                }
+                .${splitId}-metadata {
+                  font-size: 12px !important;
+                  margin-bottom: 20px !important;
+                }
+              }
+              
+              @media (max-width: 480px) {
+                .${splitId}-left {
+                  padding: 30px 20px !important;
+                }
+                .${splitId}-right {
+                  min-height: 250px !important;
+                }
+                .${splitId}-title {
+                  font-size: 24px !important;
+                }
+                .${splitId}-desc {
+                  font-size: 14px !important;
+                }
+              }
+            </style>
           </section>
         `;
       }
