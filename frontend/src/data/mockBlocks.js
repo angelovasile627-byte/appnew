@@ -121,5 +121,63 @@ export const blockTemplates = [
       align: 'space-between',
       splitCount: 2
     }
+  },
+  {
+    id: 'menu-4',
+    category: 'menu',
+    name: 'Menu - Social Icons',
+    thumbnail: 'https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=400&h=300&fit=crop',
+    config: {
+      type: 'menu',
+      background: { type: 'color', value: '#ffffff' },
+      fullWidth: true,
+      contentWidth: 1200,
+      padding: { top: 16, bottom: 16 },
+      logo: { 
+        text: 'Brand', 
+        show: true, 
+        color: '#1a1a2e', 
+        size: 24,
+        imageSize: 40
+      },
+      menuItems: [
+        { text: 'Home', link: '#home', color: '#1a1a2e', show: true },
+        { text: 'About', link: '#about', color: '#1a1a2e', show: true },
+        { text: 'Services', link: '#services', color: '#1a1a2e', show: true }
+      ],
+      activeColor: '#6366F1',
+      button: { 
+        text: 'Contact', 
+        show: true, 
+        color: '#6366F1', 
+        textColor: '#ffffff', 
+        link: '#contact' 
+      },
+      icons: { 
+        show: false 
+      },
+      socialIcons: {
+        show: true,
+        items: [
+          { icon: 'FaFacebookF', name: 'Facebook', color: '#1877f2', link: 'https://facebook.com', show: true },
+          { icon: 'FaXTwitter', name: 'Twitter/X', color: '#000000', link: 'https://twitter.com', show: true },
+          { icon: 'FaInstagram', name: 'Instagram', color: '#e4405f', link: 'https://instagram.com', show: true }
+        ],
+        size: 18,
+        spacing: 12,
+        position: 'right'
+      },
+      sticky: true,
+      collapsed: false,
+      transparent: false,
+      opacity: 1,
+      hamburger: {
+        show: true,
+        color: '#1a1a2e',
+        breakpoint: 768
+      },
+      align: 'space-between',
+      splitCount: 2
+    }
   }
 ];
