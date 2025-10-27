@@ -1071,8 +1071,12 @@ const generateBlockHTML = (config) => {
       };
 
       // Gradient cards
-      const renderGradientCards = () => `
-        <div class="feature-grid-gradient" style="display: grid; grid-template-columns: repeat(${config.columns}, 1fr); gap: 30px;">
+      const renderGradientCards = () => {
+        const itemCount = (config.items || []).length;
+        const actualColumns = Math.min(config.columns || 3, itemCount);
+        
+        return `
+        <div class="feature-grid-gradient" style="display: grid; grid-template-columns: repeat(${actualColumns}, 1fr); gap: 30px;">
           ${(config.items || []).map((item, idx) => `
             <div class="feature-card-gradient-${idx}" style="background: ${item.gradient || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}; border-radius: 20px; padding: 40px 30px; color: #ffffff; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;">
               <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 16px; color: #ffffff;">${item.title}</h3>
@@ -1119,6 +1123,7 @@ const generateBlockHTML = (config) => {
           }
         </style>
       `;
+      };
 
       // Cards with images
       const renderCardsWithImages = () => `
