@@ -475,6 +475,11 @@ const BuilderNew = () => {
 
   const handleSelectBlock = (blockId) => {
     setSelectedBlockId(blockId);
+    setSelectedElementId(null); // Reset element selection when selecting a block
+  };
+
+  const handleSelectElement = (elementId) => {
+    setSelectedElementId(elementId);
   };
 
   const handleAddMenuItem = () => {
