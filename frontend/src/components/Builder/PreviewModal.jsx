@@ -1209,8 +1209,12 @@ const generateBlockHTML = (config) => {
       `;
 
       // Dark cards
-      const renderDarkCards = () => `
-        <div class="feature-grid-dark" style="display: grid; grid-template-columns: repeat(${config.columns}, 1fr); gap: 30px;">
+      const renderDarkCards = () => {
+        const itemCount = (config.items || []).length;
+        const actualColumns = Math.min(config.columns || 3, itemCount);
+        
+        return `
+        <div class="feature-grid-dark" style="display: grid; grid-template-columns: repeat(${actualColumns}, 1fr); gap: 30px;">
           ${(config.items || []).map((item, idx) => `
             <div class="feature-card-dark-${idx}" style="background: ${item.cardBackground || 'rgba(30, 30, 46, 0.8)'}; border: 1px solid rgba(102, 126, 234, 0.2); border-radius: 20px; padding: 40px 32px; position: relative; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; cursor: pointer;">
               ${item.glowEffect ? `
@@ -1254,6 +1258,7 @@ const generateBlockHTML = (config) => {
           }
         </style>
       `;
+      };
 
       let itemsHTML = '';
       if (layout === 'cards-gradient') {
