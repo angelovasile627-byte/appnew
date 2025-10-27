@@ -1091,7 +1091,7 @@ const generateBlockHTML = (config) => {
                   `).join('')}
                 </ul>
               ` : ''}
-              ${item.button ? `
+              ${item.button && item.button.show !== false ? `
                 <button style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: #ffffff; padding: 12px 28px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; width: 100%;">
                   ${item.button.text}
                 </button>
