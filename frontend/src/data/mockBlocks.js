@@ -656,5 +656,379 @@ export const blockTemplates = [
       align: 'space-between',
       splitCount: 2
     }
+  },
+  {
+    id: 'features-1',
+    category: 'features',
+    name: 'Features - Data Infrastructure Solutions',
+    thumbnail: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=300&fit=crop',
+    config: {
+      type: 'features',
+      layout: 'cards-gradient',
+      background: { type: 'gradient', value: 'linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 100%)' },
+      fullWidth: true,
+      contentWidth: 1400,
+      padding: { top: 100, bottom: 100 },
+      columns: 4,
+      title: { 
+        text: 'Data Infrastructure Solutions', 
+        show: true, 
+        color: '#ffffff', 
+        align: 'center',
+        size: 48
+      },
+      description: { 
+        text: 'Powerful and reliable infrastructure for all your data needs', 
+        show: true, 
+        color: 'rgba(255,255,255,0.7)', 
+        align: 'center',
+        size: 18
+      },
+      items: [
+        {
+          title: 'Performance Optimization',
+          description: 'Streamline database performance for faster results.',
+          gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          icon: 'Zap',
+          features: ['Optimized queries', 'Enhanced speed', 'Fast indexing'],
+          button: { text: 'Learn More', color: 'rgba(255,255,255,0.2)' }
+        },
+        {
+          title: 'Scalability',
+          description: 'Scale effortlessly to meet growing data demands.',
+          gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+          icon: 'TrendingUp',
+          features: ['Unlimited growth', 'Flexible scaling', 'Resource allocation'],
+          button: { text: 'Learn More', color: 'rgba(255,255,255,0.2)' }
+        },
+        {
+          title: 'Reliability & Availability',
+          description: 'Ensure your data is always accessible and secure.',
+          gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+          icon: 'Shield',
+          features: ['High uptime', '24/7 availability', 'Backup systems'],
+          button: { text: 'Learn More', color: 'rgba(255,255,255,0.2)' }
+        },
+        {
+          title: 'Data Security',
+          description: 'Protect your information with top-tier security.',
+          gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+          icon: 'Lock',
+          features: ['Data encryption', 'Secure access', 'Compliance ready'],
+          button: { text: 'Learn More', color: 'rgba(255,255,255,0.2)' }
+        }
+      ]
+    }
+  },
+  {
+    id: 'features-2',
+    category: 'features',
+    name: 'Features - Powering Data',
+    thumbnail: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop',
+    config: {
+      type: 'features',
+      layout: 'cards-simple',
+      background: { type: 'color', value: '#f8f9fa' },
+      fullWidth: true,
+      contentWidth: 1400,
+      padding: { top: 100, bottom: 100 },
+      columns: 4,
+      title: { 
+        text: 'Powering Data, Maximize Database Speed', 
+        show: true, 
+        color: '#1a1a2e', 
+        align: 'center',
+        size: 48
+      },
+      description: { 
+        text: 'Comprehensive solutions for modern database management', 
+        show: true, 
+        color: '#5a5a6e', 
+        align: 'center',
+        size: 18
+      },
+      items: [
+        {
+          title: 'Performance',
+          description: 'Optimize your database queries and boost overall performance.',
+          icon: 'Gauge',
+          color: '#667eea'
+        },
+        {
+          title: 'Scalability',
+          description: 'Easily scale your infrastructure as your business grows.',
+          icon: 'Layers',
+          color: '#f093fb'
+        },
+        {
+          title: 'Availability',
+          description: 'High availability with 99.9% uptime guarantee.',
+          icon: 'Activity',
+          color: '#4facfe'
+        },
+        {
+          title: 'Security',
+          description: 'Enterprise-grade security with encryption at rest and in transit.',
+          icon: 'ShieldCheck',
+          color: '#43e97b'
+        }
+      ]
+    }
+  },
+  {
+    id: 'features-3',
+    category: 'features',
+    name: 'Features - Keeping Information Fresh',
+    thumbnail: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop',
+    config: {
+      type: 'features',
+      layout: 'cards-with-images',
+      background: { type: 'gradient', value: 'linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%)' },
+      fullWidth: true,
+      contentWidth: 1400,
+      padding: { top: 100, bottom: 100 },
+      columns: 3,
+      title: { 
+        text: 'Keeping Information Fresh, Seamless Updates', 
+        show: true, 
+        color: '#ffffff', 
+        align: 'center',
+        size: 48
+      },
+      description: { 
+        text: 'Real-time data synchronization and updates for your applications', 
+        show: true, 
+        color: 'rgba(255,255,255,0.7)', 
+        align: 'center',
+        size: 18
+      },
+      items: [
+        {
+          title: 'Launch of Real-Time Synchronization',
+          description: 'Keep your data synchronized across all platforms in real-time.',
+          image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop',
+          imageOverlay: 'linear-gradient(180deg, transparent 0%, rgba(26,26,46,0.8) 100%)',
+          cardBackground: '#1e1e2e',
+          titleColor: '#ffffff',
+          descColor: 'rgba(255,255,255,0.8)',
+          button: { text: 'View Details', gradient: 'linear-gradient(90deg, #667eea 0%, #764ba2 100%)' }
+        },
+        {
+          title: 'Enhanced Security Integration',
+          description: 'Advanced security features to protect your sensitive data.',
+          image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=600&fit=crop',
+          imageOverlay: 'linear-gradient(180deg, transparent 0%, rgba(26,26,46,0.8) 100%)',
+          cardBackground: '#1e1e2e',
+          titleColor: '#ffffff',
+          descColor: 'rgba(255,255,255,0.8)',
+          button: { text: 'View Details', gradient: 'linear-gradient(90deg, #f093fb 0%, #f5576c 100%)' }
+        },
+        {
+          title: 'AI-Powered Update Management',
+          description: 'Intelligent algorithms that optimize your update cycles.',
+          image: 'https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=800&h=600&fit=crop',
+          imageOverlay: 'linear-gradient(180deg, transparent 0%, rgba(26,26,46,0.8) 100%)',
+          cardBackground: '#1e1e2e',
+          titleColor: '#ffffff',
+          descColor: 'rgba(255,255,255,0.8)',
+          button: { text: 'View Details', gradient: 'linear-gradient(90deg, #4facfe 0%, #00f2fe 100%)' }
+        }
+      ]
+    }
+  },
+  {
+    id: 'features-4',
+    category: 'features',
+    name: 'Features - Strategies for Thriving',
+    thumbnail: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop',
+    config: {
+      type: 'features',
+      layout: 'cards-image-side',
+      background: { type: 'color', value: '#ffffff' },
+      fullWidth: true,
+      contentWidth: 1200,
+      padding: { top: 100, bottom: 100 },
+      columns: 1,
+      title: { 
+        text: 'Strategies for Thriving', 
+        show: true, 
+        color: '#1a1a2e', 
+        align: 'center',
+        size: 48
+      },
+      description: { 
+        text: 'Proven methodologies to help your business succeed', 
+        show: true, 
+        color: '#5a5a6e', 
+        align: 'center',
+        size: 18
+      },
+      items: [
+        {
+          label: 'Strategy 1',
+          title: 'Harnessing Digital',
+          description: 'Leverage digital transformation to streamline operations, enhance customer experiences, and drive sustainable growth through innovative technology solutions.',
+          image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop',
+          cardBackground: '#f8f9fa',
+          titleColor: '#1a1a2e',
+          descColor: '#5a5a6e',
+          labelColor: '#667eea',
+          button: { text: 'Read More', color: '#667eea' }
+        },
+        {
+          label: 'Strategy 2',
+          title: 'Building Strong Leadership',
+          description: 'Develop exceptional leadership capabilities that inspire teams, foster innovation, and navigate complex business challenges with confidence and vision.',
+          image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop',
+          cardBackground: '#f8f9fa',
+          titleColor: '#1a1a2e',
+          descColor: '#5a5a6e',
+          labelColor: '#667eea',
+          button: { text: 'Read More', color: '#667eea' }
+        },
+        {
+          label: 'Strategy 3',
+          title: 'Deliver Tailored Solutions',
+          description: 'Create customized solutions that are specifically designed to meet your unique client needs, challenges, and opportunities for maximum impact.',
+          image: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=600&fit=crop',
+          cardBackground: '#f8f9fa',
+          titleColor: '#1a1a2e',
+          descColor: '#5a5a6e',
+          labelColor: '#667eea',
+          button: { text: 'Read More', color: '#667eea' }
+        }
+      ]
+    }
+  },
+  {
+    id: 'features-5',
+    category: 'features',
+    name: 'Features - AI Goals in Business',
+    thumbnail: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop',
+    config: {
+      type: 'features',
+      layout: 'cards-dark',
+      background: { type: 'gradient', value: 'linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%)' },
+      fullWidth: true,
+      contentWidth: 1400,
+      padding: { top: 100, bottom: 100 },
+      columns: 3,
+      title: { 
+        text: 'AI Goals in Business', 
+        show: true, 
+        color: '#ffffff', 
+        align: 'center',
+        size: 48
+      },
+      description: { 
+        text: 'Transform your business with artificial intelligence', 
+        show: true, 
+        color: 'rgba(255,255,255,0.7)', 
+        align: 'center',
+        size: 18
+      },
+      items: [
+        {
+          title: 'Enhancing Efficiency',
+          description: 'Automate repetitive tasks and optimize workflows with AI-powered solutions.',
+          icon: 'Sparkles',
+          cardBackground: 'rgba(30, 30, 46, 0.8)',
+          titleColor: '#ffffff',
+          descColor: 'rgba(255,255,255,0.7)',
+          iconBackground: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          glowEffect: true,
+          glowColor: 'radial-gradient(circle, rgba(102,126,234,0.3) 0%, transparent 70%)',
+          button: { text: 'Learn More' }
+        },
+        {
+          title: 'Improving Decision Making',
+          description: 'Make data-driven decisions with advanced analytics and predictive insights.',
+          icon: 'Brain',
+          cardBackground: 'rgba(30, 30, 46, 0.8)',
+          titleColor: '#ffffff',
+          descColor: 'rgba(255,255,255,0.7)',
+          iconBackground: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+          glowEffect: true,
+          glowColor: 'radial-gradient(circle, rgba(240,147,251,0.3) 0%, transparent 70%)',
+          button: { text: 'Learn More' }
+        },
+        {
+          title: 'Boosting Customer Experience',
+          description: 'Personalize customer interactions and deliver exceptional service at scale.',
+          icon: 'Users',
+          cardBackground: 'rgba(30, 30, 46, 0.8)',
+          titleColor: '#ffffff',
+          descColor: 'rgba(255,255,255,0.7)',
+          iconBackground: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+          glowEffect: true,
+          glowColor: 'radial-gradient(circle, rgba(79,172,254,0.3) 0%, transparent 70%)',
+          button: { text: 'Learn More' }
+        }
+      ]
+    }
+  },
+  {
+    id: 'features-6',
+    category: 'features',
+    name: 'Features - Measurable Results',
+    thumbnail: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop',
+    config: {
+      type: 'features',
+      layout: 'cards-dark',
+      background: { type: 'gradient', value: 'linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%)' },
+      fullWidth: true,
+      contentWidth: 1400,
+      padding: { top: 100, bottom: 100 },
+      columns: 3,
+      title: { 
+        text: 'Stay Ahead with Accurate Measurable Results', 
+        show: true, 
+        color: '#ffffff', 
+        align: 'center',
+        size: 48
+      },
+      description: { 
+        text: 'Track your progress with precision analytics', 
+        show: true, 
+        color: 'rgba(255,255,255,0.7)', 
+        align: 'center',
+        size: 18
+      },
+      items: [
+        {
+          title: 'Data Cleaning & Enrichment',
+          description: 'Analyze your databases to discover inaccurate or incomplete records.',
+          icon: 'Database',
+          cardBackground: 'rgba(30, 30, 46, 0.9)',
+          titleColor: '#ffffff',
+          descColor: 'rgba(255,255,255,0.7)',
+          iconBackground: 'linear-gradient(135deg, #a855f7 0%, #ec4899 100%)',
+          glowEffect: true,
+          button: { text: 'Explore' }
+        },
+        {
+          title: 'Real-Time Updates & Integration',
+          description: 'Keep data synchronized with real-time updates and external sources.',
+          icon: 'RefreshCw',
+          cardBackground: 'rgba(30, 30, 46, 0.9)',
+          titleColor: '#ffffff',
+          descColor: 'rgba(255,255,255,0.7)',
+          iconBackground: 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%)',
+          glowEffect: true,
+          button: { text: 'Explore' }
+        },
+        {
+          title: 'Custom Data Analytics',
+          description: 'Create insightful data-driven reports tailored to your needs.',
+          icon: 'BarChart3',
+          cardBackground: 'rgba(30, 30, 46, 0.9)',
+          titleColor: '#ffffff',
+          descColor: 'rgba(255,255,255,0.7)',
+          iconBackground: 'linear-gradient(135deg, #10b981 0%, #14b8a6 100%)',
+          glowEffect: true,
+          button: { text: 'Explore' }
+        }
+      ]
+    }
   }
 ];
