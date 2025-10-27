@@ -14,7 +14,7 @@ import {
 } from '../ui/select';
 import { SocialIconsModal } from './SocialIconsModal';
 
-export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
+export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selectedElementId }) => {
   
   if (!block) return null;
 
