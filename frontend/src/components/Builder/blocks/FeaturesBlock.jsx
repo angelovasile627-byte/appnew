@@ -115,7 +115,7 @@ export const FeaturesBlock = ({ config, onUpdate }) => {
       <div
       style={{
         display: 'grid',
-        gridTemplateColumns: `repeat(${config.columns}, 1fr)`,
+        gridTemplateColumns: `repeat(${actualColumns}, 1fr)`,
         gap: '30px'
       }}
     >
