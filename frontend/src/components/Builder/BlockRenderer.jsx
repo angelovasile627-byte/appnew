@@ -41,6 +41,8 @@ export const BlockRenderer = ({ block, isSelected, onSelect, onUpdate, onDelete,
     return <div>Unknown block type</div>;
   }
 
+  const isMenuBlock = block.config.type === 'menu';
+  
   return (
     <div
       className={`relative group ${
@@ -58,7 +60,7 @@ export const BlockRenderer = ({ block, isSelected, onSelect, onUpdate, onDelete,
       }}
     >
       {isSelected && (
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 bg-gray-900 text-white p-2 rounded-lg flex flex-col items-center gap-2 z-[9999] shadow-xl border-2 border-indigo-500">
+        <div className={`absolute ${isMenuBlock ? 'left-4 top-20' : 'left-4 top-1/2 -translate-y-1/2'} bg-gray-900 text-white p-2 rounded-lg flex flex-col items-center gap-2 z-[9999] shadow-xl border-2 border-indigo-500`}>
           {onMoveUp && (
             <button
               onClick={(e) => {
