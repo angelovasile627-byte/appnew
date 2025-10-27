@@ -1,7 +1,7 @@
 import React from 'react';
 import { BlockRenderer } from './BlockRenderer';
 
-export const Canvas = ({ blocks, selectedBlockId, onSelectBlock, onUpdateBlock, onDeleteBlock, onMoveBlock, selectedBlockRef }) => {
+export const Canvas = ({ blocks, selectedBlockId, onSelectBlock, onUpdateBlock, onDeleteBlock, onMoveBlock, selectedBlockRef, selectedElementId, onSelectElement }) => {
   return (
     <div className="flex-1 overflow-y-auto bg-gray-50 h-full">
       <div className="min-h-full">
@@ -28,6 +28,8 @@ export const Canvas = ({ blocks, selectedBlockId, onSelectBlock, onUpdateBlock, 
                   onDelete={() => onDeleteBlock(block.id)}
                   onMoveUp={index > 0 ? () => onMoveBlock(index, index - 1) : null}
                   onMoveDown={index < blocks.length - 1 ? () => onMoveBlock(index, index + 1) : null}
+                  selectedElementId={selectedElementId}
+                  onSelectElement={onSelectElement}
                 />
               </div>
             ))}
