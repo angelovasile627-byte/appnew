@@ -48,6 +48,10 @@ export const blockTemplates = [
         enabled: true,
         speed: 0.5
       },
+      whiteSpace: {
+        top: 200,
+        bottom: 200
+      },
       fullScreen: true,
       fullWidth: true,
       contentWidth: 1000,
