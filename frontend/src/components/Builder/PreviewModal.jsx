@@ -1126,8 +1126,12 @@ const generateBlockHTML = (config) => {
       };
 
       // Cards with images
-      const renderCardsWithImages = () => `
-        <div class="feature-grid-with-images" style="display: grid; grid-template-columns: repeat(${config.columns}, 1fr); gap: 40px;">
+      const renderCardsWithImages = () => {
+        const itemCount = (config.items || []).length;
+        const actualColumns = Math.min(config.columns || 3, itemCount);
+        
+        return `
+        <div class="feature-grid-with-images" style="display: grid; grid-template-columns: repeat(${actualColumns}, 1fr); gap: 40px;">
           ${(config.items || []).map((item, idx) => `
             <div class="feature-card-image-${idx}" style="border-radius: 20px; overflow: hidden; background: ${item.cardBackground || '#1a1a2e'}; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;">
               ${item.image ? `
@@ -1169,6 +1173,7 @@ const generateBlockHTML = (config) => {
           }
         </style>
       `;
+      };
 
       // Cards with image on side
       const renderCardsImageSide = () => `
