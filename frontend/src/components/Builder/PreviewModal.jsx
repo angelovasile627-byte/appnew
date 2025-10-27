@@ -1020,6 +1020,179 @@ const generateBlockHTML = (config) => {
       `;
     }
 
+    case 'features': {
+      const bgStyle = config.background.type === 'gradient' 
+        ? `background: ${config.background.value};`
+        : `background-color: ${config.background.value};`;
+
+      const layout = config.layout || 'cards-simple';
+      
+      // Simple cards with icons
+      const renderSimpleCards = () => `
+        <div style="display: grid; grid-template-columns: repeat(${config.columns}, 1fr); gap: 40px;">
+          ${(config.items || []).map(item => `
+            <div style="text-align: center; padding: 32px; border-radius: 16px;">
+              <div style="width: 80px; height: 80px; border-radius: 50%; background-color: ${item.color}33; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
+                <div style="color: ${item.color}; font-size: 40px;">●</div>
+              </div>
+              <h3 style="font-size: 22px; font-weight: 700; color: #1a1a2e; margin-bottom: 12px;">${item.title}</h3>
+              <p style="font-size: 16px; color: #5a5a6e; line-height: 1.6;">${item.description}</p>
+            </div>
+          `).join('')}
+        </div>
+      `;
+
+      // Gradient cards
+      const renderGradientCards = () => `
+        <div style="display: grid; grid-template-columns: repeat(${config.columns}, 1fr); gap: 30px;">
+          ${(config.items || []).map(item => `
+            <div style="background: ${item.gradient || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}; border-radius: 20px; padding: 40px 30px; color: #ffffff;">
+              <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 16px; color: #ffffff;">${item.title}</h3>
+              <p style="font-size: 15px; line-height: 1.6; margin-bottom: 20px; color: rgba(255,255,255,0.9);">${item.description}</p>
+              ${item.features && item.features.length > 0 ? `
+                <ul style="list-style: none; padding: 0; margin-bottom: 24px;">
+                  ${item.features.map(feature => `
+                    <li style="font-size: 14px; margin-bottom: 8px; padding-left: 20px; position: relative;">
+                      <span style="position: absolute; left: 0;">✓</span>
+                      ${feature}
+                    </li>
+                  `).join('')}
+                </ul>
+              ` : ''}
+              ${item.button ? `
+                <button style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: #ffffff; padding: 12px 28px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; width: 100%;">
+                  ${item.button.text}
+                </button>
+              ` : ''}
+            </div>
+          `).join('')}
+        </div>
+      `;
+
+      // Cards with images
+      const renderCardsWithImages = () => `
+        <div style="display: grid; grid-template-columns: repeat(${config.columns}, 1fr); gap: 40px;">
+          ${(config.items || []).map(item => `
+            <div style="border-radius: 20px; overflow: hidden; background: ${item.cardBackground || '#1a1a2e'};">
+              ${item.image ? `
+                <div style="width: 100%; height: 250px; background: url(${item.image}) center/cover;"></div>
+              ` : ''}
+              <div style="padding: 32px;">
+                <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 12px; color: ${item.titleColor || '#ffffff'};">${item.title}</h3>
+                <p style="font-size: 15px; line-height: 1.6; margin-bottom: 20px; color: ${item.descColor || 'rgba(255,255,255,0.8)'};">${item.description}</p>
+                ${item.button ? `
+                  <button style="background: ${item.button.gradient || 'linear-gradient(90deg, #667eea 0%, #764ba2 100%)'}; border: none; color: #ffffff; padding: 12px 28px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer;">
+                    ${item.button.text}
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+
+      // Cards with image on side
+      const renderCardsImageSide = () => `
+        <div style="display: flex; flex-direction: column; gap: 40px;">
+          ${(config.items || []).map((item, index) => `
+            <div style="display: flex; flex-direction: ${index % 2 === 0 ? 'row' : 'row-reverse'}; gap: 40px; align-items: center; background: ${item.cardBackground || '#ffffff'}; border-radius: 20px; padding: 40px;">
+              ${item.image ? `
+                <div style="flex: 0 0 45%; height: 300px; background: url(${item.image}) center/cover; border-radius: 12px;"></div>
+              ` : ''}
+              <div style="flex: 1;">
+                ${item.label ? `
+                  <span style="display: inline-block; font-size: 12px; font-weight: 600; color: ${item.labelColor || '#667eea'}; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">${item.label}</span>
+                ` : ''}
+                <h3 style="font-size: 32px; font-weight: 700; margin-bottom: 16px; color: ${item.titleColor || '#1a1a2e'};">${item.title}</h3>
+                <p style="font-size: 16px; line-height: 1.7; color: ${item.descColor || '#5a5a6e'}; margin-bottom: 24px;">${item.description}</p>
+                ${item.button ? `
+                  <button style="background: ${item.button.color || '#667eea'}; border: none; color: #ffffff; padding: 14px 32px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer;">
+                    ${item.button.text}
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+
+      // Dark cards
+      const renderDarkCards = () => `
+        <div style="display: grid; grid-template-columns: repeat(${config.columns}, 1fr); gap: 30px;">
+          ${(config.items || []).map(item => `
+            <div style="background: ${item.cardBackground || 'rgba(30, 30, 46, 0.8)'}; border: 1px solid rgba(102, 126, 234, 0.2); border-radius: 20px; padding: 40px 32px; position: relative; overflow: hidden;">
+              ${item.glowEffect ? `
+                <div style="position: absolute; top: -50%; right: -50%; width: 200px; height: 200px; background: ${item.glowColor || 'radial-gradient(circle, rgba(102,126,234,0.3) 0%, transparent 70%)'}; border-radius: 50%; filter: blur(40px); pointer-events: none;"></div>
+              ` : ''}
+              <div style="width: 64px; height: 64px; background: ${item.iconBackground || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                <div style="color: #ffffff; font-size: 32px;">●</div>
+              </div>
+              <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 12px; color: ${item.titleColor || '#ffffff'};">${item.title}</h3>
+              <p style="font-size: 15px; line-height: 1.6; color: ${item.descColor || 'rgba(255,255,255,0.7)'}; margin-bottom: 20px;">${item.description}</p>
+              ${item.button ? `
+                <button style="background: transparent; border: 1px solid rgba(102, 126, 234, 0.5); color: #667eea; padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;">
+                  ${item.button.text}
+                </button>
+              ` : ''}
+            </div>
+          `).join('')}
+        </div>
+      `;
+
+      let itemsHTML = '';
+      if (layout === 'cards-gradient') {
+        itemsHTML = renderGradientCards();
+      } else if (layout === 'cards-with-images') {
+        itemsHTML = renderCardsWithImages();
+      } else if (layout === 'cards-image-side') {
+        itemsHTML = renderCardsImageSide();
+      } else if (layout === 'cards-dark') {
+        itemsHTML = renderDarkCards();
+      } else {
+        itemsHTML = renderSimpleCards();
+      }
+
+      return `
+        <section style="
+          ${bgStyle}
+          width: 100%;
+          padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
+        ">
+          <div style="
+            max-width: ${config.fullWidth ? '100%' : `${config.contentWidth}px`};
+            margin: 0 auto;
+          ">
+            ${config.title.show ? `
+              <h2 style="
+                font-size: ${config.title.size || 42}px;
+                font-weight: 700;
+                color: ${config.title.color};
+                text-align: ${config.title.align};
+                margin-bottom: 16px;
+              ">
+                ${config.title.text}
+              </h2>
+            ` : ''}
+            
+            ${config.description.show ? `
+              <p style="
+                font-size: ${config.description.size || 18}px;
+                color: ${config.description.color};
+                text-align: ${config.description.align};
+                margin-bottom: 60px;
+                max-width: 800px;
+                margin: ${config.description.align === 'center' ? '0 auto 60px' : '0 0 60px'};
+              ">
+                ${config.description.text}
+              </p>
+            ` : ''}
+            
+            ${itemsHTML}
+          </div>
+        </section>
+      `;
+    }
+
     default:
       return `<div style="padding: 40px; text-align: center; font-family: sans-serif;"><p>Bloc de tip "${config.type}" - previzualizare indisponibilă</p></div>`;
   }
