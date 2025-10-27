@@ -55,90 +55,74 @@ export const FeaturesBlock = ({ config, onUpdate }) => {
 
   // Simple cards with icons (original)
   const renderSimpleCards = () => {
-    // Use the minimum between config.columns and actual items count
-    const actualColumns = Math.min(config.columns, config.items.length);
+    const responsiveColumns = getResponsiveColumns(config.columns, config.items.length);
     
     return (
-      <>
-        <style>
-          {`
-            .${blockId}-grid {
-              display: grid;
-              grid-template-columns: repeat(${actualColumns}, 1fr);
-              gap: 40px;
-            }
-            @media (max-width: 1024px) {
-              .${blockId}-grid {
-                grid-template-columns: repeat(${Math.min(2, actualColumns)}, 1fr);
-              }
-            }
-            @media (max-width: 640px) {
-              .${blockId}-grid {
-                grid-template-columns: 1fr;
-              }
-            }
-          `}
-        </style>
-        <div className={`${blockId}-grid`}>
-          {config.items.map((item, index) => {
-            const IconComponent = Icons[item.icon] || Icons.Box;
-            return (
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: `repeat(${responsiveColumns}, 1fr)`,
+          gap: '40px'
+        }}
+      >
+        {config.items.map((item, index) => {
+          const IconComponent = Icons[item.icon] || Icons.Box;
+          return (
+            <div
+              key={index}
+              style={{
+                textAlign: 'center',
+                padding: '32px',
+                borderRadius: '16px',
+                transition: 'transform 0.3s, box-shadow 0.3s',
+                cursor: 'pointer'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-8px)';
+                e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
               <div
-                key={index}
                 style={{
-                  textAlign: 'center',
-                  padding: '32px',
-                  borderRadius: '16px',
-                  transition: 'transform 0.3s, box-shadow 0.3s',
-                  cursor: 'pointer'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-8px)';
-                  e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.1)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
+                  width: '80px',
+                  height: '80px',
+                  borderRadius: '50%',
+                  backgroundColor: item.color + '20',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 24px'
                 }}
               >
-                <div
-                  style={{
-                    width: '80px',
-                    height: '80px',
-                    borderRadius: '50%',
-                    backgroundColor: item.color + '20',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 24px'
-                  }}
-                >
-                  <IconComponent style={{ width: '40px', height: '40px', color: item.color }} />
-                </div>
-                <h3
-                  style={{
-                    fontSize: '22px',
-                    fontWeight: '700',
-                    color: '#1a1a2e',
-                    marginBottom: '12px'
-                  }}
-                >
-                  {item.title}
-                </h3>
-                <p
-                  style={{
-                    fontSize: '16px',
-                    color: '#5a5a6e',
-                    lineHeight: '1.6'
-                  }}
-                >
-                  {item.description}
-                </p>
+                <IconComponent style={{ width: '40px', height: '40px', color: item.color }} />
               </div>
-            );
-          })}
-        </div>
-      </>
+              <h3
+                style={{
+                  fontSize: '22px',
+                  fontWeight: '700',
+                  color: '#1a1a2e',
+                  marginBottom: '12px'
+                }}
+              >
+                {item.title}
+              </h3>
+              <p
+                style={{
+                  fontSize: '16px',
+                  color: '#5a5a6e',
+                  lineHeight: '1.6'
+                }}
+              >
+                {item.description}
+              </p>
+            </div>
+          );
+        })}
+      </div>
     );
   };
 
