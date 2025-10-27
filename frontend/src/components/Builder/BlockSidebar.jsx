@@ -528,7 +528,7 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                 className="group cursor-pointer border-2 border-gray-200 rounded-lg overflow-hidden hover:border-indigo-500 hover:shadow-md transition-all"
                 onClick={() => onAddBlock(block)}
               >
-                <div className="aspect-video bg-gray-100 overflow-hidden">
+                <div className={`bg-gray-100 overflow-hidden ${block.config.type === 'menu' ? 'h-16' : 'aspect-video'}`}>
                   {renderThumbnail()}
                 </div>
                 <div className="p-2.5">
