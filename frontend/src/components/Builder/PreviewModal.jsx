@@ -898,6 +898,128 @@ const generateBlockHTML = (config) => {
       `;
     }
 
+    case 'hero-parallax': {
+      const bgStyle = config.background.type === 'gradient' 
+        ? `background: ${config.background.value};`
+        : config.background.type === 'image'
+        ? `
+            background-image: url(${config.background.value});
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+          `
+        : `background-color: ${config.background.value};`;
+
+      const overlayStyle = config.overlay?.show 
+        ? `
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: ${config.overlay.color};
+            opacity: ${config.overlay.opacity};
+            z-index: 1;
+          `
+        : '';
+
+      return `
+        <div style="
+          position: relative;
+          min-height: ${config.fullScreen ? '100vh' : '600px'};
+          width: 100%;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          ${bgStyle}
+        ">
+          ${config.whiteSpace?.top > 0 ? `
+            <div style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              height: ${config.whiteSpace.top}px;
+              background-color: #ffffff;
+              z-index: 3;
+            "></div>
+          ` : ''}
+          
+          ${config.overlay?.show ? `<div style="${overlayStyle}"></div>` : ''}
+          
+          <div style="
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: ${config.fullWidth ? '100%' : `${config.contentWidth}px`};
+            margin: 0 auto;
+            padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
+            text-align: ${config.title?.align || 'center'};
+          ">
+            ${config.title?.show ? `
+              <h1 style="
+                font-size: ${config.title.size || 64}px;
+                font-weight: ${config.title.weight || 700};
+                color: ${config.title.color};
+                text-align: ${config.title.align};
+                margin-bottom: 24px;
+                line-height: 1.2;
+              ">
+                ${config.title.text}
+              </h1>
+            ` : ''}
+            
+            ${config.description?.show ? `
+              <p style="
+                font-size: ${config.description.size || 20}px;
+                color: ${config.description.color};
+                text-align: ${config.description.align};
+                margin-bottom: 40px;
+                line-height: 1.6;
+                max-width: 700px;
+                margin: ${config.description.align === 'center' ? '0 auto 40px' : '0 0 40px'};
+              ">
+                ${config.description.text}
+              </p>
+            ` : ''}
+            
+            ${config.button?.show ? `
+              <div style="text-align: ${config.title?.align || 'center'};">
+                <a href="${config.button.link}" style="
+                  background-color: ${config.button.color};
+                  color: ${config.button.textColor};
+                  padding: 16px 40px;
+                  font-size: ${config.button.size || 18}px;
+                  font-weight: 600;
+                  border-radius: 8px;
+                  border: none;
+                  text-decoration: none;
+                  display: inline-block;
+                  cursor: pointer;
+                  transition: all 0.3s ease;
+                ">
+                  ${config.button.text}
+                </a>
+              </div>
+            ` : ''}
+          </div>
+          
+          ${config.whiteSpace?.bottom > 0 ? `
+            <div style="
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              height: ${config.whiteSpace.bottom}px;
+              background-color: #ffffff;
+              z-index: 3;
+            "></div>
+          ` : ''}
+        </div>
+      `;
+    }
+
     default:
       return `<div style="padding: 40px; text-align: center; font-family: sans-serif;"><p>Bloc de tip "${config.type}" - previzualizare indisponibilă</p></div>`;
   }
