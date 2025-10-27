@@ -1195,7 +1195,7 @@ const generateBlockHTML = (config) => {
 
       // Dark cards
       const renderDarkCards = () => `
-        <div style="display: grid; grid-template-columns: repeat(${config.columns}, 1fr); gap: 30px;">
+        <div class="feature-grid-dark" style="display: grid; grid-template-columns: repeat(${config.columns}, 1fr); gap: 30px;">
           ${(config.items || []).map((item, idx) => `
             <div class="feature-card-dark-${idx}" style="background: ${item.cardBackground || 'rgba(30, 30, 46, 0.8)'}; border: 1px solid rgba(102, 126, 234, 0.2); border-radius: 20px; padding: 40px 32px; position: relative; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; cursor: pointer;">
               ${item.glowEffect ? `
@@ -1222,6 +1222,21 @@ const generateBlockHTML = (config) => {
               border-color: rgba(102, 126, 234, 0.5);
             }
           `).join('')}
+          
+          /* Responsive grid for dark cards */
+          @media (max-width: 768px) {
+            .feature-grid-dark {
+              grid-template-columns: repeat(2, 1fr) !important;
+              gap: 20px !important;
+            }
+          }
+          
+          @media (max-width: 480px) {
+            .feature-grid-dark {
+              grid-template-columns: 1fr !important;
+              gap: 16px !important;
+            }
+          }
         </style>
       `;
 
