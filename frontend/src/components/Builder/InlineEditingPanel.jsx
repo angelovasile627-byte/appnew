@@ -720,6 +720,264 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
           </div>
         )}
 
+        {/* Features Items */}
+        {config.type === 'features' && config.items && (
+          <div className="space-y-0.5 border-t border-gray-800 pt-1">
+            <div className="flex items-center justify-between mb-1">
+              <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Feature Items</Label>
+              <div className="flex gap-1">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-5 px-1.5 text-[9px] text-green-400 hover:text-green-300 hover:bg-gray-800"
+                  onClick={() => {
+                    const newItem = {
+                      title: 'New Feature',
+                      description: 'Feature description',
+                      icon: 'Box',
+                      color: '#667eea',
+                      button: { text: 'Learn More', show: true }
+                    };
+                    const newItems = [...config.items, newItem];
+                    updateConfig('items', newItems);
+                  }}
+                >
+                  + Add
+                </Button>
+              </div>
+            </div>
+
+            {config.items.map((item, index) => (
+              <div key={index} className="bg-gray-800/50 rounded p-1.5 space-y-1 mb-1 border border-gray-700">
+                <div className="flex items-center justify-between mb-0.5">
+                  <Label className="text-[9px] font-semibold text-indigo-400">Item {index + 1}</Label>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="h-4 px-1 text-[8px] text-red-400 hover:text-red-300 hover:bg-gray-700"
+                    onClick={() => {
+                      const newItems = config.items.filter((_, i) => i !== index);
+                      updateConfig('items', newItems);
+                    }}
+                  >
+                    Remove
+                  </Button>
+                </div>
+
+                {/* Title */}
+                <div className="space-y-0.5">
+                  <Label className="text-[8px] text-gray-400">Title</Label>
+                  <Input
+                    value={item.title || ''}
+                    onChange={(e) => {
+                      const newItems = [...config.items];
+                      newItems[index] = { ...newItems[index], title: e.target.value };
+                      updateConfig('items', newItems);
+                    }}
+                    className="bg-gray-900 border-gray-600 text-white text-[9px] px-1.5 py-0.5 h-6"
+                  />
+                </div>
+
+                {/* Description */}
+                <div className="space-y-0.5">
+                  <Label className="text-[8px] text-gray-400">Description</Label>
+                  <Textarea
+                    value={item.description || ''}
+                    onChange={(e) => {
+                      const newItems = [...config.items];
+                      newItems[index] = { ...newItems[index], description: e.target.value };
+                      updateConfig('items', newItems);
+                    }}
+                    className="bg-gray-900 border-gray-600 text-white text-[9px] px-1.5 py-0.5"
+                    rows={2}
+                  />
+                </div>
+
+                {/* Image URL (for layouts with images) */}
+                {(config.layout === 'cards-with-images' || config.layout === 'cards-image-side') && (
+                  <div className="space-y-0.5">
+                    <Label className="text-[8px] text-gray-400">Image URL</Label>
+                    <Input
+                      value={item.image || ''}
+                      onChange={(e) => {
+                        const newItems = [...config.items];
+                        newItems[index] = { ...newItems[index], image: e.target.value };
+                        updateConfig('items', newItems);
+                      }}
+                      placeholder="https://..."
+                      className="bg-gray-900 border-gray-600 text-white text-[9px] px-1.5 py-0.5 h-6"
+                    />
+                    {/* Upload Button */}
+                    <input
+                      type="file"
+                      id={`upload-${index}`}
+                      accept="image/*"
+                      style={{ display: 'none' }}
+                      onChange={async (e) => {
+                        const file = e.target.files[0];
+                        if (!file) return;
+
+                        const formData = new FormData();
+                        formData.append('file', file);
+
+                        try {
+                          const response = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/upload/image', {
+                            method: 'POST',
+                            body: formData,
+                          });
+                          const data = await response.json();
+                          
+                          if (data.url) {
+                            const newItems = [...config.items];
+                            newItems[index] = { ...newItems[index], image: data.url };
+                            updateConfig('items', newItems);
+                          }
+                        } catch (error) {
+                          console.error('Upload error:', error);
+                        }
+                      }}
+                    />
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="h-6 w-full text-[8px] bg-indigo-600 hover:bg-indigo-700 text-white border-0"
+                      onClick={() => document.getElementById(`upload-${index}`).click()}
+                    >
+                      Upload Image
+                    </Button>
+                  </div>
+                )}
+
+                {/* Label (for image-side layout) */}
+                {config.layout === 'cards-image-side' && (
+                  <div className="space-y-0.5">
+                    <Label className="text-[8px] text-gray-400">Label</Label>
+                    <Input
+                      value={item.label || ''}
+                      onChange={(e) => {
+                        const newItems = [...config.items];
+                        newItems[index] = { ...newItems[index], label: e.target.value };
+                        updateConfig('items', newItems);
+                      }}
+                      placeholder="e.g. Strategy 1"
+                      className="bg-gray-900 border-gray-600 text-white text-[9px] px-1.5 py-0.5 h-6"
+                    />
+                  </div>
+                )}
+
+                {/* Color/Gradient */}
+                {(config.layout === 'cards-simple' || config.layout === 'cards-gradient') && (
+                  <div className="space-y-0.5">
+                    <Label className="text-[8px] text-gray-400">
+                      {config.layout === 'cards-gradient' ? 'Gradient' : 'Color'}
+                    </Label>
+                    <Input
+                      value={config.layout === 'cards-gradient' ? (item.gradient || '') : (item.color || '#667eea')}
+                      onChange={(e) => {
+                        const newItems = [...config.items];
+                        if (config.layout === 'cards-gradient') {
+                          newItems[index] = { ...newItems[index], gradient: e.target.value };
+                        } else {
+                          newItems[index] = { ...newItems[index], color: e.target.value };
+                        }
+                        updateConfig('items', newItems);
+                      }}
+                      placeholder={config.layout === 'cards-gradient' ? 'linear-gradient(...)' : '#667eea'}
+                      className="bg-gray-900 border-gray-600 text-white text-[9px] px-1.5 py-0.5 h-6"
+                    />
+                  </div>
+                )}
+
+                {/* Button Show/Hide */}
+                {item.button !== undefined && (
+                  <div className="space-y-0.5">
+                    <div className="flex items-center justify-between">
+                      <Label className="text-[8px] text-gray-400">Button</Label>
+                      <Switch
+                        checked={item.button?.show ?? true}
+                        onCheckedChange={(checked) => {
+                          const newItems = [...config.items];
+                          newItems[index] = {
+                            ...newItems[index],
+                            button: { ...newItems[index].button, show: checked }
+                          };
+                          updateConfig('items', newItems);
+                        }}
+                      />
+                    </div>
+                    {item.button?.show && (
+                      <Input
+                        value={item.button?.text || 'Learn More'}
+                        onChange={(e) => {
+                          const newItems = [...config.items];
+                          newItems[index] = {
+                            ...newItems[index],
+                            button: { ...newItems[index].button, text: e.target.value }
+                          };
+                          updateConfig('items', newItems);
+                        }}
+                        placeholder="Button text"
+                        className="bg-gray-900 border-gray-600 text-white text-[9px] px-1.5 py-0.5 h-6"
+                      />
+                    )}
+                  </div>
+                )}
+
+                {/* Features list (for gradient cards) */}
+                {config.layout === 'cards-gradient' && item.features && (
+                  <div className="space-y-0.5">
+                    <Label className="text-[8px] text-gray-400">Feature Points</Label>
+                    {item.features.map((feature, fIndex) => (
+                      <div key={fIndex} className="flex gap-1">
+                        <Input
+                          value={feature || ''}
+                          onChange={(e) => {
+                            const newItems = [...config.items];
+                            const newFeatures = [...newItems[index].features];
+                            newFeatures[fIndex] = e.target.value;
+                            newItems[index] = { ...newItems[index], features: newFeatures };
+                            updateConfig('items', newItems);
+                          }}
+                          className="bg-gray-900 border-gray-600 text-white text-[9px] px-1.5 py-0.5 h-5 flex-1"
+                        />
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          className="h-5 px-1 text-[8px] text-red-400 hover:bg-gray-700"
+                          onClick={() => {
+                            const newItems = [...config.items];
+                            const newFeatures = newItems[index].features.filter((_, i) => i !== fIndex);
+                            newItems[index] = { ...newItems[index], features: newFeatures };
+                            updateConfig('items', newItems);
+                          }}
+                        >
+                          ✕
+                        </Button>
+                      </div>
+                    ))}
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="h-5 w-full text-[8px] bg-gray-700 hover:bg-gray-600 text-white border-gray-600"
+                      onClick={() => {
+                        const newItems = [...config.items];
+                        const currentFeatures = newItems[index].features || [];
+                        newItems[index] = {
+                          ...newItems[index],
+                          features: [...currentFeatures, 'New feature point']
+                        };
+                        updateConfig('items', newItems);
+                      }}
+                    >
+                      + Add Point
+                    </Button>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
         {/* Button */}
         {config.button && (
           <div className="space-y-0.5 border-t border-gray-800 pt-1">
