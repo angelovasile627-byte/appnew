@@ -20,6 +20,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
 
   const { config } = block;
   const [topPosition, setTopPosition] = useState('0px');
+  const [showSocialIconsModal, setShowSocialIconsModal] = useState(false);
 
   const updateConfig = (path, value) => {
     const keys = path.split('.');
@@ -32,6 +33,17 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position }) => {
     }
     
     current[keys[keys.length - 1]] = value;
+    onUpdate(newConfig);
+  };
+
+  const handleSaveSocialIcons = (icons) => {
+    const newConfig = {
+      ...config,
+      socialIcons: {
+        ...config.socialIcons,
+        items: icons
+      }
+    };
     onUpdate(newConfig);
   };
 
