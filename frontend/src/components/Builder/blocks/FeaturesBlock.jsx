@@ -130,100 +130,115 @@ export const FeaturesBlock = ({ config, onUpdate }) => {
     const actualColumns = Math.min(config.columns, config.items.length);
     
     return (
-      <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: `repeat(${actualColumns}, 1fr)`,
-        gap: '30px'
-      }}
-    >
-      {config.items.map((item, index) => {
-        const IconComponent = item.icon ? Icons[item.icon] || Icons.Box : null;
-        return (
-          <div
-            key={index}
-            style={{
-              background: item.gradient || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              borderRadius: '20px',
-              padding: '40px 30px',
-              color: '#ffffff',
-              transition: 'transform 0.3s, box-shadow 0.3s',
-              cursor: 'pointer'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-8px)';
-              e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.3)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = 'none';
-            }}
-          >
-            {IconComponent && (
-              <div style={{ marginBottom: '20px' }}>
-                <IconComponent style={{ width: '48px', height: '48px', color: '#ffffff' }} />
-              </div>
-            )}
-            <h3
-              style={{
-                fontSize: '24px',
-                fontWeight: '700',
-                marginBottom: '16px',
-                color: '#ffffff'
-              }}
-            >
-              {item.title}
-            </h3>
-            <p
-              style={{
-                fontSize: '15px',
-                lineHeight: '1.6',
-                marginBottom: '20px',
-                color: 'rgba(255,255,255,0.9)'
-              }}
-            >
-              {item.description}
-            </p>
-            {item.features && item.features.length > 0 && (
-              <ul style={{ listStyle: 'none', padding: 0, marginBottom: '24px' }}>
-                {item.features.map((feature, i) => (
-                  <li key={i} style={{ fontSize: '14px', marginBottom: '8px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0 }}>✓</span>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            )}
-            {item.button && (
-              <button
+      <>
+        <style>
+          {`
+            .${blockId}-gradient-grid {
+              display: grid;
+              grid-template-columns: repeat(${actualColumns}, 1fr);
+              gap: 30px;
+            }
+            @media (max-width: 1024px) {
+              .${blockId}-gradient-grid {
+                grid-template-columns: repeat(${Math.min(2, actualColumns)}, 1fr);
+              }
+            }
+            @media (max-width: 640px) {
+              .${blockId}-gradient-grid {
+                grid-template-columns: 1fr;
+              }
+            }
+          `}
+        </style>
+        <div className={`${blockId}-gradient-grid`}>
+          {config.items.map((item, index) => {
+            const IconComponent = item.icon ? Icons[item.icon] || Icons.Box : null;
+            return (
+              <div
+                key={index}
                 style={{
-                  background: 'rgba(255,255,255,0.2)',
-                  border: '1px solid rgba(255,255,255,0.3)',
+                  background: item.gradient || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  borderRadius: '20px',
+                  padding: '40px 30px',
                   color: '#ffffff',
-                  padding: '12px 28px',
-                  borderRadius: '8px',
-                  fontSize: '15px',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s',
-                  width: '100%'
+                  transition: 'transform 0.3s, box-shadow 0.3s',
+                  cursor: 'pointer'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.3)';
+                  e.currentTarget.style.transform = 'translateY(-8px)';
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.3)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.2)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
                 }}
               >
-                {item.button.text}
-              </button>
-            )}
-          </div>
-        );
-      })}
-    </div>
-  );
-};
+                {IconComponent && (
+                  <div style={{ marginBottom: '20px' }}>
+                    <IconComponent style={{ width: '48px', height: '48px', color: '#ffffff' }} />
+                  </div>
+                )}
+                <h3
+                  style={{
+                    fontSize: '24px',
+                    fontWeight: '700',
+                    marginBottom: '16px',
+                    color: '#ffffff'
+                  }}
+                >
+                  {item.title}
+                </h3>
+                <p
+                  style={{
+                    fontSize: '15px',
+                    lineHeight: '1.6',
+                    marginBottom: '20px',
+                    color: 'rgba(255,255,255,0.9)'
+                  }}
+                >
+                  {item.description}
+                </p>
+                {item.features && item.features.length > 0 && (
+                  <ul style={{ listStyle: 'none', padding: 0, marginBottom: '24px' }}>
+                    {item.features.map((feature, i) => (
+                      <li key={i} style={{ fontSize: '14px', marginBottom: '8px', paddingLeft: '20px', position: 'relative' }}>
+                        <span style={{ position: 'absolute', left: 0 }}>✓</span>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {item.button && (
+                  <button
+                    style={{
+                      background: 'rgba(255,255,255,0.2)',
+                      border: '1px solid rgba(255,255,255,0.3)',
+                      color: '#ffffff',
+                      padding: '12px 28px',
+                      borderRadius: '8px',
+                      fontSize: '15px',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s',
+                      width: '100%'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.3)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.2)';
+                    }}
+                  >
+                    {item.button.text}
+                  </button>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </>
+    );
+  };
 
   // Cards with images on top
   const renderCardsWithImages = () => {
