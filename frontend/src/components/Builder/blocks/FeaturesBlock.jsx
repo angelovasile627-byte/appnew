@@ -195,7 +195,7 @@ export const FeaturesBlock = ({ config, onUpdate }) => {
                   ))}
                 </ul>
               )}
-              {item.button && (
+              {item.button && item.button.show !== false && (
                 <button
                   style={{
                     background: 'rgba(255,255,255,0.2)',
