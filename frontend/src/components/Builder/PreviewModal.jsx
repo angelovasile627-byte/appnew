@@ -182,6 +182,7 @@ const generateBlockHTML = (config) => {
                   <div class="desktop-menu-${menuId}" style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
                     ${menuItemsHTML(visibleItems)}
                     ${buttonHTML}
+                    ${socialIconsHTML}
                   </div>
                 </div>
               `;
