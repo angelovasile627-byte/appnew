@@ -7,6 +7,7 @@ from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Dict, Any
 import uuid
+import shutil
 from datetime import datetime, timezone
 from ftplib import FTP
 import io
