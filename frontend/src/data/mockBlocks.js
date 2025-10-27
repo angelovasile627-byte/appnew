@@ -1030,5 +1030,506 @@ export const blockTemplates = [
         }
       ]
     }
+  },
+  
+  // Article Blocks
+  {
+    id: 'article-grid-1',
+    category: 'article',
+    name: 'Article - Grid Masonry',
+    thumbnail: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=400&h=300&fit=crop',
+    config: {
+      type: 'article',
+      layout: 'grid',
+      background: { type: 'color', value: '#2d3748' },
+      fullWidth: true,
+      contentWidth: 1400,
+      padding: { top: 80, bottom: 80 },
+      columns: 3,
+      gap: 24,
+      title: {
+        text: 'Articol',
+        show: true,
+        color: '#ffffff',
+        align: 'left',
+        size: 32
+      },
+      elements: [
+        {
+          id: 'article-element-1',
+          type: 'card',
+          width: 100,
+          image: {
+            src: 'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=800&h=600&fit=crop',
+            alt: 'Art photography',
+            show: true,
+            height: 300,
+            objectFit: 'cover'
+          },
+          tag: {
+            text: '',
+            color: '#10b981',
+            bgColor: 'rgba(16, 185, 129, 0.1)',
+            show: false
+          },
+          title: {
+            text: 'Eternal Art of Photography',
+            color: '#1a202c',
+            size: 24,
+            weight: 700,
+            show: true
+          },
+          description: {
+            text: 'Photography as an art form, embraces creative methods, and ask it captures narratives through mesmerizing frames, linking generations from shutter to showcase.',
+            color: '#4a5568',
+            size: 16,
+            show: true
+          },
+          date: {
+            text: '',
+            color: '#718096',
+            show: false
+          },
+          icon: {
+            name: 'Camera',
+            color: '#667eea',
+            show: false
+          },
+          button: {
+            text: 'Get Started',
+            color: '#e2e8f0',
+            textColor: '#1a202c',
+            link: '#',
+            show: true
+          }
+        },
+        {
+          id: 'article-element-2',
+          type: 'card',
+          width: 100,
+          image: {
+            src: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop',
+            alt: 'Connect innovate',
+            show: true,
+            height: 300,
+            objectFit: 'cover'
+          },
+          tag: {
+            text: '',
+            color: '#f59e0b',
+            bgColor: 'rgba(245, 158, 11, 0.1)',
+            show: false
+          },
+          title: {
+            text: 'Connect, innovate, succeed',
+            color: '#1a202c',
+            size: 24,
+            weight: 700,
+            show: true
+          },
+          description: {
+            text: 'With a spirit of innovation, we navigate uncharted territories, exploiting new ideas, technologies, and approaches.',
+            color: '#4a5568',
+            size: 16,
+            show: true
+          },
+          date: {
+            text: '',
+            color: '#718096',
+            show: false
+          },
+          icon: {
+            name: 'Lightbulb',
+            color: '#f59e0b',
+            show: false
+          },
+          button: {
+            text: 'Get started',
+            color: '#ffffff',
+            textColor: '#1a202c',
+            link: '#',
+            show: true
+          }
+        },
+        {
+          id: 'article-element-3',
+          type: 'card',
+          width: 100,
+          image: {
+            src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=600&fit=crop',
+            alt: 'Create content',
+            show: true,
+            height: 300,
+            objectFit: 'cover'
+          },
+          tag: {
+            text: '',
+            color: '#8b5cf6',
+            bgColor: 'rgba(139, 92, 246, 0.1)',
+            show: false
+          },
+          title: {
+            text: 'Create unique content',
+            color: '#1a202c',
+            size: 24,
+            weight: 700,
+            show: true
+          },
+          description: {
+            text: 'Dolor sagittis neque est luctus pulvinar pulvinar. Pellentesque imperdiet tortor sit sodis et.',
+            color: '#4a5568',
+            size: 16,
+            show: true
+          },
+          date: {
+            text: '',
+            color: '#718096',
+            show: false
+          },
+          icon: {
+            name: 'Pen',
+            color: '#8b5cf6',
+            show: false
+          },
+          button: {
+            text: 'Get Started',
+            color: '#e2e8f0',
+            textColor: '#1a202c',
+            link: '#',
+            show: true
+          }
+        },
+        {
+          id: 'article-element-4',
+          type: 'card',
+          width: 100,
+          image: {
+            src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=600&fit=crop',
+            alt: 'Creative journey',
+            show: true,
+            height: 300,
+            objectFit: 'cover'
+          },
+          tag: {
+            text: '',
+            color: '#10b981',
+            bgColor: 'rgba(16, 185, 129, 0.1)',
+            show: false
+          },
+          title: {
+            text: 'Begin your creative journey today!',
+            color: '#1a202c',
+            size: 24,
+            weight: 700,
+            show: true
+          },
+          description: {
+            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis neque est, luctus pulvinar.',
+            color: '#4a5568',
+            size: 16,
+            show: true
+          },
+          date: {
+            text: '',
+            color: '#718096',
+            show: false
+          },
+          icon: {
+            name: 'Rocket',
+            color: '#10b981',
+            show: false
+          },
+          button: {
+            text: 'Get Started',
+            color: '#86efac',
+            textColor: '#1a202c',
+            link: '#',
+            show: true
+          }
+        },
+        {
+          id: 'article-element-5',
+          type: 'card',
+          width: 100,
+          image: {
+            src: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=600&fit=crop',
+            alt: 'Delivery terms',
+            show: true,
+            height: 300,
+            objectFit: 'cover'
+          },
+          tag: {
+            text: '',
+            color: '#ef4444',
+            bgColor: 'rgba(239, 68, 68, 0.1)',
+            show: false
+          },
+          title: {
+            text: 'Delivery Terms:',
+            color: '#1a202c',
+            size: 24,
+            weight: 700,
+            show: true
+          },
+          description: {
+            text: 'Shipping options\n\nWe offer various shipping options to accommodate your needs.',
+            color: '#4a5568',
+            size: 16,
+            show: true
+          },
+          date: {
+            text: '',
+            color: '#718096',
+            show: false
+          },
+          icon: {
+            name: 'Truck',
+            color: '#ef4444',
+            show: false
+          },
+          button: {
+            text: '',
+            color: '#e2e8f0',
+            textColor: '#1a202c',
+            link: '#',
+            show: false
+          }
+        }
+      ]
+    }
+  },
+  {
+    id: 'article-vertical-1',
+    category: 'article',
+    name: 'Article - Vertical Layout',
+    thumbnail: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=300&fit=crop',
+    config: {
+      type: 'article',
+      layout: 'vertical',
+      background: { type: 'color', value: '#2d3748' },
+      fullWidth: true,
+      contentWidth: 1200,
+      padding: { top: 60, bottom: 60 },
+      gap: 48,
+      title: {
+        text: 'Articol',
+        show: true,
+        color: '#ffffff',
+        align: 'left',
+        size: 32
+      },
+      elements: [
+        {
+          id: 'article-vertical-1',
+          type: 'section',
+          layout: 'split',
+          leftWidth: 50,
+          rightWidth: 50,
+          gap: 40,
+          leftContent: {
+            type: 'text',
+            title: {
+              text: 'Born with an insatiable curiosity and an unyielding desire to explore the depths of human experience',
+              color: '#1a202c',
+              size: 32,
+              weight: 400,
+              style: 'italic',
+              show: true
+            },
+            description: {
+              text: "Olivia's artistic journey began as a quest for self-discovery.",
+              color: '#4a5568',
+              size: 16,
+              show: true
+            },
+            icon: {
+              name: 'ChevronDown',
+              color: '#1a202c',
+              show: true
+            }
+          },
+          rightContent: {
+            type: 'text',
+            title: {
+              text: 'Studio with visuals',
+              color: '#1a202c',
+              size: 40,
+              weight: 700,
+              show: true
+            },
+            subtitle: {
+              text: 'Dynamic and immersive hub for creative expression',
+              color: '#4a5568',
+              size: 18,
+              show: true
+            },
+            description: {
+              text: 'By blending a dynamic blend elements, the studio features a rich sensory experience that transcends conventional art spaces.\n\nVisual stimuli will inspire the eyes for also invite profound explorations, evoking a points to communicate climate ideas, stories, and perspectives in a captivating and accessible manner.\n\nWhether through paintings, digital art, photography, or installations a studio with visuals provides a versatile space where visitors can lose themselves in beauty.',
+              color: '#4a5568',
+              size: 14,
+              show: true
+            },
+            button: {
+              text: 'CONTACT NOW',
+              color: 'transparent',
+              textColor: '#1a202c',
+              borderColor: '#1a202c',
+              link: '#',
+              show: true
+            }
+          },
+          background: { type: 'color', value: '#e2e8f0' }
+        },
+        {
+          id: 'article-vertical-2',
+          type: 'section',
+          layout: 'split',
+          leftWidth: 60,
+          rightWidth: 40,
+          gap: 40,
+          leftContent: {
+            type: 'text',
+            title: {
+              text: 'The main objective of the studio with visuals is to cultivate a dynamic and inclusive creative space',
+              color: '#f7f4ed',
+              size: 20,
+              weight: 400,
+              style: 'italic',
+              show: true
+            },
+            description: {
+              text: 'where artists and visionaries can harness the power of visual expression to communicate, provoke thought, and inspire.',
+              color: '#f7f4ed',
+              size: 16,
+              show: true
+            },
+            button: {
+              text: 'VIEW PROJECT EXAMPLES',
+              color: '#f7f4ed',
+              textColor: '#1a202c',
+              link: '#',
+              show: true
+            },
+            button2: {
+              text: 'CONTACT THE STUDIO',
+              color: 'transparent',
+              textColor: '#f7f4ed',
+              borderColor: '#f7f4ed',
+              link: '#',
+              show: true
+            }
+          },
+          rightContent: {
+            type: 'image',
+            image: {
+              src: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=800&fit=crop',
+              alt: 'Approach to clients',
+              show: true,
+              objectFit: 'cover'
+            },
+            title: {
+              text: 'Approach to clients',
+              color: '#1a202c',
+              size: 32,
+              weight: 700,
+              show: true
+            },
+            description: {
+              text: 'Takes a client-centric into the creative process, the artist client relationship as a dynamic exchange where the artist becomes both interpreter and creator of the clients vision.\n\nYou break boundaries as a catalyst: will build refined to explore innovative avenues to your needs, ideas, themes, think every idea trust creative.\n\nThrough these methods an artist client focused approach ensures that the final creation',
+              color: '#4a5568',
+              size: 14,
+              show: true
+            },
+            button: {
+              text: 'READ MORE',
+              color: 'transparent',
+              textColor: '#1a202c',
+              borderColor: '#1a202c',
+              link: '#',
+              show: true
+            },
+            button2: {
+              text: 'CONTACT NOW',
+              color: 'transparent',
+              textColor: '#1a202c',
+              borderColor: '#1a202c',
+              link: '#',
+              show: true
+            }
+          },
+          background: { type: 'color', value: '#d4c9b0' }
+        }
+      ]
+    }
+  },
+  {
+    id: 'article-split-1',
+    category: 'article',
+    name: 'Article - Split Layout',
+    thumbnail: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=300&fit=crop',
+    config: {
+      type: 'article',
+      layout: 'split',
+      background: { type: 'color', value: '#f7fafc' },
+      fullWidth: true,
+      contentWidth: 1400,
+      padding: { top: 0, bottom: 0 },
+      minHeight: 600,
+      leftWidth: 50,
+      rightWidth: 50,
+      leftContent: {
+        type: 'text',
+        background: { type: 'color', value: '#ffffff' },
+        padding: { top: 80, bottom: 80, left: 60, right: 60 },
+        tag: {
+          text: 'FEATURED',
+          color: '#667eea',
+          bgColor: 'rgba(102, 126, 234, 0.1)',
+          show: true
+        },
+        title: {
+          text: 'Discover the Art of Modern Design',
+          color: '#1a202c',
+          size: 48,
+          weight: 700,
+          show: true
+        },
+        description: {
+          text: 'Explore how contemporary design principles can transform your creative projects. Learn from industry experts and discover the latest trends shaping the future of design.',
+          color: '#4a5568',
+          size: 18,
+          lineHeight: 1.7,
+          show: true
+        },
+        metadata: {
+          author: 'John Smith',
+          date: 'Dec 15, 2024',
+          readTime: '5 min read',
+          show: true,
+          color: '#718096'
+        },
+        button: {
+          text: 'Read Full Article',
+          color: '#667eea',
+          textColor: '#ffffff',
+          link: '#',
+          show: true
+        }
+      },
+      rightContent: {
+        type: 'image',
+        image: {
+          src: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1200&h=1000&fit=crop',
+          alt: 'Modern design workspace',
+          show: true,
+          objectFit: 'cover'
+        },
+        overlay: {
+          show: true,
+          color: '#667eea',
+          opacity: 0.1
+        }
+      }
+    }
   }
 ];
