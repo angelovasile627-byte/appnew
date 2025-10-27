@@ -458,6 +458,9 @@ async def save_settings(project_id: str, settings_data: SettingsData):
 # Include the router in the main app
 app.include_router(api_router)
 
+# Mount uploads directory for serving uploaded images
+app.mount("/api/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
+
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
