@@ -751,8 +751,9 @@ const generateBlockHTML = (config) => {
         `;
       } else if (config.layout === 'vertical') {
         // Vertical Layout with multiple sections
+        const verticalId = `article-vertical-${Math.random().toString(36).substr(2, 9)}`;
         return `
-          <section style="
+          <section class="${verticalId}" style="
             ${bgStyle}
             width: 100%;
             padding: ${config.padding?.top || 60}px 24px ${config.padding?.bottom || 60}px;
@@ -762,7 +763,7 @@ const generateBlockHTML = (config) => {
               margin: 0 auto;
             ">
               ${config.title?.show ? `
-                <h2 style="
+                <h2 class="${verticalId}-title" style="
                   font-size: ${config.title.size || 32}px;
                   font-weight: 700;
                   color: ${config.title.color};
@@ -774,27 +775,27 @@ const generateBlockHTML = (config) => {
               ` : ''}
               
               <div style="display: flex; flex-direction: column; gap: ${config.gap || 48}px;">
-                ${(config.elements || []).map(element => {
+                ${(config.elements || []).map((element, idx) => {
                   const sectionBg = element.background?.type === 'gradient' 
                     ? `background: ${element.background.value};` 
                     : `background-color: ${element.background?.value || '#ffffff'};`;
                   
                   return `
-                    <div style="
+                    <div class="${verticalId}-section-${idx}" style="
                       ${sectionBg}
                       border-radius: 12px;
                       overflow: hidden;
                     ">
                       ${element.layout === 'split' ? `
-                        <div style="
+                        <div class="${verticalId}-split" style="
                           display: flex;
                           gap: ${element.gap || 40}px;
                           padding: 40px;
                         ">
-                          <div style="flex: ${element.leftWidth || 50}; min-width: 0;">
+                          <div class="${verticalId}-left" style="flex: ${element.leftWidth || 50}; min-width: 0;">
                             ${element.leftContent?.type === 'text' ? `
                               ${element.leftContent.title?.show ? `
-                                <h3 style="
+                                <h3 class="${verticalId}-left-title" style="
                                   font-size: ${element.leftContent.title.size || 32}px;
                                   font-weight: ${element.leftContent.title.weight || 700};
                                   color: ${element.leftContent.title.color};
@@ -803,7 +804,7 @@ const generateBlockHTML = (config) => {
                                 ">${element.leftContent.title.text}</h3>
                               ` : ''}
                               ${element.leftContent.description?.show ? `
-                                <p style="
+                                <p class="${verticalId}-left-desc" style="
                                   font-size: ${element.leftContent.description.size || 16}px;
                                   color: ${element.leftContent.description.color};
                                   line-height: 1.6;
@@ -837,10 +838,10 @@ const generateBlockHTML = (config) => {
                               ` : ''}
                             ` : ''}
                           </div>
-                          <div style="flex: ${element.rightWidth || 50}; min-width: 0;">
+                          <div class="${verticalId}-right" style="flex: ${element.rightWidth || 50}; min-width: 0;">
                             ${element.rightContent?.type === 'text' ? `
                               ${element.rightContent.title?.show ? `
-                                <h3 style="
+                                <h3 class="${verticalId}-right-title" style="
                                   font-size: ${element.rightContent.title.size || 40}px;
                                   font-weight: ${element.rightContent.title.weight || 700};
                                   color: ${element.rightContent.title.color};
@@ -855,7 +856,7 @@ const generateBlockHTML = (config) => {
                                 ">${element.rightContent.subtitle.text}</h4>
                               ` : ''}
                               ${element.rightContent.description?.show ? `
-                                <p style="
+                                <p class="${verticalId}-right-desc" style="
                                   font-size: ${element.rightContent.description.size || 14}px;
                                   color: ${element.rightContent.description.color};
                                   line-height: 1.6;
@@ -940,6 +941,62 @@ const generateBlockHTML = (config) => {
                 }).join('')}
               </div>
             </div>
+            
+            <style>
+              /* Responsive Vertical Layout */
+              @media (max-width: 1024px) {
+                .${verticalId} {
+                  padding: 40px 20px !important;
+                }
+                .${verticalId}-title {
+                  font-size: 28px !important;
+                  margin-bottom: 30px !important;
+                }
+                .${verticalId}-split {
+                  padding: 30px !important;
+                  gap: 30px !important;
+                }
+                .${verticalId}-left-title {
+                  font-size: 24px !important;
+                }
+                .${verticalId}-right-title {
+                  font-size: 32px !important;
+                }
+                .${verticalId}-left-desc,
+                .${verticalId}-right-desc {
+                  font-size: 14px !important;
+                }
+              }
+              
+              @media (max-width: 768px) {
+                .${verticalId} {
+                  padding: 30px 16px !important;
+                }
+                .${verticalId}-title {
+                  font-size: 24px !important;
+                  margin-bottom: 24px !important;
+                }
+                .${verticalId}-split {
+                  flex-direction: column !important;
+                  padding: 24px !important;
+                  gap: 24px !important;
+                }
+                .${verticalId}-left,
+                .${verticalId}-right {
+                  flex: 1 !important;
+                }
+                .${verticalId}-left-title {
+                  font-size: 20px !important;
+                }
+                .${verticalId}-right-title {
+                  font-size: 24px !important;
+                }
+                .${verticalId}-left-desc,
+                .${verticalId}-right-desc {
+                  font-size: 14px !important;
+                }
+              }
+            </style>
           </section>
         `;
       } else if (config.layout === 'split') {
