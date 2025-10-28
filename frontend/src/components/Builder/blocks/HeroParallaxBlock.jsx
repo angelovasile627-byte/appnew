@@ -80,7 +80,9 @@ export const HeroParallaxBlock = ({ config, onUpdate }) => {
     width: '100%',
     maxWidth: config.fullWidth ? '100%' : `${config.contentWidth}px`,
     margin: '0 auto',
-    padding: `${config.padding.top}px 24px ${config.padding.bottom}px`,
+    padding: config.fullScreen 
+      ? `${config.padding?.top || 100}px 24px ${config.padding?.bottom || 100}px`
+      : '0 24px',
     textAlign: config.title?.align || 'center'
   };
 
