@@ -1783,6 +1783,118 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                         </div>
                       </>
                     )}
+
+                    {/* Padding Controls (for Split Layout leftContent) */}
+                    {element.padding && (
+                      <>
+                        <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                          <Label className="text-[9px] text-gray-300">Padding Top (px)</Label>
+                          <div className="flex items-center gap-1.5">
+                            <Input
+                              type="range"
+                              value={element.padding.top || 80}
+                              onChange={(e) => updateElementConfig(selectedElementId, 'padding.top', parseInt(e.target.value))}
+                              className="flex-1 bg-gray-800 border-gray-700 h-7"
+                              min="0"
+                              max="200"
+                              step="10"
+                            />
+                            <span className="text-[9px] text-gray-400 w-10 text-right">{element.padding.top || 80}px</span>
+                          </div>
+                        </div>
+
+                        <div className="space-y-0.5">
+                          <Label className="text-[9px] text-gray-300">Padding Bottom (px)</Label>
+                          <div className="flex items-center gap-1.5">
+                            <Input
+                              type="range"
+                              value={element.padding.bottom || 80}
+                              onChange={(e) => updateElementConfig(selectedElementId, 'padding.bottom', parseInt(e.target.value))}
+                              className="flex-1 bg-gray-800 border-gray-700 h-7"
+                              min="0"
+                              max="200"
+                              step="10"
+                            />
+                            <span className="text-[9px] text-gray-400 w-10 text-right">{element.padding.bottom || 80}px</span>
+                          </div>
+                        </div>
+
+                        <div className="space-y-0.5">
+                          <Label className="text-[9px] text-gray-300">Padding Left (px)</Label>
+                          <div className="flex items-center gap-1.5">
+                            <Input
+                              type="range"
+                              value={element.padding.left || 60}
+                              onChange={(e) => updateElementConfig(selectedElementId, 'padding.left', parseInt(e.target.value))}
+                              className="flex-1 bg-gray-800 border-gray-700 h-7"
+                              min="0"
+                              max="200"
+                              step="10"
+                            />
+                            <span className="text-[9px] text-gray-400 w-10 text-right">{element.padding.left || 60}px</span>
+                          </div>
+                        </div>
+
+                        <div className="space-y-0.5">
+                          <Label className="text-[9px] text-gray-300">Padding Right (px)</Label>
+                          <div className="flex items-center gap-1.5">
+                            <Input
+                              type="range"
+                              value={element.padding.right || 60}
+                              onChange={(e) => updateElementConfig(selectedElementId, 'padding.right', parseInt(e.target.value))}
+                              className="flex-1 bg-gray-800 border-gray-700 h-7"
+                              min="0"
+                              max="200"
+                              step="10"
+                            />
+                            <span className="text-[9px] text-gray-400 w-10 text-right">{element.padding.right || 60}px</span>
+                          </div>
+                        </div>
+                      </>
+                    )}
+
+                    {/* Overlay Controls (for Split Layout rightContent with image) */}
+                    {element.overlay && (
+                      <>
+                        <div className="flex items-center justify-between py-0.5 border-t border-gray-800 pt-1">
+                          <Label className="text-[9px] text-gray-300">Show Overlay</Label>
+                          <Switch
+                            checked={element.overlay.show ?? false}
+                            onCheckedChange={(checked) => updateElementConfig(selectedElementId, 'overlay.show', checked)}
+                          />
+                        </div>
+                        
+                        {element.overlay.show && (
+                          <>
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Overlay Color</Label>
+                              <Input
+                                type="color"
+                                value={element.overlay.color || '#667eea'}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'overlay.color', e.target.value)}
+                                className="w-6 h-6 bg-gray-800 border-gray-700"
+                              />
+                            </div>
+                            
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Overlay Opacity</Label>
+                              <div className="flex items-center gap-1.5">
+                                <Input
+                                  type="range"
+                                  value={(element.overlay.opacity || 0.1) * 100}
+                                  onChange={(e) => updateElementConfig(selectedElementId, 'overlay.opacity', parseInt(e.target.value) / 100)}
+                                  className="flex-1 bg-gray-800 border-gray-700 h-7"
+                                  min="0"
+                                  max="100"
+                                  step="5"
+                                />
+                                <span className="text-[9px] text-gray-400 w-10 text-right">{Math.round((element.overlay.opacity || 0.1) * 100)}%</span>
+                              </div>
+                            </div>
+                          </>
+                        )}
+                      </>
+                    )}
                   </>
                 );
               })()
