@@ -1563,6 +1563,7 @@ export const blockTemplates = [
     config: {
       type: 'parallax',
       hero: {
+        height: 60,
         background: {
           type: 'image',
           value: 'https://images.unsplash.com/photo-1519120944692-1a8d8cfc107f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=872&q=80',
