@@ -351,6 +351,38 @@ test_plan:
         agent: "main"
         comment: "Successfully removed parallax effect and simplified Hero Parallax block structure. Block now uses standard background positioning (no scroll effect), padding in rem units (0-12 range), and simplified HTML structure matching Mobirise style. White Space controls removed. Size controls remain (Full Screen, Full Width, Top/Bottom padding). Tested and confirmed functional in both Canvas and Preview."
 
+  - task: "Add new Parallax Block category with Mountain Star template"
+    implemented: true
+    working: "YES"
+    files:
+      - "/app/frontend/src/data/mockBlocks.js" (added parallax-1 block template)
+      - "/app/frontend/src/components/Builder/blocks/ParallaxBlock.jsx" (rebuilt with new structure)
+      - "/app/frontend/src/components/Builder/InlineEditingPanel.jsx" (added parallax controls)
+      - "/app/frontend/src/components/Builder/PreviewModal.jsx" (added parallax preview support)
+      - "/app/frontend/src/components/Builder/BlockSidebar.jsx" (added parallax thumbnail)
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    changes_made:
+      - "CREATED NEW CATEGORY: Added 'parallax' category in Blocks sidebar"
+      - "NEW TEMPLATE: 'Parallax - Mountain Star' with complete Mountain Star Zlatibor example"
+      - "STRUCTURE: Hero section (title, description, button) + Blank spacer + Cards section + Spacer"
+      - "PARALLAX EFFECT: background-attachment: fixed on hero and cards backgrounds"
+      - "HERO SECTION: Fully editable title, description, button with color/size controls"
+      - "SPACER: Adjustable height (100-800px) and background color"
+      - "CARDS SECTION: Adjustable background image and section height (600-2000px)"
+      - "CARDS MANAGEMENT: Add/remove cards dynamically, each card has image/title/description/link"
+      - "DEFAULT CONTENT: 3 cards pre-populated (Rock climbing, Caving, Parachuting)"
+      - "EDITING PANEL: Complete controls for all sections in InlineEditingPanel"
+      - "PREVIEW SUPPORT: Full HTML generation in PreviewModal with parallax effects"
+      - "THUMBNAIL: Custom thumbnail showing hero + spacer + cards preview in sidebar"
+      - "IMAGES: Using Unsplash images from user's example (free stock photos)"
+      - "CUSTOMIZABLE: Users can add/delete cards, change images, edit all text content"
+    status_history:
+      - working: "YES"
+        agent: "main"
+        comment: "Successfully implemented new Parallax Block with Mountain Star template. Users can now add parallax blocks from a new 'Parallax' category. Block includes hero section with parallax background, adjustable spacers, and cards section with parallax background. All content is fully editable: hero text/button, spacer height/color, cards section height/background, and individual cards (add/remove/edit). Uses background-attachment: fixed for true parallax effect matching user's example. Tested in Canvas and Preview - fully functional."
+
 agent_communication:
   - agent: "main"
     message: "FIXED duplicate menu bug in PreviewModal. Implemented aggressive deduplication with both ID and type checking. Verified working - only ONE menu now appears in preview."
