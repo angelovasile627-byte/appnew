@@ -1478,7 +1478,7 @@ const generateBlockHTML = (config) => {
             background-image: url(${config.background.value});
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
+            background-repeat: no-repeat;
           `
         : `background-color: ${config.background.value};`;
 
@@ -1495,10 +1495,10 @@ const generateBlockHTML = (config) => {
           `
         : '';
 
-      const paddingTop = config.fullScreen ? (config.padding?.top || 100) : 0;
-      const paddingBottom = config.fullScreen ? (config.padding?.bottom || 100) : 0;
-      const containerPaddingTop = !config.fullScreen ? (config.padding?.top || 60) : 0;
-      const containerPaddingBottom = !config.fullScreen ? (config.padding?.bottom || 80) : 0;
+      const paddingTop = config.fullScreen ? (config.paddingTop || 4) : 0;
+      const paddingBottom = config.fullScreen ? (config.paddingBottom || 5) : 0;
+      const containerPaddingTop = !config.fullScreen ? (config.paddingTop || 4) : 0;
+      const containerPaddingBottom = !config.fullScreen ? (config.paddingBottom || 5) : 0;
 
       return `
         <div style="
@@ -1506,25 +1506,10 @@ const generateBlockHTML = (config) => {
           min-height: ${config.fullScreen ? '100vh' : 'auto'};
           width: 100%;
           overflow: hidden;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding-top: ${containerPaddingTop}px;
-          padding-bottom: ${containerPaddingBottom}px;
+          padding-top: ${containerPaddingTop}rem;
+          padding-bottom: ${containerPaddingBottom}rem;
           ${bgStyle}
         ">
-          ${config.whiteSpace?.top > 0 ? `
-            <div style="
-              position: absolute;
-              top: 0;
-              left: 0;
-              right: 0;
-              height: ${config.whiteSpace.top}px;
-              background-color: #ffffff;
-              z-index: 3;
-            "></div>
-          ` : ''}
-          
           ${config.overlay?.show ? `<div style="${overlayStyle}"></div>` : ''}
           
           <div style="
@@ -1533,7 +1518,7 @@ const generateBlockHTML = (config) => {
             width: 100%;
             max-width: ${config.fullWidth ? '100%' : `${config.contentWidth}px`};
             margin: 0 auto;
-            padding: ${config.fullScreen ? `${paddingTop}px 24px ${paddingBottom}px` : '0 24px'};
+            padding: ${config.fullScreen ? `${paddingTop}rem 24px ${paddingBottom}rem` : '0 24px'};
             text-align: ${config.title?.align || 'center'};
           ">
             ${config.title?.show ? `
