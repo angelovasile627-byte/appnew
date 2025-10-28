@@ -1196,7 +1196,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                           type="range"
                           value={config.columns || 3}
                           onChange={(e) => updateConfig('columns', parseInt(e.target.value))}
-                          className="flex-1 bg-gray-800 border-gray-700 h-7"
+                          className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
                           min="2"
                           max="4"
                           step="1"
@@ -1212,7 +1212,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                           type="range"
                           value={config.gap || 24}
                           onChange={(e) => updateConfig('gap', parseInt(e.target.value))}
-                          className="flex-1 bg-gray-800 border-gray-700 h-7"
+                          className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
                           min="0"
                           max="60"
                           step="4"
@@ -1342,7 +1342,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                                     type="range"
                                     value={element.image.height || 300}
                                     onChange={(e) => updateElementConfig(selectedElementId, 'image.height', parseInt(e.target.value))}
-                                    className="flex-1 bg-gray-800 border-gray-700 h-7"
+                                    className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
                                     min="200"
                                     max="600"
                                     step="50"
@@ -1433,7 +1433,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                                   type="range"
                                   value={element.title.size || 24}
                                   onChange={(e) => updateElementConfig(selectedElementId, 'title.size', parseInt(e.target.value))}
-                                  className="flex-1 bg-gray-800 border-gray-700 h-7"
+                                  className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
                                   min="16"
                                   max="64"
                                   step="2"
@@ -1524,7 +1524,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                                   type="range"
                                   value={element.subtitle.size || 18}
                                   onChange={(e) => updateElementConfig(selectedElementId, 'subtitle.size', parseInt(e.target.value))}
-                                  className="flex-1 bg-gray-800 border-gray-700 h-7"
+                                  className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
                                   min="12"
                                   max="32"
                                   step="2"
@@ -1577,7 +1577,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                                   type="range"
                                   value={element.description.size || 16}
                                   onChange={(e) => updateElementConfig(selectedElementId, 'description.size', parseInt(e.target.value))}
-                                  className="flex-1 bg-gray-800 border-gray-700 h-7"
+                                  className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
                                   min="12"
                                   max="24"
                                   step="1"
@@ -1859,7 +1859,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                               type="range"
                               value={element.padding.top || 80}
                               onChange={(e) => updateElementConfig(selectedElementId, 'padding.top', parseInt(e.target.value))}
-                              className="flex-1 bg-gray-800 border-gray-700 h-7"
+                              className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
                               min="0"
                               max="200"
                               step="10"
@@ -1875,7 +1875,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                               type="range"
                               value={element.padding.bottom || 80}
                               onChange={(e) => updateElementConfig(selectedElementId, 'padding.bottom', parseInt(e.target.value))}
-                              className="flex-1 bg-gray-800 border-gray-700 h-7"
+                              className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
                               min="0"
                               max="200"
                               step="10"
@@ -1891,7 +1891,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                               type="range"
                               value={element.padding.left || 60}
                               onChange={(e) => updateElementConfig(selectedElementId, 'padding.left', parseInt(e.target.value))}
-                              className="flex-1 bg-gray-800 border-gray-700 h-7"
+                              className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
                               min="0"
                               max="200"
                               step="10"
@@ -1907,7 +1907,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                               type="range"
                               value={element.padding.right || 60}
                               onChange={(e) => updateElementConfig(selectedElementId, 'padding.right', parseInt(e.target.value))}
-                              className="flex-1 bg-gray-800 border-gray-700 h-7"
+                              className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
                               min="0"
                               max="200"
                               step="10"
@@ -1948,7 +1948,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                                   type="range"
                                   value={(element.overlay.opacity || 0.1) * 100}
                                   onChange={(e) => updateElementConfig(selectedElementId, 'overlay.opacity', parseInt(e.target.value) / 100)}
-                                  className="flex-1 bg-gray-800 border-gray-700 h-7"
+                                  className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
                                   min="0"
                                   max="100"
                                   step="5"
