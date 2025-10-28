@@ -184,6 +184,59 @@ const generateBlockHTML = (config) => {
                     ${buttonHTML}
                     ${socialIconsHTML}
                   </div>
+                  
+                  <!-- Mobile Menu Dropdown -->
+                  <div id="mobile-dropdown-${menuId}" class="mobile-menu-dropdown-${menuId}" style="
+                    display: none;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    right: 0;
+                    background-color: ${getMenuBgColor()};
+                    backdrop-filter: ${config.transparent ? 'blur(10px)' : 'none'};
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    z-index: 999;
+                    max-height: 0;
+                    overflow: hidden;
+                    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+                    opacity: 0;
+                  ">
+                    <div style="padding: 16px 24px;">
+                      ${config.menuItems.filter(item => item.show).map(item => `
+                        <a href="${item.link}" style="
+                          display: block;
+                          font-size: 15px;
+                          font-weight: 500;
+                          color: ${item.color};
+                          text-decoration: none;
+                          padding: 12px 0;
+                          border-bottom: 1px solid rgba(0,0,0,0.1);
+                        ">
+                          ${item.text}
+                        </a>
+                      `).join('')}
+                      ${config.button.show ? `
+                        <a href="${config.button.link}" style="
+                          display: inline-block;
+                          margin-top: 16px;
+                          background-color: ${config.button.color};
+                          color: ${config.button.textColor};
+                          padding: 10px 24px;
+                          font-size: 15px;
+                          border-radius: 8px;
+                          border: ${config.button.color === 'transparent' ? `2px solid ${config.button.textColor}` : 'none'};
+                          font-weight: 600;
+                          text-decoration: none;
+                          text-align: center;
+                          width: 100%;
+                          box-sizing: border-box;
+                        ">
+                          ${config.button.text}
+                        </a>
+                      ` : ''}
+                      ${socialIconsHTML}
+                    </div>
+                  </div>
                 </div>
               `;
             }
