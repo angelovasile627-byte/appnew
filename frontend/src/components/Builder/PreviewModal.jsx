@@ -331,6 +331,18 @@ const generateBlockHTML = (config) => {
                   ${config.button.text}
                 </a>
               ` : ''}
+              ${socialIconsHTML ? `
+                <div style="
+                  margin-top: 20px;
+                  padding-top: 16px;
+                  border-top: 1px solid rgba(0,0,0,0.1);
+                  display: flex;
+                  justify-content: center;
+                  gap: ${config.socialIcons.spacing || 12}px;
+                ">
+                  ${socialIconsHTML}
+                </div>
+              ` : ''}
             </div>
           </div>
         </nav>
