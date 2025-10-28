@@ -64,12 +64,14 @@ export const HeroParallaxBlock = ({ config, onUpdate }) => {
 
   const containerStyle = {
     position: 'relative',
-    minHeight: config.fullScreen ? '100vh' : '600px',
+    minHeight: config.fullScreen ? '100vh' : 'auto',
     width: '100%',
     overflow: 'hidden',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingTop: config.fullScreen ? '0px' : `${config.padding?.top || 60}px`,
+    paddingBottom: config.fullScreen ? '0px' : `${config.padding?.bottom || 80}px`
   };
 
   const contentWrapperStyle = {
