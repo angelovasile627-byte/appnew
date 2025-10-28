@@ -1278,9 +1278,28 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
             ) : (
               /* Individual Element Editing */
               (() => {
-                const element = config.layout === 'split' 
-                  ? (selectedElementId === 'left-content' ? config.leftContent : config.rightContent)
-                  : config.elements?.find(el => el.id === selectedElementId);
+                let element;
+                
+                if (config.layout === 'split') {
+                  // For split layout
+                  element = selectedElementId === 'left-content' ? config.leftContent : config.rightContent;
+                } else if (config.layout === 'vertical') {
+                  // For vertical layout, check if it's a composite ID
+                  if (selectedElementId.endsWith('-left') || selectedElementId.endsWith('-right')) {
+                    const side = selectedElementId.endsWith('-left') ? 'left' : 'right';
+                    const baseId = selectedElementId.replace(/-left$|-right$/, '');
+                    const parentElement = config.elements?.find(el => el.id === baseId);
+                    
+                    if (parentElement) {
+                      element = side === 'left' ? parentElement.leftContent : parentElement.rightContent;
+                    }
+                  } else {
+                    element = config.elements?.find(el => el.id === selectedElementId);
+                  }
+                } else {
+                  // For grid layout
+                  element = config.elements?.find(el => el.id === selectedElementId);
+                }
                 
                 if (!element) return <p className="text-[9px] text-gray-400">Element not found</p>;
 
