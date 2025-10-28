@@ -1970,10 +1970,10 @@ const generateBlockHTML = (config) => {
         const positions = [
           { x: '-500%', y: '-200%', area: 'one' },
           { x: '-75%', y: '-200%', area: 'two' },
-          { x: '200%', y: '0', area: 'three' },
+          { x: '200%', y: '0%', area: 'three' },
           { x: '500%', y: '-200%', area: 'four' },
           { x: '-500%', y: '100%', area: 'five' },
-          { x: '-200%', y: '0', area: 'six' },
+          { x: '-200%', y: '0%', area: 'six' },
           { x: '75%', y: '200%', area: 'seven' },
           { x: '500%', y: '200%', area: 'eight' }
         ];
@@ -2044,18 +2044,15 @@ const generateBlockHTML = (config) => {
           
           .gallery-scroll-item {
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: box-shadow 0.3s ease;
             animation: animate-boxes-preview linear both;
-            animation-timeline: view();
-            animation-range: entry 0% cover 50%;
+            animation-timeline: scroll(root);
+            animation-range: entry 0% exit 100%;
           }
           
           /* Box animations - images slide in */
           @keyframes animate-boxes-preview {
             0% {
-              translate: var(--x) var(--y);
-            }
-            15% {
               translate: var(--x) var(--y);
             }
             100% {
@@ -2070,7 +2067,7 @@ const generateBlockHTML = (config) => {
               --center-x: -250px;
               --center-y: -250px;
             }
-            25%, 65% {
+            50% {
               --mouse-w: 300px;
               --center-x: -100px;
               --center-y: -100px;
@@ -2084,13 +2081,12 @@ const generateBlockHTML = (config) => {
           
           /* Hover effects */
           .gallery-scroll-item:hover {
-            transform: scale(1.05) !important;
             box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
             z-index: 10;
           }
           
           .gallery-scroll-center:hover {
-            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
           }
           
           /* Lightbox styles */
@@ -2190,8 +2186,8 @@ const generateBlockHTML = (config) => {
                 position: relative;
                 cursor: pointer;
                 animation: animate-center-preview linear both;
-                animation-timeline: view();
-                animation-range: entry 0% cover 50%;
+                animation-timeline: scroll(root);
+                animation-range: entry 0% exit 100%;
               "
             ></div>
           </div>
