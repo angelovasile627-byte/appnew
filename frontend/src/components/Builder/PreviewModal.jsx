@@ -1980,7 +1980,7 @@ const generateBlockHTML = (config) => {
           overflow: hidden;
         ">
           <nav class="gallery-3d-nav" style="
-            height: min(8rem, 100%);
+            height: min(20rem, 100%);
             width: min(30rem, 100%);
             display: flex;
             align-items: flex-end;
