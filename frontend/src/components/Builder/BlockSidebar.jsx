@@ -234,6 +234,94 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                 );
               }
               
+              // Parallax block
+              if (config.type === 'parallax') {
+                return (
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '100%',
+                    gap: '0px',
+                    overflow: 'hidden'
+                  }}>
+                    {/* Hero Section Preview */}
+                    <div style={{
+                      backgroundImage: `url(${config.hero?.background?.value || ''})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      minHeight: '35px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: '4px'
+                    }}>
+                      {config.hero?.title?.show && (
+                        <div style={{
+                          color: config.hero.title.color,
+                          fontWeight: 700,
+                          fontSize: '6px',
+                          textAlign: 'center'
+                        }}>
+                          {(config.hero.title.text || '').substring(0, 20)}
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* Spacer Preview */}
+                    <div style={{
+                      backgroundColor: config.spacer?.backgroundColor || '#333333',
+                      minHeight: '10px'
+                    }}></div>
+                    
+                    {/* Cards Section Preview */}
+                    <div style={{
+                      backgroundImage: `url(${config.cardsSection?.background?.value || ''})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      flex: 1,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '3px',
+                      padding: '4px'
+                    }}>
+                      {(config.cards || []).slice(0, 3).map((card, idx) => (
+                        <div
+                          key={idx}
+                          style={{
+                            width: '22px',
+                            height: '28px',
+                            backgroundColor: 'white',
+                            borderRadius: '2px',
+                            overflow: 'hidden',
+                            display: 'flex',
+                            flexDirection: 'column'
+                          }}
+                        >
+                          <div style={{
+                            backgroundImage: `url(${card.image})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            height: '12px',
+                            width: '90%',
+                            margin: '2px auto 0'
+                          }}></div>
+                          <div style={{
+                            fontSize: '3px',
+                            padding: '2px',
+                            textAlign: 'center',
+                            color: '#333',
+                            fontWeight: 600
+                          }}>
+                            {(card.title || '').substring(0, 10)}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+              
               // Article block
               if (config.type === 'article') {
                 return (
