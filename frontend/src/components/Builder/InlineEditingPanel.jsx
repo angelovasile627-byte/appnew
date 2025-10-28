@@ -1711,6 +1711,78 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                         )}
                       </>
                     )}
+
+                    {/* Metadata Controls (for Split Layout) */}
+                    {element.metadata && (
+                      <>
+                        <div className="flex items-center justify-between py-0.5 border-t border-gray-800 pt-1">
+                          <Label className="text-[9px] text-gray-300">Show Metadata</Label>
+                          <Switch
+                            checked={element.metadata.show ?? false}
+                            onCheckedChange={(checked) => updateElementConfig(selectedElementId, 'metadata.show', checked)}
+                          />
+                        </div>
+                        
+                        {element.metadata.show && (
+                          <>
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Author</Label>
+                              <Input
+                                type="text"
+                                value={element.metadata.author || ''}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'metadata.author', e.target.value)}
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                              />
+                            </div>
+                            
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Date</Label>
+                              <Input
+                                type="text"
+                                value={element.metadata.date || ''}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'metadata.date', e.target.value)}
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                              />
+                            </div>
+                            
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Read Time</Label>
+                              <Input
+                                type="text"
+                                value={element.metadata.readTime || ''}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'metadata.readTime', e.target.value)}
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                              />
+                            </div>
+                            
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Metadata Color</Label>
+                              <Input
+                                type="color"
+                                value={element.metadata.color || '#4a5568'}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'metadata.color', e.target.value)}
+                                className="w-6 h-6 bg-gray-800 border-gray-700"
+                              />
+                            </div>
+                          </>
+                        )}
+                      </>
+                    )}
+
+                    {/* Background Controls (for Vertical Layout elements) */}
+                    {element.background && (
+                      <>
+                        <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                          <Label className="text-[9px] text-gray-300">Background Color</Label>
+                          <Input
+                            type="color"
+                            value={element.background.value || '#ffffff'}
+                            onChange={(e) => updateElementConfig(selectedElementId, 'background.value', e.target.value)}
+                            className="w-6 h-6 bg-gray-800 border-gray-700"
+                          />
+                        </div>
+                      </>
+                    )}
                   </>
                 );
               })()
