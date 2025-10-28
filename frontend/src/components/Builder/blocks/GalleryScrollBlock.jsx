@@ -295,57 +295,14 @@ export const GalleryScrollBlock = ({ config, onUpdate }) => {
             onClick={() => setLightboxImage(config.images[7])}
           />
 
-          {/* Center Image with Text */}
+          {/* Center Image */}
           <div
             className="gallery-scroll-center"
             style={{
               backgroundImage: `url(${config.images[8]})`
             }}
             onClick={() => setLightboxImage(config.images[8])}
-          >
-            <div className="gallery-scroll-text">
-              <h1 style={{
-                fontSize: `${config.title?.size || 48}px`,
-                fontWeight: config.title?.weight || 500,
-                margin: '0 0 10px 0'
-              }}>
-                {config.title?.text || 'Sliding images'}
-              </h1>
-              <p style={{
-                fontSize: `${config.description?.size || 18}px`,
-                margin: 0
-              }}>
-                {config.description?.text || 'Scroll to reveal the images'}
-              </p>
-            </div>
-
-            <svg
-              className="gallery-scroll-mouse"
-              xmlns="http://www.w3.org/2000/svg"
-              width="40"
-              height="40"
-              viewBox="0 0 24 40"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path strokeWidth="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M6 3m0 4a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-4a4 4 0 0 1 -4 -4z" />
-              <path d="M12 7l0 4" />
-              <path d="M8 26l4 4l4 -4">
-                <animateTransform
-                  attributeType="XML"
-                  attributeName="transform"
-                  type="translate"
-                  values="0 0; 0 4; 0 0"
-                  dur="1s"
-                  repeatCount="indefinite"
-                />
-              </path>
-            </svg>
-          </div>
+          />
         </div>
       </div>
 
