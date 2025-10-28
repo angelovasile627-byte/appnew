@@ -251,7 +251,7 @@ const generateBlockHTML = (config) => {
                           ${config.button.text}
                         </a>
                       ` : ''}
-                      ${socialIconsHTML}
+                      ${socialIconsMobileHTML}
                     </div>
                   </div>
                 </div>
@@ -354,7 +354,7 @@ const generateBlockHTML = (config) => {
                           ${config.button.text}
                         </a>
                       ` : ''}
-                      ${socialIconsHTML}
+                      ${socialIconsMobileHTML}
                     </div>
                   </div>
                 </div>
