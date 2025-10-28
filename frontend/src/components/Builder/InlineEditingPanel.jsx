@@ -2427,6 +2427,349 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
             </div>
           </div>
         )}
+
+        {/* Parallax Block Controls */}
+        {config.type === 'parallax' && (
+          <div className="space-y-0.5">
+            <h4 className="text-[9px] font-bold text-white uppercase tracking-wider border-b border-gray-700 pb-1">Parallax Settings</h4>
+            
+            {/* Hero Section */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h5 className="text-[9px] font-semibold text-indigo-400">Hero Section</h5>
+              
+              {/* Hero Background Image */}
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Background Image URL</Label>
+                <Input
+                  type="text"
+                  value={config.hero?.background?.value || ''}
+                  onChange={(e) => updateConfig('hero.background.value', e.target.value)}
+                  className="bg-gray-800 border-gray-700 text-white text-[10px] h-7"
+                  placeholder="https://..."
+                />
+              </div>
+
+              {/* Hero Title */}
+              <div className="space-y-0.5">
+                <div className="flex items-center justify-between">
+                  <Label className="text-[9px] text-gray-300">Title</Label>
+                  <Switch
+                    checked={config.hero?.title?.show ?? true}
+                    onCheckedChange={(checked) => updateConfig('hero.title.show', checked)}
+                  />
+                </div>
+                {config.hero?.title?.show && (
+                  <>
+                    <Input
+                      type="text"
+                      value={config.hero?.title?.text || ''}
+                      onChange={(e) => updateConfig('hero.title.text', e.target.value)}
+                      className="bg-gray-800 border-gray-700 text-white text-[10px] h-7"
+                    />
+                    <div className="flex gap-1.5">
+                      <div className="flex-1">
+                        <Label className="text-[9px] text-gray-300">Size</Label>
+                        <Input
+                          type="range"
+                          value={config.hero?.title?.size || 48}
+                          onChange={(e) => updateConfig('hero.title.size', parseInt(e.target.value))}
+                          className="w-full bg-gray-800 border-gray-700"
+                          min="24"
+                          max="80"
+                        />
+                        <span className="text-[9px] text-gray-400">{config.hero?.title?.size || 48}px</span>
+                      </div>
+                      <div className="flex-1">
+                        <Label className="text-[9px] text-gray-300">Color</Label>
+                        <Input
+                          type="color"
+                          value={config.hero?.title?.color || '#333333'}
+                          onChange={(e) => updateConfig('hero.title.color', e.target.value)}
+                          className="w-full h-6 bg-gray-800 border-gray-700"
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Hero Description */}
+              <div className="space-y-0.5">
+                <div className="flex items-center justify-between">
+                  <Label className="text-[9px] text-gray-300">Description</Label>
+                  <Switch
+                    checked={config.hero?.description?.show ?? true}
+                    onCheckedChange={(checked) => updateConfig('hero.description.show', checked)}
+                  />
+                </div>
+                {config.hero?.description?.show && (
+                  <>
+                    <Textarea
+                      value={config.hero?.description?.text || ''}
+                      onChange={(e) => updateConfig('hero.description.text', e.target.value)}
+                      className="bg-gray-800 border-gray-700 text-white text-[10px] min-h-[60px]"
+                      rows={2}
+                    />
+                    <div className="flex gap-1.5">
+                      <div className="flex-1">
+                        <Label className="text-[9px] text-gray-300">Size</Label>
+                        <Input
+                          type="range"
+                          value={config.hero?.description?.size || 16}
+                          onChange={(e) => updateConfig('hero.description.size', parseInt(e.target.value))}
+                          className="w-full bg-gray-800 border-gray-700"
+                          min="12"
+                          max="24"
+                        />
+                        <span className="text-[9px] text-gray-400">{config.hero?.description?.size || 16}px</span>
+                      </div>
+                      <div className="flex-1">
+                        <Label className="text-[9px] text-gray-300">Color</Label>
+                        <Input
+                          type="color"
+                          value={config.hero?.description?.color || '#333333'}
+                          onChange={(e) => updateConfig('hero.description.color', e.target.value)}
+                          className="w-full h-6 bg-gray-800 border-gray-700"
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Hero Button */}
+              <div className="space-y-0.5">
+                <div className="flex items-center justify-between">
+                  <Label className="text-[9px] text-gray-300">Button</Label>
+                  <Switch
+                    checked={config.hero?.button?.show ?? true}
+                    onCheckedChange={(checked) => updateConfig('hero.button.show', checked)}
+                  />
+                </div>
+                {config.hero?.button?.show && (
+                  <>
+                    <Input
+                      type="text"
+                      value={config.hero?.button?.text || ''}
+                      onChange={(e) => updateConfig('hero.button.text', e.target.value)}
+                      placeholder="Button text"
+                      className="bg-gray-800 border-gray-700 text-white text-[10px] h-7"
+                    />
+                    <Input
+                      type="text"
+                      value={config.hero?.button?.link || '#'}
+                      onChange={(e) => updateConfig('hero.button.link', e.target.value)}
+                      placeholder="Link URL"
+                      className="bg-gray-800 border-gray-700 text-white text-[10px] h-7"
+                    />
+                    <div className="flex gap-1.5">
+                      <div className="flex-1">
+                        <Label className="text-[9px] text-gray-300">Background</Label>
+                        <Input
+                          type="color"
+                          value={config.hero?.button?.color || '#333333'}
+                          onChange={(e) => updateConfig('hero.button.color', e.target.value)}
+                          className="w-full h-6 bg-gray-800 border-gray-700"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <Label className="text-[9px] text-gray-300">Text</Label>
+                        <Input
+                          type="color"
+                          value={config.hero?.button?.textColor || '#ffffff'}
+                          onChange={(e) => updateConfig('hero.button.textColor', e.target.value)}
+                          className="w-full h-6 bg-gray-800 border-gray-700"
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Spacer Section */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h5 className="text-[9px] font-semibold text-indigo-400">Spacer Settings</h5>
+              
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Height</Label>
+                <div className="flex items-center gap-1.5">
+                  <Input
+                    type="range"
+                    value={config.spacer?.height || 400}
+                    onChange={(e) => updateConfig('spacer.height', parseInt(e.target.value))}
+                    className="flex-1 bg-gray-800 border-gray-700"
+                    min="100"
+                    max="800"
+                    step="50"
+                  />
+                  <span className="text-[9px] text-gray-400 w-12">{config.spacer?.height || 400}px</span>
+                </div>
+              </div>
+
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Background Color</Label>
+                <Input
+                  type="color"
+                  value={config.spacer?.backgroundColor || '#333333'}
+                  onChange={(e) => updateConfig('spacer.backgroundColor', e.target.value)}
+                  className="w-full h-6 bg-gray-800 border-gray-700"
+                />
+              </div>
+            </div>
+
+            {/* Cards Section */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h5 className="text-[9px] font-semibold text-indigo-400">Cards Section</h5>
+              
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Background Image URL</Label>
+                <Input
+                  type="text"
+                  value={config.cardsSection?.background?.value || ''}
+                  onChange={(e) => updateConfig('cardsSection.background.value', e.target.value)}
+                  className="bg-gray-800 border-gray-700 text-white text-[10px] h-7"
+                  placeholder="https://..."
+                />
+              </div>
+
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Section Height</Label>
+                <div className="flex items-center gap-1.5">
+                  <Input
+                    type="range"
+                    value={config.cardsSection?.height || 1200}
+                    onChange={(e) => updateConfig('cardsSection.height', parseInt(e.target.value))}
+                    className="flex-1 bg-gray-800 border-gray-700"
+                    min="600"
+                    max="2000"
+                    step="100"
+                  />
+                  <span className="text-[9px] text-gray-400 w-12">{config.cardsSection?.height || 1200}px</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Cards Management */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <div className="flex items-center justify-between">
+                <h5 className="text-[9px] font-semibold text-indigo-400">Cards ({config.cards?.length || 0})</h5>
+                <Button
+                  onClick={() => {
+                    const newCard = {
+                      id: `card-${Date.now()}`,
+                      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop',
+                      title: 'New Activity',
+                      description: 'Add your description here',
+                      link: '#',
+                      linkText: 'Learn more'
+                    };
+                    const newCards = [...(config.cards || []), newCard];
+                    updateConfig('cards', newCards);
+                  }}
+                  className="bg-indigo-600 hover:bg-indigo-700 text-white h-6 text-[10px] px-2"
+                >
+                  + Add Card
+                </Button>
+              </div>
+
+              {config.cards?.map((card, index) => (
+                <div key={card.id} className="space-y-0.5 border border-gray-700 p-1.5 rounded">
+                  <div className="flex items-center justify-between mb-1">
+                    <Label className="text-[9px] font-semibold text-white">Card {index + 1}</Label>
+                    <Button
+                      onClick={() => {
+                        const newCards = config.cards.filter(c => c.id !== card.id);
+                        updateConfig('cards', newCards);
+                      }}
+                      className="bg-red-600 hover:bg-red-700 text-white h-5 w-5 p-0 text-[10px]"
+                    >
+                      ×
+                    </Button>
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Image URL</Label>
+                    <Input
+                      type="text"
+                      value={card.image || ''}
+                      onChange={(e) => {
+                        const newCards = [...config.cards];
+                        newCards[index] = { ...card, image: e.target.value };
+                        updateConfig('cards', newCards);
+                      }}
+                      className="bg-gray-800 border-gray-700 text-white text-[10px] h-7"
+                      placeholder="https://..."
+                    />
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Title</Label>
+                    <Input
+                      type="text"
+                      value={card.title || ''}
+                      onChange={(e) => {
+                        const newCards = [...config.cards];
+                        newCards[index] = { ...card, title: e.target.value };
+                        updateConfig('cards', newCards);
+                      }}
+                      className="bg-gray-800 border-gray-700 text-white text-[10px] h-7"
+                    />
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Description</Label>
+                    <Textarea
+                      value={card.description || ''}
+                      onChange={(e) => {
+                        const newCards = [...config.cards];
+                        newCards[index] = { ...card, description: e.target.value };
+                        updateConfig('cards', newCards);
+                      }}
+                      className="bg-gray-800 border-gray-700 text-white text-[10px] min-h-[50px]"
+                      rows={2}
+                    />
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Button Text</Label>
+                    <Input
+                      type="text"
+                      value={card.linkText || ''}
+                      onChange={(e) => {
+                        const newCards = [...config.cards];
+                        newCards[index] = { ...card, linkText: e.target.value };
+                        updateConfig('cards', newCards);
+                      }}
+                      className="bg-gray-800 border-gray-700 text-white text-[10px] h-7"
+                    />
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Link URL</Label>
+                    <Input
+                      type="text"
+                      value={card.link || ''}
+                      onChange={(e) => {
+                        const newCards = [...config.cards];
+                        newCards[index] = { ...card, link: e.target.value };
+                        updateConfig('cards', newCards);
+                      }}
+                      className="bg-gray-800 border-gray-700 text-white text-[10px] h-7"
+                      placeholder="#"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="pt-1 border-t border-gray-700">
+              <p className="text-[9px] text-indigo-400 italic">
+                💡 Parallax effect cu background-attachment: fixed
+              </p>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Social Icons Modal */}
