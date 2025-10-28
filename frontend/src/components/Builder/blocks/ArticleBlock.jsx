@@ -396,14 +396,21 @@ export const ArticleBlock = ({ config, onUpdate, onSelectElement, selectedElemen
                 </div>
 
                 {/* Right Content */}
-                <div style={{
-                  width: `${element.rightWidth || 50}%`,
-                  padding: element.rightContent?.type === 'image' ? '0' : '60px 40px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  position: 'relative'
-                }}>
+                <div 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSelectElement && onSelectElement(`${element.id}-right`);
+                  }}
+                  style={{
+                    width: `${element.rightWidth || 50}%`,
+                    padding: element.rightContent?.type === 'image' ? '0' : '60px 40px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    position: 'relative',
+                    cursor: 'pointer',
+                    border: selectedElementId === `${element.id}-right` ? '2px solid #667eea' : 'none'
+                  }}>
                   {element.rightContent?.type === 'text' && (
                     <>
                       {element.rightContent.title?.show && (
