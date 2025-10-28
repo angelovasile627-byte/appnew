@@ -118,7 +118,10 @@ export const ArticleBlock = ({ config, onUpdate, onSelectElement, selectedElemen
                 border: selectedElementId === element.id ? '3px solid #667eea' : '3px solid transparent',
                 boxShadow: selectedElementId === element.id 
                   ? '0 8px 24px rgba(102, 126, 234, 0.3)' 
-                  : '0 4px 12px rgba(0,0,0,0.1)'
+                  : '0 4px 12px rgba(0,0,0,0.1)',
+                minHeight: element.minHeight ? `${element.minHeight}px` : 'auto',
+                display: 'flex',
+                flexDirection: 'column'
               }}
               onMouseEnter={(e) => {
                 if (selectedElementId !== element.id) {
