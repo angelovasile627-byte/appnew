@@ -1585,5 +1585,81 @@ export const blockTemplates = [
         'https://images.unsplash.com/photo-1682687220866-c856f566f1bd?w=800&h=800&fit=crop'
       ]
     }
+  },
+  {
+    id: 'parallax-1',
+    category: 'parallax',
+    name: 'Parallax - Mountain Star',
+    thumbnail: 'https://images.unsplash.com/photo-1519120944692-1a8d8cfc107f?w=400&h=300&fit=crop',
+    config: {
+      type: 'parallax',
+      hero: {
+        background: {
+          type: 'image',
+          value: 'https://images.unsplash.com/photo-1519120944692-1a8d8cfc107f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=872&q=80',
+          parallax: true
+        },
+        title: {
+          text: 'Mountain Star Zlatibor',
+          show: true,
+          color: '#333333',
+          size: 48,
+          weight: 700
+        },
+        description: {
+          text: 'Zlatibor is a mountain of exceptional beauty whose special geographical properties have made this mountain a real gem of western Serbia.',
+          show: true,
+          color: '#333333',
+          size: 16,
+          maxWidth: '52ch'
+        },
+        button: {
+          text: 'Learn more',
+          show: true,
+          color: '#333333',
+          textColor: '#ffffff',
+          link: '#',
+          size: 14
+        }
+      },
+      spacer: {
+        height: 400,
+        backgroundColor: '#333333'
+      },
+      cardsSection: {
+        background: {
+          type: 'image',
+          value: 'https://images.unsplash.com/photo-1514496959998-c01c40915c5f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80',
+          parallax: true
+        },
+        height: 1200
+      },
+      cards: [
+        {
+          id: 'card-1',
+          image: 'https://images.unsplash.com/photo-1522163182402-834f871fd851?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1606&q=80',
+          title: 'Rock climbing',
+          description: 'The goal is to reach the summit of a formation or the endpoint of a usually pre-defined route without falling',
+          link: '#',
+          linkText: 'Learn more'
+        },
+        {
+          id: 'card-2',
+          image: 'https://images.unsplash.com/photo-1628746404106-4d3843b231b3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F2aW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
+          title: 'Caving',
+          description: 'Exploring underground through networks of tunnels and passageways, which can be natural or artificial.',
+          link: '#',
+          linkText: 'Learn more'
+        },
+        {
+          id: 'card-3',
+          image: 'https://images.unsplash.com/photo-1632853073412-782bf0279d65?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+          title: 'Parachuting',
+          description: 'Jumping from an aeroplane and falling through the air before opening your parachute.',
+          link: '#',
+          linkText: 'Learn more'
+        }
+      ]
+    }
   }
 ];
