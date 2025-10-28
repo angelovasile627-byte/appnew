@@ -40,7 +40,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
     const newConfig = { ...config };
     
     // Handle different layout types
-    if (config.layout === 'grid' || config.layout === 'vertical') {
+    if (config.layout === 'grid') {
       const elements = [...(config.elements || [])];
       const elementIndex = elements.findIndex(el => el.id === elementId);
       
@@ -57,6 +57,52 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
         current[keys[keys.length - 1]] = value;
         elements[elementIndex] = updatedElement;
         newConfig.elements = elements;
+      }
+    } else if (config.layout === 'vertical') {
+      // For vertical layout, elements have leftContent and rightContent
+      const elements = [...(config.elements || [])];
+      
+      // Check if elementId is a composite ID like 'article-vertical-1-left'
+      if (elementId.endsWith('-left') || elementId.endsWith('-right')) {
+        const side = elementId.endsWith('-left') ? 'left' : 'right';
+        const baseId = elementId.replace(/-left$|-right$/, '');
+        const elementIndex = elements.findIndex(el => el.id === baseId);
+        
+        if (elementIndex !== -1) {
+          const keys = path.split('.');
+          const updatedElement = JSON.parse(JSON.stringify(elements[elementIndex]));
+          const contentKey = side === 'left' ? 'leftContent' : 'rightContent';
+          
+          if (!updatedElement[contentKey]) updatedElement[contentKey] = {};
+          let current = updatedElement[contentKey];
+          
+          for (let i = 0; i < keys.length - 1; i++) {
+            if (!current[keys[i]]) current[keys[i]] = {};
+            current = current[keys[i]];
+          }
+          
+          current[keys[keys.length - 1]] = value;
+          elements[elementIndex] = updatedElement;
+          newConfig.elements = elements;
+        }
+      } else {
+        // Fallback for old behavior
+        const elementIndex = elements.findIndex(el => el.id === elementId);
+        
+        if (elementIndex !== -1) {
+          const keys = path.split('.');
+          const updatedElement = JSON.parse(JSON.stringify(elements[elementIndex]));
+          let current = updatedElement;
+          
+          for (let i = 0; i < keys.length - 1; i++) {
+            if (!current[keys[i]]) current[keys[i]] = {};
+            current = current[keys[i]];
+          }
+          
+          current[keys[keys.length - 1]] = value;
+          elements[elementIndex] = updatedElement;
+          newConfig.elements = elements;
+        }
       }
     } else if (config.layout === 'split') {
       // For split layout, update leftContent or rightContent
