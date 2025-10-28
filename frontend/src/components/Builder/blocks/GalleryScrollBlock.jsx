@@ -59,9 +59,9 @@ export const GalleryScrollBlock = ({ config, onUpdate }) => {
 
         .gallery-scroll-wrapper {
           --gap: 1rem;
-          position: fixed;
-          inset: 0;
-          width: 100vw;
+          position: sticky;
+          top: 0;
+          width: 100%;
           height: 100vh;
           display: grid;
           grid-template-columns: 1fr 2fr ${sizeBase}px 2fr 1fr;
