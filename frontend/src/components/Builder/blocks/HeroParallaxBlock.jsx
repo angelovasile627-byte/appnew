@@ -172,21 +172,6 @@ export const HeroParallaxBlock = ({ config, onUpdate }) => {
           </>
         )}
       </div>
-      
-      {/* Bottom White Space */}
-      {config.whiteSpace?.bottom > 0 && (
-        <div 
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: `${config.whiteSpace.bottom}px`,
-            backgroundColor: '#ffffff',
-            zIndex: 3
-          }}
-        />
-      )}
     </div>
   );
 };
