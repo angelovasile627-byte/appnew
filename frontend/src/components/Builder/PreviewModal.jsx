@@ -1964,6 +1964,146 @@ const generateBlockHTML = (config) => {
       `;
     }
 
+    case 'gallery-scroll': {
+      const imagesHTML = config.images.slice(0, 8).map((img, index) => {
+        const positions = [
+          { x: '-500%', y: '-200%', area: 'one' },
+          { x: '-75%', y: '-200%', area: 'two' },
+          { x: '200%', y: '0', area: 'three' },
+          { x: '500%', y: '-200%', area: 'four' },
+          { x: '-500%', y: '100%', area: 'five' },
+          { x: '-200%', y: '0', area: 'six' },
+          { x: '75%', y: '200%', area: 'seven' },
+          { x: '500%', y: '200%', area: 'eight' }
+        ];
+        
+        return `
+          <div style="
+            grid-area: ${positions[index].area};
+            background-image: url(${img});
+            background-size: cover;
+            background-position: center;
+            --x: ${positions[index].x};
+            --y: ${positions[index].y};
+            animation: slideIn 1s ease-out forwards;
+            animation-timeline: scroll();
+            transform: translate(var(--x), var(--y));
+          "></div>
+        `;
+      }).join('');
+
+      return `
+        <style>
+          @supports (animation-timeline: scroll()) {
+            @keyframes slideIn {
+              0%, 15% {
+                transform: translate(var(--x), var(--y));
+              }
+              100% {
+                transform: translate(0, 0);
+              }
+            }
+          }
+        </style>
+        <section style="
+          position: relative;
+          min-height: ${config.scrollHeight || 500}vh;
+          background-color: ${config.background?.color || '#111'};
+          width: 100%;
+          overflow: hidden;
+        ">
+          <div style="
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 2fr ${config.sizeBase || 100}px 2fr 1fr;
+            grid-template-rows: 1fr ${config.sizeBase || 100}px 1fr;
+            grid-template-areas:
+              'one two two three four'
+              'one six center three eight'
+              'five six seven seven eight';
+            gap: 1rem;
+          ">
+            ${imagesHTML}
+            
+            <div style="
+              grid-area: center;
+              background-color: ${config.centerBg || '#333'};
+              background-image: url(${config.images[8]});
+              background-size: cover;
+              background-position: center;
+              color: ${config.centerColor || 'white'};
+              display: grid;
+              place-content: center;
+              width: 600px;
+              aspect-ratio: 1;
+              translate: -250px -250px;
+              text-align: center;
+              position: relative;
+            ">
+              <div style="
+                font-family: 'Jura', sans-serif;
+                font-weight: 300;
+                padding: 20px;
+                background: rgba(0, 0, 0, 0.5);
+                border-radius: 8px;
+              ">
+                <h1 style="
+                  font-size: ${config.title?.size || 48}px;
+                  font-weight: ${config.title?.weight || 500};
+                  margin: 0 0 10px 0;
+                ">
+                  ${config.title?.text || 'Sliding images'}
+                </h1>
+                <p style="
+                  font-size: ${config.description?.size || 18}px;
+                  margin: 0;
+                ">
+                  ${config.description?.text || 'Scroll to reveal the images'}
+                </p>
+              </div>
+              
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="40" 
+                height="40" 
+                viewBox="0 0 24 40" 
+                fill="none" 
+                stroke="currentColor" 
+                stroke-width="2" 
+                stroke-linecap="round" 
+                stroke-linejoin="round"
+                style="
+                  position: absolute;
+                  bottom: 50px;
+                  left: 50%;
+                  transform: translateX(-50%);
+                  width: 50px;
+                  height: 50px;
+                "
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M6 3m0 4a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-4a4 4 0 0 1 -4 -4z" />
+                <path d="M12 7l0 4" />
+                <path d="M8 26l4 4l4 -4">
+                  <animateTransform 
+                    attributeType="XML" 
+                    attributeName="transform" 
+                    type="translate" 
+                    values="0 0; 0 4; 0 0" 
+                    dur="1s" 
+                    repeatCount="indefinite" 
+                  />
+                </path>
+              </svg>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
     default:
       return `<div style="padding: 40px; text-align: center; font-family: sans-serif;"><p>Bloc de tip "${config.type}" - previzualizare indisponibilă</p></div>`;
   }
