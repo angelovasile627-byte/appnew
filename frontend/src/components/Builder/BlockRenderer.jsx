@@ -28,6 +28,7 @@ const blockComponents = {
   intro: IntroBlock,
   cta: CTABlock,
   gallery: GalleryBlock,
+  'gallery-3d': Gallery3DBlock,
   testimonial: TestimonialBlock,
   contact: ContactBlock,
   pricing: PricingBlock,
