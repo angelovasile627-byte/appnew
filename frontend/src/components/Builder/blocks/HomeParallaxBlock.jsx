@@ -2,59 +2,56 @@ import React, { useEffect, useRef, useState } from 'react';
 
 const HomeParallaxBlock = ({ config, isEditing, onUpdate }) => {
   const containerRef = useRef(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [scrollY, setScrollY] = useState(0);
+  const animationFrameRef = useRef(null);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      setScrollY(scrollTop);
+    let time = 0;
+
+    const animate = () => {
+      time += 0.01;
+      
+      // Create smooth oscillating movement
+      const x = Math.sin(time) * 50;
+      const y = Math.cos(time * 0.8) * 30;
+      
+      setOffset({ x, y });
+      
+      animationFrameRef.current = requestAnimationFrame(animate);
     };
 
-    const handleMouseMove = (e) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        
-        // Calculate relative position from center (-1 to 1)
-        const x = (e.clientX - centerX) / (rect.width / 2);
-        const y = (e.clientY - centerY) / (rect.height / 2);
-        
-        setMousePos({ x, y });
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('mousemove', handleMouseMove);
-    
-    handleScroll(); // Initial calculation
+    // Start animation only in editing mode
+    if (isEditing) {
+      animate();
+    }
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('mousemove', handleMouseMove);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
     };
-  }, []);
+  }, [isEditing]);
 
   const calculateTransform = (layer) => {
     const speedX = layer.speedx || 0;
     const speedY = layer.speedy || 0;
     const speedZ = layer.speedz || 0;
     const rotation = layer.rotation || 0;
+    const distance = layer.distance || 0;
 
-    // Combine scroll and mouse movement
-    const scrollEffect = scrollY * 0.5;
-    const mouseEffectX = mousePos.x * 100;
-    const mouseEffectY = mousePos.y * 100;
-
-    const translateX = (scrollEffect * speedX) + (mouseEffectX * speedX * 0.5);
-    const translateY = (scrollEffect * speedY) + (mouseEffectY * speedY * 0.5);
-    const scale = 1 + (scrollEffect * speedZ * 0.0001);
-    const rotate = scrollEffect * rotation;
+    // Apply offset based on layer speed
+    const translateX = offset.x * speedX * 10;
+    const translateY = offset.y * speedY * 10;
+    
+    // Add slight scale variation based on distance
+    const scale = 1 + (Math.abs(offset.x) * speedZ * 0.001);
+    
+    // Rotation based on offset
+    const rotate = offset.x * rotation * 5;
 
     return {
       transform: `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale}) rotate(${rotate}deg)`,
-      transition: 'transform 0.1s ease-out',
+      transition: 'transform 0.15s ease-out',
       willChange: 'transform'
     };
   };
