@@ -23,23 +23,9 @@ export const HeroParallaxBlock = ({ config, onUpdate }) => {
     minHeight: config.fullScreen ? '100vh' : 'auto',
     width: '100%',
     overflow: 'hidden',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: config.fullScreen ? '0px' : `${config.padding?.top || 60}px`,
-    paddingBottom: config.fullScreen ? '0px' : `${config.padding?.bottom || 80}px`
-  };
-
-  const contentWrapperStyle = {
-    position: 'relative',
-    zIndex: 2,
-    width: '100%',
-    maxWidth: config.fullWidth ? '100%' : `${config.contentWidth}px`,
-    margin: '0 auto',
-    padding: config.fullScreen 
-      ? `${config.padding?.top || 100}px 24px ${config.padding?.bottom || 100}px`
-      : '0 24px',
-    textAlign: config.title?.align || 'center'
+    ...getBackgroundStyle(),
+    paddingTop: !config.fullScreen ? `${config.paddingTop || 4}rem` : '0',
+    paddingBottom: !config.fullScreen ? `${config.paddingBottom || 5}rem` : '0'
   };
 
   const overlayStyle = config.overlay?.show ? {
@@ -53,51 +39,18 @@ export const HeroParallaxBlock = ({ config, onUpdate }) => {
     zIndex: 1
   } : null;
 
+  const contentWrapperStyle = {
+    position: 'relative',
+    zIndex: 2,
+    width: '100%',
+    maxWidth: config.fullWidth ? '100%' : `${config.contentWidth}px`,
+    margin: '0 auto',
+    padding: config.fullScreen ? `${config.paddingTop || 4}rem 24px ${config.paddingBottom || 5}rem` : '0 24px',
+    textAlign: config.title?.align || 'center'
+  };
+
   return (
-    <div ref={parallaxRef} style={containerStyle} data-block-type="hero-parallax">
-      {/* Top White Space */}
-      {config.whiteSpace?.top > 0 && (
-        <div 
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: `${config.whiteSpace.top}px`,
-            backgroundColor: '#ffffff',
-            zIndex: 3
-          }}
-        />
-      )}
-
-      {/* Background Layer */}
-      {config.background.type === 'image' && (
-        <div style={getBackground()} />
-      )}
-      
-      {config.background.type === 'video' && config.background.value && (
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            minWidth: '100%',
-            minHeight: '100%',
-            width: 'auto',
-            height: 'auto',
-            transform: 'translate(-50%, -50%)',
-            zIndex: 0,
-            objectFit: 'cover'
-          }}
-        >
-          <source src={config.background.value} type="video/mp4" />
-        </video>
-      )}
-
+    <div style={containerStyle} data-block-type="hero-parallax">
       {/* Overlay Layer */}
       {overlayStyle && <div style={overlayStyle} />}
 
