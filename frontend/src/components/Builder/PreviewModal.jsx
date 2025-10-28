@@ -1973,7 +1973,7 @@ const generateBlockHTML = (config) => {
           background-color: ${config.background?.value || '#020617'};
           padding: ${config.padding?.top || 80}px 24px ${config.padding?.bottom || 80}px;
           width: 100%;
-          min-height: 500px;
+          min-height: 600px;
           display: flex;
           align-items: center;
           justify-content: center;
