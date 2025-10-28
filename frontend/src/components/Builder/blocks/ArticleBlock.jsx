@@ -270,13 +270,21 @@ export const ArticleBlock = ({ config, onUpdate, onSelectElement, selectedElemen
               onMouseLeave={handleResizeEnd}
               >
                 {/* Left Content */}
-                <div style={{
-                  width: `${element.leftWidth || 50}%`,
-                  padding: '60px 40px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center'
-                }}>
+                <div 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSelectElement && onSelectElement(`${element.id}-left`);
+                  }}
+                  style={{
+                    width: `${element.leftWidth || 50}%`,
+                    padding: '60px 40px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    border: selectedElementId === `${element.id}-left` ? '2px solid #667eea' : 'none',
+                    position: 'relative'
+                  }}>
                   {element.leftContent?.type === 'text' && (
                     <>
                       {element.leftContent.title?.show && (
