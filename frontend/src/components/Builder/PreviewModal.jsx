@@ -1495,15 +1495,22 @@ const generateBlockHTML = (config) => {
           `
         : '';
 
+      const paddingTop = config.fullScreen ? (config.padding?.top || 100) : 0;
+      const paddingBottom = config.fullScreen ? (config.padding?.bottom || 100) : 0;
+      const containerPaddingTop = !config.fullScreen ? (config.padding?.top || 60) : 0;
+      const containerPaddingBottom = !config.fullScreen ? (config.padding?.bottom || 80) : 0;
+
       return `
         <div style="
           position: relative;
-          min-height: ${config.fullScreen ? '100vh' : '600px'};
+          min-height: ${config.fullScreen ? '100vh' : 'auto'};
           width: 100%;
           overflow: hidden;
           display: flex;
           align-items: center;
           justify-content: center;
+          padding-top: ${containerPaddingTop}px;
+          padding-bottom: ${containerPaddingBottom}px;
           ${bgStyle}
         ">
           ${config.whiteSpace?.top > 0 ? `
@@ -1526,7 +1533,7 @@ const generateBlockHTML = (config) => {
             width: 100%;
             max-width: ${config.fullWidth ? '100%' : `${config.contentWidth}px`};
             margin: 0 auto;
-            padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
+            padding: ${config.fullScreen ? `${paddingTop}px 24px ${paddingBottom}px` : '0 24px'};
             text-align: ${config.title?.align || 'center'};
           ">
             ${config.title?.show ? `
