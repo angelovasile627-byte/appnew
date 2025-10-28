@@ -2,41 +2,60 @@ import React, { useEffect, useRef, useState } from 'react';
 
 const HomeParallaxBlock = ({ config, isEditing, onUpdate }) => {
   const containerRef = useRef(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    if (!isEditing) return;
-
     const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      setScrollY(scrollTop);
+    };
+
+    const handleMouseMove = (e) => {
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
-        const scrollProgress = -rect.top;
-        setScrollY(scrollProgress);
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        // Calculate relative position from center (-1 to 1)
+        const x = (e.clientX - centerX) / (rect.width / 2);
+        const y = (e.clientY - centerY) / (rect.height / 2);
+        
+        setMousePos({ x, y });
       }
     };
 
     window.addEventListener('scroll', handleScroll);
+    window.addEventListener('mousemove', handleMouseMove);
+    
     handleScroll(); // Initial calculation
 
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isEditing]);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   const calculateTransform = (layer) => {
-    if (!scrollY) return {};
-
     const speedX = layer.speedx || 0;
     const speedY = layer.speedy || 0;
     const speedZ = layer.speedz || 0;
     const rotation = layer.rotation || 0;
 
-    const translateX = scrollY * speedX;
-    const translateY = scrollY * speedY;
-    const scale = 1 + (scrollY * speedZ * 0.0001);
-    const rotate = scrollY * rotation;
+    // Combine scroll and mouse movement
+    const scrollEffect = scrollY * 0.5;
+    const mouseEffectX = mousePos.x * 100;
+    const mouseEffectY = mousePos.y * 100;
+
+    const translateX = (scrollEffect * speedX) + (mouseEffectX * speedX * 0.5);
+    const translateY = (scrollEffect * speedy) + (mouseEffectY * speedY * 0.5);
+    const scale = 1 + (scrollEffect * speedZ * 0.0001);
+    const rotate = scrollEffect * rotation;
 
     return {
       transform: `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale}) rotate(${rotate}deg)`,
-      transition: 'transform 0.1s ease-out'
+      transition: 'transform 0.1s ease-out',
+      willChange: 'transform'
     };
   };
 
