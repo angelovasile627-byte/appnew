@@ -388,6 +388,40 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                   </div>
                 );
               }
+
+              // Gallery 3D block
+              if (config.type === 'gallery-3d') {
+                return (
+                  <div style={{
+                    background: config.background?.value || '#020617',
+                    padding: '8px',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      gap: '2px',
+                      height: '60%',
+                      perspective: '500px',
+                      transformStyle: 'preserve-3d'
+                    }}>
+                      {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
+                        <div key={i} style={{
+                          flex: 1,
+                          background: `linear-gradient(135deg, hsl(${i * 45}, 60%, ${40 + i * 5}%), hsl(${i * 45 + 30}, 60%, ${30 + i * 3}%))`,
+                          borderRadius: '1px',
+                          minWidth: '4px',
+                          transform: `rotateY(${i % 2 === 0 ? '5deg' : '-5deg'})`,
+                          opacity: 0.7 + (i * 0.03),
+                          transition: 'all 0.3s'
+                        }} />
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
               
               // Testimonial block
               if (config.type === 'testimonial') {
