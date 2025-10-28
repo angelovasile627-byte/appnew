@@ -452,7 +452,7 @@ const generateBlockHTML = (config) => {
                       ${config.button.text}
                     </a>
                   ` : ''}
-                  ${socialIconsHTML}
+                  ${socialIconsMobileHTML}
                 </div>
               </div>
             `;
