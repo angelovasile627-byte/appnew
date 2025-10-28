@@ -2022,16 +2022,6 @@ const generateBlockHTML = (config) => {
             inherits: true;
             initial-value: -250px;
           }
-          @property --text-opacity {
-            syntax: "<number>";
-            inherits: true;
-            initial-value: 1;
-          }
-          @property --mouse-rotate {
-            syntax: "<angle>";
-            inherits: true;
-            initial-value: 0deg;
-          }
           
           /* Box animations - images slide in */
           @keyframes animate-boxes {
