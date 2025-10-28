@@ -1592,6 +1592,104 @@ const generateBlockHTML = (config) => {
       `;
     }
 
+    case 'parallax': {
+      let bgStyle = '';
+      
+      if (config.background.type === 'image') {
+        bgStyle = `
+          background-image: url(${config.background.value});
+          background-size: cover;
+          background-position: center;
+          background-attachment: ${config.background.parallax ? 'fixed' : 'scroll'};
+        `;
+      } else if (config.background.type === 'video') {
+        // Video will be rendered separately
+      } else if (config.background.type === 'color') {
+        bgStyle = `background-color: ${config.background.value};`;
+      } else if (config.background.type === 'gradient') {
+        bgStyle = `background: ${config.background.value};`;
+      }
+
+      const overlayHtml = config.overlay && config.background.type !== 'color' ? `
+        <div style="
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: ${config.overlayColor || '#232323'};
+          opacity: ${config.overlayOpacity || 0.4};
+          z-index: 1;
+        "></div>
+      ` : '';
+
+      const videoHtml = config.background.type === 'video' ? `
+        <video autoplay loop muted playsinline style="
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          z-index: 0;
+        ">
+          <source src="${config.background.value}" type="video/mp4">
+        </video>
+      ` : '';
+
+      return `
+        <section style="
+          position: relative;
+          width: 100%;
+          min-height: ${config.fullScreen ? '100vh' : 'auto'};
+          padding-top: ${config.fullScreen ? 0 : (config.paddingTop || 60)}px;
+          padding-bottom: ${config.fullScreen ? 0 : (config.paddingBottom || 80)}px;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          ${bgStyle}
+        ">
+          ${videoHtml}
+          ${overlayHtml}
+          
+          <div style="
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: ${config.fullWidth ? '100%' : '1200px'};
+            margin: 0 auto;
+            padding: 0 24px;
+            text-align: center;
+          ">
+            ${config.content?.text ? `
+              <h2 style="
+                font-size: ${config.content.fontSize || 48}px;
+                font-weight: ${config.content.fontWeight || 700};
+                color: ${config.content.color || '#ffffff'};
+                margin-bottom: 16px;
+                line-height: 1.2;
+              ">
+                ${config.content.text}
+              </h2>
+            ` : ''}
+            
+            ${config.content?.description ? `
+              <p style="
+                font-size: ${config.content.descSize || 18}px;
+                color: ${config.content.color || '#ffffff'};
+                max-width: 600px;
+                margin: 0 auto;
+                line-height: 1.6;
+              ">
+                ${config.content.description}
+              </p>
+            ` : ''}
+          </div>
+        </section>
+      `;
+    }
+
     case 'features': {
       const bgStyle = config.background.type === 'gradient' 
         ? `background: ${config.background.value};`
