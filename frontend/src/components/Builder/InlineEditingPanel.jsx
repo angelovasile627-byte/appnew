@@ -1241,7 +1241,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                             type="text"
                             value={config.title.text || ''}
                             onChange={(e) => updateConfig('title.text', e.target.value)}
-                            className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                            className="bg-gray-800 border-gray-700 text-[9px] h-7 text-white"
                           />
                         </div>
                         
@@ -1330,7 +1330,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                                 type="text"
                                 value={element.image.src || ''}
                                 onChange={(e) => updateElementConfig(selectedElementId, 'image.src', e.target.value)}
-                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7 text-white"
                               />
                             </div>
                             
@@ -1375,7 +1375,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                                 type="text"
                                 value={element.tag.text || ''}
                                 onChange={(e) => updateElementConfig(selectedElementId, 'tag.text', e.target.value)}
-                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7 text-white"
                               />
                             </div>
                             
@@ -1609,7 +1609,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                                 type="text"
                                 value={element.button.text || ''}
                                 onChange={(e) => updateElementConfig(selectedElementId, 'button.text', e.target.value)}
-                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7 text-white"
                               />
                             </div>
                             
@@ -1639,7 +1639,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                                 type="text"
                                 value={element.button.link || '#'}
                                 onChange={(e) => updateElementConfig(selectedElementId, 'button.link', e.target.value)}
-                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7 text-white"
                               />
                             </div>
                           </>
@@ -1666,7 +1666,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                                 type="text"
                                 value={element.button2.text || ''}
                                 onChange={(e) => updateElementConfig(selectedElementId, 'button2.text', e.target.value)}
-                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7 text-white"
                               />
                             </div>
                             
@@ -1706,7 +1706,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                                 type="text"
                                 value={element.button2.link || '#'}
                                 onChange={(e) => updateElementConfig(selectedElementId, 'button2.link', e.target.value)}
-                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7 text-white"
                               />
                             </div>
                           </>
@@ -1732,7 +1732,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                               type="text"
                               value={element.date.text || ''}
                               onChange={(e) => updateElementConfig(selectedElementId, 'date.text', e.target.value)}
-                              className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                              className="bg-gray-800 border-gray-700 text-[9px] h-7 text-white"
                             />
                           </div>
                         )}
@@ -1758,7 +1758,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                                 type="text"
                                 value={element.icon.name || 'Circle'}
                                 onChange={(e) => updateElementConfig(selectedElementId, 'icon.name', e.target.value)}
-                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7 text-white"
                                 placeholder="Camera, Heart, Star, etc."
                               />
                             </div>
@@ -1796,7 +1796,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                                 type="text"
                                 value={element.metadata.author || ''}
                                 onChange={(e) => updateElementConfig(selectedElementId, 'metadata.author', e.target.value)}
-                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7 text-white"
                               />
                             </div>
                             
@@ -1806,7 +1806,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                                 type="text"
                                 value={element.metadata.date || ''}
                                 onChange={(e) => updateElementConfig(selectedElementId, 'metadata.date', e.target.value)}
-                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7 text-white"
                               />
                             </div>
                             
@@ -1816,7 +1816,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                                 type="text"
                                 value={element.metadata.readTime || ''}
                                 onChange={(e) => updateElementConfig(selectedElementId, 'metadata.readTime', e.target.value)}
-                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7 text-white"
                               />
                             </div>
                             
