@@ -17,6 +17,7 @@ import { FooterBlock } from './blocks/FooterBlock';
 import { TeamBlock } from './blocks/TeamBlock';
 import { StatsBlock } from './blocks/StatsBlock';
 import { FAQBlock } from './blocks/FAQBlock';
+import { CardsSkewBlock } from './blocks/CardsSkewBlock';
 
 const blockComponents = {
   menu: MenuBlock,
@@ -35,7 +36,8 @@ const blockComponents = {
   footer: FooterBlock,
   team: TeamBlock,
   stats: StatsBlock,
-  faq: FAQBlock
+  faq: FAQBlock,
+  'cards-skew': CardsSkewBlock
 };
 
 export const BlockRenderer = ({ block, isSelected, onSelect, onUpdate, onDelete, onMoveUp, onMoveDown, selectedElementId, onSelectElement }) => {
