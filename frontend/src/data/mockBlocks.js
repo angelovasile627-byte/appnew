@@ -1560,5 +1560,44 @@ export const blockTemplates = [
         descSize: 18
       }
     }
+  },
+  
+  // Gallery Scroll Block
+  {
+    id: 'gallery-scroll-1',
+    category: 'gallery',
+    name: 'Scroll Gallery',
+    thumbnail: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=300&fit=crop',
+    config: {
+      type: 'gallery-scroll',
+      scrollHeight: 500,
+      gapBase: 10,
+      sizeBase: 100,
+      background: {
+        color: '#111'
+      },
+      centerBg: '#333',
+      centerColor: '#ffffff',
+      title: {
+        text: 'Sliding images',
+        size: 48,
+        weight: 500
+      },
+      description: {
+        text: 'Scroll to reveal the images',
+        size: 18
+      },
+      images: [
+        'https://picsum.photos/id/943/800/600',
+        'https://picsum.photos/id/553/800/600',
+        'https://picsum.photos/id/380/800/600',
+        'https://picsum.photos/id/1072/800/600',
+        'https://picsum.photos/id/824/800/600',
+        'https://picsum.photos/id/820/800/600',
+        'https://picsum.photos/id/702/800/600',
+        'https://picsum.photos/id/883/800/600',
+        'https://picsum.photos/id/876/600/600'
+      ]
+    }
   }
 ];
