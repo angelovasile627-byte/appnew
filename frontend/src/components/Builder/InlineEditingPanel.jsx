@@ -2449,6 +2449,23 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                 />
               </div>
 
+              {/* Hero Height */}
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Hero Height (vh)</Label>
+                <div className="flex items-center gap-1.5">
+                  <Input
+                    type="range"
+                    value={config.hero?.height || 60}
+                    onChange={(e) => updateConfig('hero.height', parseInt(e.target.value))}
+                    className="flex-1 bg-gray-800 border-gray-700"
+                    min="30"
+                    max="100"
+                    step="5"
+                  />
+                  <span className="text-[9px] text-gray-400 w-10 text-right">{config.hero?.height || 60}vh</span>
+                </div>
+              </div>
+
               {/* Hero Title */}
               <div className="space-y-0.5">
                 <div className="flex items-center justify-between">
