@@ -131,16 +131,11 @@ export const GalleryScrollBlock = ({ config, onUpdate }) => {
             --mouse-w: 300px;
             --center-x: -100px;
             --center-y: -100px;
-            --text-opacity: 0;
-          }
-          95% {
-            --mouse-rotate: 0deg;
           }
           100% {
             --mouse-w: ${sizeBase}px;
             --center-x: 0px;
             --center-y: 0px;
-            --mouse-rotate: 180deg;
           }
         }
 
