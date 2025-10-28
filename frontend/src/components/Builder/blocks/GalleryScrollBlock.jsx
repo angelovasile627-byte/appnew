@@ -31,16 +31,6 @@ export const GalleryScrollBlock = ({ config, onUpdate }) => {
           inherits: true;
           initial-value: 0%;
         }
-        @property --text-opacity {
-          syntax: "<number>";
-          inherits: true;
-          initial-value: 1;
-        }
-        @property --mouse-rotate {
-          syntax: "<angle>";
-          inherits: true;
-          initial-value: 0deg;
-        }
         @property --mouse-w {
           syntax: "<length>";
           inherits: true;
