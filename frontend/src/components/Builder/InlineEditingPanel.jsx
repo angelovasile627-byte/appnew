@@ -1311,6 +1311,23 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                       </Label>
                     </div>
 
+                    {/* Card Height Control */}
+                    <div className="space-y-0.5 border-b border-gray-700 pb-1">
+                      <Label className="text-[9px] text-gray-300">Card Height (px)</Label>
+                      <div className="flex items-center gap-1.5">
+                        <Input
+                          type="range"
+                          value={element.minHeight || 400}
+                          onChange={(e) => updateElementConfig(selectedElementId, 'minHeight', parseInt(e.target.value))}
+                          className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
+                          min="200"
+                          max="800"
+                          step="50"
+                        />
+                        <span className="text-[9px] text-gray-400 w-10 text-right">{element.minHeight || 400}px</span>
+                      </div>
+                    </div>
+
                     {/* Image Controls */}
                     {element.image && (
                       <>
