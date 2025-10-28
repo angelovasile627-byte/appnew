@@ -6,7 +6,7 @@ import { Button } from '../ui/button';
 
 export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState('intro');
 
   const categories = ['all', 'menu', 'hero', 'features', 'article', 'intro', 'cta', 'gallery', 'testimonial', 'contact', 'pricing', 'footer', 'team', 'stats', 'faq'];
 
