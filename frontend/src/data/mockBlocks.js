@@ -1541,8 +1541,8 @@ export const blockTemplates = [
       type: 'parallax',
       fullScreen: false,
       fullWidth: false,
-      paddingTop: 60,
-      paddingBottom: 80,
+      paddingTop: 4,
+      paddingBottom: 5,
       background: {
         type: 'image',
         value: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1600&h=1000&fit=crop',
