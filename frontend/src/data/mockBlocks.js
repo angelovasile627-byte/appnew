@@ -1255,6 +1255,7 @@ export const blockTemplates = [
           id: 'article-element-5',
           type: 'card',
           width: 100,
+          minHeight: 400,
           image: {
             src: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=600&fit=crop',
             alt: 'Delivery terms',
