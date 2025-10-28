@@ -323,6 +323,34 @@ test_plan:
         agent: "main"
         comment: "Successfully added Size controls for Hero Parallax block. Block now starts SMALL by default (not full screen) with compact padding. Users can toggle Full Screen/Full Width ON and adjust Top/Bottom padding with sliders (0-200px range). Changes work correctly in both Canvas and Preview. Tested and confirmed functional."
 
+  - task: "Remove parallax effect and simplify Hero Parallax block structure"
+    implemented: true
+    working: "YES"
+    files:
+      - "/app/frontend/src/components/Builder/blocks/HeroParallaxBlock.jsx" (removed parallax scroll effect, simplified structure)
+      - "/app/frontend/src/components/Builder/InlineEditingPanel.jsx" (removed White Space controls, changed padding to rem)
+      - "/app/frontend/src/components/Builder/PreviewModal.jsx" (removed parallax effect, simplified HTML)
+      - "/app/frontend/src/data/mockBlocks.js" (removed parallax and whiteSpace config, changed to rem units)
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    changes_made:
+      - "REMOVED PARALLAX EFFECT: Eliminated background-attachment: fixed and scroll-based transform"
+      - "REMOVED PARALLAX CONFIG: Deleted parallax.enabled and parallax.speed properties"
+      - "REMOVED WHITE SPACE CONTROLS: Deleted whiteSpace.top and whiteSpace.bottom sliders and rendering"
+      - "CHANGED PADDING UNITS: From px (0-200px) to rem (0-12rem) matching Mobirise-style"
+      - "SIMPLIFIED STRUCTURE: Removed parallax scroll handler, useEffect, and scrollY state"
+      - "SIMPLIFIED BACKGROUND: Changed to standard background-image without fixed attachment"
+      - "DEFAULT VALUES: paddingTop: 4rem, paddingBottom: 5rem (4rem = 64px, 5rem = 80px)"
+      - "HeroParallaxBlock.jsx: Removed parallaxRef, useState, useEffect - now a simple functional component"
+      - "HeroParallaxBlock.jsx: Background applied directly to container (no separate layer)"
+      - "PreviewModal.jsx: Removed whiteSpace sections, changed px to rem, removed flex centering"
+      - "Block now uses standard background positioning without parallax scroll effect"
+    status_history:
+      - working: "YES"
+        agent: "main"
+        comment: "Successfully removed parallax effect and simplified Hero Parallax block structure. Block now uses standard background positioning (no scroll effect), padding in rem units (0-12 range), and simplified HTML structure matching Mobirise style. White Space controls removed. Size controls remain (Full Screen, Full Width, Top/Bottom padding). Tested and confirmed functional in both Canvas and Preview."
+
 agent_communication:
   - agent: "main"
     message: "FIXED duplicate menu bug in PreviewModal. Implemented aggressive deduplication with both ID and type checking. Verified working - only ONE menu now appears in preview."
