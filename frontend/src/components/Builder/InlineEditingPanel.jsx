@@ -2289,6 +2289,144 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
             )}
           </div>
         )}
+
+        {/* Gallery 3D Block Controls */}
+        {config.type === 'gallery-3d' && (
+          <div className="space-y-0.5 border-t border-gray-800 pt-1">
+            <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Gallery Images</Label>
+            
+            <div className="space-y-1 max-h-80 overflow-y-auto pr-1">
+              {(config.images || []).map((image, index) => (
+                <div key={index} className="flex items-center gap-1.5 bg-gray-800/50 p-1.5 rounded border border-gray-700">
+                  <div className="w-12 h-12 rounded overflow-hidden flex-shrink-0">
+                    <img 
+                      src={typeof image === 'string' ? image : image.src} 
+                      alt={`Image ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <Input
+                      type="text"
+                      value={typeof image === 'string' ? image : image.src}
+                      onChange={(e) => {
+                        const newImages = [...config.images];
+                        newImages[index] = e.target.value;
+                        updateConfig('images', newImages);
+                      }}
+                      className="bg-gray-700 border-gray-600 text-white text-[9px] px-2 py-1 h-7"
+                      placeholder="Image URL"
+                    />
+                  </div>
+                  <button
+                    onClick={() => {
+                      const newImages = config.images.filter((_, i) => i !== index);
+                      updateConfig('images', newImages);
+                    }}
+                    className="flex-shrink-0 p-1 bg-red-600 hover:bg-red-700 text-white rounded transition-colors"
+                    title="Delete"
+                  >
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            {/* Upload Image Button */}
+            <label className="flex items-center justify-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-[9px] py-1.5 px-2 rounded cursor-pointer transition-colors">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              <span>Încarcă Imagine</span>
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={async (e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  
+                  const formData = new FormData();
+                  formData.append('file', file);
+                  
+                  try {
+                    const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
+                    const response = await fetch(`${backendUrl}/api/upload/image`, {
+                      method: 'POST',
+                      body: formData
+                    });
+                    
+                    if (!response.ok) throw new Error('Upload failed');
+                    
+                    const data = await response.json();
+                    if (data.success && data.url) {
+                      const fullUrl = `${backendUrl}${data.url}`;
+                      const newImages = [...(config.images || []), fullUrl];
+                      updateConfig('images', newImages);
+                    }
+                  } catch (error) {
+                    console.error('Upload error:', error);
+                    alert('Eroare la încărcarea imaginii');
+                  }
+                  
+                  e.target.value = '';
+                }}
+              />
+            </label>
+
+            {/* Background Color */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1 mt-1">
+              <Label className="text-[9px] text-gray-300">Background Color</Label>
+              <Input
+                type="color"
+                value={config.background?.value || '#020617'}
+                onChange={(e) => updateConfig('background.value', e.target.value)}
+                className="w-6 h-6 bg-gray-800 border-gray-700"
+              />
+            </div>
+
+            {/* Padding Controls */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <Label className="text-[9px] text-gray-300">Padding Top (px)</Label>
+              <div className="flex items-center gap-1.5">
+                <Input
+                  type="range"
+                  value={config.padding?.top || 80}
+                  onChange={(e) => updateConfig('padding.top', parseInt(e.target.value))}
+                  className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
+                  min="0"
+                  max="200"
+                  step="10"
+                />
+                <span className="text-[9px] text-gray-400 w-10 text-right">{config.padding?.top || 80}px</span>
+              </div>
+            </div>
+
+            <div className="space-y-0.5">
+              <Label className="text-[9px] text-gray-300">Padding Bottom (px)</Label>
+              <div className="flex items-center gap-1.5">
+                <Input
+                  type="range"
+                  value={config.padding?.bottom || 80}
+                  onChange={(e) => updateConfig('padding.bottom', parseInt(e.target.value))}
+                  className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
+                  min="0"
+                  max="200"
+                  step="10"
+                />
+                <span className="text-[9px] text-gray-400 w-10 text-right">{config.padding?.bottom || 80}px</span>
+              </div>
+            </div>
+
+            <div className="pt-1 border-t border-gray-700">
+              <p className="text-[9px] text-indigo-400 italic">
+                💡 Hover peste imagini pentru efectul wave, click pentru zoom
+              </p>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Social Icons Modal */}
