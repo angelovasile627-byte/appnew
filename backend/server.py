@@ -120,6 +120,45 @@ async def upload_image(file: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Upload failed: {str(e)}")
 
+# Video Upload endpoint
+@api_router.post("/upload/video")
+async def upload_video(file: UploadFile = File(...)):
+    """
+    Upload a video file and return the URL
+    Accepts: mp4, webm, mov, avi, wmv
+    """
+    try:
+        # Validate file extension
+        allowed_extensions = {'.mp4', '.webm', '.mov', '.avi', '.wmv'}
+        file_ext = Path(file.filename).suffix.lower()
+        
+        if file_ext not in allowed_extensions:
+            raise HTTPException(
+                status_code=400, 
+                detail=f"Invalid file type. Allowed: {', '.join(allowed_extensions)}"
+            )
+        
+        # Generate unique filename
+        unique_filename = f"{uuid.uuid4()}{file_ext}"
+        file_path = UPLOADS_DIR / unique_filename
+        
+        # Save file
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+        
+        # Return URL (relative to backend)
+        file_url = f"/api/uploads/{unique_filename}"
+        
+        return {
+            "success": True,
+            "url": file_url,
+            "filename": unique_filename
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Upload failed: {str(e)}")
+
+
 # FTP Upload endpoint
 @api_router.post("/ftp/upload")
 async def upload_to_ftp(request: FTPUploadRequest):
