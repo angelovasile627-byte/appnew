@@ -297,6 +297,32 @@ test_plan:
         agent: "main"
         comment: "Successfully fixed both issues: 1) Animations now work in preview for ALL Features block layouts (simple, gradient, with-images, image-side, dark) with smooth hover effects, 2) Thumbnail grid is now dynamic and displays correct number of columns based on block configuration. Tested with 'AI Goals in Business' block - hover animations confirmed working in preview iframe."
 
+  - task: "Add Size controls for Hero Parallax block and make it start smaller by default"
+    implemented: true
+    working: "YES"
+    files:
+      - "/app/frontend/src/data/mockBlocks.js" (updated hero-parallax default config)
+      - "/app/frontend/src/components/Builder/InlineEditingPanel.jsx" (added Size controls section)
+      - "/app/frontend/src/components/Builder/blocks/HeroParallaxBlock.jsx" (updated to respect Size settings)
+      - "/app/frontend/src/components/Builder/PreviewModal.jsx" (updated preview rendering)
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    changes_made:
+      - "DEFAULT SIZE CHANGED: Hero Parallax now starts with fullScreen=false (was true)"
+      - "DEFAULT PADDING REDUCED: Top 60px, Bottom 80px (was 100px each)"
+      - "WHITE SPACE REDUCED: Default top/bottom from 200px to 50px"
+      - "ADDED SIZE CONTROLS SECTION: Full Screen toggle, Full Width toggle"
+      - "ADDED TOP/BOTTOM SLIDERS: Adjustable padding (0-200px) when not in full screen mode"
+      - "HeroParallaxBlock.jsx: Updated containerStyle to use auto height and respect padding settings"
+      - "HeroParallaxBlock.jsx: contentWrapperStyle now applies padding conditionally based on fullScreen"
+      - "PreviewModal.jsx: Added dynamic padding calculations for both full screen and normal modes"
+      - "Block now appears compact by default, users can expand to full screen if needed"
+    status_history:
+      - working: "YES"
+        agent: "main"
+        comment: "Successfully added Size controls for Hero Parallax block. Block now starts SMALL by default (not full screen) with compact padding. Users can toggle Full Screen/Full Width ON and adjust Top/Bottom padding with sliders (0-200px range). Changes work correctly in both Canvas and Preview. Tested and confirmed functional."
+
 agent_communication:
   - agent: "main"
     message: "FIXED duplicate menu bug in PreviewModal. Implemented aggressive deduplication with both ID and type checking. Verified working - only ONE menu now appears in preview."
