@@ -2788,6 +2788,332 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
           </div>
         )}
 
+        {/* Home Parallax Block Controls */}
+        {config.type === 'home-parallax' && (
+          <div className="space-y-0.5">
+            <h4 className="text-[9px] font-bold text-white uppercase tracking-wider border-b border-gray-700 pb-1">Home Parallax Settings</h4>
+            
+            {/* Central Text */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h5 className="text-[9px] font-semibold text-indigo-400">Central Text</h5>
+              
+              <div className="flex items-center justify-between">
+                <Label className="text-[9px] text-gray-300">Show Text</Label>
+                <Switch
+                  checked={config.text?.show ?? true}
+                  onCheckedChange={(checked) => updateConfig('text.show', checked)}
+                />
+              </div>
+
+              {config.text?.show && (
+                <>
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Text Content</Label>
+                    <Input
+                      type="text"
+                      value={config.text?.content || 'Bine ai venit!'}
+                      onChange={(e) => updateConfig('text.content', e.target.value)}
+                      className="bg-gray-800 border-gray-700 text-white text-[10px] h-7"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-1.5">
+                    <div className="space-y-0.5">
+                      <Label className="text-[9px] text-gray-300">Text Color</Label>
+                      <Input
+                        type="color"
+                        value={config.text?.color || '#FFFFFF'}
+                        onChange={(e) => updateConfig('text.color', e.target.value)}
+                        className="w-full h-6 bg-gray-800 border-gray-700"
+                      />
+                    </div>
+                    <div className="space-y-0.5">
+                      <Label className="text-[9px] text-gray-300">Shadow Color</Label>
+                      <Input
+                        type="color"
+                        value={config.text?.shadowColor?.replace(/rgba?\((\d+),\s*(\d+),\s*(\d+).*\)/, (m, r, g, b) => {
+                          return '#' + [r, g, b].map(x => parseInt(x).toString(16).padStart(2, '0')).join('');
+                        }) || '#000000'}
+                        onChange={(e) => {
+                          const hex = e.target.value;
+                          const r = parseInt(hex.slice(1, 3), 16);
+                          const g = parseInt(hex.slice(3, 5), 16);
+                          const b = parseInt(hex.slice(5, 7), 16);
+                          updateConfig('text.shadowColor', `rgba(${r}, ${g}, ${b}, 0.5)`);
+                        }}
+                        className="w-full h-6 bg-gray-800 border-gray-700"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Font Size: {config.text?.size || 64}px</Label>
+                    <Input
+                      type="range"
+                      value={config.text?.size || 64}
+                      onChange={(e) => updateConfig('text.size', parseInt(e.target.value))}
+                      className="w-full bg-gray-800 border-gray-700"
+                      min="24"
+                      max="120"
+                      step="4"
+                    />
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Font Weight: {config.text?.weight || 700}</Label>
+                    <Input
+                      type="range"
+                      value={config.text?.weight || 700}
+                      onChange={(e) => updateConfig('text.weight', parseInt(e.target.value))}
+                      className="w-full bg-gray-800 border-gray-700"
+                      min="300"
+                      max="900"
+                      step="100"
+                    />
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Shadow Blur: {config.text?.shadowBlur || 20}px</Label>
+                    <Input
+                      type="range"
+                      value={config.text?.shadowBlur || 20}
+                      onChange={(e) => updateConfig('text.shadowBlur', parseInt(e.target.value))}
+                      className="w-full bg-gray-800 border-gray-700"
+                      min="0"
+                      max="50"
+                      step="5"
+                    />
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Layers Management */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <div className="flex items-center justify-between">
+                <h5 className="text-[9px] font-semibold text-indigo-400">Parallax Layers ({config.layers?.length || 0})</h5>
+                <button
+                  onClick={() => {
+                    const newLayer = {
+                      id: `layer-${Date.now()}`,
+                      name: `Layer ${(config.layers?.length || 0) + 1}`,
+                      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop',
+                      speedx: 0.1,
+                      speedy: 0.1,
+                      speedz: 0.5,
+                      rotation: 0,
+                      distance: 100,
+                      zIndex: config.layers?.length || 0
+                    };
+                    updateConfig('layers', [...(config.layers || []), newLayer]);
+                  }}
+                  className="px-2 py-0.5 bg-indigo-600 hover:bg-indigo-700 text-white text-[9px] rounded"
+                >
+                  + Add Layer
+                </button>
+              </div>
+
+              {config.layers?.map((layer, index) => (
+                <div key={layer.id} className="p-2 bg-gray-800 rounded border border-gray-700 space-y-1">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-[9px] font-semibold text-white">Layer {index + 1}: {layer.name}</Label>
+                    <button
+                      onClick={() => {
+                        const newLayers = config.layers.filter((_, i) => i !== index);
+                        updateConfig('layers', newLayers);
+                      }}
+                      className="text-red-400 hover:text-red-300 text-[9px]"
+                    >
+                      ✕
+                    </button>
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Layer Name</Label>
+                    <Input
+                      type="text"
+                      value={layer.name || ''}
+                      onChange={(e) => {
+                        const newLayers = [...config.layers];
+                        newLayers[index] = { ...layer, name: e.target.value };
+                        updateConfig('layers', newLayers);
+                      }}
+                      className="bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                    />
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Image URL</Label>
+                    <Input
+                      type="text"
+                      value={layer.image || ''}
+                      onChange={(e) => {
+                        const newLayers = [...config.layers];
+                        newLayers[index] = { ...layer, image: e.target.value };
+                        updateConfig('layers', newLayers);
+                      }}
+                      className="bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                      placeholder="https://..."
+                    />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          const formData = new FormData();
+                          formData.append('file', file);
+                          try {
+                            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL || ''}/api/upload/image`, {
+                              method: 'POST',
+                              body: formData
+                            });
+                            if (response.ok) {
+                              const data = await response.json();
+                              const newLayers = [...config.layers];
+                              newLayers[index] = { ...layer, image: data.url };
+                              updateConfig('layers', newLayers);
+                            }
+                          } catch (error) {
+                            console.error('Upload failed:', error);
+                          }
+                        }
+                      }}
+                      className="text-[9px] text-gray-400"
+                      style={{ display: 'none' }}
+                      id={`upload-layer-${index}`}
+                    />
+                    <label
+                      htmlFor={`upload-layer-${index}`}
+                      className="block w-full text-center px-2 py-1 bg-indigo-600 hover:bg-indigo-700 text-white text-[9px] rounded cursor-pointer"
+                    >
+                      📤 Upload Image
+                    </label>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-1">
+                    <div className="space-y-0.5">
+                      <Label className="text-[9px] text-gray-300">Speed X: {layer.speedx?.toFixed(2)}</Label>
+                      <Input
+                        type="range"
+                        value={layer.speedx || 0}
+                        onChange={(e) => {
+                          const newLayers = [...config.layers];
+                          newLayers[index] = { ...layer, speedx: parseFloat(e.target.value) };
+                          updateConfig('layers', newLayers);
+                        }}
+                        className="w-full bg-gray-900 border-gray-600"
+                        min="-1"
+                        max="1"
+                        step="0.05"
+                      />
+                    </div>
+                    <div className="space-y-0.5">
+                      <Label className="text-[9px] text-gray-300">Speed Y: {layer.speedy?.toFixed(2)}</Label>
+                      <Input
+                        type="range"
+                        value={layer.speedy || 0}
+                        onChange={(e) => {
+                          const newLayers = [...config.layers];
+                          newLayers[index] = { ...layer, speedy: parseFloat(e.target.value) };
+                          updateConfig('layers', newLayers);
+                        }}
+                        className="w-full bg-gray-900 border-gray-600"
+                        min="-1"
+                        max="1"
+                        step="0.05"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-1">
+                    <div className="space-y-0.5">
+                      <Label className="text-[9px] text-gray-300">Speed Z: {layer.speedz?.toFixed(2)}</Label>
+                      <Input
+                        type="range"
+                        value={layer.speedz || 0}
+                        onChange={(e) => {
+                          const newLayers = [...config.layers];
+                          newLayers[index] = { ...layer, speedz: parseFloat(e.target.value) };
+                          updateConfig('layers', newLayers);
+                        }}
+                        className="w-full bg-gray-900 border-gray-600"
+                        min="0"
+                        max="5"
+                        step="0.1"
+                      />
+                    </div>
+                    <div className="space-y-0.5">
+                      <Label className="text-[9px] text-gray-300">Rotation: {layer.rotation?.toFixed(2)}</Label>
+                      <Input
+                        type="range"
+                        value={layer.rotation || 0}
+                        onChange={(e) => {
+                          const newLayers = [...config.layers];
+                          newLayers[index] = { ...layer, rotation: parseFloat(e.target.value) };
+                          updateConfig('layers', newLayers);
+                        }}
+                        className="w-full bg-gray-900 border-gray-600"
+                        min="-0.5"
+                        max="0.5"
+                        step="0.01"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-1">
+                    <div className="space-y-0.5">
+                      <Label className="text-[9px] text-gray-300">Z-Index: {layer.zIndex}</Label>
+                      <Input
+                        type="number"
+                        value={layer.zIndex || 0}
+                        onChange={(e) => {
+                          const newLayers = [...config.layers];
+                          newLayers[index] = { ...layer, zIndex: parseInt(e.target.value) };
+                          updateConfig('layers', newLayers);
+                        }}
+                        className="bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                      />
+                    </div>
+                    <div className="flex items-end gap-1">
+                      {index > 0 && (
+                        <button
+                          onClick={() => {
+                            const newLayers = [...config.layers];
+                            [newLayers[index], newLayers[index - 1]] = [newLayers[index - 1], newLayers[index]];
+                            updateConfig('layers', newLayers);
+                          }}
+                          className="flex-1 px-1 py-1 bg-gray-700 hover:bg-gray-600 text-white text-[9px] rounded"
+                        >
+                          ↑
+                        </button>
+                      )}
+                      {index < config.layers.length - 1 && (
+                        <button
+                          onClick={() => {
+                            const newLayers = [...config.layers];
+                            [newLayers[index], newLayers[index + 1]] = [newLayers[index + 1], newLayers[index]];
+                            updateConfig('layers', newLayers);
+                          }}
+                          className="flex-1 px-1 py-1 bg-gray-700 hover:bg-gray-600 text-white text-[9px] rounded"
+                        >
+                          ↓
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="pt-1 border-t border-gray-700">
+              <p className="text-[9px] text-indigo-400 italic">
+                💡 Efect Parallax 3D cu layere multiple - vezi modelul https://background-parallax-mountain.netlify.app/
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Cards Skew Block Controls */}
         {config.type === 'cards-skew' && (
           <div className="space-y-0.5">
