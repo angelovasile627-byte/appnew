@@ -1,62 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { Button } from '../../ui/button';
 
 export const HeroParallaxBlock = ({ config, onUpdate }) => {
-  const parallaxRef = useRef(null);
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    if (!config.parallax?.enabled) return;
-
-    const handleScroll = () => {
-      if (parallaxRef.current) {
-        const rect = parallaxRef.current.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-        
-        if (isVisible) {
-          const scrolled = window.pageYOffset;
-          setScrollY(scrolled);
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial call
-    
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [config.parallax?.enabled]);
-
-  const getBackground = () => {
+  const getBackgroundStyle = () => {
     if (config.background.type === 'color') {
       return { backgroundColor: config.background.value };
     } else if (config.background.type === 'gradient') {
       return { background: config.background.value };
     } else if (config.background.type === 'image') {
-      const parallaxSpeed = config.parallax?.speed || 0.5;
-      const yOffset = config.parallax?.enabled ? scrollY * parallaxSpeed : 0;
-      
       return {
         backgroundImage: `url(${config.background.value})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundAttachment: config.parallax?.enabled ? 'scroll' : 'fixed',
-        transform: config.parallax?.enabled ? `translateY(${yOffset}px)` : 'none',
-        transition: 'transform 0.1s ease-out',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: 0
-      };
-    } else if (config.background.type === 'video') {
-      return {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: 0
+        backgroundRepeat: 'no-repeat'
       };
     }
     return {};
