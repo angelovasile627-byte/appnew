@@ -1697,100 +1697,153 @@ const generateBlockHTML = (config) => {
     }
 
     case 'parallax': {
-      let bgStyle = '';
-      
-      if (config.background.type === 'image') {
-        bgStyle = `
-          background-image: url(${config.background.value});
-          background-size: cover;
-          background-position: center;
-          background-attachment: ${config.background.parallax ? 'fixed' : 'scroll'};
-        `;
-      } else if (config.background.type === 'video') {
-        // Video will be rendered separately
-      } else if (config.background.type === 'color') {
-        bgStyle = `background-color: ${config.background.value};`;
-      } else if (config.background.type === 'gradient') {
-        bgStyle = `background: ${config.background.value};`;
-      }
-
-      const overlayHtml = config.overlay && config.background.type !== 'color' ? `
-        <div style="
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: ${config.overlayColor || '#232323'};
-          opacity: ${config.overlayOpacity || 0.4};
-          z-index: 1;
-        "></div>
-      ` : '';
-
-      const videoHtml = config.background.type === 'video' ? `
-        <video autoplay loop muted playsinline style="
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          z-index: 0;
-        ">
-          <source src="${config.background.value}" type="video/mp4">
-        </video>
-      ` : '';
-
+      // New Parallax Block with Hero + Spacer + Cards structure
       return `
-        <section style="
-          position: relative;
+        <!-- Hero Section with Parallax Background -->
+        <div style="
           width: 100%;
-          min-height: ${config.fullScreen ? '100vh' : 'auto'};
-          padding-top: ${config.fullScreen ? 0 : (config.paddingTop || 60)}px;
-          padding-bottom: ${config.fullScreen ? 0 : (config.paddingBottom || 80)}px;
-          overflow: hidden;
+          min-height: 100vh;
           display: flex;
+          flex-direction: column;
           align-items: center;
           justify-content: center;
-          ${bgStyle}
+          background-image: url(${config.hero?.background?.value || ''});
+          background-size: cover;
+          background-position: center;
+          background-attachment: ${config.hero?.background?.parallax ? 'fixed' : 'scroll'};
+          text-align: center;
+          color: ${config.hero?.title?.color || '#333333'};
+          padding: 2rem;
         ">
-          ${videoHtml}
-          ${overlayHtml}
+          ${config.hero?.title?.show ? `
+            <h1 style="
+              font-size: ${config.hero.title.size || 48}px;
+              font-weight: ${config.hero.title.weight || 700};
+              color: ${config.hero.title.color || '#333333'};
+              margin-bottom: 1rem;
+            ">
+              ${config.hero.title.text || ''}
+            </h1>
+          ` : ''}
           
-          <div style="
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: ${config.fullWidth ? '100%' : '1200px'};
-            margin: 0 auto;
-            padding: 0 24px;
-            text-align: center;
-          ">
-            ${config.content?.text ? `
-              <h2 style="
-                font-size: ${config.content.fontSize || 48}px;
-                font-weight: ${config.content.fontWeight || 700};
-                color: ${config.content.color || '#ffffff'};
-                margin-bottom: 16px;
-                line-height: 1.2;
-              ">
-                ${config.content.text}
-              </h2>
-            ` : ''}
-            
-            ${config.content?.description ? `
-              <p style="
-                font-size: ${config.content.descSize || 18}px;
-                color: ${config.content.color || '#ffffff'};
-                max-width: 600px;
-                margin: 0 auto;
-                line-height: 1.6;
-              ">
-                ${config.content.description}
-              </p>
-            ` : ''}
-          </div>
-        </section>
+          ${config.hero?.description?.show ? `
+            <p style="
+              font-size: ${config.hero.description.size || 16}px;
+              color: ${config.hero.description.color || '#333333'};
+              max-width: ${config.hero.description.maxWidth || '52ch'};
+              line-height: 1.5;
+              padding: 1rem;
+              margin-bottom: 1rem;
+            ">
+              ${config.hero.description.text || ''}
+            </p>
+          ` : ''}
+          
+          ${config.hero?.button?.show ? `
+            <a href="${config.hero.button.link || '#'}" style="
+              display: inline-block;
+              padding: 1rem 3.5rem;
+              background-color: ${config.hero.button.color || '#333333'};
+              color: ${config.hero.button.textColor || '#ffffff'};
+              text-decoration: none;
+              text-transform: uppercase;
+              border-radius: 0.3rem;
+              font-weight: 700;
+              letter-spacing: 0.5px;
+              font-size: ${config.hero.button.size || 14}px;
+            ">
+              ${config.hero.button.text || 'Learn more'}
+            </a>
+          ` : ''}
+        </div>
+
+        <!-- Blank Spacer -->
+        <div style="
+          width: 100%;
+          min-height: ${config.spacer?.height || 400}px;
+          background-color: ${config.spacer?.backgroundColor || '#333333'};
+        "></div>
+
+        <!-- Cards Section with Parallax Background -->
+        <div style="
+          width: 100%;
+          min-height: ${config.cardsSection?.height || 1200}px;
+          background-image: url(${config.cardsSection?.background?.value || ''});
+          background-size: cover;
+          background-position: center;
+          background-attachment: ${config.cardsSection?.background?.parallax ? 'fixed' : 'scroll'};
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          gap: 1.6rem;
+          padding: 2rem;
+          flex-wrap: wrap;
+        ">
+          ${(config.cards || []).map(card => `
+            <div style="
+              display: flex;
+              max-width: 320px;
+              background-color: white;
+              flex-direction: column;
+              align-items: center;
+              border-radius: 0.5rem;
+              box-shadow: 0px 29px 38px -15px rgba(0,0,0,0.43);
+              transition: transform 0.3s ease, box-shadow 0.3s ease;
+            ">
+              <div style="
+                width: 90%;
+                height: 200px;
+                background-image: url(${card.image});
+                background-size: cover;
+                background-position: center;
+                margin-top: 20px;
+                border-radius: 0.3rem;
+              "></div>
+              <div style="padding: 1.5rem; text-align: center;">
+                <h3 style="
+                  font-weight: 700;
+                  font-size: 1.6rem;
+                  margin-top: 1rem;
+                  margin-bottom: 0.5rem;
+                  color: #333333;
+                ">
+                  ${card.title}
+                </h3>
+                <p style="
+                  font-size: 0.95rem;
+                  color: #666666;
+                  line-height: 1.5;
+                  margin-bottom: 1.5rem;
+                ">
+                  ${card.description}
+                </p>
+                <a href="${card.link || '#'}" style="
+                  display: inline-block;
+                  padding: 0.75rem 2.5rem;
+                  background-color: #333333;
+                  color: #ffffff;
+                  text-decoration: none;
+                  text-transform: uppercase;
+                  border-radius: 0.3rem;
+                  font-weight: 700;
+                  letter-spacing: 0.5px;
+                  font-size: 0.875rem;
+                  margin-bottom: 1.5rem;
+                ">
+                  ${card.linkText || 'Learn more'}
+                </a>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <!-- Second Blank Spacer -->
+        <div style="
+          width: 100%;
+          min-height: ${config.spacer?.height || 400}px;
+          background-color: ${config.spacer?.backgroundColor || '#333333'};
+        "></div>
       `;
     }
 
