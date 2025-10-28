@@ -1530,37 +1530,6 @@ export const blockTemplates = [
       }
     }
   },
-  
-  // Parallax Block
-  {
-    id: 'parallax-1',
-    category: 'intro',
-    name: 'Parallax Section',
-    thumbnail: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=300&fit=crop',
-    config: {
-      type: 'parallax',
-      fullScreen: false,
-      fullWidth: false,
-      paddingTop: 4,
-      paddingBottom: 5,
-      background: {
-        type: 'image',
-        value: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1600&h=1000&fit=crop',
-        parallax: true
-      },
-      overlay: true,
-      overlayColor: '#232323',
-      overlayOpacity: 0.4,
-      content: {
-        text: 'Parallax Effect Section',
-        description: 'Create stunning parallax effects with images, videos, or gradients',
-        color: '#ffffff',
-        fontSize: 48,
-        fontWeight: 700,
-        descSize: 18
-      }
-    }
-  },
   {
     id: 'gallery-3d',
     category: 'gallery',
