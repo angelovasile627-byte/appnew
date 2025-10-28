@@ -9,6 +9,7 @@ import { ArticleBlock } from './blocks/ArticleBlock';
 import { IntroBlock } from './blocks/IntroBlock';
 import { CTABlock } from './blocks/CTABlock';
 import { GalleryBlock } from './blocks/GalleryBlock';
+import { GalleryScrollBlock } from './blocks/GalleryScrollBlock';
 import { TestimonialBlock } from './blocks/TestimonialBlock';
 import { ContactBlock } from './blocks/ContactBlock';
 import { PricingBlock } from './blocks/PricingBlock';
