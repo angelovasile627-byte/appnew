@@ -1,208 +1,174 @@
-import React, { useRef } from 'react';
+import React from 'react';
+import { Button } from '../../ui/button';
 
 export const ParallaxBlock = ({ config, onUpdate }) => {
-  const fileInputRef = useRef(null);
-  const videoInputRef = useRef(null);
-
-  const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
-      const response = await fetch(`${backendUrl}/api/upload/image`, {
-        method: 'POST',
-        body: formData
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        onUpdate({
-          ...config,
-          background: {
-            ...config.background,
-            type: 'image',
-            value: data.url
-          }
-        });
-      }
-    } catch (error) {
-      console.error('Error uploading image:', error);
-    }
-  };
-
-  const handleVideoUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
-      const response = await fetch(`${backendUrl}/api/upload/video`, {
-        method: 'POST',
-        body: formData
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        onUpdate({
-          ...config,
-          background: {
-            ...config.background,
-            type: 'video',
-            value: data.url
-          }
-        });
-      }
-    } catch (error) {
-      console.error('Error uploading video:', error);
-    }
-  };
-
-  const containerStyle = {
-    position: 'relative',
+  // Hero Section Style with Parallax
+  const heroContainerStyle = {
     width: '100%',
-    minHeight: config.fullScreen ? '100vh' : 'auto',
-    paddingTop: config.fullScreen ? 0 : `${config.paddingTop || 60}px`,
-    paddingBottom: config.fullScreen ? 0 : `${config.paddingBottom || 60}px`,
-    overflow: 'hidden',
+    minHeight: '100vh',
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundImage: config.hero?.background?.value ? `url(${config.hero.background.value})` : 'none',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundAttachment: config.hero?.background?.parallax ? 'fixed' : 'scroll',
+    textAlign: 'center',
+    color: config.hero?.title?.color || '#333333',
+    padding: '2rem'
   };
 
-  const backgroundStyle = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
+  // Spacer Style
+  const spacerStyle = {
     width: '100%',
-    height: '100%',
-    zIndex: 0
+    minHeight: `${config.spacer?.height || 400}px`,
+    backgroundColor: config.spacer?.backgroundColor || '#333333'
   };
 
-  const overlayStyle = config.overlay ? {
-    position: 'absolute',
-    top: 0,
-    left: 0,
+  // Cards Section Style with Parallax
+  const cardsSectionStyle = {
     width: '100%',
-    height: '100%',
-    backgroundColor: config.overlayColor || '#232323',
-    opacity: config.overlayOpacity || 0.4,
-    zIndex: 1
-  } : null;
-
-  const contentStyle = {
-    maxWidth: config.fullWidth ? '100%' : '1200px',
-    margin: '0 auto',
-    padding: '0 24px',
-    position: 'relative',
-    zIndex: 2,
-    minHeight: config.fullScreen ? '100vh' : '400px',
+    minHeight: `${config.cardsSection?.height || 1200}px`,
+    backgroundImage: config.cardsSection?.background?.value ? `url(${config.cardsSection.background.value})` : 'none',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundAttachment: config.cardsSection?.background?.parallax ? 'fixed' : 'scroll',
     display: 'flex',
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    gap: '1.6rem',
+    padding: '2rem',
+    flexWrap: 'wrap'
   };
 
-  const renderBackground = () => {
-    if (config.background.type === 'image') {
-      return (
-        <div
-          style={{
-            ...backgroundStyle,
-            backgroundImage: `url(${config.background.value})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundAttachment: config.background.parallax ? 'fixed' : 'scroll'
-          }}
-        />
-      );
-    } else if (config.background.type === 'video') {
-      return (
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{
-            ...backgroundStyle,
-            objectFit: 'cover'
-          }}
-        >
-          <source src={config.background.value} type="video/mp4" />
-        </video>
-      );
-    } else if (config.background.type === 'color') {
-      return (
-        <div
-          style={{
-            ...backgroundStyle,
-            background: config.background.value
-          }}
-        />
-      );
-    } else if (config.background.type === 'gradient') {
-      return (
-        <div
-          style={{
-            ...backgroundStyle,
-            background: config.background.value
-          }}
-        />
-      );
-    }
-    return null;
+  // Card Style
+  const cardStyle = {
+    display: 'flex',
+    maxWidth: '320px',
+    backgroundColor: 'white',
+    flexDirection: 'column',
+    alignItems: 'center',
+    borderRadius: '0.5rem',
+    boxShadow: '0px 29px 38px -15px rgba(0,0,0,0.43)',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+  };
+
+  const cardImageStyle = {
+    width: '90%',
+    height: '200px',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    marginTop: '20px',
+    borderRadius: '0.3rem'
   };
 
   return (
-    <div style={containerStyle}>
-      {renderBackground()}
-      {overlayStyle && <div style={overlayStyle} />}
-      
-      <div style={contentStyle}>
-        {config.content?.text && (
-          <div style={{
-            textAlign: 'center',
-            color: config.content?.color || '#ffffff'
+    <div style={{ width: '100%' }}>
+      {/* Hero Section */}
+      <div style={heroContainerStyle}>
+        {config.hero?.title?.show && (
+          <h1 style={{
+            fontSize: `${config.hero.title.size || 48}px`,
+            fontWeight: config.hero.title.weight || 700,
+            color: config.hero.title.color || '#333333',
+            marginBottom: '1rem'
           }}>
-            <h2 style={{
-              fontSize: `${config.content?.fontSize || 48}px`,
-              fontWeight: config.content?.fontWeight || 700,
-              marginBottom: '16px'
-            }}>
-              {config.content.text}
-            </h2>
-            {config.content?.description && (
-              <p style={{
-                fontSize: `${config.content?.descSize || 18}px`,
-                maxWidth: '600px',
-                margin: '0 auto'
-              }}>
-                {config.content.description}
-              </p>
-            )}
-          </div>
+            {config.hero.title.text}
+          </h1>
+        )}
+        
+        {config.hero?.description?.show && (
+          <p style={{
+            fontSize: `${config.hero.description.size || 16}px`,
+            color: config.hero.description.color || '#333333',
+            maxWidth: config.hero.description.maxWidth || '52ch',
+            lineHeight: '1.5',
+            padding: '1rem',
+            marginBottom: '1rem'
+          }}>
+            {config.hero.description.text}
+          </p>
+        )}
+        
+        {config.hero?.button?.show && (
+          <a
+            href={config.hero.button.link || '#'}
+            style={{
+              display: 'inline-block',
+              padding: '1rem 3.5rem',
+              backgroundColor: config.hero.button.color || '#333333',
+              color: config.hero.button.textColor || '#ffffff',
+              textDecoration: 'none',
+              textTransform: 'uppercase',
+              borderRadius: '0.3rem',
+              fontWeight: 700,
+              letterSpacing: '0.5px',
+              fontSize: `${config.hero.button.size || 14}px`
+            }}
+          >
+            {config.hero.button.text}
+          </a>
         )}
       </div>
 
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept="image/*"
-        style={{ display: 'none' }}
-        onChange={handleImageUpload}
-      />
-      <input
-        ref={videoInputRef}
-        type="file"
-        accept="video/*"
-        style={{ display: 'none' }}
-        onChange={handleVideoUpload}
-      />
+      {/* Blank Spacer */}
+      <div style={spacerStyle}></div>
+
+      {/* Cards Section */}
+      <div style={cardsSectionStyle}>
+        {config.cards && config.cards.map((card, index) => (
+          <div key={card.id || index} style={cardStyle}>
+            <div
+              style={{
+                ...cardImageStyle,
+                backgroundImage: `url(${card.image})`
+              }}
+            />
+            <div style={{ padding: '1.5rem', textAlign: 'center' }}>
+              <h3 style={{
+                fontWeight: 700,
+                fontSize: '1.6rem',
+                marginTop: '1rem',
+                marginBottom: '0.5rem',
+                color: '#333333'
+              }}>
+                {card.title}
+              </h3>
+              <p style={{
+                fontSize: '0.95rem',
+                color: '#666666',
+                lineHeight: '1.5',
+                marginBottom: '1.5rem'
+              }}>
+                {card.description}
+              </p>
+              <a
+                href={card.link || '#'}
+                style={{
+                  display: 'inline-block',
+                  padding: '0.75rem 2.5rem',
+                  backgroundColor: '#333333',
+                  color: '#ffffff',
+                  textDecoration: 'none',
+                  textTransform: 'uppercase',
+                  borderRadius: '0.3rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.5px',
+                  fontSize: '0.875rem',
+                  marginBottom: '1.5rem'
+                }}
+              >
+                {card.linkText || 'Learn more'}
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Second Blank Spacer */}
+      <div style={spacerStyle}></div>
     </div>
   );
 };
