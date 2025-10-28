@@ -49,13 +49,13 @@ export const blockTemplates = [
         speed: 0.5
       },
       whiteSpace: {
-        top: 200,
-        bottom: 200
+        top: 50,
+        bottom: 50
       },
-      fullScreen: true,
-      fullWidth: true,
+      fullScreen: false,
+      fullWidth: false,
       contentWidth: 1000,
-      padding: { top: 100, bottom: 100 },
+      padding: { top: 60, bottom: 80 },
       title: { 
         text: 'Experience Depth with Parallax', 
         show: true, 
