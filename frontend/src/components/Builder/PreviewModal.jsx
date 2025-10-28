@@ -1568,18 +1568,6 @@ const generateBlockHTML = (config) => {
               </div>
             ` : ''}
           </div>
-          
-          ${config.whiteSpace?.bottom > 0 ? `
-            <div style="
-              position: absolute;
-              bottom: 0;
-              left: 0;
-              right: 0;
-              height: ${config.whiteSpace.bottom}px;
-              background-color: #ffffff;
-              z-index: 3;
-            "></div>
-          ` : ''}
         </div>
       `;
     }
