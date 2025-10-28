@@ -2787,6 +2787,262 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
             </div>
           </div>
         )}
+
+        {/* Cards Skew Block Controls */}
+        {config.type === 'cards-skew' && (
+          <div className="space-y-0.5">
+            <h4 className="text-[9px] font-bold text-white uppercase tracking-wider border-b border-gray-700 pb-1">Cards Skew Settings</h4>
+            
+            {/* Dimensions */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h5 className="text-[9px] font-semibold text-indigo-400">Dimensions</h5>
+              
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Container Width (px)</Label>
+                <div className="flex items-center gap-1.5">
+                  <Input
+                    type="range"
+                    value={config.width || 400}
+                    onChange={(e) => updateConfig('width', parseInt(e.target.value))}
+                    className="flex-1 bg-gray-800 border-gray-700"
+                    min="300"
+                    max="800"
+                    step="50"
+                  />
+                  <span className="text-[9px] text-gray-400 w-10 text-right">{config.width || 400}px</span>
+                </div>
+              </div>
+
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Image Height (px)</Label>
+                <div className="flex items-center gap-1.5">
+                  <Input
+                    type="range"
+                    value={config.imageHeight || 300}
+                    onChange={(e) => updateConfig('imageHeight', parseInt(e.target.value))}
+                    className="flex-1 bg-gray-800 border-gray-700"
+                    min="200"
+                    max="600"
+                    step="50"
+                  />
+                  <span className="text-[9px] text-gray-400 w-10 text-right">{config.imageHeight || 300}px</span>
+                </div>
+              </div>
+
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Card Width (px)</Label>
+                <div className="flex items-center gap-1.5">
+                  <Input
+                    type="range"
+                    value={config.cardWidth || 300}
+                    onChange={(e) => updateConfig('cardWidth', parseInt(e.target.value))}
+                    className="flex-1 bg-gray-800 border-gray-700"
+                    min="250"
+                    max="700"
+                    step="50"
+                  />
+                  <span className="text-[9px] text-gray-400 w-10 text-right">{config.cardWidth || 300}px</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Background Image */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h5 className="text-[9px] font-semibold text-indigo-400">Background Image</h5>
+              
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Image URL</Label>
+                <Input
+                  type="text"
+                  value={config.backgroundImage || ''}
+                  onChange={(e) => updateConfig('backgroundImage', e.target.value)}
+                  className="bg-gray-800 border-gray-700 text-white text-[10px] h-7"
+                  placeholder="https://..."
+                />
+              </div>
+
+              <label className="flex items-center justify-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-[9px] py-1.5 px-2 rounded cursor-pointer transition-colors">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Upload Image
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    try {
+                      const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
+                      const response = await fetch(`${backendUrl}/api/upload/image`, {
+                        method: 'POST',
+                        body: formData
+                      });
+                      if (response.ok) {
+                        const data = await response.json();
+                        updateConfig('backgroundImage', data.url);
+                      }
+                    } catch (error) {
+                      console.error('Error uploading image:', error);
+                    }
+                    e.target.value = '';
+                  }}
+                />
+              </label>
+            </div>
+
+            {/* Title Settings */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h5 className="text-[9px] font-semibold text-indigo-400">Title</h5>
+              
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Title Text</Label>
+                <Input
+                  type="text"
+                  value={config.title || ''}
+                  onChange={(e) => updateConfig('title', e.target.value)}
+                  className="bg-gray-800 border-gray-700 text-white text-[10px] h-7"
+                  placeholder="Some Title"
+                />
+              </div>
+
+              <div className="flex gap-1.5">
+                <div className="flex-1 space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Size</Label>
+                  <Input
+                    type="range"
+                    value={config.titleSize || 24}
+                    onChange={(e) => updateConfig('titleSize', parseInt(e.target.value))}
+                    className="w-full bg-gray-800 border-gray-700"
+                    min="16"
+                    max="48"
+                  />
+                  <span className="text-[9px] text-gray-400">{config.titleSize || 24}px</span>
+                </div>
+                <div className="flex-1 space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Color</Label>
+                  <Input
+                    type="color"
+                    value={config.titleColor || '#333333'}
+                    onChange={(e) => updateConfig('titleColor', e.target.value)}
+                    className="w-full h-6 bg-gray-800 border-gray-700"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Description */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h5 className="text-[9px] font-semibold text-indigo-400">Description</h5>
+              
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Text</Label>
+                <Textarea
+                  value={config.description || ''}
+                  onChange={(e) => updateConfig('description', e.target.value)}
+                  className="bg-gray-800 border-gray-700 text-white text-[10px] min-h-[60px]"
+                  rows={3}
+                />
+              </div>
+
+              <div className="flex gap-1.5">
+                <div className="flex-1 space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Size</Label>
+                  <Input
+                    type="range"
+                    value={config.textSize || 14}
+                    onChange={(e) => updateConfig('textSize', parseInt(e.target.value))}
+                    className="w-full bg-gray-800 border-gray-700"
+                    min="12"
+                    max="20"
+                  />
+                  <span className="text-[9px] text-gray-400">{config.textSize || 14}px</span>
+                </div>
+                <div className="flex-1 space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Color</Label>
+                  <Input
+                    type="color"
+                    value={config.textColor || '#555555'}
+                    onChange={(e) => updateConfig('textColor', e.target.value)}
+                    className="w-full h-6 bg-gray-800 border-gray-700"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Link Settings */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h5 className="text-[9px] font-semibold text-indigo-400">Link</h5>
+              
+              <div className="flex items-center justify-between py-0.5">
+                <Label className="text-[9px] text-gray-300">Show Link</Label>
+                <Switch
+                  checked={config.showLink ?? true}
+                  onCheckedChange={(checked) => updateConfig('showLink', checked)}
+                />
+              </div>
+
+              {config.showLink && (
+                <>
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Link Text</Label>
+                    <Input
+                      type="text"
+                      value={config.linkText || ''}
+                      onChange={(e) => updateConfig('linkText', e.target.value)}
+                      className="bg-gray-800 border-gray-700 text-white text-[10px] h-7"
+                      placeholder="read more ..."
+                    />
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Link URL</Label>
+                    <Input
+                      type="text"
+                      value={config.linkUrl || ''}
+                      onChange={(e) => updateConfig('linkUrl', e.target.value)}
+                      className="bg-gray-800 border-gray-700 text-white text-[10px] h-7"
+                      placeholder="#"
+                    />
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Accent Color */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h5 className="text-[9px] font-semibold text-indigo-400">Accent Color</h5>
+              
+              <div className="flex items-center gap-1.5">
+                <Input
+                  type="color"
+                  value={config.accentColor || '#e91e63'}
+                  onChange={(e) => updateConfig('accentColor', e.target.value)}
+                  className="w-6 h-6 bg-gray-800 border-gray-700"
+                />
+                <Input
+                  type="text"
+                  value={config.accentColor || '#e91e63'}
+                  onChange={(e) => updateConfig('accentColor', e.target.value)}
+                  className="flex-1 bg-gray-800 border-gray-700 text-white text-[10px] h-7"
+                />
+              </div>
+            </div>
+
+            <div className="pt-1 border-t border-gray-700">
+              <p className="text-[9px] text-indigo-400 italic">
+                💡 Skewed card design cu hover effects
+              </p>
+            </div>
+          </div>
+        )}
+              </p>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Social Icons Modal */}
