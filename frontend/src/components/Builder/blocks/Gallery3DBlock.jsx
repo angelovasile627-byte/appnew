@@ -13,7 +13,7 @@ export const Gallery3DBlock = ({ config, onUpdate }) => {
     paddingTop: `${config.padding?.top || 80}px`,
     paddingBottom: `${config.padding?.bottom || 80}px`,
     width: '100%',
-    minHeight: '500px',
+    minHeight: '600px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
