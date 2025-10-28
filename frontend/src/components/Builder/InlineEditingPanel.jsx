@@ -1411,7 +1411,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                               <Textarea
                                 value={element.title.text || ''}
                                 onChange={(e) => updateElementConfig(selectedElementId, 'title.text', e.target.value)}
-                                className="bg-gray-800 border-gray-700 text-[9px]"
+                                className="bg-gray-800 border-gray-700 text-[9px] text-white"
                                 rows={1}
                               />
                             </div>
@@ -1502,7 +1502,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                               <Textarea
                                 value={element.subtitle.text || ''}
                                 onChange={(e) => updateElementConfig(selectedElementId, 'subtitle.text', e.target.value)}
-                                className="bg-gray-800 border-gray-700 text-[9px]"
+                                className="bg-gray-800 border-gray-700 text-[9px] text-white"
                                 rows={2}
                               />
                             </div>
@@ -1555,7 +1555,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                               <Textarea
                                 value={element.description.text || ''}
                                 onChange={(e) => updateElementConfig(selectedElementId, 'description.text', e.target.value)}
-                                className="bg-gray-800 border-gray-700 text-[9px]"
+                                className="bg-gray-800 border-gray-700 text-[9px] text-white"
                                 rows={3}
                               />
                             </div>
