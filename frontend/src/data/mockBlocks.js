@@ -1631,5 +1631,29 @@ export const blockTemplates = [
         }
       ]
     }
+  },
+  {
+    id: 'cards-skew-1',
+    category: 'cards',
+    name: 'Cards - Skewed Design',
+    thumbnail: 'https://images.unsplash.com/photo-1467733444521-ab3e6983f8b1?w=400&h=300&fit=crop',
+    config: {
+      type: 'cards-skew',
+      width: 400,
+      imageHeight: 300,
+      cardWidth: 300,
+      backgroundImage: 'https://images.unsplash.com/photo-1467733444521-ab3e6983f8b1?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=69aaefe565d19beb876979d89510601b',
+      title: 'Some Title',
+      titleSize: 24,
+      titleColor: '#333333',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo fugiat ad quae amet dignissimos laborum, repellat maxime ipsa ipsam nisi',
+      textSize: 14,
+      textColor: '#555555',
+      accentColor: '#e91e63',
+      showLink: true,
+      linkText: 'read more ...',
+      linkUrl: '#',
+      sectionBackground: 'transparent'
+    }
   }
 ];
