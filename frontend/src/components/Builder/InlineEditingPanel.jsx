@@ -1544,6 +1544,73 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                       </>
                     )}
 
+                    {/* Button 2 Controls (for Vertical Layout) */}
+                    {element.button2 && (
+                      <>
+                        <div className="flex items-center justify-between py-0.5 border-t border-gray-800 pt-1">
+                          <Label className="text-[9px] text-gray-300">Show Button 2</Label>
+                          <Switch
+                            checked={element.button2.show ?? false}
+                            onCheckedChange={(checked) => updateElementConfig(selectedElementId, 'button2.show', checked)}
+                          />
+                        </div>
+                        
+                        {element.button2.show && (
+                          <>
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Button 2 Text</Label>
+                              <Input
+                                type="text"
+                                value={element.button2.text || ''}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'button2.text', e.target.value)}
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                              />
+                            </div>
+                            
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Button 2 Color</Label>
+                              <Input
+                                type="color"
+                                value={element.button2.color || 'transparent'}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'button2.color', e.target.value)}
+                                className="w-6 h-6 bg-gray-800 border-gray-700"
+                              />
+                            </div>
+                            
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Button 2 Text Color</Label>
+                              <Input
+                                type="color"
+                                value={element.button2.textColor || '#ffffff'}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'button2.textColor', e.target.value)}
+                                className="w-6 h-6 bg-gray-800 border-gray-700"
+                              />
+                            </div>
+
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Button 2 Border Color</Label>
+                              <Input
+                                type="color"
+                                value={element.button2.borderColor || '#ffffff'}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'button2.borderColor', e.target.value)}
+                                className="w-6 h-6 bg-gray-800 border-gray-700"
+                              />
+                            </div>
+
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Button 2 Link</Label>
+                              <Input
+                                type="text"
+                                value={element.button2.link || '#'}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'button2.link', e.target.value)}
+                                className="bg-gray-800 border-gray-700 text-[9px] h-7"
+                              />
+                            </div>
+                          </>
+                        )}
+                      </>
+                    )}
+
                     {/* Date Controls */}
                     {element.date && (
                       <>
