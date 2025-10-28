@@ -5,7 +5,7 @@ export const ParallaxBlock = ({ config, onUpdate }) => {
   // Hero Section Style with Parallax
   const heroContainerStyle = {
     width: '100%',
-    minHeight: '100vh',
+    minHeight: config.hero?.height ? `${config.hero.height}vh` : '60vh',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
