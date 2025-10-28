@@ -1990,10 +1990,6 @@ const generateBlockHTML = (config) => {
               background-position: center;
               --x: ${positions[index].x};
               --y: ${positions[index].y};
-              cursor: pointer;
-              transition: transform 0.3s ease, box-shadow 0.3s ease;
-              animation: animate-boxes linear both;
-              animation-timeline: scroll();
             "
           ></div>
         `;
@@ -2023,9 +2019,43 @@ const generateBlockHTML = (config) => {
             initial-value: -250px;
           }
           
+          .gallery-scroll-wrapper {
+            --gap: 1rem;
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 2fr ${sizeBase}px 2fr 1fr;
+            grid-template-rows: 1fr ${sizeBase}px 1fr;
+            grid-template-areas:
+              "one two two three four"
+              "one six center three eight"
+              "five six seven seven eight";
+            gap: var(--gap);
+            pointer-events: none;
+          }
+          
+          .gallery-scroll-item,
+          .gallery-scroll-center {
+            pointer-events: auto;
+          }
+          
+          .gallery-scroll-item {
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: animate-boxes-preview linear both;
+            animation-timeline: view();
+            animation-range: entry 0% cover 50%;
+          }
+          
           /* Box animations - images slide in */
-          @keyframes animate-boxes {
-            0%, 15% {
+          @keyframes animate-boxes-preview {
+            0% {
+              translate: var(--x) var(--y);
+            }
+            15% {
               translate: var(--x) var(--y);
             }
             100% {
@@ -2034,7 +2064,12 @@ const generateBlockHTML = (config) => {
           }
           
           /* Center animation - grows and moves to center */
-          @keyframes animate-center {
+          @keyframes animate-center-preview {
+            0% {
+              --mouse-w: 600px;
+              --center-x: -250px;
+              --center-y: -250px;
+            }
             25%, 65% {
               --mouse-w: 300px;
               --center-x: -100px;
@@ -2055,7 +2090,7 @@ const generateBlockHTML = (config) => {
           }
           
           .gallery-scroll-center:hover {
-            --mouse-w: calc(${sizeBase}px * 1.05) !important;
+            transform: scale(1.05);
           }
           
           /* Lightbox styles */
@@ -2131,21 +2166,9 @@ const generateBlockHTML = (config) => {
           background-color: ${config.background?.color || '#111'};
           width: 100%;
           overflow: hidden;
+          isolation: isolate;
         ">
-          <div style="
-            position: sticky;
-            top: 0;
-            width: 100%;
-            height: 100vh;
-            display: grid;
-            grid-template-columns: 1fr 2fr ${sizeBase}px 2fr 1fr;
-            grid-template-rows: 1fr ${sizeBase}px 1fr;
-            grid-template-areas:
-              'one two two three four'
-              'one six center three eight'
-              'five six seven seven eight';
-            gap: 1rem;
-          ">
+          <div class="gallery-scroll-wrapper">
             ${imagesHTML}
             
             <div 
@@ -2166,8 +2189,9 @@ const generateBlockHTML = (config) => {
                 text-align: center;
                 position: relative;
                 cursor: pointer;
-                animation: animate-center linear both;
-                animation-timeline: scroll();
+                animation: animate-center-preview linear both;
+                animation-timeline: view();
+                animation-range: entry 0% cover 50%;
               "
             ></div>
           </div>
