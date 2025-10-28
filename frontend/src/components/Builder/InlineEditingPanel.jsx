@@ -440,6 +440,291 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
           )}
         </div>
 
+        {/* PARALLAX BLOCK SETTINGS */}
+        {config.type === 'parallax' && (
+          <>
+            {/* Size Controls */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Size</h4>
+              
+              <div className="flex items-center justify-between py-0.5">
+                <Label className="text-[9px] text-gray-300">Full Screen</Label>
+                <Switch
+                  checked={config.fullScreen ?? false}
+                  onCheckedChange={(checked) => updateConfig('fullScreen', checked)}
+                />
+              </div>
+
+              <div className="flex items-center justify-between py-0.5">
+                <Label className="text-[9px] text-gray-300">Full Width</Label>
+                <Switch
+                  checked={config.fullWidth ?? false}
+                  onCheckedChange={(checked) => updateConfig('fullWidth', checked)}
+                />
+              </div>
+
+              {!config.fullScreen && (
+                <>
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Top Padding (px)</Label>
+                    <div className="flex items-center gap-1.5">
+                      <Input
+                        type="range"
+                        value={config.paddingTop || 60}
+                        onChange={(e) => updateConfig('paddingTop', parseInt(e.target.value))}
+                        className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
+                        min="0"
+                        max="200"
+                        step="10"
+                      />
+                      <span className="text-[9px] text-gray-400 w-10 text-right">{config.paddingTop || 60}px</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Bottom Padding (px)</Label>
+                    <div className="flex items-center gap-1.5">
+                      <Input
+                        type="range"
+                        value={config.paddingBottom || 80}
+                        onChange={(e) => updateConfig('paddingBottom', parseInt(e.target.value))}
+                        className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
+                        min="0"
+                        max="200"
+                        step="10"
+                      />
+                      <span className="text-[9px] text-gray-400 w-10 text-right">{config.paddingBottom || 80}px</span>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Background Type Selection */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Background Type</Label>
+              <Select
+                value={config.background?.type || 'image'}
+                onValueChange={(value) => updateConfig('background.type', value)}
+              >
+                <SelectTrigger className="h-7 bg-gray-800 border-gray-700 text-[9px] text-white">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="image">Image</SelectItem>
+                  <SelectItem value="video">Video</SelectItem>
+                  <SelectItem value="color">Color</SelectItem>
+                  <SelectItem value="gradient">Gradient</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Background Controls based on type */}
+            {config.background?.type === 'image' && (
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Image URL</Label>
+                <Input
+                  type="text"
+                  value={config.background?.value || ''}
+                  onChange={(e) => updateConfig('background.value', e.target.value)}
+                  className="bg-gray-800 border-gray-700 text-[9px] h-7 text-white"
+                  placeholder="https://example.com/image.jpg"
+                />
+                
+                <label className="flex items-center justify-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-[9px] py-1.5 px-2 rounded cursor-pointer transition-colors">
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Upload Image
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={async (e) => {
+                      const file = e.target.files[0];
+                      if (!file) return;
+                      const formData = new FormData();
+                      formData.append('file', file);
+                      try {
+                        const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+                        const response = await fetch(`${backendUrl}/api/upload/image`, {
+                          method: 'POST',
+                          body: formData
+                        });
+                        if (response.ok) {
+                          const data = await response.json();
+                          updateConfig('background.value', data.url);
+                        }
+                      } catch (error) {
+                        console.error('Error uploading image:', error);
+                      }
+                    }}
+                  />
+                </label>
+
+                <div className="flex items-center justify-between py-0.5">
+                  <Label className="text-[9px] text-gray-300">Parallax Effect</Label>
+                  <Switch
+                    checked={config.background?.parallax ?? true}
+                    onCheckedChange={(checked) => updateConfig('background.parallax', checked)}
+                  />
+                </div>
+              </div>
+            )}
+
+            {config.background?.type === 'video' && (
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Video URL</Label>
+                <Input
+                  type="text"
+                  value={config.background?.value || ''}
+                  onChange={(e) => updateConfig('background.value', e.target.value)}
+                  className="bg-gray-800 border-gray-700 text-[9px] h-7 text-white"
+                  placeholder="https://example.com/video.mp4"
+                />
+                
+                <label className="flex items-center justify-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-[9px] py-1.5 px-2 rounded cursor-pointer transition-colors">
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                  Upload Video
+                  <input
+                    type="file"
+                    accept="video/*"
+                    className="hidden"
+                    onChange={async (e) => {
+                      const file = e.target.files[0];
+                      if (!file) return;
+                      const formData = new FormData();
+                      formData.append('file', file);
+                      try {
+                        const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+                        const response = await fetch(`${backendUrl}/api/upload/video`, {
+                          method: 'POST',
+                          body: formData
+                        });
+                        if (response.ok) {
+                          const data = await response.json();
+                          updateConfig('background.value', data.url);
+                        }
+                      } catch (error) {
+                        console.error('Error uploading video:', error);
+                      }
+                    }}
+                  />
+                </label>
+              </div>
+            )}
+
+            {config.background?.type === 'color' && (
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Background Color</Label>
+                <Input
+                  type="color"
+                  value={config.background?.value || '#ffffff'}
+                  onChange={(e) => updateConfig('background.value', e.target.value)}
+                  className="w-full h-10 bg-gray-800 border-gray-700"
+                />
+              </div>
+            )}
+
+            {config.background?.type === 'gradient' && (
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Gradient CSS</Label>
+                <Textarea
+                  value={config.background?.value || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}
+                  onChange={(e) => updateConfig('background.value', e.target.value)}
+                  className="bg-gray-800 border-gray-700 text-[9px] text-white"
+                  placeholder="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+                  rows={2}
+                />
+              </div>
+            )}
+
+            {/* Overlay Controls */}
+            {config.background?.type !== 'color' && (
+              <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                <div className="flex items-center justify-between py-0.5">
+                  <Label className="text-[9px] text-gray-300">Overlay</Label>
+                  <Switch
+                    checked={config.overlay ?? true}
+                    onCheckedChange={(checked) => updateConfig('overlay', checked)}
+                  />
+                </div>
+
+                {config.overlay && (
+                  <>
+                    <div className="space-y-0.5">
+                      <Label className="text-[9px] text-gray-300">Overlay Color</Label>
+                      <Input
+                        type="color"
+                        value={config.overlayColor || '#232323'}
+                        onChange={(e) => updateConfig('overlayColor', e.target.value)}
+                        className="w-full h-10 bg-gray-800 border-gray-700"
+                      />
+                    </div>
+
+                    <div className="space-y-0.5">
+                      <Label className="text-[9px] text-gray-300">Opacity</Label>
+                      <div className="flex items-center gap-1.5">
+                        <Input
+                          type="range"
+                          value={config.overlayOpacity || 0.4}
+                          onChange={(e) => updateConfig('overlayOpacity', parseFloat(e.target.value))}
+                          className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
+                          min="0"
+                          max="1"
+                          step="0.1"
+                        />
+                        <span className="text-[9px] text-gray-400 w-10 text-right">{((config.overlayOpacity || 0.4) * 100).toFixed(0)}%</span>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+
+            {/* Content Controls */}
+            {config.content && (
+              <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Content</h4>
+                
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Heading</Label>
+                  <Input
+                    type="text"
+                    value={config.content?.text || ''}
+                    onChange={(e) => updateConfig('content.text', e.target.value)}
+                    className="bg-gray-800 border-gray-700 text-[9px] h-7 text-white"
+                    placeholder="Your heading"
+                  />
+                </div>
+
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Description</Label>
+                  <Textarea
+                    value={config.content?.description || ''}
+                    onChange={(e) => updateConfig('content.description', e.target.value)}
+                    className="bg-gray-800 border-gray-700 text-[9px] text-white"
+                    placeholder="Your description"
+                    rows={2}
+                  />
+                </div>
+
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Text Color</Label>
+                  <Input
+                    type="color"
+                    value={config.content?.color || '#ffffff'}
+                    onChange={(e) => updateConfig('content.color', e.target.value)}
+                    className="w-full h-10 bg-gray-800 border-gray-700"
+                  />
+                </div>
+              </div>
+            )}
+          </>
+        )}
+
         {/* Size Controls for Menu - Full Width and Logo Size */}
         {config.type === 'menu' && (
           <div className="space-y-0.5 border-t border-gray-800 pt-1">
