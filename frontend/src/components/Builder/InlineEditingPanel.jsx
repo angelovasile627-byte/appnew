@@ -3039,10 +3039,6 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
             </div>
           </div>
         )}
-              </p>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Social Icons Modal */}
