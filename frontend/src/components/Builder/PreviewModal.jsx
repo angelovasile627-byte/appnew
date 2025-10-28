@@ -1847,6 +1847,162 @@ const generateBlockHTML = (config) => {
       `;
     }
 
+    case 'cards-skew': {
+      return `
+        <div style="padding: 40px 20px; background: ${config.sectionBackground || 'transparent'};">
+          <style>
+            .card-skew-container-preview {
+              max-width: ${config.width || 400}px;
+              width: 100%;
+              margin: 0 auto;
+              padding-bottom: 70px;
+              position: relative;
+            }
+            
+            .intro-preview {
+              position: relative;
+              min-height: ${config.imageHeight || 300}px;
+              height: 100%;
+              width: 100%;
+              background: ${config.backgroundImage ? `transparent url(${config.backgroundImage}) top center no-repeat` : '#e0e0e0'};
+              background-size: 100%;
+              overflow: hidden;
+              transition: all .72s ease-in-out;
+            }
+            
+            .intro-preview:after {
+              content: '';
+              display: block;
+              position: absolute;
+              height: 500px;
+              right: -100%;
+              left: 0;
+              transform: skew(100deg);
+              background: #fff;
+              bottom: -70%;
+              box-shadow: inset 1px 0px 5px 0px rgba(204, 204, 204, 0.72);
+            }
+            
+            .card-skew-container-preview:after {
+              content: '';
+              max-width: ${config.cardWidth || 300}px;
+              width: 100%;
+              margin: 0% auto 0;
+              position: absolute;
+              left: 0;
+              bottom: 0;
+              top: 0;
+              right: 0;
+              box-shadow: 0px 5px 5px 0px rgba(204, 204, 204, 0.72);
+              z-index: -1;
+              transition: all .52s ease-in-out;
+            }
+            
+            .meta-preview {
+              max-width: ${config.cardWidth || 300}px;
+              width: 100%;
+              margin: 0% auto 0;
+              position: absolute;
+              left: 0;
+              bottom: 0;
+              right: 0;
+              z-index: 10;
+              padding-top: 110px;
+              overflow: hidden;
+              transition: all .52s ease-in-out;
+            }
+            
+            .meta-preview-inner {
+              padding: .25rem 1rem;
+              line-height: 1.5rem;
+              position: relative;
+              background: #fff;
+              z-index: 15;
+              border: 1px solid #ccc;
+              border-top: none;
+            }
+            
+            .meta-preview:after {
+              content: '';
+              display: block;
+              position: absolute;
+              left: 0;
+              right: 0;
+              top: 80px;
+              max-width: ${config.cardWidth || 300}px;
+              height: 300px;
+              background: #fff;
+              border: 1px solid #ccc;
+              transform: rotate(90deg) skew(10deg);
+              z-index: 4;
+            }
+            
+            .card-skew-container-preview:hover .meta-preview {
+              transform: translateY(5px);
+            }
+            
+            .card-skew-container-preview:hover .intro-preview {
+              transform: translateY(-5px);
+            }
+            
+            .card-skew-container-preview:hover:after {
+              transform: translateY(5px);
+            }
+            
+            .card-skew-link-preview:hover {
+              opacity: 1 !important;
+              text-decoration: underline;
+            }
+          </style>
+          
+          <div class="card-skew-container-preview">
+            <section class="intro-preview"></section>
+            
+            <div class="meta-preview">
+              <div class="meta-preview-inner">
+                <h3 style="
+                  position: relative;
+                  font-family: sans-serif;
+                  font-weight: 300;
+                  border-left: 4px solid ${config.accentColor || '#e91e63'};
+                  padding-left: .72rem;
+                  font-size: ${config.titleSize || 24}px;
+                  color: ${config.titleColor || '#333333'};
+                  margin-bottom: 0.5rem;
+                ">
+                  ${config.title || 'Some Title'}
+                </h3>
+                <p style="
+                  font-family: serif;
+                  font-size: ${config.textSize || 14}px;
+                  font-weight: inherit;
+                  color: ${config.textColor || '#555'};
+                  text-align: justify;
+                  margin-bottom: 0.5rem;
+                ">
+                  ${config.description || 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo fugiat ad quae amet dignissimos laborum, repellat maxime ipsa ipsam nisi'}
+                  ${config.showLink ? `
+                    <a 
+                      href="${config.linkUrl || '#'}" 
+                      class="card-skew-link-preview"
+                      style="
+                        color: ${config.accentColor || '#e91e63'};
+                        text-decoration: none;
+                        opacity: 0.72;
+                        transition: all .27s ease-in-out;
+                      "
+                    >
+                      ${config.linkText || 'read more ...'}
+                    </a>
+                  ` : ''}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
     case 'features': {
       const bgStyle = config.background.type === 'gradient' 
         ? `background: ${config.background.value};`
