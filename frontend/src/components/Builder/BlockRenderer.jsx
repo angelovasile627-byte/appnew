@@ -18,11 +18,13 @@ import { TeamBlock } from './blocks/TeamBlock';
 import { StatsBlock } from './blocks/StatsBlock';
 import { FAQBlock } from './blocks/FAQBlock';
 import { CardsSkewBlock } from './blocks/CardsSkewBlock';
+import HomeParallaxBlock from './blocks/HomeParallaxBlock';
 
 const blockComponents = {
   menu: MenuBlock,
   hero: HeroBlock,
   'hero-parallax': HeroParallaxBlock,
+  'home-parallax': HomeParallaxBlock,
   parallax: ParallaxBlock,
   features: FeaturesBlock,
   article: ArticleBlock,
