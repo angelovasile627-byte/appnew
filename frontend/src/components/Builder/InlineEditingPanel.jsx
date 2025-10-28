@@ -1376,6 +1376,44 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                                 <span className="text-[9px] text-gray-400 w-10 text-right">{element.title.size || 24}px</span>
                               </div>
                             </div>
+                            
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Title Weight</Label>
+                              <Select
+                                value={String(element.title.weight || 700)}
+                                onValueChange={(value) => updateElementConfig(selectedElementId, 'title.weight', parseInt(value))}
+                              >
+                                <SelectTrigger className="h-7 bg-gray-800 border-gray-700 text-[9px]">
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="300">Light (300)</SelectItem>
+                                  <SelectItem value="400">Regular (400)</SelectItem>
+                                  <SelectItem value="500">Medium (500)</SelectItem>
+                                  <SelectItem value="600">Semi-Bold (600)</SelectItem>
+                                  <SelectItem value="700">Bold (700)</SelectItem>
+                                  <SelectItem value="800">Extra Bold (800)</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            
+                            {element.title.style !== undefined && (
+                              <div className="space-y-0.5">
+                                <Label className="text-[9px] text-gray-300">Title Style</Label>
+                                <Select
+                                  value={element.title.style || 'normal'}
+                                  onValueChange={(value) => updateElementConfig(selectedElementId, 'title.style', value)}
+                                >
+                                  <SelectTrigger className="h-7 bg-gray-800 border-gray-700 text-[9px]">
+                                    <SelectValue />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="normal">Normal</SelectItem>
+                                    <SelectItem value="italic">Italic</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                            )}
                           </>
                         )}
                       </>
