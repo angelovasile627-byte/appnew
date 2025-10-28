@@ -48,7 +48,7 @@ const HomeParallaxBlock = ({ config, isEditing, onUpdate }) => {
     const mouseEffectY = mousePos.y * 100;
 
     const translateX = (scrollEffect * speedX) + (mouseEffectX * speedX * 0.5);
-    const translateY = (scrollEffect * speedy) + (mouseEffectY * speedY * 0.5);
+    const translateY = (scrollEffect * speedY) + (mouseEffectY * speedY * 0.5);
     const scale = 1 + (scrollEffect * speedZ * 0.0001);
     const rotate = scrollEffect * rotation;
 
