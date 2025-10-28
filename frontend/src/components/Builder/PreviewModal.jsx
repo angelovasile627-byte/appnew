@@ -643,6 +643,9 @@ const generateBlockHTML = (config) => {
                     background: #ffffff;
                     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
                     transition: transform 0.3s ease;
+                    min-height: ${element.minHeight || 400}px;
+                    display: flex;
+                    flex-direction: column;
                   ">
                     ${element.image?.show ? `
                       <img 
