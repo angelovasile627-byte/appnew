@@ -10,7 +10,8 @@ export const GalleryScrollBlock = ({ config, onUpdate }) => {
     minHeight: `${scrollHeight}vh`,
     backgroundColor: config.background?.color || '#111',
     width: '100%',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    isolation: 'isolate'
   };
 
   return (
@@ -47,10 +48,11 @@ export const GalleryScrollBlock = ({ config, onUpdate }) => {
           initial-value: -250px;
         }
 
-        .gallery-scroll-wrapper {
+        [data-block-type="gallery-scroll"] .gallery-scroll-wrapper {
           --gap: 1rem;
           position: sticky;
           top: 0;
+          left: 0;
           width: 100%;
           height: 100vh;
           display: grid;
@@ -61,24 +63,31 @@ export const GalleryScrollBlock = ({ config, onUpdate }) => {
             "one six center three eight"
             "five six seven seven eight";
           gap: var(--gap);
+          pointer-events: none;
         }
 
-        .gallery-scroll-item {
+        [data-block-type="gallery-scroll"] .gallery-scroll-item,
+        [data-block-type="gallery-scroll"] .gallery-scroll-center {
+          pointer-events: auto;
+        }
+
+        [data-block-type="gallery-scroll"] .gallery-scroll-item {
           background-size: cover;
           background-position: center;
           cursor: pointer;
           transition: transform 0.3s ease, box-shadow 0.3s ease;
-          animation: animate-boxes linear both;
-          animation-timeline: scroll();
+          animation: animate-boxes-gallery linear both;
+          animation-timeline: view();
+          animation-range: entry 0% cover 50%;
         }
 
-        .gallery-scroll-item:hover {
+        [data-block-type="gallery-scroll"] .gallery-scroll-item:hover {
           transform: scale(1.05) !important;
           box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
           z-index: 10;
         }
 
-        .gallery-scroll-center {
+        [data-block-type="gallery-scroll"] .gallery-scroll-center {
           grid-area: center;
           background-color: ${config.centerBg || '#333'};
           color: ${config.centerColor || 'white'};
@@ -92,31 +101,17 @@ export const GalleryScrollBlock = ({ config, onUpdate }) => {
           text-align: center;
           position: relative;
           cursor: pointer;
-          animation: animate-center linear both;
-          animation-timeline: scroll();
+          animation: animate-center-gallery linear both;
+          animation-timeline: view();
+          animation-range: entry 0% cover 50%;
         }
 
-        .gallery-scroll-text {
-          font-family: 'Jura', sans-serif;
-          font-weight: 300;
-          opacity: var(--text-opacity, 1);
-          padding: 20px;
-          background: rgba(0, 0, 0, 0.6);
-          border-radius: 8px;
-          backdrop-filter: blur(10px);
-        }
-
-        .gallery-scroll-mouse {
-          position: absolute;
-          bottom: 50px;
-          left: 50%;
-          translate: -50% 50%;
-          width: 50px;
-          height: 50px;
-          rotate: var(--mouse-rotate, 0deg);
-        }
-
-        @keyframes animate-center {
+        @keyframes animate-center-gallery {
+          0% {
+            --mouse-w: 600px;
+            --center-x: -250px;
+            --center-y: -250px;
+          }
           25%, 65% {
             --mouse-w: 300px;
             --center-x: -100px;
@@ -129,8 +124,11 @@ export const GalleryScrollBlock = ({ config, onUpdate }) => {
           }
         }
 
-        @keyframes animate-boxes {
-          0%, 15% {
+        @keyframes animate-boxes-gallery {
+          0% {
+            translate: var(--x) var(--y);
+          }
+          15% {
             translate: var(--x) var(--y);
           }
           100% {
