@@ -1560,5 +1560,30 @@ export const blockTemplates = [
         descSize: 18
       }
     }
+  },
+  {
+    id: 'gallery-3d',
+    category: 'gallery',
+    name: 'Gallery - 3D Wave Effect',
+    thumbnail: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&h=300&fit=crop',
+    config: {
+      type: 'gallery-3d',
+      background: { type: 'color', value: '#020617' },
+      padding: { top: 80, bottom: 80 },
+      images: [
+        'https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1682687221038-404cb8830901?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1682687220063-4742bd7fd538?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1682687220199-d0124f48f95b?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1682687220208-22d7a2543e88?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1682687220923-c58b9a4592ae?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1682687982360-3fbab65f9d50?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1682687982501-1e58ab814714?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1682687982107-14492010e05e?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1682687982134-2ac563b2228b?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1682687982185-531d09ec56a7?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1682687220866-c856f566f1bd?w=800&h=800&fit=crop'
+      ]
+    }
   }
 ];
