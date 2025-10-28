@@ -1965,6 +1965,7 @@ const generateBlockHTML = (config) => {
     }
 
     case 'gallery-scroll': {
+      const sizeBase = config.sizeBase || 100;
       const imagesHTML = config.images.slice(0, 8).map((img, index) => {
         const positions = [
           { x: '-500%', y: '-200%', area: 'one' },
@@ -1978,33 +1979,167 @@ const generateBlockHTML = (config) => {
         ];
         
         return `
-          <div style="
-            grid-area: ${positions[index].area};
-            background-image: url(${img});
-            background-size: cover;
-            background-position: center;
-            --x: ${positions[index].x};
-            --y: ${positions[index].y};
-            animation: slideIn 1s ease-out forwards;
-            animation-timeline: scroll();
-            transform: translate(var(--x), var(--y));
-          "></div>
+          <div 
+            class="gallery-scroll-item" 
+            data-image="${img}"
+            onclick="openGalleryLightbox('${img}')"
+            style="
+              grid-area: ${positions[index].area};
+              background-image: url(${img});
+              background-size: cover;
+              background-position: center;
+              --x: ${positions[index].x};
+              --y: ${positions[index].y};
+              cursor: pointer;
+              transition: transform 0.3s ease, box-shadow 0.3s ease;
+              animation: animate-boxes linear both;
+              animation-timeline: scroll();
+            "
+          ></div>
         `;
       }).join('');
 
       return `
         <style>
-          @supports (animation-timeline: scroll()) {
-            @keyframes slideIn {
-              0%, 15% {
-                transform: translate(var(--x), var(--y));
-              }
-              100% {
-                transform: translate(0, 0);
-              }
+          /* CSS @property definitions for smooth animations */
+          @property --gap {
+            syntax: "<length>";
+            inherits: true;
+            initial-value: 0px;
+          }
+          @property --mouse-w {
+            syntax: "<length>";
+            inherits: true;
+            initial-value: 600px;
+          }
+          @property --center-x {
+            syntax: "<length>";
+            inherits: true;
+            initial-value: -250px;
+          }
+          @property --center-y {
+            syntax: "<length>";
+            inherits: true;
+            initial-value: -250px;
+          }
+          @property --text-opacity {
+            syntax: "<number>";
+            inherits: true;
+            initial-value: 1;
+          }
+          @property --mouse-rotate {
+            syntax: "<angle>";
+            inherits: true;
+            initial-value: 0deg;
+          }
+          
+          /* Box animations - images slide in */
+          @keyframes animate-boxes {
+            0%, 15% {
+              translate: var(--x) var(--y);
+            }
+            100% {
+              translate: 0 0;
             }
           }
+          
+          /* Center animation - grows and moves to center */
+          @keyframes animate-center {
+            25%, 65% {
+              --mouse-w: 300px;
+              --center-x: -100px;
+              --center-y: -100px;
+              --text-opacity: 0;
+            }
+            95% {
+              --mouse-rotate: 0deg;
+            }
+            100% {
+              --mouse-w: ${sizeBase}px;
+              --center-x: 0px;
+              --center-y: 0px;
+              --mouse-rotate: 180deg;
+            }
+          }
+          
+          /* Hover effects */
+          .gallery-scroll-item:hover {
+            transform: scale(1.05) !important;
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
+            z-index: 10;
+          }
+          
+          .gallery-scroll-center:hover {
+            --mouse-w: calc(${sizeBase}px * 1.05) !important;
+          }
+          
+          /* Lightbox styles */
+          .gallery-lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 40px;
+            cursor: pointer;
+          }
+          
+          .gallery-lightbox.active {
+            display: flex;
+          }
+          
+          .gallery-lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+          }
+          
+          .gallery-lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 40px;
+            font-weight: 300;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+          }
+          
+          .gallery-lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+          }
         </style>
+        
+        <script>
+          function openGalleryLightbox(imageSrc) {
+            const lightbox = document.getElementById('gallery-lightbox');
+            const lightboxImg = document.getElementById('gallery-lightbox-img');
+            if (lightbox && lightboxImg) {
+              lightboxImg.src = imageSrc;
+              lightbox.classList.add('active');
+            }
+          }
+          
+          function closeGalleryLightbox() {
+            const lightbox = document.getElementById('gallery-lightbox');
+            if (lightbox) {
+              lightbox.classList.remove('active');
+            }
+          }
+        </script>
+        
         <section style="
           position: relative;
           min-height: ${config.scrollHeight || 500}vh;
@@ -2018,8 +2153,8 @@ const generateBlockHTML = (config) => {
             width: 100vw;
             height: 100vh;
             display: grid;
-            grid-template-columns: 1fr 2fr ${config.sizeBase || 100}px 2fr 1fr;
-            grid-template-rows: 1fr ${config.sizeBase || 100}px 1fr;
+            grid-template-columns: 1fr 2fr ${sizeBase}px 2fr 1fr;
+            grid-template-rows: 1fr ${sizeBase}px 1fr;
             grid-template-areas:
               'one two two three four'
               'one six center three eight'
@@ -2028,27 +2163,36 @@ const generateBlockHTML = (config) => {
           ">
             ${imagesHTML}
             
-            <div style="
-              grid-area: center;
-              background-color: ${config.centerBg || '#333'};
-              background-image: url(${config.images[8]});
-              background-size: cover;
-              background-position: center;
-              color: ${config.centerColor || 'white'};
-              display: grid;
-              place-content: center;
-              width: 600px;
-              aspect-ratio: 1;
-              translate: -250px -250px;
-              text-align: center;
-              position: relative;
-            ">
+            <div 
+              class="gallery-scroll-center"
+              onclick="openGalleryLightbox('${config.images[8]}')"
+              style="
+                grid-area: center;
+                background-color: ${config.centerBg || '#333'};
+                background-image: url(${config.images[8]});
+                background-size: cover;
+                background-position: center;
+                color: ${config.centerColor || 'white'};
+                display: grid;
+                place-content: center;
+                width: var(--mouse-w, 600px);
+                aspect-ratio: 1;
+                translate: var(--center-x, -250px) var(--center-y, -250px);
+                text-align: center;
+                position: relative;
+                cursor: pointer;
+                animation: animate-center linear both;
+                animation-timeline: scroll();
+              "
+            >
               <div style="
                 font-family: 'Jura', sans-serif;
                 font-weight: 300;
+                opacity: var(--text-opacity, 1);
                 padding: 20px;
-                background: rgba(0, 0, 0, 0.5);
+                background: rgba(0, 0, 0, 0.6);
                 border-radius: 8px;
+                backdrop-filter: blur(10px);
               ">
                 <h1 style="
                   font-size: ${config.title?.size || 48}px;
@@ -2079,12 +2223,13 @@ const generateBlockHTML = (config) => {
                   position: absolute;
                   bottom: 50px;
                   left: 50%;
-                  transform: translateX(-50%);
+                  translate: -50% 50%;
                   width: 50px;
                   height: 50px;
+                  rotate: var(--mouse-rotate, 0deg);
                 "
               >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path stroke-width="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M6 3m0 4a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-4a4 4 0 0 1 -4 -4z" />
                 <path d="M12 7l0 4" />
                 <path d="M8 26l4 4l4 -4">
@@ -2101,6 +2246,12 @@ const generateBlockHTML = (config) => {
             </div>
           </div>
         </section>
+        
+        <!-- Lightbox -->
+        <div id="gallery-lightbox" class="gallery-lightbox" onclick="closeGalleryLightbox()">
+          <span class="gallery-lightbox-close">&times;</span>
+          <img id="gallery-lightbox-img" src="" alt="Gallery" onclick="event.stopPropagation()" />
+        </div>
       `;
     }
 
