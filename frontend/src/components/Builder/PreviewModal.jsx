@@ -1981,7 +1981,7 @@ const generateBlockHTML = (config) => {
         ">
           <nav class="gallery-3d-nav" style="
             height: min(20rem, 100%);
-            width: min(30rem, 100%);
+            width: min(60rem, 90%);
             display: flex;
             align-items: flex-end;
             position: relative;
