@@ -1176,7 +1176,7 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                     value={config.layout || 'grid'}
                     onValueChange={(value) => updateConfig('layout', value)}
                   >
-                    <SelectTrigger className="h-7 bg-gray-800 border-gray-700 text-[9px]">
+                    <SelectTrigger className="h-7 bg-gray-800 border-gray-700 text-[9px] text-white">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
