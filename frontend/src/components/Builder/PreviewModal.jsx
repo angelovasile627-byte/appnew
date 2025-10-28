@@ -1964,6 +1964,188 @@ const generateBlockHTML = (config) => {
       `;
     }
 
+    case 'gallery-3d': {
+      const pictures = config.images || [];
+      const hoverZones = 9;
+      
+      return `
+        <section style="
+          background-color: ${config.background?.value || '#020617'};
+          padding: ${config.padding?.top || 80}px 24px ${config.padding?.bottom || 80}px;
+          width: 100%;
+          min-height: 400px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+        ">
+          <nav class="gallery-3d-nav" style="
+            height: min(8rem, 100%);
+            width: min(30rem, 100%);
+            display: flex;
+            align-items: flex-end;
+            position: relative;
+            perspective: 2000px;
+            transform-style: preserve-3d;
+          ">
+            ${pictures.map((image, index) => `
+              <a href="#" class="gallery-3d-item" data-index="${index}" style="
+                flex: 1;
+                height: 100%;
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                transform-style: preserve-3d;
+                transition: 
+                  scale 0.15s,
+                  filter 0.8s,
+                  transform 250ms,
+                  flex 0.3s;
+                filter: brightness(0.5) saturate(0);
+              ">
+                <div style="
+                  background: url('${typeof image === 'string' ? image : image.src}') center/cover;
+                  width: 100%;
+                  height: 100%;
+                  margin: 0 0.1em;
+                "></div>
+                <aside style="
+                  position: absolute;
+                  inset: 0;
+                  inset-inline: -3px;
+                  display: flex;
+                  z-index: 999;
+                ">
+                  ${Array.from({ length: hoverZones }).map((_, zoneIndex) => `
+                    <i class="hover-zone" data-zone="${zoneIndex}" style="
+                      flex: 1;
+                      transition: 0.3s;
+                    "></i>
+                  `).join('')}
+                </aside>
+              </a>
+            `).join('')}
+          </nav>
+          
+          <style>
+            .gallery-3d-nav {
+              --max-p: ${pictures.length};
+              --max-z: ${hoverZones};
+              --hover-intensity: 10rem;
+              --hover-smoothness: 70ms;
+              --fall-smoothness: 250ms;
+              --perspective: 2000px;
+            }
+            
+            .gallery-3d-item:hover {
+              filter: brightness(1.2) saturate(1);
+              transform: translateZ(var(--hover-intensity)) rotateY(0deg);
+            }
+            
+            .gallery-3d-item:active,
+            .gallery-3d-item.clicked {
+              flex: 4 !important;
+              scale: 1.05;
+            }
+            
+            .gallery-3d-item .hover-zone:hover {
+              background: rgba(255, 255, 255, 0.05);
+            }
+            
+            /* Wave effect on hover */
+            .gallery-3d-nav:hover .gallery-3d-item {
+              transition: transform var(--hover-smoothness), filter 0.1s;
+            }
+            
+            @media (max-width: 40rem) {
+              .gallery-3d-nav {
+                writing-mode: sideways-rl;
+              }
+            }
+          </style>
+          
+          <script>
+            (function() {
+              const nav = document.querySelector('.gallery-3d-nav');
+              if (!nav) return;
+              
+              let hoveredPicture = null;
+              let hoveredZone = null;
+              let clickedPicture = null;
+              
+              const items = nav.querySelectorAll('.gallery-3d-item');
+              const maxP = ${pictures.length};
+              const maxZ = ${hoverZones};
+              
+              function calculateFalloff(pictureIndex) {
+                if (hoveredPicture === null || hoveredZone === null) return 0;
+                
+                const region = maxZ * hoveredPicture + (hoveredZone + 1);
+                const regionNorm = (region - 1) / (maxZ * maxP - 1);
+                const pictureNorm = pictureIndex / (maxP - 1);
+                const diff = pictureNorm - regionNorm;
+                const w = 0.4;
+                const u = Math.abs(diff) / w;
+                
+                return Math.max(0, Math.min(1, 0.5 * (1 + Math.cos(Math.min(u, 1) * Math.PI))));
+              }
+              
+              function updateStyles() {
+                items.forEach((item, index) => {
+                  const falloff = calculateFalloff(index);
+                  const regionNorm = hoveredPicture !== null && hoveredZone !== null 
+                    ? ((maxZ * hoveredPicture + (hoveredZone + 1)) - 1) / (maxZ * maxP - 1)
+                    : 0;
+                  const pictureNorm = index / (maxP - 1);
+                  const diff = pictureNorm - regionNorm;
+                  const tilt = Math.max(-1, Math.min(1, diff * 5)) * falloff * 70;
+                  const translateZ = falloff * 10;
+                  
+                  item.style.transform = \`translateZ(\${translateZ}rem) rotateY(\${tilt}deg)\`;
+                  item.style.filter = \`brightness(\${Math.max(0.5, falloff * 1.2)}) saturate(\${falloff})\`;
+                });
+              }
+              
+              items.forEach((item, pictureIndex) => {
+                item.addEventListener('mouseenter', () => {
+                  hoveredPicture = pictureIndex;
+                  updateStyles();
+                });
+                
+                const zones = item.querySelectorAll('.hover-zone');
+                zones.forEach((zone, zoneIndex) => {
+                  zone.addEventListener('mouseenter', () => {
+                    hoveredZone = zoneIndex;
+                    updateStyles();
+                  });
+                });
+                
+                item.addEventListener('click', (e) => {
+                  e.preventDefault();
+                  if (clickedPicture === pictureIndex) {
+                    clickedPicture = null;
+                    item.classList.remove('clicked');
+                  } else {
+                    items.forEach(i => i.classList.remove('clicked'));
+                    clickedPicture = pictureIndex;
+                    item.classList.add('clicked');
+                  }
+                });
+              });
+              
+              nav.addEventListener('mouseleave', () => {
+                hoveredPicture = null;
+                hoveredZone = null;
+                updateStyles();
+              });
+            })();
+          </script>
+        </section>
+      `;
+    }
+
     default:
       return `<div style="padding: 40px; text-align: center; font-family: sans-serif;"><p>Bloc de tip "${config.type}" - previzualizare indisponibilă</p></div>`;
   }
