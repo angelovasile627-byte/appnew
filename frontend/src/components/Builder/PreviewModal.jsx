@@ -1702,7 +1702,7 @@ const generateBlockHTML = (config) => {
         <!-- Hero Section with Parallax Background -->
         <div style="
           width: 100%;
-          min-height: 100vh;
+          min-height: ${config.hero?.height || 60}vh;
           display: flex;
           flex-direction: column;
           align-items: center;
