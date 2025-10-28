@@ -1467,6 +1467,150 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
         )}
 
         {/* Article Block Controls */}
+        {/* GALLERY SCROLL BLOCK SETTINGS */}
+        {config.type === 'gallery-scroll' && (
+          <>
+            {/* Title & Description */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Content</h4>
+              
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Title</Label>
+                <Input
+                  type="text"
+                  value={config.title?.text || ''}
+                  onChange={(e) => updateConfig('title.text', e.target.value)}
+                  className="bg-gray-800 border-gray-700 text-[9px] h-7 text-white"
+                  placeholder="Sliding images"
+                />
+              </div>
+
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Description</Label>
+                <Input
+                  type="text"
+                  value={config.description?.text || ''}
+                  onChange={(e) => updateConfig('description.text', e.target.value)}
+                  className="bg-gray-800 border-gray-700 text-[9px] h-7 text-white"
+                  placeholder="Scroll to reveal the images"
+                />
+              </div>
+            </div>
+
+            {/* Images Upload */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Images (9)</h4>
+              
+              {config.images && config.images.map((img, index) => (
+                <div key={index} className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">
+                    {index === 8 ? 'Center Image' : `Image ${index + 1}`}
+                  </Label>
+                  <Input
+                    type="text"
+                    value={img || ''}
+                    onChange={(e) => {
+                      const newImages = [...config.images];
+                      newImages[index] = e.target.value;
+                      updateConfig('images', newImages);
+                    }}
+                    className="bg-gray-800 border-gray-700 text-[9px] h-7 text-white"
+                    placeholder="Image URL"
+                  />
+                  <label className="flex items-center justify-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-[9px] py-1.5 px-2 rounded cursor-pointer transition-colors">
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    Upload
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={async (e) => {
+                        const file = e.target.files[0];
+                        if (!file) return;
+                        const formData = new FormData();
+                        formData.append('file', file);
+                        try {
+                          const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+                          const response = await fetch(`${backendUrl}/api/upload/image`, {
+                            method: 'POST',
+                            body: formData
+                          });
+                          if (response.ok) {
+                            const data = await response.json();
+                            const newImages = [...config.images];
+                            newImages[index] = data.url;
+                            updateConfig('images', newImages);
+                          }
+                        } catch (error) {
+                          console.error('Error uploading image:', error);
+                        }
+                      }}
+                    />
+                  </label>
+                </div>
+              ))}
+            </div>
+
+            {/* Colors */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Colors</h4>
+              
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Background Color</Label>
+                <Input
+                  type="color"
+                  value={config.background?.color || '#111'}
+                  onChange={(e) => updateConfig('background.color', e.target.value)}
+                  className="w-full h-10 bg-gray-800 border-gray-700"
+                />
+              </div>
+
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Center Background</Label>
+                <Input
+                  type="color"
+                  value={config.centerBg || '#333'}
+                  onChange={(e) => updateConfig('centerBg', e.target.value)}
+                  className="w-full h-10 bg-gray-800 border-gray-700"
+                />
+              </div>
+
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Text Color</Label>
+                <Input
+                  type="color"
+                  value={config.centerColor || '#ffffff'}
+                  onChange={(e) => updateConfig('centerColor', e.target.value)}
+                  className="w-full h-10 bg-gray-800 border-gray-700"
+                />
+              </div>
+            </div>
+
+            {/* Scroll Settings */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Scroll</h4>
+              
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Scroll Height (vh)</Label>
+                <div className="flex items-center gap-1.5">
+                  <Input
+                    type="range"
+                    value={config.scrollHeight || 500}
+                    onChange={(e) => updateConfig('scrollHeight', parseInt(e.target.value))}
+                    className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
+                    min="200"
+                    max="800"
+                    step="50"
+                  />
+                  <span className="text-[9px] text-gray-400 w-10 text-right">{config.scrollHeight || 500}vh</span>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
         {config.type === 'article' && (
           <div className="space-y-0.5 border-t border-gray-800 pt-1">
             <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">
