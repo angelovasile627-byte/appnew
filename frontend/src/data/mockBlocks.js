@@ -44,18 +44,11 @@ export const blockTemplates = [
         color: '#000000',
         opacity: 0.4
       },
-      parallax: {
-        enabled: true,
-        speed: 0.5
-      },
-      whiteSpace: {
-        top: 50,
-        bottom: 50
-      },
       fullScreen: false,
       fullWidth: false,
+      paddingTop: 4,
+      paddingBottom: 5,
       contentWidth: 1000,
-      padding: { top: 60, bottom: 80 },
       title: { 
         text: 'Experience Depth with Parallax', 
         show: true, 
