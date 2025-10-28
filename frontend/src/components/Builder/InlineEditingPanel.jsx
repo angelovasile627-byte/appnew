@@ -242,6 +242,68 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
           </div>
         )}
 
+        {/* Size Controls for Hero Parallax */}
+        {config.type === 'hero-parallax' && (
+          <div className="space-y-0.5 border-t border-gray-800 pt-1">
+            <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Size</h4>
+            
+            {/* Full Screen */}
+            <div className="flex items-center justify-between py-0.5">
+              <Label className="text-[9px] text-gray-300">Full Screen</Label>
+              <Switch
+                checked={config.fullScreen ?? false}
+                onCheckedChange={(checked) => updateConfig('fullScreen', checked)}
+              />
+            </div>
+
+            {/* Full Width */}
+            <div className="flex items-center justify-between py-0.5">
+              <Label className="text-[9px] text-gray-300">Full Width</Label>
+              <Switch
+                checked={config.fullWidth ?? false}
+                onCheckedChange={(checked) => updateConfig('fullWidth', checked)}
+              />
+            </div>
+
+            {/* Top Padding (only when not full screen) */}
+            {!config.fullScreen && (
+              <>
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Top</Label>
+                  <div className="flex items-center gap-1.5">
+                    <Input
+                      type="range"
+                      value={config.padding?.top || 60}
+                      onChange={(e) => updateConfig('padding.top', parseInt(e.target.value))}
+                      className="flex-1 bg-gray-800 border-gray-700"
+                      min="0"
+                      max="200"
+                      step="10"
+                    />
+                    <span className="text-[9px] text-gray-400 w-10">{config.padding?.top || 60}px</span>
+                  </div>
+                </div>
+
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Bottom</Label>
+                  <div className="flex items-center gap-1.5">
+                    <Input
+                      type="range"
+                      value={config.padding?.bottom || 80}
+                      onChange={(e) => updateConfig('padding.bottom', parseInt(e.target.value))}
+                      className="flex-1 bg-gray-800 border-gray-700"
+                      min="0"
+                      max="200"
+                      step="10"
+                    />
+                    <span className="text-[9px] text-gray-400 w-10">{config.padding?.bottom || 80}px</span>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+
         {/* Parallax White Space Controls */}
         {config.type === 'hero-parallax' && config.whiteSpace && (
           <div className="space-y-0.5 border-t border-gray-800 pt-1">
@@ -253,14 +315,14 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
               <div className="flex items-center gap-1.5">
                 <Input
                   type="range"
-                  value={config.whiteSpace.top || 200}
+                  value={config.whiteSpace.top || 50}
                   onChange={(e) => updateConfig('whiteSpace.top', parseInt(e.target.value))}
                   className="flex-1 bg-gray-800 border-gray-700"
                   min="0"
                   max="600"
                   step="10"
                 />
-                <span className="text-[9px] text-gray-400 w-10">{config.whiteSpace.top || 200}px</span>
+                <span className="text-[9px] text-gray-400 w-10">{config.whiteSpace.top || 50}px</span>
               </div>
             </div>
 
@@ -270,14 +332,14 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
               <div className="flex items-center gap-1.5">
                 <Input
                   type="range"
-                  value={config.whiteSpace.bottom || 200}
+                  value={config.whiteSpace.bottom || 50}
                   onChange={(e) => updateConfig('whiteSpace.bottom', parseInt(e.target.value))}
                   className="flex-1 bg-gray-800 border-gray-700"
                   min="0"
                   max="600"
                   step="10"
                 />
-                <span className="text-[9px] text-gray-400 w-10">{config.whiteSpace.bottom || 200}px</span>
+                <span className="text-[9px] text-gray-400 w-10">{config.whiteSpace.bottom || 50}px</span>
               </div>
             </div>
           </div>
