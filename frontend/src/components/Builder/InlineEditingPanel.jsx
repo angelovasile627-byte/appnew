@@ -1381,6 +1381,59 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                       </>
                     )}
 
+                    {/* Subtitle Controls (for Vertical Layout rightContent) */}
+                    {element.subtitle && (
+                      <>
+                        <div className="flex items-center justify-between py-0.5 border-t border-gray-800 pt-1">
+                          <Label className="text-[9px] text-gray-300">Show Subtitle</Label>
+                          <Switch
+                            checked={element.subtitle.show ?? true}
+                            onCheckedChange={(checked) => updateElementConfig(selectedElementId, 'subtitle.show', checked)}
+                          />
+                        </div>
+                        
+                        {element.subtitle.show && (
+                          <>
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Subtitle Text</Label>
+                              <Textarea
+                                value={element.subtitle.text || ''}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'subtitle.text', e.target.value)}
+                                className="bg-gray-800 border-gray-700 text-[9px]"
+                                rows={2}
+                              />
+                            </div>
+                            
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Subtitle Color</Label>
+                              <Input
+                                type="color"
+                                value={element.subtitle.color || '#4a5568'}
+                                onChange={(e) => updateElementConfig(selectedElementId, 'subtitle.color', e.target.value)}
+                                className="w-6 h-6 bg-gray-800 border-gray-700"
+                              />
+                            </div>
+                            
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Subtitle Size (px)</Label>
+                              <div className="flex items-center gap-1.5">
+                                <Input
+                                  type="range"
+                                  value={element.subtitle.size || 18}
+                                  onChange={(e) => updateElementConfig(selectedElementId, 'subtitle.size', parseInt(e.target.value))}
+                                  className="flex-1 bg-gray-800 border-gray-700 h-7"
+                                  min="12"
+                                  max="32"
+                                  step="2"
+                                />
+                                <span className="text-[9px] text-gray-400 w-10 text-right">{element.subtitle.size || 18}px</span>
+                              </div>
+                            </div>
+                          </>
+                        )}
+                      </>
+                    )}
+
                     {/* Description Controls */}
                     {element.description && (
                       <>
@@ -1412,6 +1465,22 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                                 onChange={(e) => updateElementConfig(selectedElementId, 'description.color', e.target.value)}
                                 className="w-6 h-6 bg-gray-800 border-gray-700"
                               />
+                            </div>
+                            
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Description Size (px)</Label>
+                              <div className="flex items-center gap-1.5">
+                                <Input
+                                  type="range"
+                                  value={element.description.size || 16}
+                                  onChange={(e) => updateElementConfig(selectedElementId, 'description.size', parseInt(e.target.value))}
+                                  className="flex-1 bg-gray-800 border-gray-700 h-7"
+                                  min="12"
+                                  max="24"
+                                  step="1"
+                                />
+                                <span className="text-[9px] text-gray-400 w-10 text-right">{element.description.size || 16}px</span>
+                              </div>
                             </div>
                           </>
                         )}
