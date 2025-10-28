@@ -21,8 +21,9 @@ export const Gallery3DBlock = ({ config, onUpdate }) => {
   };
 
   const navStyle = {
-    height: 'min(20rem, 100%)',
-    width: 'min(60rem, 90%)',
+    height: '400px',
+    width: '90%',
+    maxWidth: '1200px',
     display: 'flex',
     alignItems: 'flex-end',
     position: 'relative',
