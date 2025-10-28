@@ -322,6 +322,55 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                 );
               }
               
+              // Home Parallax block
+              if (config.type === 'home-parallax') {
+                const firstLayer = config.layers?.[0] || {};
+                const text = config.text || {};
+                
+                return (
+                  <div style={{
+                    position: 'relative',
+                    height: '100%',
+                    backgroundImage: `url(${firstLayer.image || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop'})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    overflow: 'hidden'
+                  }}>
+                    {/* Show layer indicators */}
+                    <div style={{
+                      position: 'absolute',
+                      top: '2px',
+                      right: '2px',
+                      backgroundColor: 'rgba(0,0,0,0.6)',
+                      color: 'white',
+                      padding: '1px 3px',
+                      borderRadius: '2px',
+                      fontSize: '4px',
+                      fontWeight: 600
+                    }}>
+                      {config.layers?.length || 0} layers
+                    </div>
+                    
+                    {/* Central text */}
+                    {text.show && (
+                      <div style={{
+                        color: text.color || '#FFFFFF',
+                        fontWeight: text.weight || 700,
+                        fontSize: '8px',
+                        textAlign: 'center',
+                        textShadow: '0 0 3px rgba(0,0,0,0.5)',
+                        zIndex: 10
+                      }}>
+                        {(text.content || 'Bine ai venit!').substring(0, 15)}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+              
               // Article block
               if (config.type === 'article') {
                 return (
