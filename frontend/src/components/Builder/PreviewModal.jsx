@@ -2480,6 +2480,98 @@ const generateBlockHTML = (config) => {
       `;
     }
 
+    case 'home-parallax': {
+      const text = config.text || {};
+      const layers = config.layers || [];
+
+      return `
+        <section style="
+          position: relative;
+          width: 100%;
+          height: 100vh;
+          overflow: hidden;
+          background-color: #000000;
+        " id="home-parallax-container">
+          ${layers.map((layer, index) => `
+            <div
+              data-layer="${index}"
+              data-speedx="${layer.speedx || 0}"
+              data-speedy="${layer.speedy || 0}"
+              data-speedz="${layer.speedz || 0}"
+              data-rotation="${layer.rotation || 0}"
+              data-distance="${layer.distance || 0}"
+              style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url('${layer.image}');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                z-index: ${layer.zIndex || index};
+                will-change: transform;
+              "
+            ></div>
+          `).join('')}
+
+          ${text.show ? `
+            <div style="
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              z-index: 100;
+              text-align: center;
+              pointer-events: none;
+            ">
+              <h1 style="
+                color: ${text.color || '#FFFFFF'};
+                font-size: ${text.size || 64}px;
+                font-weight: ${text.weight || 700};
+                margin: 0;
+                text-shadow: 0 0 ${text.shadowBlur || 20}px ${text.shadowColor || 'rgba(0, 0, 0, 0.5)'};
+              ">
+                ${text.content || 'Bine ai venit!'}
+              </h1>
+            </div>
+          ` : ''}
+
+          <script>
+            (function() {
+              let scrollY = 0;
+              const container = document.getElementById('home-parallax-container');
+              const layers = container.querySelectorAll('[data-layer]');
+              
+              function updateParallax() {
+                const rect = container.getBoundingClientRect();
+                const scrollProgress = -rect.top;
+                scrollY = scrollProgress;
+                
+                layers.forEach(layer => {
+                  const speedX = parseFloat(layer.getAttribute('data-speedx')) || 0;
+                  const speedY = parseFloat(layer.getAttribute('data-speedy')) || 0;
+                  const speedZ = parseFloat(layer.getAttribute('data-speedz')) || 0;
+                  const rotation = parseFloat(layer.getAttribute('data-rotation')) || 0;
+                  
+                  const translateX = scrollY * speedX;
+                  const translateY = scrollY * speedY;
+                  const scale = 1 + (scrollY * speedZ * 0.0001);
+                  const rotate = scrollY * rotation;
+                  
+                  layer.style.transform = \`translate3d(\${translateX}px, \${translateY}px, 0) scale(\${scale}) rotate(\${rotate}deg)\`;
+                });
+              }
+              
+              window.addEventListener('scroll', updateParallax);
+              updateParallax(); // Initial call
+            })();
+          </script>
+        </section>
+      `;
+    }
+
     default:
       return `<div style="padding: 40px; text-align: center; font-family: sans-serif;"><p>Bloc de tip "${config.type}" - previzualizare indisponibilă</p></div>`;
   }
