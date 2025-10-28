@@ -487,34 +487,34 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
               {!config.fullScreen && (
                 <>
                   <div className="space-y-0.5">
-                    <Label className="text-[9px] text-gray-300">Top Padding (px)</Label>
+                    <Label className="text-[9px] text-gray-300">Top Padding</Label>
                     <div className="flex items-center gap-1.5">
                       <Input
                         type="range"
-                        value={config.paddingTop || 60}
+                        value={config.paddingTop || 4}
                         onChange={(e) => updateConfig('paddingTop', parseInt(e.target.value))}
                         className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
                         min="0"
-                        max="200"
-                        step="10"
+                        max="12"
+                        step="1"
                       />
-                      <span className="text-[9px] text-gray-400 w-10 text-right">{config.paddingTop || 60}px</span>
+                      <span className="text-[9px] text-gray-400 w-10 text-right">{config.paddingTop || 4}rem</span>
                     </div>
                   </div>
 
                   <div className="space-y-0.5">
-                    <Label className="text-[9px] text-gray-300">Bottom Padding (px)</Label>
+                    <Label className="text-[9px] text-gray-300">Bottom Padding</Label>
                     <div className="flex items-center gap-1.5">
                       <Input
                         type="range"
-                        value={config.paddingBottom || 80}
+                        value={config.paddingBottom || 5}
                         onChange={(e) => updateConfig('paddingBottom', parseInt(e.target.value))}
                         className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
                         min="0"
-                        max="200"
-                        step="10"
+                        max="12"
+                        step="1"
                       />
-                      <span className="text-[9px] text-gray-400 w-10 text-right">{config.paddingBottom || 80}px</span>
+                      <span className="text-[9px] text-gray-400 w-10 text-right">{config.paddingBottom || 5}rem</span>
                     </div>
                   </div>
                 </>
