@@ -1655,5 +1655,135 @@ export const blockTemplates = [
       linkUrl: '#',
       sectionBackground: 'transparent'
     }
+  },
+  {
+    id: 'home-parallax-1',
+    category: 'home',
+    name: 'Home - Parallax Mountain',
+    thumbnail: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
+    config: {
+      type: 'home-parallax',
+      text: {
+        content: 'Bine ai venit!',
+        show: true,
+        color: '#FFFFFF',
+        size: 64,
+        weight: 700,
+        shadowColor: 'rgba(0, 0, 0, 0.5)',
+        shadowBlur: 20
+      },
+      layers: [
+        {
+          id: 'layer-0',
+          name: 'Background Sky',
+          image: 'https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=1920&h=1080&fit=crop',
+          speedx: 0,
+          speedy: 0,
+          speedz: 0,
+          rotation: 0,
+          distance: -1,
+          zIndex: 0
+        },
+        {
+          id: 'layer-1',
+          name: 'Mountain Back 1',
+          image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop',
+          speedx: 0.05,
+          speedy: 0.1,
+          speedz: 0.5,
+          rotation: 0.02,
+          distance: 300,
+          zIndex: 1
+        },
+        {
+          id: 'layer-2',
+          name: 'Mountain Back 2',
+          image: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=1920&h=1080&fit=crop',
+          speedx: 0.1,
+          speedy: 0.15,
+          speedz: 0.8,
+          rotation: 0.03,
+          distance: 250,
+          zIndex: 2
+        },
+        {
+          id: 'layer-3',
+          name: 'Fog Layer 1',
+          image: 'https://images.unsplash.com/photo-1487621167305-5d248087c724?w=1920&h=1080&fit=crop',
+          speedx: 0.15,
+          speedy: 0.2,
+          speedz: 1,
+          rotation: 0,
+          distance: 200,
+          zIndex: 3
+        },
+        {
+          id: 'layer-4',
+          name: 'Mountain Mid 1',
+          image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&h=1080&fit=crop',
+          speedx: 0.2,
+          speedy: 0.25,
+          speedz: 1.2,
+          rotation: 0.04,
+          distance: 150,
+          zIndex: 4
+        },
+        {
+          id: 'layer-5',
+          name: 'Fog Layer 2',
+          image: 'https://images.unsplash.com/photo-1517685352821-92cf88aee5a5?w=1920&h=1080&fit=crop',
+          speedx: 0.25,
+          speedy: 0.3,
+          speedz: 1.5,
+          rotation: 0,
+          distance: 100,
+          zIndex: 5
+        },
+        {
+          id: 'layer-6',
+          name: 'Mountain Front 1',
+          image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop',
+          speedx: 0.3,
+          speedy: 0.35,
+          speedz: 2,
+          rotation: 0.05,
+          distance: 50,
+          zIndex: 6
+        },
+        {
+          id: 'layer-7',
+          name: 'Fog Layer 3',
+          image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1920&h=1080&fit=crop',
+          speedx: 0.35,
+          speedy: 0.4,
+          speedz: 2.5,
+          rotation: 0,
+          distance: 30,
+          zIndex: 7
+        },
+        {
+          id: 'layer-8',
+          name: 'Mountain Front 2',
+          image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop',
+          speedx: 0.4,
+          speedy: 0.45,
+          speedz: 3,
+          rotation: 0.06,
+          distance: 20,
+          zIndex: 8
+        },
+        {
+          id: 'layer-9',
+          name: 'Shadow Overlay',
+          image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop',
+          speedx: 0.5,
+          speedy: 0.5,
+          speedz: 3.5,
+          rotation: 0,
+          distance: 10,
+          zIndex: 9
+        }
+      ]
+    }
   }
 ];
