@@ -22,16 +22,6 @@ export const GalleryScrollBlock = ({ config, onUpdate }) => {
           inherits: true;
           initial-value: 0px;
         }
-        @property --x {
-          syntax: "<percent>";
-          inherits: true;
-          initial-value: 0%;
-        }
-        @property --y {
-          syntax: "<percent>";
-          inherits: true;
-          initial-value: 0%;
-        }
         @property --mouse-w {
           syntax: "<length>";
           inherits: true;
@@ -75,14 +65,13 @@ export const GalleryScrollBlock = ({ config, onUpdate }) => {
           background-size: cover;
           background-position: center;
           cursor: pointer;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          transition: box-shadow 0.3s ease;
           animation: animate-boxes-gallery linear both;
-          animation-timeline: view();
-          animation-range: entry 0% cover 50%;
+          animation-timeline: scroll(root);
+          animation-range: entry 0% exit 100%;
         }
 
         [data-block-type="gallery-scroll"] .gallery-scroll-item:hover {
-          transform: scale(1.05) !important;
           box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
           z-index: 10;
         }
@@ -102,8 +91,8 @@ export const GalleryScrollBlock = ({ config, onUpdate }) => {
           position: relative;
           cursor: pointer;
           animation: animate-center-gallery linear both;
-          animation-timeline: view();
-          animation-range: entry 0% cover 50%;
+          animation-timeline: scroll(root);
+          animation-range: entry 0% exit 100%;
         }
 
         @keyframes animate-center-gallery {
@@ -112,7 +101,7 @@ export const GalleryScrollBlock = ({ config, onUpdate }) => {
             --center-x: -250px;
             --center-y: -250px;
           }
-          25%, 65% {
+          50% {
             --mouse-w: 300px;
             --center-x: -100px;
             --center-y: -100px;
@@ -126,9 +115,6 @@ export const GalleryScrollBlock = ({ config, onUpdate }) => {
 
         @keyframes animate-boxes-gallery {
           0% {
-            translate: var(--x) var(--y);
-          }
-          15% {
             translate: var(--x) var(--y);
           }
           100% {
