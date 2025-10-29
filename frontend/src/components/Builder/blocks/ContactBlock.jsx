@@ -64,7 +64,7 @@ export const ContactBlock = ({ config, onUpdate }) => {
             }}
           >
             <form>
-              {config.form.fields.map((field, index) => (
+              {config.form?.fields?.map((field, index) => (
                 <div key={index} style={{ marginBottom: '24px' }}>
                   <label
                     style={{
