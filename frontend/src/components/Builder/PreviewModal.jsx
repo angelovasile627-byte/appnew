@@ -2602,6 +2602,299 @@ const generateBlockHTML = (config) => {
       `;
     }
 
+    case 'people-hiring': {
+      const title = config.title || {};
+      const description = config.description || {};
+      const jobs = config.jobs || [];
+      const readMoreButton = config.readMoreButton || {};
+
+      return `
+        <section style="
+          width: 100%;
+          background-color: ${config.background || '#F8F8F8'};
+          padding: ${config.padding?.top || 60}px 24px ${config.padding?.bottom || 60}px;
+        ">
+          <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="
+              background-color: #ffffff;
+              border-radius: 12px;
+              padding: 40px;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            ">
+              ${title.show ? `
+                <h2 style="
+                  font-size: ${title.size || 36}px;
+                  font-weight: ${title.weight || 700};
+                  color: ${title.color || '#1a1a1a'};
+                  margin-bottom: 16px;
+                ">${title.text}</h2>
+              ` : ''}
+              
+              ${description.show ? `
+                <p style="
+                  font-size: ${description.size || 16}px;
+                  color: ${description.color || '#666666'};
+                  margin-bottom: 32px;
+                  line-height: 1.6;
+                ">${description.text}</p>
+              ` : ''}
+              
+              ${readMoreButton.show ? `
+                <button style="
+                  background-color: ${readMoreButton.color || '#A8F5B8'};
+                  color: ${readMoreButton.textColor || '#2B2B2B'};
+                  border: none;
+                  border-radius: 6px;
+                  padding: 8px 20px;
+                  font-size: 14px;
+                  font-weight: 600;
+                  cursor: pointer;
+                  margin-bottom: 24px;
+                ">${readMoreButton.text || 'Read more'}</button>
+              ` : ''}
+              
+              ${jobs.map(job => `
+                <div style="
+                  border-bottom: 1px solid #e5e5e5;
+                  padding: 24px 0;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  gap: 20px;
+                ">
+                  <div style="flex: 1;">
+                    <h3 style="
+                      font-size: 20px;
+                      font-weight: 600;
+                      color: #1a1a1a;
+                      margin-bottom: 8px;
+                    ">${job.title}</h3>
+                    <p style="
+                      font-size: 14px;
+                      color: #666666;
+                      margin-bottom: 8px;
+                    ">${job.description}</p>
+                    <span style="
+                      font-size: 12px;
+                      color: #999999;
+                    ">${job.type}</span>
+                  </div>
+                  <button style="
+                    background-color: ${job.buttonColor || '#333333'};
+                    color: ${job.buttonTextColor || '#ffffff'};
+                    border: none;
+                    border-radius: 6px;
+                    padding: 10px 24px;
+                    font-size: 14px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    white-space: nowrap;
+                  ">${job.buttonText}</button>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    case 'people-creators': {
+      const title = config.title || {};
+      const creators = config.creators || [];
+
+      return `
+        <section style="
+          width: 100%;
+          background-color: ${config.background || '#ffffff'};
+          padding: ${config.padding?.top || 60}px 24px ${config.padding?.bottom || 60}px;
+        ">
+          <div style="max-width: 1200px; margin: 0 auto;">
+            ${title.show ? `
+              <h2 style="
+                font-size: ${title.size || 36}px;
+                font-weight: ${title.weight || 700};
+                color: ${title.color || '#1a1a1a'};
+                margin-bottom: 48px;
+                text-align: center;
+              ">${title.text}</h2>
+            ` : ''}
+            
+            <div style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+              gap: 32px;
+              justify-content: center;
+            ">
+              ${creators.map(creator => `
+                <div style="
+                  background-color: #f8f8f8;
+                  border-radius: 12px;
+                  padding: 32px;
+                  text-align: center;
+                  transition: transform 0.3s ease, box-shadow 0.3s ease;
+                ">
+                  <img
+                    src="${creator.image}"
+                    alt="${creator.name}"
+                    style="
+                      width: 120px;
+                      height: 120px;
+                      border-radius: 50%;
+                      object-fit: cover;
+                      margin: 0 auto 20px;
+                      display: block;
+                    "
+                  />
+                  <h3 style="
+                    font-size: 20px;
+                    font-weight: 600;
+                    color: #1a1a1a;
+                    margin-bottom: 8px;
+                  ">${creator.name}</h3>
+                  <p style="
+                    font-size: 14px;
+                    color: #666666;
+                  ">${creator.role}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    case 'people-testimonials': {
+      const title = config.title || {};
+      const testimonials = config.testimonials || [];
+      const columns = config.columns || 3;
+
+      return `
+        <section style="
+          width: 100%;
+          background-color: ${config.background || '#F8F8F8'};
+          padding: ${config.padding?.top || 60}px 24px ${config.padding?.bottom || 60}px;
+        ">
+          <div style="max-width: 1200px; margin: 0 auto;">
+            ${title.show ? `
+              <h2 style="
+                font-size: ${title.size || 36}px;
+                font-weight: ${title.weight || 700};
+                color: ${title.color || '#1a1a1a'};
+                margin-bottom: 48px;
+                text-align: center;
+              ">${title.text}</h2>
+            ` : ''}
+            
+            <div style="
+              display: grid;
+              grid-template-columns: repeat(${columns}, 1fr);
+              gap: 24px;
+            ">
+              ${testimonials.map(testimonial => `
+                <div style="
+                  background-color: #ffffff;
+                  border-radius: 12px;
+                  padding: 32px;
+                  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+                  transition: transform 0.3s ease, box-shadow 0.3s ease;
+                ">
+                  <div style="
+                    font-size: 18px;
+                    margin-bottom: 16px;
+                  ">${'⭐'.repeat(testimonial.rating || 5)}</div>
+                  
+                  <p style="
+                    font-size: 14px;
+                    color: #333333;
+                    line-height: 1.6;
+                    margin-bottom: 24px;
+                  ">${testimonial.quote}</p>
+                  
+                  <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                  ">
+                    <img
+                      src="${testimonial.image}"
+                      alt="${testimonial.name}"
+                      style="
+                        width: 48px;
+                        height: 48px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                      "
+                    />
+                    <div>
+                      <p style="
+                        font-size: 14px;
+                        font-weight: 600;
+                        color: #1a1a1a;
+                        margin: 0;
+                      ">${testimonial.name}</p>
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    case 'people-clients': {
+      const title = config.title || {};
+      const clients = config.clients || [];
+
+      return `
+        <section style="
+          width: 100%;
+          background-color: ${config.background || '#ffffff'};
+          padding: ${config.padding?.top || 60}px 24px ${config.padding?.bottom || 60}px;
+        ">
+          <div style="max-width: 1200px; margin: 0 auto;">
+            ${title.show ? `
+              <h2 style="
+                font-size: ${title.size || 36}px;
+                font-weight: ${title.weight || 700};
+                color: ${title.color || '#1a1a1a'};
+                margin-bottom: 48px;
+                text-align: center;
+              ">${title.text}</h2>
+            ` : ''}
+            
+            <div style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+              gap: 32px;
+              justify-content: center;
+            ">
+              ${clients.map(client => `
+                <div style="
+                  background-color: ${client.backgroundColor || '#f8f8f8'};
+                  border-radius: 12px;
+                  padding: 40px;
+                  text-align: center;
+                  transition: transform 0.3s ease;
+                ">
+                  <div style="
+                    font-size: 48px;
+                    margin-bottom: 16px;
+                  ">${client.logo}</div>
+                  <h3 style="
+                    font-size: 20px;
+                    font-weight: 600;
+                    color: ${client.textColor || '#1a1a1a'};
+                    margin: 0;
+                  ">${client.name}</h3>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
     default:
       return `<div style="padding: 40px; text-align: center; font-family: sans-serif;"><p>Bloc de tip "${config.type}" - previzualizare indisponibilă</p></div>`;
   }
