@@ -96,8 +96,9 @@ export const GalleryBlock = ({ config, onUpdate }) => {
               />
             </div>
           ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
