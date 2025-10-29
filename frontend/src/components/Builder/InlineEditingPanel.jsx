@@ -4128,6 +4128,100 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                   </div>
                 )}
 
+                {/* Form Fields Configuration */}
+                <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                  <div className="flex items-center justify-between mb-1">
+                    <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Form Fields</Label>
+                  </div>
+                  <div className="space-y-1 max-h-60 overflow-y-auto pr-1">
+                    {(config.form?.fields || []).map((field, index) => (
+                      <div key={field.id || index} className="bg-gray-800 p-1.5 rounded border border-gray-700">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-[9px] text-indigo-400">{field.label || `Field ${index + 1}`}</span>
+                          <div className="flex items-center gap-1">
+                            <Label className="text-[8px] text-gray-400">Required</Label>
+                            <Switch
+                              checked={field.required ?? false}
+                              onCheckedChange={(checked) => {
+                                const updated = [...(config.form?.fields || [])];
+                                updated[index] = { ...updated[index], required: checked };
+                                updateConfig('form.fields', updated);
+                              }}
+                              className="scale-75"
+                            />
+                          </div>
+                        </div>
+                        <div className="space-y-1">
+                          <Input
+                            type="text"
+                            value={field.label}
+                            onChange={(e) => {
+                              const updated = [...(config.form?.fields || [])];
+                              updated[index] = { ...updated[index], label: e.target.value };
+                              updateConfig('form.fields', updated);
+                            }}
+                            className="bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                            placeholder="Field Label"
+                          />
+                          <Input
+                            type="text"
+                            value={field.placeholder || ''}
+                            onChange={(e) => {
+                              const updated = [...(config.form?.fields || [])];
+                              updated[index] = { ...updated[index], placeholder: e.target.value };
+                              updateConfig('form.fields', updated);
+                            }}
+                            className="bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                            placeholder="Placeholder"
+                          />
+                          <Select
+                            value={field.type}
+                            onValueChange={(value) => {
+                              const updated = [...(config.form?.fields || [])];
+                              updated[index] = { ...updated[index], type: value };
+                              updateConfig('form.fields', updated);
+                            }}
+                          >
+                            <SelectTrigger className="bg-gray-800 border-gray-700 text-white text-[9px] h-6">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent className="bg-gray-800 border-gray-700">
+                              <SelectItem value="text">Text</SelectItem>
+                              <SelectItem value="email">Email</SelectItem>
+                              <SelectItem value="tel">Phone</SelectItem>
+                              <SelectItem value="textarea">Textarea</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Email Notification Configuration */}
+                <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                  <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Notification Email</Label>
+                  <Input
+                    type="email"
+                    value={config.form?.notificationEmail || ''}
+                    onChange={(e) => updateConfig('form.notificationEmail', e.target.value)}
+                    className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
+                    placeholder="exemplu@example.com"
+                  />
+                  <p className="text-[8px] text-gray-400">Mesajele se vor trimite la acest email</p>
+                </div>
+
+                {/* Success Message Configuration */}
+                <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                  <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Success Message</Label>
+                  <Textarea
+                    value={config.form?.successMessage || 'Thanks for filling out the form!'}
+                    onChange={(e) => updateConfig('form.successMessage', e.target.value)}
+                    className="bg-gray-900 border-gray-600 text-white text-[10px] min-h-[60px]"
+                    placeholder="Message after form submission"
+                  />
+                </div>
+
                 {/* Form Button Customization */}
                 <div className="space-y-0.5 border-t border-gray-800 pt-1">
                   <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Form Button</Label>
