@@ -19,6 +19,10 @@ import { StatsBlock } from './blocks/StatsBlock';
 import { FAQBlock } from './blocks/FAQBlock';
 import { CardsSkewBlock } from './blocks/CardsSkewBlock';
 import HomeParallaxBlock from './blocks/HomeParallaxBlock';
+import { PeopleHiringBlock } from './blocks/PeopleHiringBlock';
+import { PeopleCreatorsBlock } from './blocks/PeopleCreatorsBlock';
+import { PeopleTestimonialsBlock } from './blocks/PeopleTestimonialsBlock';
+import { PeopleClientsBlock } from './blocks/PeopleClientsBlock';
 
 const blockComponents = {
   menu: MenuBlock,
@@ -39,7 +43,11 @@ const blockComponents = {
   team: TeamBlock,
   stats: StatsBlock,
   faq: FAQBlock,
-  'cards-skew': CardsSkewBlock
+  'cards-skew': CardsSkewBlock,
+  'people-hiring': PeopleHiringBlock,
+  'people-creators': PeopleCreatorsBlock,
+  'people-testimonials': PeopleTestimonialsBlock,
+  'people-clients': PeopleClientsBlock
 };
 
 export const BlockRenderer = ({ block, isSelected, onSelect, onUpdate, onDelete, onMoveUp, onMoveDown, selectedElementId, onSelectElement }) => {
