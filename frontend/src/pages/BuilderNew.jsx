@@ -262,6 +262,54 @@ const BuilderNew = () => {
       return;
     }
 
+    // Check if it's a THEME (complete website template)
+    if (template.category === 'themes' && template.config.type === 'theme') {
+      saveToHistory(blocks);
+      
+      const themeBlocks = template.config.blocks;
+      const newBlocks = [];
+      let menuBlock = null;
+      
+      // Process each block in the theme
+      themeBlocks.forEach((blockConfig, index) => {
+        const newBlock = {
+          id: `block-${Date.now()}-${index}`,
+          templateId: `${template.id}-block-${index}`,
+          config: JSON.parse(JSON.stringify(blockConfig))
+        };
+        
+        // If it's a menu, set it as shared menu
+        if (blockConfig.type === 'menu') {
+          if (!sharedMenu) {
+            menuBlock = newBlock;
+          }
+        } else {
+          // Add all other blocks to the page
+          newBlocks.push(newBlock);
+        }
+      });
+      
+      // Set the menu if exists
+      if (menuBlock) {
+        setSharedMenu(menuBlock);
+      }
+      
+      // Add all blocks to the page
+      updateCurrentPageBlocks([...blocks, ...newBlocks]);
+      
+      // Select the first block
+      if (newBlocks.length > 0) {
+        setSelectedBlockId(newBlocks[0].id);
+      }
+      
+      toast({
+        title: 'Theme adăugat',
+        description: `${template.name} a fost adăugat complet. Acum poți edita, șterge sau adăuga blocuri.`,
+        duration: 5000
+      });
+      return;
+    }
+
     // Check if trying to add a menu
     if (template.category === 'menu') {
       // Menu is shared, not per-page
