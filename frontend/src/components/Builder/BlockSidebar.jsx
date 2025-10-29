@@ -868,6 +868,123 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                 );
               }
               
+              // Theme block - complete website template
+              if (config.type === 'theme') {
+                return (
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '100%',
+                    gap: '0px',
+                    overflow: 'hidden',
+                    background: '#f8f9fa'
+                  }}>
+                    {/* Mini Menu Bar */}
+                    <div style={{
+                      background: '#1a1a1a',
+                      padding: '2px 4px',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center'
+                    }}>
+                      <div style={{ 
+                        color: '#ffffff', 
+                        fontSize: '4px', 
+                        fontWeight: 'bold' 
+                      }}>
+                        THEME
+                      </div>
+                      <div style={{
+                        display: 'flex',
+                        gap: '2px'
+                      }}>
+                        <div style={{ 
+                          color: '#cccccc', 
+                          fontSize: '3px' 
+                        }}>
+                          Menu
+                        </div>
+                        <div style={{ 
+                          color: '#cccccc', 
+                          fontSize: '3px' 
+                        }}>
+                          About
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Hero Section Preview */}
+                    <div style={{
+                      backgroundImage: 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop)',
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      minHeight: '32px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: '4px'
+                    }}>
+                      <div style={{
+                        color: '#ffffff',
+                        fontWeight: 700,
+                        fontSize: '7px',
+                        textAlign: 'center'
+                      }}>
+                        Complete Website
+                      </div>
+                    </div>
+                    
+                    {/* Gallery Grid Preview */}
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: '1fr 1fr 1fr',
+                      gap: '2px',
+                      padding: '4px',
+                      flex: 1,
+                      background: '#ffffff'
+                    }}>
+                      <div style={{
+                        backgroundImage: 'url(https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=200&h=200&fit=crop)',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        minHeight: '20px',
+                        borderRadius: '1px'
+                      }}></div>
+                      <div style={{
+                        backgroundImage: 'url(https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=200&h=200&fit=crop)',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        minHeight: '20px',
+                        borderRadius: '1px'
+                      }}></div>
+                      <div style={{
+                        backgroundImage: 'url(https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&h=200&fit=crop)',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        minHeight: '20px',
+                        borderRadius: '1px'
+                      }}></div>
+                    </div>
+                    
+                    {/* Footer Preview */}
+                    <div style={{
+                      background: '#1a1a1a',
+                      padding: '3px',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center'
+                    }}>
+                      <div style={{ 
+                        color: '#888888', 
+                        fontSize: '3px' 
+                      }}>
+                        Complete Theme
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+              
               // Generic fallback for remaining types
               return (
                 <div style={{
