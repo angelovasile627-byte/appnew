@@ -2650,17 +2650,25 @@ const generateBlockHTML = (config) => {
                   font-weight: 600;
                   cursor: pointer;
                   margin-bottom: 24px;
+                  transition: transform 0.2s ease, box-shadow 0.2s ease;
                 ">${readMoreButton.text || 'Read more'}</button>
               ` : ''}
               
-              ${jobs.map(job => `
-                <div style="
+              ${jobs.map((job, idx) => `
+                <div class="job-row-${idx}" style="
                   border-bottom: 1px solid #e5e5e5;
                   padding: 24px 0;
                   display: flex;
                   justify-content: space-between;
                   align-items: center;
                   gap: 20px;
+                  transition: background-color 0.2s ease, padding-left 0.3s ease;
+                  cursor: pointer;
+                  margin-left: -10px;
+                  margin-right: -10px;
+                  padding-left: 10px;
+                  padding-right: 10px;
+                  border-radius: 8px;
                 ">
                   <div style="flex: 1;">
                     <h3 style="
@@ -2679,7 +2687,7 @@ const generateBlockHTML = (config) => {
                       color: #999999;
                     ">${job.type}</span>
                   </div>
-                  <button style="
+                  <button class="job-button-${idx}" style="
                     background-color: ${job.buttonColor || '#333333'};
                     color: ${job.buttonTextColor || '#ffffff'};
                     border: none;
@@ -2689,12 +2697,25 @@ const generateBlockHTML = (config) => {
                     font-weight: 600;
                     cursor: pointer;
                     white-space: nowrap;
+                    transition: transform 0.2s ease, box-shadow 0.2s ease;
                   ">${job.buttonText}</button>
                 </div>
               `).join('')}
             </div>
           </div>
         </section>
+        <style>
+          ${jobs.map((job, idx) => `
+            .job-row-${idx}:hover {
+              background-color: rgba(0,0,0,0.02);
+              padding-left: 20px !important;
+            }
+            .job-button-${idx}:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            }
+          `).join('')}
+        </style>
       `;
     }
 
