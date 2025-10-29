@@ -2179,6 +2179,74 @@ const generateBlockHTML = (config) => {
       `;
     }
 
+    case 'text': {
+      // Text Parallax Block with Background Clip Effect
+      return `
+        <div style="
+          width: 100%;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background-image: url(${config.background?.value || ''});
+          background-size: cover;
+          background-position: center;
+          background-attachment: ${config.background?.parallax ? 'fixed' : 'scroll'};
+          padding: ${config.padding?.top || 100}px 2rem ${config.padding?.bottom || 100}px;
+        ">
+          ${config.title?.show ? `
+            <h1 style="
+              font-size: ${config.title.size || 120}px;
+              font-weight: ${config.title.weight || 700};
+              color: ${config.title.color || '#000000'};
+              background-image: url(${config.title?.backgroundImage?.value || ''});
+              background-size: cover;
+              background-position: center;
+              background-clip: text;
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: ${config.title?.backgroundImage?.value ? 'transparent' : config.title?.color};
+              text-align: center;
+              margin-bottom: 2rem;
+              line-height: 1.1;
+            ">
+              ${config.title.text}
+            </h1>
+          ` : ''}
+
+          ${config.description?.show ? `
+            <p style="
+              font-size: ${config.description.size || 16}px;
+              color: ${config.description.color || '#333333'};
+              max-width: ${config.description.maxWidth || 800}px;
+              text-align: center;
+              line-height: 1.7;
+              margin-bottom: 2rem;
+            ">
+              ${config.description.text}
+            </p>
+          ` : ''}
+
+          ${config.button?.show ? `
+            <a href="${config.button.link || '#'}" style="
+              display: inline-block;
+              padding: 1rem 2.5rem;
+              background-color: ${config.button.color || '#FF6B35'};
+              color: ${config.button.textColor || '#FFFFFF'};
+              text-decoration: none;
+              font-size: ${config.button.size || 16}px;
+              font-weight: 600;
+              border-radius: 0.25rem;
+              transition: all 0.3s ease;
+              cursor: pointer;
+            ">
+              ${config.button.text}
+            </a>
+          ` : ''}
+        </div>
+      `;
+    }
+
     case 'parallax': {
       // New Parallax Block with Hero + Spacer + Cards structure
       return `
@@ -2197,7 +2265,7 @@ const generateBlockHTML = (config) => {
           text-align: center;
           color: ${config.hero?.title?.color || '#333333'};
           padding: 2rem;
-        ">
+        ">,
           ${config.hero?.title?.show ? `
             <h1 style="
               font-size: ${config.hero.title.size || 48}px;
