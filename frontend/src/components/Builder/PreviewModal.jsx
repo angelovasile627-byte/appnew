@@ -168,11 +168,12 @@ const generateBlockHTML = (config) => {
 
             // CENTER LAYOUT - Vertical (Logo sus, menu jos)
             if (config.align === 'center') {
+              const padding = getPadding(config);
               return `
                 <div style="
                   max-width: ${config.fullWidth ? '100%' : config.contentWidth + 'px'};
                   margin: 0 auto;
-                  padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
+                  padding: ${padding.top}px 24px ${padding.bottom}px;
                   display: flex;
                   flex-direction: column;
                   align-items: center;
