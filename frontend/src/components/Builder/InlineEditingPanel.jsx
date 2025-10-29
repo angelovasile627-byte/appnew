@@ -4654,6 +4654,359 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
             </div>
           </div>
         )}
+
+        {/* TEXT PARALLAX BLOCK CONTROLS */}
+        {config.type === 'text' && (
+          <div className="space-y-1">
+            {/* Title Controls */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Title</h4>
+              
+              <div className="flex items-center justify-between py-0.5">
+                <Label className="text-[9px] text-gray-300">Show</Label>
+                <Switch
+                  checked={config.title?.show !== false}
+                  onCheckedChange={(checked) => updateConfig('title.show', checked)}
+                />
+              </div>
+
+              {config.title?.show !== false && (
+                <>
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Text</Label>
+                    <Input
+                      type="text"
+                      value={config.title?.text || ''}
+                      onChange={(e) => updateConfig('title.text', e.target.value)}
+                      className="bg-gray-900 border-gray-600 text-white text-[10px] h-7"
+                      placeholder="Enter title"
+                    />
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Background Image URL</Label>
+                    <Input
+                      type="text"
+                      value={config.title?.backgroundImage?.value || ''}
+                      onChange={(e) => updateConfig('title.backgroundImage.value', e.target.value)}
+                      className="bg-gray-900 border-gray-600 text-white text-[10px] h-7"
+                      placeholder="https://..."
+                    />
+                  </div>
+
+                  <Button
+                    onClick={async () => {
+                      const input = document.createElement('input');
+                      input.type = 'file';
+                      input.accept = 'image/*';
+                      input.onchange = async (e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                          const formData = new FormData();
+                          formData.append('file', file);
+                          try {
+                            const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_BACKEND_URL;
+                            const response = await fetch(`${backendUrl}/api/upload/image`, {
+                              method: 'POST',
+                              body: formData
+                            });
+                            const data = await response.json();
+                            if (data.url) {
+                              updateConfig('title.backgroundImage.value', data.url);
+                            }
+                          } catch (error) {
+                            console.error('Upload error:', error);
+                          }
+                        }
+                      };
+                      input.click();
+                    }}
+                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] h-7 flex items-center justify-center gap-1.5"
+                  >
+                    <Upload className="w-3 h-3" />
+                    Upload Title Background
+                  </Button>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Size</Label>
+                    <Input
+                      type="range"
+                      value={config.title?.size || 120}
+                      onChange={(e) => updateConfig('title.size', parseInt(e.target.value))}
+                      className="w-full bg-gray-800 border-gray-700"
+                      min="40"
+                      max="200"
+                    />
+                    <span className="text-[9px] text-gray-400">{config.title?.size || 120}px</span>
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Weight</Label>
+                    <Input
+                      type="range"
+                      value={config.title?.weight || 700}
+                      onChange={(e) => updateConfig('title.weight', parseInt(e.target.value))}
+                      className="w-full bg-gray-800 border-gray-700"
+                      min="400"
+                      max="900"
+                      step="100"
+                    />
+                    <span className="text-[9px] text-gray-400">{config.title?.weight || 700}</span>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Description Controls */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Description</h4>
+              
+              <div className="flex items-center justify-between py-0.5">
+                <Label className="text-[9px] text-gray-300">Show</Label>
+                <Switch
+                  checked={config.description?.show !== false}
+                  onCheckedChange={(checked) => updateConfig('description.show', checked)}
+                />
+              </div>
+
+              {config.description?.show !== false && (
+                <>
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Text</Label>
+                    <Textarea
+                      value={config.description?.text || ''}
+                      onChange={(e) => updateConfig('description.text', e.target.value)}
+                      className="bg-gray-900 border-gray-600 text-white text-[10px]"
+                      rows="3"
+                      placeholder="Enter description"
+                    />
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Color</Label>
+                    <div className="flex gap-1.5">
+                      <Input
+                        type="color"
+                        value={config.description?.color || '#333333'}
+                        onChange={(e) => updateConfig('description.color', e.target.value)}
+                        className="w-6 h-6 bg-gray-900 border-gray-600"
+                      />
+                      <Input
+                        type="text"
+                        value={config.description?.color || '#333333'}
+                        onChange={(e) => updateConfig('description.color', e.target.value)}
+                        className="flex-1 bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Size</Label>
+                    <Input
+                      type="range"
+                      value={config.description?.size || 16}
+                      onChange={(e) => updateConfig('description.size', parseInt(e.target.value))}
+                      className="w-full bg-gray-800 border-gray-700"
+                      min="12"
+                      max="24"
+                    />
+                    <span className="text-[9px] text-gray-400">{config.description?.size || 16}px</span>
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Max Width</Label>
+                    <Input
+                      type="range"
+                      value={config.description?.maxWidth || 800}
+                      onChange={(e) => updateConfig('description.maxWidth', parseInt(e.target.value))}
+                      className="w-full bg-gray-800 border-gray-700"
+                      min="400"
+                      max="1200"
+                      step="50"
+                    />
+                    <span className="text-[9px] text-gray-400">{config.description?.maxWidth || 800}px</span>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Button Controls */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Button</h4>
+              
+              <div className="flex items-center justify-between py-0.5">
+                <Label className="text-[9px] text-gray-300">Show</Label>
+                <Switch
+                  checked={config.button?.show !== false}
+                  onCheckedChange={(checked) => updateConfig('button.show', checked)}
+                />
+              </div>
+
+              {config.button?.show !== false && (
+                <>
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Text</Label>
+                    <Input
+                      type="text"
+                      value={config.button?.text || ''}
+                      onChange={(e) => updateConfig('button.text', e.target.value)}
+                      className="bg-gray-900 border-gray-600 text-white text-[10px] h-7"
+                      placeholder="Read More"
+                    />
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Link</Label>
+                    <Input
+                      type="text"
+                      value={config.button?.link || '#'}
+                      onChange={(e) => updateConfig('button.link', e.target.value)}
+                      className="bg-gray-900 border-gray-600 text-white text-[10px] h-7"
+                      placeholder="https://..."
+                    />
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Background Color</Label>
+                    <div className="flex gap-1.5">
+                      <Input
+                        type="color"
+                        value={config.button?.color || '#FF6B35'}
+                        onChange={(e) => updateConfig('button.color', e.target.value)}
+                        className="w-6 h-6 bg-gray-900 border-gray-600"
+                      />
+                      <Input
+                        type="text"
+                        value={config.button?.color || '#FF6B35'}
+                        onChange={(e) => updateConfig('button.color', e.target.value)}
+                        className="flex-1 bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Text Color</Label>
+                    <div className="flex gap-1.5">
+                      <Input
+                        type="color"
+                        value={config.button?.textColor || '#FFFFFF'}
+                        onChange={(e) => updateConfig('button.textColor', e.target.value)}
+                        className="w-6 h-6 bg-gray-900 border-gray-600"
+                      />
+                      <Input
+                        type="text"
+                        value={config.button?.textColor || '#FFFFFF'}
+                        onChange={(e) => updateConfig('button.textColor', e.target.value)}
+                        className="flex-1 bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Size</Label>
+                    <Input
+                      type="range"
+                      value={config.button?.size || 16}
+                      onChange={(e) => updateConfig('button.size', parseInt(e.target.value))}
+                      className="w-full bg-gray-800 border-gray-700"
+                      min="12"
+                      max="24"
+                    />
+                    <span className="text-[9px] text-gray-400">{config.button?.size || 16}px</span>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Background Section Controls */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Section Background</h4>
+              
+              <div className="flex items-center justify-between py-0.5">
+                <Label className="text-[9px] text-gray-300">Parallax Effect</Label>
+                <Switch
+                  checked={config.background?.parallax !== false}
+                  onCheckedChange={(checked) => updateConfig('background.parallax', checked)}
+                />
+              </div>
+
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Image URL</Label>
+                <Input
+                  type="text"
+                  value={config.background?.value || ''}
+                  onChange={(e) => updateConfig('background.value', e.target.value)}
+                  className="bg-gray-900 border-gray-600 text-white text-[10px] h-7"
+                  placeholder="https://..."
+                />
+              </div>
+
+              <Button
+                onClick={async () => {
+                  const input = document.createElement('input');
+                  input.type = 'file';
+                  input.accept = 'image/*';
+                  input.onchange = async (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      const formData = new FormData();
+                      formData.append('file', file);
+                      try {
+                        const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_BACKEND_URL;
+                        const response = await fetch(`${backendUrl}/api/upload/image`, {
+                          method: 'POST',
+                          body: formData
+                        });
+                        const data = await response.json();
+                        if (data.url) {
+                          updateConfig('background.value', data.url);
+                        }
+                      } catch (error) {
+                        console.error('Upload error:', error);
+                      }
+                    }
+                  };
+                  input.click();
+                }}
+                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] h-7 flex items-center justify-center gap-1.5"
+              >
+                <Upload className="w-3 h-3" />
+                Upload Section Background
+              </Button>
+            </div>
+
+            {/* Padding Controls */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Padding</h4>
+              
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Top</Label>
+                <Input
+                  type="range"
+                  value={config.padding?.top || 100}
+                  onChange={(e) => updateConfig('padding.top', parseInt(e.target.value))}
+                  className="w-full bg-gray-800 border-gray-700"
+                  min="0"
+                  max="300"
+                />
+                <span className="text-[9px] text-gray-400">{config.padding?.top || 100}px</span>
+              </div>
+
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Bottom</Label>
+                <Input
+                  type="range"
+                  value={config.padding?.bottom || 100}
+                  onChange={(e) => updateConfig('padding.bottom', parseInt(e.target.value))}
+                  className="w-full bg-gray-800 border-gray-700"
+                  min="0"
+                  max="300"
+                />
+                <span className="text-[9px] text-gray-400">{config.padding?.bottom || 100}px</span>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Social Icons Modal */}
