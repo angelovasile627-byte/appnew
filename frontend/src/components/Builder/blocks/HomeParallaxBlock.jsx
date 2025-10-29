@@ -67,15 +67,15 @@ const HomeParallaxBlock = ({ config, isEditing, onUpdate }) => {
     const rotation = layer.rotation || 0;
     const distance = layer.distance || 0;
 
-    // Apply offset based on layer speed with stronger effect
-    const translateX = offset.x * speedX * 5; // Increased multiplier for more movement
-    const translateY = offset.y * speedY * 5;
+    // Apply offset based on layer speed with subtle effect
+    const translateX = offset.x * speedX * 1.5; // Reduced for subtle movement
+    const translateY = offset.y * speedY * 1.5;
     
-    // Add slight scale variation based on distance
-    const scale = 1 + (Math.abs(offset.x) * speedZ * 0.002);
+    // Add very slight scale variation based on distance
+    const scale = 1 + (Math.abs(offset.x) * speedZ * 0.0005);
     
-    // Rotation based on offset
-    const rotate = offset.x * rotation * 2;
+    // Minimal rotation based on offset
+    const rotate = offset.x * rotation * 0.5;
 
     return {
       transform: `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale}) rotate(${rotate}deg)`,
