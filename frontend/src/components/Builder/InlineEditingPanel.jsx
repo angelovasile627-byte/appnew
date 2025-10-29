@@ -4109,8 +4109,19 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                             updated[index] = { ...updated[index], price: e.target.value };
                             updateConfig('images', updated);
                           }}
-                          className="bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                          className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
                           placeholder="Price (optional)"
+                        />
+                        <Input
+                          type="text"
+                          value={image.link || ''}
+                          onChange={(e) => {
+                            const updated = [...config.images];
+                            updated[index] = { ...updated[index], link: e.target.value };
+                            updateConfig('images', updated);
+                          }}
+                          className="bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                          placeholder="Link URL (optional)"
                         />
                       </div>
                     ))}
