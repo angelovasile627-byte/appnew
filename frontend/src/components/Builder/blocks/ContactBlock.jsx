@@ -5,6 +5,58 @@ import { Input } from '../../ui/input';
 import { Textarea } from '../../ui/textarea';
 
 export const ContactBlock = ({ config, onUpdate }) => {
+  const [formStatus, setFormStatus] = React.useState({ type: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setFormStatus({ type: '', message: '' });
+
+    // Get form data
+    const formData = new FormData(e.target);
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      message: formData.get('message'),
+      notification_email: config.form?.notificationEmail
+    };
+
+    try {
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || import.meta.env.REACT_APP_BACKEND_URL;
+      const response = await fetch(`${backendUrl}/api/contact/submit`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        setFormStatus({
+          type: 'success',
+          message: config.form?.successMessage || 'Thanks for filling out the form!'
+        });
+        e.target.reset();
+      } else {
+        setFormStatus({
+          type: 'error',
+          message: 'Failed to submit form. Please try again.'
+        });
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setFormStatus({
+        type: 'error',
+        message: 'An error occurred. Please try again later.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const containerStyle = {
     backgroundColor: config.background.value,
     paddingTop: `${config.padding.top}px`,
