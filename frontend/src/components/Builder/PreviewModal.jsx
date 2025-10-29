@@ -504,11 +504,12 @@ const generateBlockHTML = (config) => {
     case 'hero': {
       // Check if it's the new image-above-text layout
       if (config.layout === 'image-above-text') {
+        const padding = getPadding(config, 80, 80);
         return `
           <section class="hero-image-above" style="
             background-color: ${config.background.value};
             width: 100%;
-            padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
+            padding: ${padding.top}px 24px ${padding.bottom}px;
           ">
             <div style="
               max-width: ${config.contentWidth}px;
