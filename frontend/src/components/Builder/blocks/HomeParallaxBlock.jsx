@@ -4,33 +4,61 @@ const HomeParallaxBlock = ({ config, isEditing, onUpdate }) => {
   const containerRef = useRef(null);
   const animationFrameRef = useRef(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isMouseOver, setIsMouseOver] = useState(false);
 
+  // Mouse move handler for parallax effect
   useEffect(() => {
-    let time = 0;
+    const container = containerRef.current;
+    if (!container) return;
 
+    const handleMouseMove = (e) => {
+      const rect = container.getBoundingClientRect();
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      // Calculate mouse position relative to center (-1 to 1)
+      const x = (e.clientX - rect.left - centerX) / centerX;
+      const y = (e.clientY - rect.top - centerY) / centerY;
+      
+      setMousePosition({ x: x * 100, y: y * 100 });
+      setIsMouseOver(true);
+    };
+
+    const handleMouseLeave = () => {
+      setIsMouseOver(false);
+      // Smoothly return to center
+      setMousePosition({ x: 0, y: 0 });
+    };
+
+    container.addEventListener('mousemove', handleMouseMove);
+    container.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      container.removeEventListener('mousemove', handleMouseMove);
+      container.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  // Smooth animation for mouse tracking
+  useEffect(() => {
     const animate = () => {
-      time += 0.01;
-      
-      // Create smooth oscillating movement
-      const x = Math.sin(time) * 50;
-      const y = Math.cos(time * 0.8) * 30;
-      
-      setOffset({ x, y });
+      setOffset(prev => ({
+        x: prev.x + (mousePosition.x - prev.x) * 0.1,
+        y: prev.y + (mousePosition.y - prev.y) * 0.1
+      }));
       
       animationFrameRef.current = requestAnimationFrame(animate);
     };
 
-    // Start animation only in editing mode
-    if (isEditing) {
-      animate();
-    }
+    animate();
 
     return () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [isEditing]);
+  }, [mousePosition]);
 
   const calculateTransform = (layer) => {
     const speedX = layer.speedx || 0;
