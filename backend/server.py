@@ -495,6 +495,48 @@ async def save_settings(project_id: str, settings_data: SettingsData):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# Contact Form Submission
+class ContactFormData(BaseModel):
+    name: str
+    email: str
+    phone: Optional[str] = None
+    message: str
+    notification_email: Optional[str] = None
+
+@api_router.post("/contact/submit")
+async def submit_contact_form(form_data: ContactFormData):
+    """Handle contact form submission"""
+    try:
+        # Save to database (optional - can be implemented later)
+        # For now, we'll just return success
+        # In production, you would:
+        # 1. Save the message to database
+        # 2. Send email notification to notification_email
+        # 3. Send confirmation email to form_data.email
+        
+        logger.info(f"Contact form submitted: {form_data.name} ({form_data.email})")
+        
+        # TODO: Implement email sending using SMTP or email service
+        # if form_data.notification_email:
+        #     send_email(
+        #         to=form_data.notification_email,
+        #         subject=f"New Contact Form Submission from {form_data.name}",
+        #         body=f"Name: {form_data.name}\nEmail: {form_data.email}\nPhone: {form_data.phone}\nMessage: {form_data.message}"
+        #     )
+        
+        return {
+            "success": True,
+            "message": "Form submitted successfully",
+            "data": {
+                "name": form_data.name,
+                "email": form_data.email
+            }
+        }
+    except Exception as e:
+        logger.error(f"Error submitting contact form: {e}")
+        raise HTTPException(status_code=500, detail="Failed to submit form")
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
