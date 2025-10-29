@@ -418,3 +418,5 @@ agent_communication:
     message: "Added White Space controls for Hero Parallax block. Top and Bottom sliders (0-600px) allow users to control white overlay areas, creating parallax effect where content scrolls over background image."
   - agent: "main"
     message: "Added image upload from computer for Hero Parallax background. Backend endpoint /api/upload/image handles file uploads (jpg, jpeg, png, gif, webp), saves with unique filenames, and returns URL. Frontend shows 'Încarcă Imagine' button that uploads file and auto-updates background image. Works alongside URL input option."
+  - agent: "testing"
+    message: "MOUNTAIN PHOTOGRAPHY THEME API TESTING COMPLETE: ✅ Contact Form Submission endpoint (/api/contact/submit) fully functional - accepts all required fields, validates properly, returns correct success response. ✅ Image Upload endpoint (/api/upload/image) verified working - supports PNG/JPEG/WebP/GIF formats, generates unique filenames, proper file validation. Both endpoints ready for production use with Mountain Photography theme."
