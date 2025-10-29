@@ -2314,7 +2314,9 @@ export const blockTemplates = [
               text: 'Send Message',
               color: '#A8F5B8',
               textColor: '#1a1a1a'
-            }
+            },
+            notificationEmail: 'hello@highaltitude.photo',
+            successMessage: 'Thanks for filling out the form! We\'ll get back to you soon.'
           },
           contactInfo: {
             show: true,
