@@ -498,6 +498,45 @@ async def save_settings(project_id: str, settings_data: SettingsData):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# Email Configuration (can be configured via environment variables)
+def send_email_notification(to_email: str, subject: str, body_html: str):
+    """Send email notification using SMTP"""
+    try:
+        # Email configuration from environment variables
+        smtp_host = os.getenv('SMTP_HOST', 'smtp.gmail.com')
+        smtp_port = int(os.getenv('SMTP_PORT', '587'))
+        smtp_user = os.getenv('SMTP_USER', '')
+        smtp_password = os.getenv('SMTP_PASSWORD', '')
+        from_email = os.getenv('FROM_EMAIL', smtp_user)
+        
+        # If SMTP credentials are not configured, skip email sending
+        if not smtp_user or not smtp_password:
+            logger.warning("SMTP credentials not configured. Email notification skipped.")
+            return False
+        
+        # Create message
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = subject
+        msg['From'] = from_email
+        msg['To'] = to_email
+        
+        # Create HTML part
+        html_part = MIMEText(body_html, 'html')
+        msg.attach(html_part)
+        
+        # Send email
+        with smtplib.SMTP(smtp_host, smtp_port) as server:
+            server.starttls()
+            server.login(smtp_user, smtp_password)
+            server.send_message(msg)
+        
+        logger.info(f"Email sent successfully to {to_email}")
+        return True
+    except Exception as e:
+        logger.error(f"Failed to send email: {e}")
+        return False
+
+
 # Contact Form Submission
 class ContactFormData(BaseModel):
     name: str
@@ -510,22 +549,35 @@ class ContactFormData(BaseModel):
 async def submit_contact_form(form_data: ContactFormData):
     """Handle contact form submission"""
     try:
-        # Save to database (optional - can be implemented later)
-        # For now, we'll just return success
-        # In production, you would:
-        # 1. Save the message to database
-        # 2. Send email notification to notification_email
-        # 3. Send confirmation email to form_data.email
-        
         logger.info(f"Contact form submitted: {form_data.name} ({form_data.email})")
         
-        # TODO: Implement email sending using SMTP or email service
-        # if form_data.notification_email:
-        #     send_email(
-        #         to=form_data.notification_email,
-        #         subject=f"New Contact Form Submission from {form_data.name}",
-        #         body=f"Name: {form_data.name}\nEmail: {form_data.email}\nPhone: {form_data.phone}\nMessage: {form_data.message}"
-        #     )
+        # Send email notification if notification_email is provided
+        email_sent = False
+        if form_data.notification_email:
+            subject = f"New Contact Form Submission from {form_data.name}"
+            body_html = f"""
+            <html>
+                <body style="font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4;">
+                    <div style="max-width: 600px; margin: 0 auto; background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <h2 style="color: #4F46E5; margin-bottom: 20px;">New Contact Form Submission</h2>
+                        <div style="background-color: #F9FAFB; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
+                            <p style="margin: 10px 0;"><strong style="color: #374151;">Name:</strong> {form_data.name}</p>
+                            <p style="margin: 10px 0;"><strong style="color: #374151;">Email:</strong> <a href="mailto:{form_data.email}" style="color: #4F46E5;">{form_data.email}</a></p>
+                            {f'<p style="margin: 10px 0;"><strong style="color: #374151;">Phone:</strong> {form_data.phone}</p>' if form_data.phone else ''}
+                        </div>
+                        <div style="background-color: #F9FAFB; padding: 20px; border-radius: 8px;">
+                            <p style="margin: 0 0 10px 0;"><strong style="color: #374151;">Message:</strong></p>
+                            <p style="margin: 0; color: #6B7280; line-height: 1.6;">{form_data.message}</p>
+                        </div>
+                        <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 20px 0;">
+                        <p style="color: #9CA3AF; font-size: 12px; text-align: center; margin: 0;">
+                            This message was sent from your website contact form
+                        </p>
+                    </div>
+                </body>
+            </html>
+            """
+            email_sent = send_email_notification(form_data.notification_email, subject, body_html)
         
         return {
             "success": True,
