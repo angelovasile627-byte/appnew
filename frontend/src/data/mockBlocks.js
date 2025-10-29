@@ -2139,69 +2139,73 @@ export const blockTemplates = [
           id: 'theme-parallax',
           type: 'parallax',
           hero: {
-            background: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=1920&h=1080&fit=crop',
-            overlay: {
-              show: true,
-              color: '#000000',
-              opacity: 0.4
+            height: 60,
+            background: {
+              type: 'image',
+              value: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=1920&h=1080&fit=crop',
+              parallax: true
             },
             title: {
               text: 'Mountain Adventures',
+              show: true,
               color: '#FFFFFF',
               size: 56,
-              weight: 700,
-              align: 'center'
+              weight: 700
             },
             description: {
               text: 'Explore the peaks and capture unforgettable moments',
+              show: true,
               color: '#FFFFFF',
               size: 20,
-              align: 'center'
+              maxWidth: '60ch'
             },
             button: {
-              show: true,
               text: 'View Gallery',
+              show: true,
               color: '#A8F5B8',
               textColor: '#1a1a1a',
-              link: '#gallery'
+              link: '#gallery',
+              size: 14
             }
           },
           spacer: {
             height: 200,
             backgroundColor: '#ffffff'
           },
-          cards: {
-            sectionHeight: 800,
-            background: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&h=1080&fit=crop',
-            overlay: {
-              show: true,
-              color: '#000000',
-              opacity: 0.3
+          cardsSection: {
+            background: {
+              type: 'image',
+              value: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&h=1080&fit=crop',
+              parallax: true
             },
-            items: [
-              {
-                id: 'card-1',
-                image: 'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600&h=400&fit=crop',
-                title: 'Rock Climbing',
-                description: 'Scale the heights and conquer the peaks',
-                link: '#'
-              },
-              {
-                id: 'card-2',
-                image: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&h=400&fit=crop',
-                title: 'Mountain Hiking',
-                description: 'Trek through stunning alpine landscapes',
-                link: '#'
-              },
-              {
-                id: 'card-3',
-                image: 'https://images.unsplash.com/photo-1486911278844-a81c0cd2a4f8?w=600&h=400&fit=crop',
-                title: 'Photography Tours',
-                description: 'Capture the beauty of mountain scenery',
-                link: '#'
-              }
-            ]
-          }
+            height: 800
+          },
+          cards: [
+            {
+              id: 'card-1',
+              image: 'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600&h=400&fit=crop',
+              title: 'Rock Climbing',
+              description: 'Scale the heights and conquer the peaks',
+              link: '#',
+              linkText: 'Learn more'
+            },
+            {
+              id: 'card-2',
+              image: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&h=400&fit=crop',
+              title: 'Mountain Hiking',
+              description: 'Trek through stunning alpine landscapes',
+              link: '#',
+              linkText: 'Learn more'
+            },
+            {
+              id: 'card-3',
+              image: 'https://images.unsplash.com/photo-1486911278844-a81c0cd2a4f8?w=600&h=400&fit=crop',
+              title: 'Photography Tours',
+              description: 'Capture the beauty of mountain scenery',
+              link: '#',
+              linkText: 'Learn more'
+            }
+          ]
         },
         
         // GALLERY BLOCK
