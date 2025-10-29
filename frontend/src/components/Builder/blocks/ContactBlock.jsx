@@ -95,8 +95,8 @@ export const ContactBlock = ({ config, onUpdate }) => {
               <Button
                 type="submit"
                 style={{
-                  backgroundColor: config.form.buttonColor,
-                  color: '#ffffff',
+                  backgroundColor: config.form?.button?.color || '#6366F1',
+                  color: config.form?.button?.textColor || '#ffffff',
                   width: '100%',
                   padding: '14px',
                   fontSize: '16px',
