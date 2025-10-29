@@ -272,12 +272,13 @@ const generateBlockHTML = (config) => {
               const splitCount = config.splitCount || Math.floor(visibleItems.length / 2);
               const leftItems = visibleItems.slice(0, splitCount);
               const rightItems = visibleItems.slice(splitCount);
+              const padding = getPadding(config);
 
               return `
                 <div style="
                   max-width: ${config.fullWidth ? '100%' : config.contentWidth + 'px'};
                   margin: 0 auto;
-                  padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
+                  padding: ${padding.top}px 24px ${padding.bottom}px;
                   display: flex;
                   align-items: center;
                   justify-content: space-between;
