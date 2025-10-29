@@ -2482,9 +2482,8 @@ export const blockTemplates = [
       type: 'text',
       theme: 'sand',
       background: {
-        type: 'image',
-        value: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1920&h=1080&fit=crop',
-        parallax: true
+        type: 'color',
+        color: '#FFFFFF'
       },
       padding: {
         top: 100,
