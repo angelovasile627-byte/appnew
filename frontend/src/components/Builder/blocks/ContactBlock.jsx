@@ -115,7 +115,21 @@ export const ContactBlock = ({ config, onUpdate }) => {
               boxShadow: '0 4px 16px rgba(0,0,0,0.08)'
             }}
           >
-            <form>
+            {formStatus.message && (
+              <div
+                style={{
+                  padding: '12px',
+                  marginBottom: '20px',
+                  borderRadius: '8px',
+                  backgroundColor: formStatus.type === 'success' ? '#d4edda' : '#f8d7da',
+                  color: formStatus.type === 'success' ? '#155724' : '#721c24',
+                  border: `1px solid ${formStatus.type === 'success' ? '#c3e6cb' : '#f5c6cb'}`
+                }}
+              >
+                {formStatus.message}
+              </div>
+            )}
+            <form onSubmit={handleSubmit}>
               {config.form?.fields?.map((field, index) => (
                 <div key={index} style={{ marginBottom: '24px' }}>
                   <label
@@ -127,16 +141,18 @@ export const ContactBlock = ({ config, onUpdate }) => {
                       marginBottom: '8px'
                     }}
                   >
-                    {field.label}
+                    {field.label}{field.required && ' *'}
                   </label>
                   {field.type === 'textarea' ? (
                     <Textarea
+                      name={field.id}
                       placeholder={field.placeholder}
                       required={field.required}
                       style={{ minHeight: '120px' }}
                     />
                   ) : (
                     <Input
+                      name={field.id}
                       type={field.type}
                       placeholder={field.placeholder}
                       required={field.required}
@@ -146,6 +162,7 @@ export const ContactBlock = ({ config, onUpdate }) => {
               ))}
               <Button
                 type="submit"
+                disabled={isSubmitting}
                 style={{
                   backgroundColor: config.form?.button?.color || '#6366F1',
                   color: config.form?.button?.textColor || '#ffffff',
@@ -155,13 +172,14 @@ export const ContactBlock = ({ config, onUpdate }) => {
                   fontWeight: '600',
                   borderRadius: '10px',
                   border: 'none',
-                  cursor: 'pointer',
+                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                  opacity: isSubmitting ? 0.7 : 1,
                   transition: 'transform 0.2s'
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                onMouseEnter={(e) => !isSubmitting && (e.currentTarget.style.transform = 'translateY(-2px)')}
+                onMouseLeave={(e) => !isSubmitting && (e.currentTarget.style.transform = 'translateY(0)')}
               >
-                {config.form?.button?.text || 'Send Message'}
+                {isSubmitting ? 'Sending...' : (config.form?.button?.text || 'Send Message')}
               </Button>
             </form>
           </div>
