@@ -114,7 +114,7 @@ export const ContactBlock = ({ config, onUpdate }) => {
             </form>
           </div>
           <div>
-            {config.info.map((item, index) => {
+            {config.contactInfo?.show && config.info?.map((item, index) => {
               const IconComponent = Icons[item.icon] || Icons.Info;
               return (
                 <div
