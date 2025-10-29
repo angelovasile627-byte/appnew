@@ -582,6 +582,7 @@ async def submit_contact_form(form_data: ContactFormData):
         return {
             "success": True,
             "message": "Form submitted successfully",
+            "email_sent": email_sent,
             "data": {
                 "name": form_data.name,
                 "email": form_data.email
