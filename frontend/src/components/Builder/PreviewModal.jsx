@@ -377,7 +377,7 @@ const generateBlockHTML = (config) => {
               <div style="
                 max-width: ${config.fullWidth ? '100%' : config.contentWidth + 'px'};
                 margin: 0 auto;
-                padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
+                padding: ${padding.top}px 24px ${padding.bottom}px;
                 display: flex;
                 align-items: center;
                 justify-content: ${config.align === 'right' ? 'flex-end' : config.align === 'space-between' ? 'space-between' : 'flex-start'};
