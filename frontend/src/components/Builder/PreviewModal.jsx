@@ -2887,13 +2887,14 @@ const generateBlockHTML = (config) => {
               gap: 32px;
               justify-content: center;
             ">
-              ${clients.map(client => `
-                <div style="
+              ${clients.map((client, idx) => `
+                <div class="client-card-${idx}" style="
                   background-color: ${client.backgroundColor || '#f8f8f8'};
                   border-radius: 12px;
                   padding: 40px;
                   text-align: center;
                   transition: transform 0.3s ease;
+                  cursor: pointer;
                 ">
                   <div style="
                     font-size: 48px;
@@ -2910,6 +2911,13 @@ const generateBlockHTML = (config) => {
             </div>
           </div>
         </section>
+        <style>
+          ${clients.map((client, idx) => `
+            .client-card-${idx}:hover {
+              transform: scale(1.05);
+            }
+          `).join('')}
+        </style>
       `;
     }
 
