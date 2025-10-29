@@ -4922,57 +4922,23 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
             <div className="space-y-0.5 border-t border-gray-800 pt-1">
               <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Section Background</h4>
               
-              <div className="flex items-center justify-between py-0.5">
-                <Label className="text-[9px] text-gray-300">Parallax Effect</Label>
-                <Switch
-                  checked={config.background?.parallax !== false}
-                  onCheckedChange={(checked) => updateConfig('background.parallax', checked)}
-                />
-              </div>
-
               <div className="space-y-0.5">
-                <Label className="text-[9px] text-gray-300">Image URL</Label>
-                <Input
-                  type="text"
-                  value={config.background?.value || ''}
-                  onChange={(e) => updateConfig('background.value', e.target.value)}
-                  className="bg-gray-900 border-gray-600 text-white text-[10px] h-7"
-                  placeholder="https://..."
-                />
+                <Label className="text-[9px] text-gray-300">Background Color</Label>
+                <div className="flex gap-1.5">
+                  <Input
+                    type="color"
+                    value={config.background?.color || '#FFFFFF'}
+                    onChange={(e) => updateConfig('background.color', e.target.value)}
+                    className="w-6 h-6 bg-gray-900 border-gray-600"
+                  />
+                  <Input
+                    type="text"
+                    value={config.background?.color || '#FFFFFF'}
+                    onChange={(e) => updateConfig('background.color', e.target.value)}
+                    className="flex-1 bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                  />
+                </div>
               </div>
-
-              <Button
-                onClick={async () => {
-                  const input = document.createElement('input');
-                  input.type = 'file';
-                  input.accept = 'image/*';
-                  input.onchange = async (e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                      const formData = new FormData();
-                      formData.append('file', file);
-                      try {
-                        const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_BACKEND_URL;
-                        const response = await fetch(`${backendUrl}/api/upload/image`, {
-                          method: 'POST',
-                          body: formData
-                        });
-                        const data = await response.json();
-                        if (data.url) {
-                          updateConfig('background.value', data.url);
-                        }
-                      } catch (error) {
-                        console.error('Upload error:', error);
-                      }
-                    }
-                  };
-                  input.click();
-                }}
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] h-7 flex items-center justify-center gap-1.5"
-              >
-                <Upload className="w-3 h-3" />
-                Upload Section Background
-              </Button>
             </div>
 
             {/* Padding Controls */}
