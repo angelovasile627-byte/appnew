@@ -15,42 +15,56 @@ export const GalleryBlock = ({ config, onUpdate }) => {
   };
 
   return (
-    <div style={containerStyle}>
-      <div style={contentStyle}>
-        {config.title.show && (
-          <h2
-            style={{
-              fontSize: '42px',
-              fontWeight: '700',
-              color: config.title.color,
-              textAlign: config.title.align,
-              marginBottom: '16px'
-            }}
-          >
-            {config.title.text}
-          </h2>
-        )}
-        {config.description.show && (
-          <p
-            style={{
-              fontSize: '18px',
-              color: config.description.color,
-              textAlign: config.description.align,
-              marginBottom: '60px',
-              maxWidth: '700px',
-              margin: config.description.align === 'center' ? '0 auto 60px' : '0 0 60px'
-            }}
-          >
-            {config.description.text}
-          </p>
-        )}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: `repeat(${config.columns}, 1fr)`,
-            gap: '24px'
-          }}
-        >
+    <>
+      <style>{`
+        .gallery-block-grid {
+          display: grid;
+          grid-template-columns: repeat(${config.columns}, 1fr);
+          gap: 24px;
+        }
+        @media (max-width: 768px) {
+          .gallery-block-grid {
+            grid-template-columns: repeat(${config.columns >= 3 ? 2 : 1}, 1fr) !important;
+            gap: 16px;
+          }
+        }
+        @media (max-width: 480px) {
+          .gallery-block-grid {
+            grid-template-columns: 1fr !important;
+            gap: 16px;
+          }
+        }
+      `}</style>
+      <div style={containerStyle}>
+        <div style={contentStyle}>
+          {config.title.show && (
+            <h2
+              style={{
+                fontSize: '42px',
+                fontWeight: '700',
+                color: config.title.color,
+                textAlign: config.title.align,
+                marginBottom: '16px'
+              }}
+            >
+              {config.title.text}
+            </h2>
+          )}
+          {config.description.show && (
+            <p
+              style={{
+                fontSize: '18px',
+                color: config.description.color,
+                textAlign: config.description.align,
+                marginBottom: '60px',
+                maxWidth: '700px',
+                margin: config.description.align === 'center' ? '0 auto 60px' : '0 0 60px'
+              }}
+            >
+              {config.description.text}
+            </p>
+          )}
+          <div className="gallery-block-grid">
           {config.images.map((image, index) => (
             <div
               key={index}
