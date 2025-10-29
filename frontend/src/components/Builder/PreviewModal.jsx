@@ -2799,13 +2799,14 @@ const generateBlockHTML = (config) => {
               grid-template-columns: repeat(${columns}, 1fr);
               gap: 24px;
             ">
-              ${testimonials.map(testimonial => `
-                <div style="
+              ${testimonials.map((testimonial, idx) => `
+                <div class="testimonial-card-${idx}" style="
                   background-color: #ffffff;
                   border-radius: 12px;
                   padding: 32px;
                   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
                   transition: transform 0.3s ease, box-shadow 0.3s ease;
+                  cursor: pointer;
                 ">
                   <div style="
                     font-size: 18px;
@@ -2848,6 +2849,14 @@ const generateBlockHTML = (config) => {
             </div>
           </div>
         </section>
+        <style>
+          ${testimonials.map((testimonial, idx) => `
+            .testimonial-card-${idx}:hover {
+              transform: translateY(-4px);
+              box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            }
+          `).join('')}
+        </style>
       `;
     }
 
