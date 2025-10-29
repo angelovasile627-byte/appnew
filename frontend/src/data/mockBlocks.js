@@ -2026,6 +2026,8 @@ export const blockTemplates = [
           fullWidth: true,
           alignment: 'space-between',
           splitCount: 2,
+          contentWidth: 1200,
+          padding: { top: 16, bottom: 16 },
           background: {
             value: '#1a1a1a'
           },
