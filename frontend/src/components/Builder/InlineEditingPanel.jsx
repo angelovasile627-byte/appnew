@@ -4432,37 +4432,43 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                 {/* Links Management */}
                 <div className="space-y-0.5 border-t border-gray-800 pt-1">
                   <div className="flex items-center justify-between mb-1">
-                    <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Links</Label>
-                    <Button
-                      onClick={() => {
-                        const newLink = {
-                          id: `footer-link-${Date.now()}`,
-                          text: 'New Link',
-                          link: '#',
-                          color: '#cccccc'
-                        };
-                        updateConfig('links', [...(config.links || []), newLink]);
-                      }}
-                      className="h-5 px-2 text-[9px] bg-indigo-600 hover:bg-indigo-700"
-                    >
-                      Add Link
-                    </Button>
+                    <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Menu Links</Label>
+                    <Switch
+                      checked={config.showLinks ?? true}
+                      onCheckedChange={(checked) => updateConfig('showLinks', checked)}
+                    />
                   </div>
-                  <div className="space-y-1 max-h-40 overflow-y-auto pr-1">
-                    {(config.links || []).map((link, index) => (
-                      <div key={link.id || index} className="bg-gray-800 p-1.5 rounded border border-gray-700">
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-[9px] text-indigo-400">Link {index + 1}</span>
-                          <Button
-                            onClick={() => {
-                              const updated = config.links.filter((_, i) => i !== index);
-                              updateConfig('links', updated);
-                            }}
-                            className="h-4 w-4 p-0 bg-red-600 hover:bg-red-700"
-                          >
-                            <X className="w-3 h-3" />
-                          </Button>
-                        </div>
+                  {config.showLinks !== false && (
+                    <>
+                      <Button
+                        onClick={() => {
+                          const newLink = {
+                            id: `footer-link-${Date.now()}`,
+                            text: 'New Link',
+                            link: '#',
+                            color: '#cccccc'
+                          };
+                          updateConfig('links', [...(config.links || []), newLink]);
+                        }}
+                        className="h-5 px-2 text-[9px] bg-indigo-600 hover:bg-indigo-700 w-full mb-1"
+                      >
+                        Add Link
+                      </Button>
+                      <div className="space-y-1 max-h-40 overflow-y-auto pr-1">
+                        {(config.links || []).map((link, index) => (
+                          <div key={link.id || index} className="bg-gray-800 p-1.5 rounded border border-gray-700">
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="text-[9px] text-indigo-400">Link {index + 1}</span>
+                              <Button
+                                onClick={() => {
+                                  const updated = config.links.filter((_, i) => i !== index);
+                                  updateConfig('links', updated);
+                                }}
+                                className="h-4 w-4 p-0 bg-red-600 hover:bg-red-700"
+                              >
+                                <X className="w-3 h-3" />
+                              </Button>
+                            </div>
                         <Input
                           type="text"
                           value={link.text}
