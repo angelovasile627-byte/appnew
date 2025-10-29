@@ -2406,7 +2406,7 @@ export const blockTemplates = [
           id: 'theme-footer',
           type: 'footer',
           layout: 'simple',
-          background: '#1a1a1a',
+          background: { value: '#1a1a1a' },
           textColor: '#ffffff',
           padding: { top: 60, bottom: 60 },
           logo: {
