@@ -1,6 +1,29 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 export const GalleryBlock = ({ config, onUpdate }) => {
+  const galleryRef = useRef(null);
+  const animation = config.animation || 'hover-zoom';
+
+  useEffect(() => {
+    if (animation === 'fade-scroll' && galleryRef.current) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('fade-in-visible');
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      const items = galleryRef.current.querySelectorAll('.gallery-item');
+      items.forEach((item) => observer.observe(item));
+
+      return () => observer.disconnect();
+    }
+  }, [animation]);
+
   const containerStyle = {
     backgroundColor: config.background.value,
     paddingTop: `${config.padding.top}px`,
@@ -12,6 +35,18 @@ export const GalleryBlock = ({ config, onUpdate }) => {
     maxWidth: config.fullWidth ? '100%' : `${config.contentWidth}px`,
     margin: '0 auto',
     padding: '0 24px'
+  };
+
+  const getAnimationClass = () => {
+    switch (animation) {
+      case 'fade-scroll':
+        return 'gallery-fade-scroll';
+      case 'slide':
+        return 'gallery-slide';
+      case 'hover-zoom':
+      default:
+        return 'gallery-hover-zoom';
+    }
   };
 
   return (
@@ -33,6 +68,42 @@ export const GalleryBlock = ({ config, onUpdate }) => {
             grid-template-columns: 1fr !important;
             gap: 16px;
           }
+        }
+
+        /* Hover Zoom Animation */
+        .gallery-hover-zoom .gallery-item {
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-hover-zoom .gallery-item:hover {
+          transform: scale(1.05);
+          box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+
+        /* Fade Scroll Animation */
+        .gallery-fade-scroll .gallery-item {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .gallery-fade-scroll .gallery-item.fade-in-visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        /* Slide Animation */
+        .gallery-slide .gallery-item {
+          opacity: 0;
+          transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .gallery-slide .gallery-item:nth-child(odd) {
+          transform: translateX(-50px);
+        }
+        .gallery-slide .gallery-item:nth-child(even) {
+          transform: translateX(50px);
+        }
+        .gallery-slide .gallery-item.fade-in-visible {
+          opacity: 1;
+          transform: translateX(0);
         }
       `}</style>
       <div style={containerStyle}>
