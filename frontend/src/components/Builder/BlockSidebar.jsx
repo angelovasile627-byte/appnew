@@ -240,19 +240,17 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                   <div style={{
                     position: 'relative',
                     height: '100%',
-                    backgroundImage: `url(${config.background?.value || ''})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
+                    backgroundColor: config.background?.color || '#FFFFFF',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
                     padding: '8px'
                   }}>
-                    {/* Title with background clip */}
+                    {/* Title with background clip - larger and more prominent */}
                     {config.title?.show && (
                       <div style={{
-                        fontSize: '14px',
+                        fontSize: '20px',
                         fontWeight: 700,
                         backgroundImage: `url(${config.title?.backgroundImage?.value || ''})`,
                         backgroundSize: 'cover',
@@ -261,23 +259,24 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         textAlign: 'center',
-                        marginBottom: '4px'
+                        marginBottom: '4px',
+                        lineHeight: 1
                       }}>
                         {config.title.text}
                       </div>
                     )}
                     
-                    {/* Description Preview */}
+                    {/* Description Preview - very small */}
                     {config.description?.show && (
                       <div style={{
-                        fontSize: '4px',
+                        fontSize: '3px',
                         color: config.description.color,
                         textAlign: 'center',
-                        marginBottom: '4px',
+                        marginBottom: '3px',
                         lineHeight: 1.2,
-                        maxWidth: '90%'
+                        maxWidth: '80%'
                       }}>
-                        {(config.description.text || '').substring(0, 60)}...
+                        {(config.description.text || '').substring(0, 40)}...
                       </div>
                     )}
                     
@@ -287,8 +286,8 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                         backgroundColor: config.button.color,
                         color: config.button.textColor,
                         padding: '2px 4px',
-                        borderRadius: '2px',
-                        fontSize: '4px',
+                        borderRadius: '1px',
+                        fontSize: '3.5px',
                         fontWeight: 600
                       }}>
                         {config.button.text}
