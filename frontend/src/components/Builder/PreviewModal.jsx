@@ -1420,6 +1420,7 @@ const generateBlockHTML = (config) => {
       const bgStyle = config.background.type === 'gradient'
         ? `background: ${config.background.value};`
         : `background-color: ${config.background.value};`;
+      const padding = getPadding(config, 80, 80);
 
       return `
         <section style="
