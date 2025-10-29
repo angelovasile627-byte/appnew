@@ -8,7 +8,7 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const categories = ['all', 'menu', 'hero', 'features', 'article', 'intro', 'cta', 'gallery', 'home', 'parallax', 'cards', 'testimonial', 'contact', 'pricing', 'footer', 'team', 'stats', 'faq'];
+  const categories = ['all', 'menu', 'hero', 'features', 'article', 'intro', 'cta', 'gallery', 'home', 'parallax', 'cards', 'testimonial', 'contact', 'pricing', 'footer', 'team', 'stats', 'faq', 'people'];
 
   const filteredBlocks = blockTemplates.filter(block => {
     const matchesSearch = block.name.toLowerCase().includes(searchTerm.toLowerCase());
