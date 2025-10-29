@@ -2394,9 +2394,8 @@ export const blockTemplates = [
       type: 'text',
       theme: 'water',
       background: {
-        type: 'image',
-        value: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&h=1080&fit=crop',
-        parallax: true
+        type: 'color',
+        color: '#FFFFFF'
       },
       padding: {
         top: 100,
