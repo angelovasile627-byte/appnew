@@ -2000,5 +2000,461 @@ export const blockTemplates = [
       background: '#ffffff',
       padding: { top: 60, bottom: 60 }
     }
+  },
+  
+  // ============================================
+  // THEMES CATEGORY - Complete Website Templates
+  // ============================================
+  {
+    id: 'theme-1',
+    category: 'themes',
+    name: 'Mountain Photography Theme',
+    thumbnail: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
+    description: 'Complete website template for mountain photography showcase with parallax effects',
+    config: {
+      type: 'theme',
+      blocks: [
+        // MENU BLOCK
+        {
+          id: 'theme-menu',
+          type: 'menu',
+          sticky: true,
+          collapsed: false,
+          transparent: true,
+          opacity: 0.9,
+          hamburger: true,
+          fullWidth: true,
+          alignment: 'space-between',
+          splitCount: 2,
+          background: {
+            value: '#1a1a1a'
+          },
+          logo: {
+            show: true,
+            text: 'HIGH ALTITUDE',
+            color: '#ffffff',
+            size: 24,
+            bold: true
+          },
+          brandName: {
+            show: false
+          },
+          menuItems: [
+            {
+              id: 'menu-home',
+              text: 'Home',
+              link: '#',
+              color: '#ffffff',
+              activeColor: '#A8F5B8',
+              icon: '',
+              showIcon: false
+            },
+            {
+              id: 'menu-gallery',
+              text: 'Gallery',
+              link: '#gallery',
+              color: '#ffffff',
+              activeColor: '#A8F5B8',
+              icon: '',
+              showIcon: false
+            },
+            {
+              id: 'menu-about',
+              text: 'About',
+              link: '#about',
+              color: '#ffffff',
+              activeColor: '#A8F5B8',
+              icon: '',
+              showIcon: false
+            },
+            {
+              id: 'menu-contact',
+              text: 'Contact',
+              link: '#contact',
+              color: '#ffffff',
+              activeColor: '#A8F5B8',
+              icon: '',
+              showIcon: false
+            }
+          ],
+          button: {
+            show: true,
+            text: 'Shop Prints',
+            color: '#A8F5B8',
+            textColor: '#1a1a1a',
+            link: '#'
+          }
+        },
+        
+        // HERO PARALLAX BLOCK
+        {
+          id: 'theme-hero',
+          type: 'hero-parallax',
+          background: { 
+            type: 'image', 
+            value: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop'
+          },
+          overlay: {
+            show: true,
+            color: '#000000',
+            opacity: 0.3
+          },
+          fullScreen: true,
+          fullWidth: true,
+          paddingTop: 8,
+          paddingBottom: 8,
+          contentWidth: 1000,
+          title: { 
+            text: 'Capturing Mountains', 
+            show: true, 
+            color: '#FFFFFF', 
+            align: 'center', 
+            size: 72, 
+            weight: 700 
+          },
+          description: { 
+            text: 'Breathtaking mountain photography prints for sale. Experience the majesty of peaks through our lens.', 
+            show: true, 
+            color: '#FFFFFF', 
+            align: 'center', 
+            size: 22 
+          },
+          button: { 
+            text: 'Explore Collection', 
+            show: true, 
+            color: '#A8F5B8', 
+            textColor: '#1a1a1a', 
+            link: '#gallery', 
+            size: 18 
+          },
+          wrap: {
+            show: true,
+            width: 900,
+            backgroundColor: 'transparent'
+          }
+        },
+        
+        // PARALLAX SECTION - Mountain Star Style
+        {
+          id: 'theme-parallax',
+          type: 'parallax',
+          hero: {
+            background: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=1920&h=1080&fit=crop',
+            overlay: {
+              show: true,
+              color: '#000000',
+              opacity: 0.4
+            },
+            title: {
+              text: 'Mountain Adventures',
+              color: '#FFFFFF',
+              size: 56,
+              weight: 700,
+              align: 'center'
+            },
+            description: {
+              text: 'Explore the peaks and capture unforgettable moments',
+              color: '#FFFFFF',
+              size: 20,
+              align: 'center'
+            },
+            button: {
+              show: true,
+              text: 'View Gallery',
+              color: '#A8F5B8',
+              textColor: '#1a1a1a',
+              link: '#gallery'
+            }
+          },
+          spacer: {
+            height: 200,
+            backgroundColor: '#ffffff'
+          },
+          cards: {
+            sectionHeight: 800,
+            background: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&h=1080&fit=crop',
+            overlay: {
+              show: true,
+              color: '#000000',
+              opacity: 0.3
+            },
+            items: [
+              {
+                id: 'card-1',
+                image: 'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600&h=400&fit=crop',
+                title: 'Rock Climbing',
+                description: 'Scale the heights and conquer the peaks',
+                link: '#'
+              },
+              {
+                id: 'card-2',
+                image: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&h=400&fit=crop',
+                title: 'Mountain Hiking',
+                description: 'Trek through stunning alpine landscapes',
+                link: '#'
+              },
+              {
+                id: 'card-3',
+                image: 'https://images.unsplash.com/photo-1486911278844-a81c0cd2a4f8?w=600&h=400&fit=crop',
+                title: 'Photography Tours',
+                description: 'Capture the beauty of mountain scenery',
+                link: '#'
+              }
+            ]
+          }
+        },
+        
+        // GALLERY BLOCK
+        {
+          id: 'theme-gallery',
+          type: 'gallery',
+          layout: 'masonry',
+          columns: 3,
+          gap: 20,
+          lightbox: true,
+          background: '#f8f9fa',
+          padding: { top: 80, bottom: 80 },
+          title: {
+            text: 'Our Collection',
+            show: true,
+            color: '#1a1a1a',
+            size: 48,
+            weight: 700,
+            align: 'center'
+          },
+          description: {
+            text: 'High-quality mountain prints available for purchase',
+            show: true,
+            color: '#6B6B6B',
+            size: 18,
+            align: 'center'
+          },
+          images: [
+            {
+              id: 'gallery-1',
+              src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=1200&fit=crop',
+              alt: 'Mountain Peak at Sunset',
+              title: 'Mountain Peak at Sunset',
+              price: '$299'
+            },
+            {
+              id: 'gallery-2',
+              src: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800&h=600&fit=crop',
+              alt: 'Alpine Lake View',
+              title: 'Alpine Lake View',
+              price: '$249'
+            },
+            {
+              id: 'gallery-3',
+              src: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&h=1000&fit=crop',
+              alt: 'Rocky Summit',
+              title: 'Rocky Summit',
+              price: '$349'
+            },
+            {
+              id: 'gallery-4',
+              src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=800&fit=crop',
+              alt: 'Mountain Ridge',
+              title: 'Mountain Ridge',
+              price: '$279'
+            },
+            {
+              id: 'gallery-5',
+              src: 'https://images.unsplash.com/photo-1486911278844-a81c0cd2a4f8?w=800&h=1200&fit=crop',
+              alt: 'Forest Peak',
+              title: 'Forest Peak',
+              price: '$299'
+            },
+            {
+              id: 'gallery-6',
+              src: 'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&h=600&fit=crop',
+              alt: 'Climbing Adventure',
+              title: 'Climbing Adventure',
+              price: '$329'
+            }
+          ]
+        },
+        
+        // FEATURES/ABOUT BLOCK
+        {
+          id: 'theme-features',
+          type: 'features',
+          layout: 'cards-with-images',
+          columns: 3,
+          background: '#ffffff',
+          padding: { top: 80, bottom: 80 },
+          title: {
+            text: 'Why Choose Our Prints',
+            show: true,
+            color: '#1a1a1a',
+            size: 48,
+            weight: 700,
+            align: 'center'
+          },
+          description: {
+            text: 'Professional quality mountain photography for your space',
+            show: true,
+            color: '#6B6B6B',
+            size: 18,
+            align: 'center'
+          },
+          items: [
+            {
+              id: 'feature-1',
+              image: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=400&h=300&fit=crop',
+              icon: '📸',
+              showIcon: true,
+              title: 'High Resolution',
+              description: 'Professional grade prints up to 40x60 inches with stunning clarity and detail.',
+              color: '#1a1a1a'
+            },
+            {
+              id: 'feature-2',
+              image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
+              icon: '🎨',
+              showIcon: true,
+              title: 'Museum Quality',
+              description: 'Archival paper and inks that last over 100 years without fading.',
+              color: '#1a1a1a'
+            },
+            {
+              id: 'feature-3',
+              image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&h=300&fit=crop',
+              icon: '🚚',
+              showIcon: true,
+              title: 'Free Shipping',
+              description: 'Carefully packaged and shipped worldwide at no extra cost.',
+              color: '#1a1a1a'
+            }
+          ]
+        },
+        
+        // CONTACT BLOCK
+        {
+          id: 'theme-contact',
+          type: 'contact',
+          layout: 'side-by-side',
+          background: '#f8f9fa',
+          padding: { top: 80, bottom: 80 },
+          title: {
+            text: 'Get In Touch',
+            show: true,
+            color: '#1a1a1a',
+            size: 48,
+            weight: 700,
+            align: 'center'
+          },
+          description: {
+            text: 'Have questions about our prints? We\'d love to hear from you.',
+            show: true,
+            color: '#6B6B6B',
+            size: 18,
+            align: 'center'
+          },
+          form: {
+            fields: [
+              {
+                id: 'name',
+                type: 'text',
+                label: 'Name',
+                placeholder: 'Your name',
+                required: true
+              },
+              {
+                id: 'email',
+                type: 'email',
+                label: 'Email',
+                placeholder: 'your@email.com',
+                required: true
+              },
+              {
+                id: 'message',
+                type: 'textarea',
+                label: 'Message',
+                placeholder: 'Tell us about your inquiry...',
+                required: true,
+                rows: 5
+              }
+            ],
+            button: {
+              text: 'Send Message',
+              color: '#A8F5B8',
+              textColor: '#1a1a1a'
+            }
+          },
+          contactInfo: {
+            show: true,
+            email: 'hello@highaltitude.photo',
+            phone: '+1 (555) 123-4567',
+            address: 'Mountain View Studio, CO 80401',
+            social: {
+              instagram: 'https://instagram.com',
+              facebook: 'https://facebook.com',
+              twitter: 'https://twitter.com'
+            }
+          }
+        },
+        
+        // FOOTER BLOCK
+        {
+          id: 'theme-footer',
+          type: 'footer',
+          layout: 'simple',
+          background: '#1a1a1a',
+          textColor: '#ffffff',
+          padding: { top: 60, bottom: 60 },
+          logo: {
+            show: true,
+            text: 'HIGH ALTITUDE',
+            color: '#ffffff',
+            size: 24
+          },
+          description: {
+            show: true,
+            text: 'Capturing the majesty of mountains, one frame at a time.',
+            color: '#cccccc'
+          },
+          links: [
+            {
+              id: 'footer-home',
+              text: 'Home',
+              link: '#',
+              color: '#cccccc'
+            },
+            {
+              id: 'footer-gallery',
+              text: 'Gallery',
+              link: '#gallery',
+              color: '#cccccc'
+            },
+            {
+              id: 'footer-about',
+              text: 'About',
+              link: '#about',
+              color: '#cccccc'
+            },
+            {
+              id: 'footer-contact',
+              text: 'Contact',
+              link: '#contact',
+              color: '#cccccc'
+            }
+          ],
+          social: {
+            show: true,
+            links: [
+              { platform: 'instagram', url: 'https://instagram.com', color: '#A8F5B8' },
+              { platform: 'facebook', url: 'https://facebook.com', color: '#A8F5B8' },
+              { platform: 'twitter', url: 'https://twitter.com', color: '#A8F5B8' }
+            ]
+          },
+          copyright: {
+            show: true,
+            text: '© 2025 High Altitude Photography. All rights reserved.',
+            color: '#888888'
+          }
+        }
+      ]
+    }
   }
 ];
