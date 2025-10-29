@@ -3977,6 +3977,24 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                   />
                 </div>
 
+                {/* Animation Selection */}
+                <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                  <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Animation</Label>
+                  <Select
+                    value={config.animation || 'hover-zoom'}
+                    onValueChange={(value) => updateConfig('animation', value)}
+                  >
+                    <SelectTrigger className="bg-gray-800 border-gray-700 text-white text-[9px] h-7">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-gray-800 border-gray-700">
+                      <SelectItem value="hover-zoom">Hover Zoom</SelectItem>
+                      <SelectItem value="fade-scroll">Fade on Scroll</SelectItem>
+                      <SelectItem value="slide">Slide Up</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
                 {/* Images Management */}
                 <div className="space-y-0.5 border-t border-gray-800 pt-1">
                   <div className="flex items-center justify-between mb-1">
