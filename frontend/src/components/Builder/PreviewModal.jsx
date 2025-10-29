@@ -1426,7 +1426,7 @@ const generateBlockHTML = (config) => {
         <section style="
           ${bgStyle}
           width: 100%;
-          padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
+          padding: ${padding.top}px 24px ${padding.bottom}px;
         ">
           <div style="
             max-width: ${config.contentWidth}px;
