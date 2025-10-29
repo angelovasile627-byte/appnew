@@ -1718,6 +1718,272 @@ const generateBlockHTML = (config) => {
       `;
     }
 
+    case 'gallery': {
+      const bgStyle = config.background?.type === 'gradient'
+        ? `background: ${config.background.value};`
+        : `background-color: ${config.background?.value || '#f8f9fa'};`;
+
+      return `
+        <div style="
+          ${bgStyle}
+          width: 100%;
+          padding: ${config.padding?.top || 80}px 24px ${config.padding?.bottom || 80}px;
+        ">
+          <div style="
+            max-width: ${config.fullWidth ? '100%' : `${config.contentWidth || 1200}px`};
+            margin: 0 auto;
+          ">
+            ${config.title?.show ? `
+              <h2 style="
+                font-size: ${config.title.size || 42}px;
+                font-weight: ${config.title.weight || 700};
+                color: ${config.title.color || '#1a1a1a'};
+                text-align: ${config.title.align || 'center'};
+                margin-bottom: 16px;
+              ">
+                ${config.title.text}
+              </h2>
+            ` : ''}
+            
+            ${config.description?.show ? `
+              <p style="
+                font-size: ${config.description.size || 18}px;
+                color: ${config.description.color || '#6B6B6B'};
+                text-align: ${config.description.align || 'center'};
+                margin-bottom: 60px;
+                max-width: 700px;
+                margin: ${config.description.align === 'center' ? '0 auto 60px' : '0 0 60px'};
+              ">
+                ${config.description.text}
+              </p>
+            ` : ''}
+            
+            <div style="
+              display: grid;
+              grid-template-columns: repeat(${config.columns || 3}, 1fr);
+              gap: ${config.gap || 24}px;
+            ">
+              ${(config.images || []).map((image, index) => `
+                <div style="
+                  border-radius: 12px;
+                  overflow: hidden;
+                  cursor: pointer;
+                  transition: transform 0.3s, box-shadow 0.3s;
+                  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                ">
+                  <img
+                    src="${image.src}"
+                    alt="${image.alt || ''}"
+                    style="
+                      width: 100%;
+                      height: 280px;
+                      object-fit: cover;
+                      display: block;
+                    "
+                  />
+                  ${image.title || image.price ? `
+                    <div style="
+                      padding: 12px;
+                      background: #ffffff;
+                    ">
+                      ${image.title ? `
+                        <div style="
+                          font-size: 16px;
+                          font-weight: 600;
+                          color: #1a1a1a;
+                          margin-bottom: 4px;
+                        ">
+                          ${image.title}
+                        </div>
+                      ` : ''}
+                      ${image.price ? `
+                        <div style="
+                          font-size: 14px;
+                          color: #6B6B6B;
+                        ">
+                          ${image.price}
+                        </div>
+                      ` : ''}
+                    </div>
+                  ` : ''}
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    case 'contact': {
+      const bgStyle = config.background?.type === 'gradient'
+        ? `background: ${config.background.value};`
+        : `background-color: ${config.background?.value || '#f8f9fa'};`;
+
+      return `
+        <div style="
+          ${bgStyle}
+          width: 100%;
+          padding: ${config.padding?.top || 80}px 24px ${config.padding?.bottom || 80}px;
+        ">
+          <div style="
+            max-width: ${config.fullWidth ? '100%' : `${config.contentWidth || 1200}px`};
+            margin: 0 auto;
+          ">
+            ${config.title?.show ? `
+              <h2 style="
+                font-size: ${config.title.size || 42}px;
+                font-weight: ${config.title.weight || 700};
+                color: ${config.title.color || '#1a1a1a'};
+                text-align: ${config.title.align || 'center'};
+                margin-bottom: 16px;
+              ">
+                ${config.title.text}
+              </h2>
+            ` : ''}
+            
+            ${config.description?.show ? `
+              <p style="
+                font-size: ${config.description.size || 18}px;
+                color: ${config.description.color || '#6B6B6B'};
+                text-align: ${config.description.align || 'center'};
+                margin-bottom: 60px;
+                max-width: 700px;
+                margin: ${config.description.align === 'center' ? '0 auto 60px' : '0 0 60px'};
+              ">
+                ${config.description.text}
+              </p>
+            ` : ''}
+            
+            <div style="
+              display: grid;
+              grid-template-columns: ${config.layout === 'stacked' ? '1fr' : '2fr 1fr'};
+              gap: 60px;
+            ">
+              <div style="
+                background-color: #ffffff;
+                border-radius: 16px;
+                padding: 40px;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+              ">
+                <form>
+                  ${(config.form?.fields || []).map(field => `
+                    <div style="margin-bottom: 24px;">
+                      <label style="
+                        display: block;
+                        font-size: 14px;
+                        font-weight: 600;
+                        color: #2d3748;
+                        margin-bottom: 8px;
+                      ">
+                        ${field.label}${field.required ? ' *' : ''}
+                      </label>
+                      ${field.type === 'textarea' ? `
+                        <textarea
+                          placeholder="${field.placeholder || ''}"
+                          ${field.required ? 'required' : ''}
+                          style="
+                            width: 100%;
+                            min-height: 120px;
+                            padding: 12px;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 8px;
+                            font-size: 14px;
+                            font-family: inherit;
+                            resize: vertical;
+                          "
+                        ></textarea>
+                      ` : `
+                        <input
+                          type="${field.type}"
+                          placeholder="${field.placeholder || ''}"
+                          ${field.required ? 'required' : ''}
+                          style="
+                            width: 100%;
+                            padding: 12px;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 8px;
+                            font-size: 14px;
+                          "
+                        />
+                      `}
+                    </div>
+                  `).join('')}
+                  <button
+                    type="submit"
+                    style="
+                      background-color: ${config.form?.button?.color || '#6366F1'};
+                      color: ${config.form?.button?.textColor || '#ffffff'};
+                      width: 100%;
+                      padding: 14px;
+                      font-size: 16px;
+                      font-weight: 600;
+                      border-radius: 10px;
+                      border: none;
+                      cursor: pointer;
+                      transition: transform 0.2s;
+                    "
+                  >
+                    ${config.form?.button?.text || 'Send Message'}
+                  </button>
+                </form>
+              </div>
+              
+              ${config.contactInfo?.show ? `
+                <div>
+                  ${(config.info || []).map(item => {
+                    const icons = {
+                      Mail: '✉️',
+                      Phone: '📞',
+                      MapPin: '📍',
+                      Info: 'ℹ️'
+                    };
+                    return `
+                      <div style="
+                        margin-bottom: 32px;
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 16px;
+                      ">
+                        <div style="
+                          width: 48px;
+                          height: 48px;
+                          border-radius: 12px;
+                          background-color: #5B4FC9;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          flex-shrink: 0;
+                          font-size: 24px;
+                        ">
+                          ${icons[item.icon] || icons.Info}
+                        </div>
+                        <div>
+                          <h4 style="
+                            font-size: 16px;
+                            font-weight: 700;
+                            color: #1a1a2e;
+                            margin-bottom: 4px;
+                          ">
+                            ${item.label}
+                          </h4>
+                          <p style="
+                            font-size: 16px;
+                            color: #5a5a6e;
+                          ">
+                            ${item.value}
+                          </p>
+                        </div>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              ` : ''}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
     case 'hero-parallax': {
       const bgStyle = config.background.type === 'gradient' 
         ? `background: ${config.background.value};`
