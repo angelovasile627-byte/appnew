@@ -67,19 +67,19 @@ const HomeParallaxBlock = ({ config, isEditing, onUpdate }) => {
     const rotation = layer.rotation || 0;
     const distance = layer.distance || 0;
 
-    // Apply offset based on layer speed
-    const translateX = offset.x * speedX * 10;
-    const translateY = offset.y * speedY * 10;
+    // Apply offset based on layer speed with stronger effect
+    const translateX = offset.x * speedX * 5; // Increased multiplier for more movement
+    const translateY = offset.y * speedY * 5;
     
     // Add slight scale variation based on distance
-    const scale = 1 + (Math.abs(offset.x) * speedZ * 0.001);
+    const scale = 1 + (Math.abs(offset.x) * speedZ * 0.002);
     
     // Rotation based on offset
-    const rotate = offset.x * rotation * 5;
+    const rotate = offset.x * rotation * 2;
 
     return {
       transform: `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale}) rotate(${rotate}deg)`,
-      transition: 'transform 0.15s ease-out',
+      transition: isMouseOver ? 'transform 0.1s ease-out' : 'transform 0.5s ease-out',
       willChange: 'transform'
     };
   };
