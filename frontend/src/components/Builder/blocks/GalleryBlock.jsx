@@ -135,38 +135,60 @@ export const GalleryBlock = ({ config, onUpdate }) => {
               {config.description.text}
             </p>
           )}
-          <div className="gallery-block-grid">
-          {config.images.map((image, index) => (
-            <div
-              key={index}
-              style={{
-                borderRadius: '12px',
-                overflow: 'hidden',
-                cursor: 'pointer',
-                transition: 'transform 0.3s, box-shadow 0.3s',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.05)';
-                e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.15)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
-              }}
-            >
-              <img
-                src={image.src}
-                alt={image.alt}
-                style={{
-                  width: '100%',
-                  height: '280px',
-                  objectFit: 'cover',
-                  display: 'block'
-                }}
-              />
-            </div>
-          ))}
+          <div className={`gallery-block-grid ${getAnimationClass()}`} ref={galleryRef}>
+            {config.images.map((image, index) => {
+              const ImageWrapper = image.link ? 'a' : 'div';
+              const wrapperProps = image.link ? { href: image.link, target: '_blank', rel: 'noopener noreferrer' } : {};
+              
+              return (
+                <ImageWrapper
+                  key={index}
+                  {...wrapperProps}
+                  className="gallery-item"
+                  style={{
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                    cursor: image.link ? 'pointer' : 'default',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                    textDecoration: 'none',
+                    color: 'inherit'
+                  }}
+                >
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    style={{
+                      width: '100%',
+                      height: '280px',
+                      objectFit: 'cover',
+                      display: 'block'
+                    }}
+                  />
+                  {(image.title || image.price) && (
+                    <div style={{ padding: '12px', background: '#ffffff' }}>
+                      {image.title && (
+                        <div style={{
+                          fontSize: '16px',
+                          fontWeight: '600',
+                          color: '#1a1a1a',
+                          marginBottom: '4px'
+                        }}>
+                          {image.title}
+                        </div>
+                      )}
+                      {image.price && (
+                        <div style={{
+                          fontSize: '14px',
+                          color: '#6B6B6B'
+                        }}>
+                          {image.price}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </ImageWrapper>
+              );
+            })}
           </div>
         </div>
       </div>
