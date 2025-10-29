@@ -16,12 +16,9 @@ import { SocialIconsModal } from './SocialIconsModal';
 
 export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selectedElementId }) => {
   
-  console.log('🎨 InlineEditingPanel rendered - block:', block);
-  
   if (!block) return null;
 
   const { config } = block;
-  console.log('🎨 InlineEditingPanel config.type:', config.type, 'config:', config);
   const [topPosition, setTopPosition] = useState('0px');
   const [showSocialIconsModal, setShowSocialIconsModal] = useState(false);
 
