@@ -2265,7 +2265,7 @@ const generateBlockHTML = (config) => {
           text-align: center;
           color: ${config.hero?.title?.color || '#333333'};
           padding: 2rem;
-        ">,
+        ">
           ${config.hero?.title?.show ? `
             <h1 style="
               font-size: ${config.hero.title.size || 48}px;
