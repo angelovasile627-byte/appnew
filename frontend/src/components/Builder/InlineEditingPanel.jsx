@@ -3915,6 +3915,546 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
               </div>
             )}
 
+            {/* Gallery Block Controls */}
+            {config.type === 'gallery' && (
+              <>
+                {/* Layout Selection */}
+                <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                  <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Layout</Label>
+                  <Select
+                    value={config.layout || 'grid'}
+                    onValueChange={(value) => updateConfig('layout', value)}
+                  >
+                    <SelectTrigger className="bg-gray-800 border-gray-700 text-white text-[9px] h-7">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-gray-800 border-gray-700">
+                      <SelectItem value="grid">Grid</SelectItem>
+                      <SelectItem value="masonry">Masonry</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Columns */}
+                <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                  <Label className="text-[9px] text-gray-300">Columns</Label>
+                  <div className="flex items-center gap-1.5">
+                    <Input
+                      type="range"
+                      value={config.columns || 3}
+                      onChange={(e) => updateConfig('columns', parseInt(e.target.value))}
+                      className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
+                      min="1"
+                      max="6"
+                    />
+                    <span className="text-[9px] text-gray-400 w-10 text-right">{config.columns || 3}</span>
+                  </div>
+                </div>
+
+                {/* Gap */}
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Gap (px)</Label>
+                  <div className="flex items-center gap-1.5">
+                    <Input
+                      type="range"
+                      value={config.gap || 20}
+                      onChange={(e) => updateConfig('gap', parseInt(e.target.value))}
+                      className="flex-1 bg-gray-800 border-gray-700 h-7 text-white"
+                      min="0"
+                      max="60"
+                      step="4"
+                    />
+                    <span className="text-[9px] text-gray-400 w-10 text-right">{config.gap || 20}px</span>
+                  </div>
+                </div>
+
+                {/* Lightbox Toggle */}
+                <div className="flex items-center justify-between py-0.5">
+                  <Label className="text-[9px] text-gray-300">Lightbox</Label>
+                  <Switch
+                    checked={config.lightbox ?? true}
+                    onCheckedChange={(checked) => updateConfig('lightbox', checked)}
+                  />
+                </div>
+
+                {/* Images Management */}
+                <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                  <div className="flex items-center justify-between mb-1">
+                    <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Images</Label>
+                    <Button
+                      onClick={() => {
+                        const newImage = {
+                          id: `gallery-img-${Date.now()}`,
+                          src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600',
+                          alt: 'New Image',
+                          title: 'Image Title',
+                          price: '$199'
+                        };
+                        updateConfig('images', [...(config.images || []), newImage]);
+                      }}
+                      className="h-5 px-2 text-[9px] bg-indigo-600 hover:bg-indigo-700"
+                    >
+                      Add Image
+                    </Button>
+                  </div>
+                  <div className="space-y-1 max-h-60 overflow-y-auto pr-1">
+                    {(config.images || []).map((image, index) => (
+                      <div key={image.id || index} className="bg-gray-800 p-1.5 rounded border border-gray-700">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-[9px] text-indigo-400">Image {index + 1}</span>
+                          <Button
+                            onClick={() => {
+                              const updated = config.images.filter((_, i) => i !== index);
+                              updateConfig('images', updated);
+                            }}
+                            className="h-4 w-4 p-0 bg-red-600 hover:bg-red-700"
+                          >
+                            <X className="w-3 h-3" />
+                          </Button>
+                        </div>
+                        <Input
+                          type="text"
+                          value={image.src}
+                          onChange={(e) => {
+                            const updated = [...config.images];
+                            updated[index] = { ...updated[index], src: e.target.value };
+                            updateConfig('images', updated);
+                          }}
+                          className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
+                          placeholder="Image URL"
+                        />
+                        <Input
+                          type="text"
+                          value={image.alt || ''}
+                          onChange={(e) => {
+                            const updated = [...config.images];
+                            updated[index] = { ...updated[index], alt: e.target.value };
+                            updateConfig('images', updated);
+                          }}
+                          className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
+                          placeholder="Alt text"
+                        />
+                        <Input
+                          type="text"
+                          value={image.title || ''}
+                          onChange={(e) => {
+                            const updated = [...config.images];
+                            updated[index] = { ...updated[index], title: e.target.value };
+                            updateConfig('images', updated);
+                          }}
+                          className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
+                          placeholder="Title"
+                        />
+                        <Input
+                          type="text"
+                          value={image.price || ''}
+                          onChange={(e) => {
+                            const updated = [...config.images];
+                            updated[index] = { ...updated[index], price: e.target.value };
+                            updateConfig('images', updated);
+                          }}
+                          className="bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                          placeholder="Price (optional)"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+
+            {/* Contact Block Controls */}
+            {config.type === 'contact' && (
+              <>
+                {/* Layout Selection */}
+                <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                  <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Layout</Label>
+                  <Select
+                    value={config.layout || 'side-by-side'}
+                    onValueChange={(value) => updateConfig('layout', value)}
+                  >
+                    <SelectTrigger className="bg-gray-800 border-gray-700 text-white text-[9px] h-7">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-gray-800 border-gray-700">
+                      <SelectItem value="side-by-side">Side by Side</SelectItem>
+                      <SelectItem value="stacked">Stacked</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Contact Info Toggle */}
+                <div className="flex items-center justify-between py-0.5 border-t border-gray-800 pt-1">
+                  <Label className="text-[9px] text-gray-300">Show Contact Info</Label>
+                  <Switch
+                    checked={config.contactInfo?.show ?? true}
+                    onCheckedChange={(checked) => updateConfig('contactInfo.show', checked)}
+                  />
+                </div>
+
+                {/* Contact Info Details */}
+                {config.contactInfo?.show && (
+                  <div className="space-y-1 pl-1.5">
+                    <div className="space-y-0.5">
+                      <Label className="text-[9px] text-gray-300">Email</Label>
+                      <Input
+                        type="email"
+                        value={config.contactInfo?.email || ''}
+                        onChange={(e) => updateConfig('contactInfo.email', e.target.value)}
+                        className="bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                        placeholder="contact@example.com"
+                      />
+                    </div>
+                    <div className="space-y-0.5">
+                      <Label className="text-[9px] text-gray-300">Phone</Label>
+                      <Input
+                        type="tel"
+                        value={config.contactInfo?.phone || ''}
+                        onChange={(e) => updateConfig('contactInfo.phone', e.target.value)}
+                        className="bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                        placeholder="+1 (555) 123-4567"
+                      />
+                    </div>
+                    <div className="space-y-0.5">
+                      <Label className="text-[9px] text-gray-300">Address</Label>
+                      <Input
+                        type="text"
+                        value={config.contactInfo?.address || ''}
+                        onChange={(e) => updateConfig('contactInfo.address', e.target.value)}
+                        className="bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                        placeholder="City, State, Zip"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Form Button Customization */}
+                <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                  <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Form Button</Label>
+                  <Input
+                    type="text"
+                    value={config.form?.button?.text || 'Send Message'}
+                    onChange={(e) => updateConfig('form.button.text', e.target.value)}
+                    className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
+                    placeholder="Button text"
+                  />
+                  <div className="flex gap-1.5">
+                    <div className="flex-1 space-y-0.5">
+                      <Label className="text-[9px] text-gray-300">BG Color</Label>
+                      <Input
+                        type="color"
+                        value={config.form?.button?.color || '#A8F5B8'}
+                        onChange={(e) => updateConfig('form.button.color', e.target.value)}
+                        className="w-full h-6 bg-gray-900 border-gray-600"
+                      />
+                    </div>
+                    <div className="flex-1 space-y-0.5">
+                      <Label className="text-[9px] text-gray-300">Text Color</Label>
+                      <Input
+                        type="color"
+                        value={config.form?.button?.textColor || '#1a1a1a'}
+                        onChange={(e) => updateConfig('form.button.textColor', e.target.value)}
+                        className="w-full h-6 bg-gray-900 border-gray-600"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {/* Footer Block Controls */}
+            {config.type === 'footer' && (
+              <>
+                {/* Layout Selection */}
+                <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                  <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Layout</Label>
+                  <Select
+                    value={config.layout || 'simple'}
+                    onValueChange={(value) => updateConfig('layout', value)}
+                  >
+                    <SelectTrigger className="bg-gray-800 border-gray-700 text-white text-[9px] h-7">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-gray-800 border-gray-700">
+                      <SelectItem value="simple">Simple</SelectItem>
+                      <SelectItem value="3-columns">3 Columns</SelectItem>
+                      <SelectItem value="4-columns">4 Columns</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Text Color */}
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Text Color</Label>
+                  <Input
+                    type="color"
+                    value={config.textColor || '#ffffff'}
+                    onChange={(e) => updateConfig('textColor', e.target.value)}
+                    className="w-6 h-6 bg-gray-800 border-gray-700"
+                  />
+                </div>
+
+                {/* Logo Section */}
+                <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Logo</Label>
+                    <Switch
+                      checked={config.logo?.show ?? true}
+                      onCheckedChange={(checked) => updateConfig('logo.show', checked)}
+                    />
+                  </div>
+                  {config.logo?.show && (
+                    <>
+                      <Input
+                        type="text"
+                        value={config.logo?.text || ''}
+                        onChange={(e) => updateConfig('logo.text', e.target.value)}
+                        className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
+                        placeholder="Logo text"
+                      />
+                      <div className="flex gap-1.5">
+                        <div className="flex-1 space-y-0.5">
+                          <Label className="text-[9px] text-gray-300">Color</Label>
+                          <Input
+                            type="color"
+                            value={config.logo?.color || '#ffffff'}
+                            onChange={(e) => updateConfig('logo.color', e.target.value)}
+                            className="w-full h-6 bg-gray-900 border-gray-600"
+                          />
+                        </div>
+                        <div className="flex-1 space-y-0.5">
+                          <Label className="text-[9px] text-gray-300">Size</Label>
+                          <Input
+                            type="number"
+                            value={config.logo?.size || 24}
+                            onChange={(e) => updateConfig('logo.size', parseInt(e.target.value))}
+                            className="bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                            min="12"
+                            max="48"
+                          />
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                {/* Description Section */}
+                <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Description</Label>
+                    <Switch
+                      checked={config.description?.show ?? true}
+                      onCheckedChange={(checked) => updateConfig('description.show', checked)}
+                    />
+                  </div>
+                  {config.description?.show && (
+                    <>
+                      <Textarea
+                        value={config.description?.text || ''}
+                        onChange={(e) => updateConfig('description.text', e.target.value)}
+                        className="bg-gray-900 border-gray-600 text-white text-[10px] min-h-[60px]"
+                        placeholder="Footer description"
+                      />
+                      <div className="space-y-0.5">
+                        <Label className="text-[9px] text-gray-300">Color</Label>
+                        <Input
+                          type="color"
+                          value={config.description?.color || '#cccccc'}
+                          onChange={(e) => updateConfig('description.color', e.target.value)}
+                          className="w-6 h-6 bg-gray-900 border-gray-600"
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                {/* Links Management */}
+                <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                  <div className="flex items-center justify-between mb-1">
+                    <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Links</Label>
+                    <Button
+                      onClick={() => {
+                        const newLink = {
+                          id: `footer-link-${Date.now()}`,
+                          text: 'New Link',
+                          link: '#',
+                          color: '#cccccc'
+                        };
+                        updateConfig('links', [...(config.links || []), newLink]);
+                      }}
+                      className="h-5 px-2 text-[9px] bg-indigo-600 hover:bg-indigo-700"
+                    >
+                      Add Link
+                    </Button>
+                  </div>
+                  <div className="space-y-1 max-h-40 overflow-y-auto pr-1">
+                    {(config.links || []).map((link, index) => (
+                      <div key={link.id || index} className="bg-gray-800 p-1.5 rounded border border-gray-700">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-[9px] text-indigo-400">Link {index + 1}</span>
+                          <Button
+                            onClick={() => {
+                              const updated = config.links.filter((_, i) => i !== index);
+                              updateConfig('links', updated);
+                            }}
+                            className="h-4 w-4 p-0 bg-red-600 hover:bg-red-700"
+                          >
+                            <X className="w-3 h-3" />
+                          </Button>
+                        </div>
+                        <Input
+                          type="text"
+                          value={link.text}
+                          onChange={(e) => {
+                            const updated = [...config.links];
+                            updated[index] = { ...updated[index], text: e.target.value };
+                            updateConfig('links', updated);
+                          }}
+                          className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
+                          placeholder="Link text"
+                        />
+                        <Input
+                          type="text"
+                          value={link.link}
+                          onChange={(e) => {
+                            const updated = [...config.links];
+                            updated[index] = { ...updated[index], link: e.target.value };
+                            updateConfig('links', updated);
+                          }}
+                          className="bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                          placeholder="URL"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Social Links */}
+                <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Social Media</Label>
+                    <Switch
+                      checked={config.social?.show ?? true}
+                      onCheckedChange={(checked) => updateConfig('social.show', checked)}
+                    />
+                  </div>
+                  {config.social?.show && (
+                    <>
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[9px] text-gray-400">Platforms</span>
+                        <Button
+                          onClick={() => {
+                            const newSocial = {
+                              platform: 'instagram',
+                              url: 'https://instagram.com',
+                              color: '#A8F5B8'
+                            };
+                            const currentLinks = config.social?.links || [];
+                            updateConfig('social.links', [...currentLinks, newSocial]);
+                          }}
+                          className="h-5 px-2 text-[9px] bg-indigo-600 hover:bg-indigo-700"
+                        >
+                          Add Platform
+                        </Button>
+                      </div>
+                      <div className="space-y-1 max-h-40 overflow-y-auto pr-1">
+                        {(config.social?.links || []).map((social, index) => (
+                          <div key={index} className="bg-gray-800 p-1.5 rounded border border-gray-700">
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="text-[9px] text-indigo-400 capitalize">{social.platform}</span>
+                              <Button
+                                onClick={() => {
+                                  const updated = config.social.links.filter((_, i) => i !== index);
+                                  updateConfig('social.links', updated);
+                                }}
+                                className="h-4 w-4 p-0 bg-red-600 hover:bg-red-700"
+                              >
+                                <X className="w-3 h-3" />
+                              </Button>
+                            </div>
+                            <Select
+                              value={social.platform}
+                              onValueChange={(value) => {
+                                const updated = [...config.social.links];
+                                updated[index] = { ...updated[index], platform: value };
+                                updateConfig('social.links', updated);
+                              }}
+                            >
+                              <SelectTrigger className="bg-gray-900 border-gray-600 text-white text-[9px] h-6 mb-1">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent className="bg-gray-900 border-gray-600">
+                                <SelectItem value="instagram">Instagram</SelectItem>
+                                <SelectItem value="facebook">Facebook</SelectItem>
+                                <SelectItem value="twitter">Twitter</SelectItem>
+                                <SelectItem value="linkedin">LinkedIn</SelectItem>
+                                <SelectItem value="youtube">YouTube</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <Input
+                              type="text"
+                              value={social.url}
+                              onChange={(e) => {
+                                const updated = [...config.social.links];
+                                updated[index] = { ...updated[index], url: e.target.value };
+                                updateConfig('social.links', updated);
+                              }}
+                              className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
+                              placeholder="Profile URL"
+                            />
+                            <div className="space-y-0.5">
+                              <Label className="text-[9px] text-gray-300">Icon Color</Label>
+                              <Input
+                                type="color"
+                                value={social.color || '#A8F5B8'}
+                                onChange={(e) => {
+                                  const updated = [...config.social.links];
+                                  updated[index] = { ...updated[index], color: e.target.value };
+                                  updateConfig('social.links', updated);
+                                }}
+                                className="w-full h-6 bg-gray-900 border-gray-600"
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                {/* Copyright */}
+                <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Copyright</Label>
+                    <Switch
+                      checked={config.copyright?.show ?? true}
+                      onCheckedChange={(checked) => updateConfig('copyright.show', checked)}
+                    />
+                  </div>
+                  {config.copyright?.show && (
+                    <>
+                      <Input
+                        type="text"
+                        value={config.copyright?.text || ''}
+                        onChange={(e) => updateConfig('copyright.text', e.target.value)}
+                        className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
+                        placeholder="© 2025 Your Company. All rights reserved."
+                      />
+                      <div className="space-y-0.5">
+                        <Label className="text-[9px] text-gray-300">Color</Label>
+                        <Input
+                          type="color"
+                          value={config.copyright?.color || '#888888'}
+                          onChange={(e) => updateConfig('copyright.color', e.target.value)}
+                          className="w-6 h-6 bg-gray-900 border-gray-600"
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
+              </>
+            )}
+
             {/* Padding */}
             <div className="space-y-0.5 border-t border-gray-800 pt-1">
               <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Padding</Label>
