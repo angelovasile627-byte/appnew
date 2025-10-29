@@ -1540,18 +1540,18 @@ export const blockTemplates = [
       background: { type: 'color', value: '#020617' },
       padding: { top: 80, bottom: 80 },
       images: [
-        'https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1682687221038-404cb8830901?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1682687220063-4742bd7fd538?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1682687220199-d0124f48f95b?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1682687220208-22d7a2543e88?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1682687220923-c58b9a4592ae?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1682687982360-3fbab65f9d50?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1682687982501-1e58ab814714?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1682687982107-14492010e05e?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1682687982134-2ac563b2228b?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1682687982185-531d09ec56a7?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1682687220866-c856f566f1bd?w=800&h=800&fit=crop'
+        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=800&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=800&h=800&fit=crop',
+        'https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800&h=800&fit=crop'
       ]
     }
   },
