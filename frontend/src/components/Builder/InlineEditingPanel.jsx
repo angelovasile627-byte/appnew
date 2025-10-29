@@ -3365,6 +3365,586 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
             </div>
           </div>
         )}
+
+        {/* PEOPLE BLOCKS SETTINGS */}
+        {(config.type === 'people-hiring' || config.type === 'people-creators' || 
+          config.type === 'people-testimonials' || config.type === 'people-clients') && (
+          <div className="space-y-0.5">
+            <h4 className="text-[9px] font-bold text-white uppercase tracking-wider border-b border-gray-700 pb-1">
+              {config.type === 'people-hiring' && 'People - Hiring Settings'}
+              {config.type === 'people-creators' && 'People - Creators Settings'}
+              {config.type === 'people-testimonials' && 'People - Testimonials Settings'}
+              {config.type === 'people-clients' && 'People - Clients Settings'}
+            </h4>
+            
+            {/* Title */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <div className="flex items-center justify-between">
+                <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Title</Label>
+                <Switch
+                  checked={config.title?.show ?? true}
+                  onCheckedChange={(checked) => updateConfig('title.show', checked)}
+                />
+              </div>
+              {config.title?.show && (
+                <>
+                  <Input
+                    type="text"
+                    value={config.title?.text || ''}
+                    onChange={(e) => updateConfig('title.text', e.target.value)}
+                    className="bg-gray-800 border-gray-700 text-white text-[10px] h-7"
+                    placeholder="Title"
+                  />
+                  <div className="flex gap-1.5">
+                    <div className="flex-1 space-y-0.5">
+                      <Label className="text-[9px] text-gray-300">Size</Label>
+                      <Input
+                        type="range"
+                        value={config.title?.size || 36}
+                        onChange={(e) => updateConfig('title.size', parseInt(e.target.value))}
+                        className="w-full bg-gray-800 border-gray-700"
+                        min="20"
+                        max="60"
+                      />
+                      <span className="text-[9px] text-gray-400">{config.title?.size || 36}px</span>
+                    </div>
+                    <div className="flex-1 space-y-0.5">
+                      <Label className="text-[9px] text-gray-300">Weight</Label>
+                      <Select
+                        value={String(config.title?.weight || 700)}
+                        onValueChange={(value) => updateConfig('title.weight', parseInt(value))}
+                      >
+                        <SelectTrigger className="bg-gray-800 border-gray-700 text-white text-[10px] h-7">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="400">Normal</SelectItem>
+                          <SelectItem value="600">Semibold</SelectItem>
+                          <SelectItem value="700">Bold</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Color</Label>
+                    <Input
+                      type="color"
+                      value={config.title?.color || '#1a1a1a'}
+                      onChange={(e) => updateConfig('title.color', e.target.value)}
+                      className="w-full h-6 bg-gray-800 border-gray-700"
+                    />
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Description - Only for people-hiring */}
+            {config.type === 'people-hiring' && (
+              <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                <div className="flex items-center justify-between">
+                  <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Description</Label>
+                  <Switch
+                    checked={config.description?.show ?? true}
+                    onCheckedChange={(checked) => updateConfig('description.show', checked)}
+                  />
+                </div>
+                {config.description?.show && (
+                  <>
+                    <Textarea
+                      value={config.description?.text || ''}
+                      onChange={(e) => updateConfig('description.text', e.target.value)}
+                      className="bg-gray-800 border-gray-700 text-white text-[10px] min-h-[60px]"
+                      rows={3}
+                      placeholder="Description"
+                    />
+                    <div className="flex gap-1.5">
+                      <div className="flex-1 space-y-0.5">
+                        <Label className="text-[9px] text-gray-300">Size</Label>
+                        <Input
+                          type="range"
+                          value={config.description?.size || 16}
+                          onChange={(e) => updateConfig('description.size', parseInt(e.target.value))}
+                          className="w-full bg-gray-800 border-gray-700"
+                          min="12"
+                          max="24"
+                        />
+                        <span className="text-[9px] text-gray-400">{config.description?.size || 16}px</span>
+                      </div>
+                      <div className="flex-1 space-y-0.5">
+                        <Label className="text-[9px] text-gray-300">Color</Label>
+                        <Input
+                          type="color"
+                          value={config.description?.color || '#666666'}
+                          onChange={(e) => updateConfig('description.color', e.target.value)}
+                          className="w-full h-6 bg-gray-800 border-gray-700"
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+
+            {/* Read More Button - Only for people-hiring */}
+            {config.type === 'people-hiring' && config.readMoreButton && (
+              <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                <div className="flex items-center justify-between">
+                  <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Read More Button</Label>
+                  <Switch
+                    checked={config.readMoreButton?.show ?? false}
+                    onCheckedChange={(checked) => updateConfig('readMoreButton.show', checked)}
+                  />
+                </div>
+                {config.readMoreButton?.show && (
+                  <>
+                    <Input
+                      type="text"
+                      value={config.readMoreButton?.text || 'Read more'}
+                      onChange={(e) => updateConfig('readMoreButton.text', e.target.value)}
+                      className="bg-gray-800 border-gray-700 text-white text-[10px] h-7"
+                      placeholder="Button text"
+                    />
+                    <div className="flex gap-1.5">
+                      <div className="flex-1 space-y-0.5">
+                        <Label className="text-[9px] text-gray-300">BG Color</Label>
+                        <Input
+                          type="color"
+                          value={config.readMoreButton?.color || '#A8F5B8'}
+                          onChange={(e) => updateConfig('readMoreButton.color', e.target.value)}
+                          className="w-full h-6 bg-gray-800 border-gray-700"
+                        />
+                      </div>
+                      <div className="flex-1 space-y-0.5">
+                        <Label className="text-[9px] text-gray-300">Text Color</Label>
+                        <Input
+                          type="color"
+                          value={config.readMoreButton?.textColor || '#2B2B2B'}
+                          onChange={(e) => updateConfig('readMoreButton.textColor', e.target.value)}
+                          className="w-full h-6 bg-gray-800 border-gray-700"
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+
+            {/* Columns - Only for people-testimonials */}
+            {config.type === 'people-testimonials' && (
+              <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Columns</Label>
+                <Input
+                  type="range"
+                  value={config.columns || 3}
+                  onChange={(e) => updateConfig('columns', parseInt(e.target.value))}
+                  className="w-full bg-gray-800 border-gray-700"
+                  min="1"
+                  max="4"
+                />
+                <span className="text-[9px] text-gray-400">{config.columns || 3} columns</span>
+              </div>
+            )}
+
+            {/* Jobs List - Only for people-hiring */}
+            {config.type === 'people-hiring' && config.jobs && (
+              <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                <div className="flex items-center justify-between mb-1">
+                  <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Jobs</Label>
+                  <Button
+                    onClick={() => {
+                      const newJob = {
+                        id: `job-${Date.now()}`,
+                        title: 'New Position',
+                        description: 'Job description',
+                        type: 'Full-time',
+                        buttonText: 'Apply',
+                        buttonColor: '#333333',
+                        buttonTextColor: '#ffffff',
+                        link: '#'
+                      };
+                      updateConfig('jobs', [...(config.jobs || []), newJob]);
+                    }}
+                    className="h-5 px-2 text-[9px] bg-indigo-600 hover:bg-indigo-700"
+                  >
+                    Add Job
+                  </Button>
+                </div>
+                <div className="space-y-1 max-h-80 overflow-y-auto pr-1">
+                  {config.jobs.map((job, index) => (
+                    <div key={job.id} className="bg-gray-800 p-1.5 rounded border border-gray-700">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[9px] text-indigo-400">Job {index + 1}</span>
+                        <Button
+                          onClick={() => {
+                            const updated = config.jobs.filter((_, i) => i !== index);
+                            updateConfig('jobs', updated);
+                          }}
+                          className="h-4 w-4 p-0 bg-red-600 hover:bg-red-700"
+                        >
+                          <X className="w-3 h-3" />
+                        </Button>
+                      </div>
+                      <Input
+                        type="text"
+                        value={job.title}
+                        onChange={(e) => {
+                          const updated = [...config.jobs];
+                          updated[index] = { ...updated[index], title: e.target.value };
+                          updateConfig('jobs', updated);
+                        }}
+                        className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
+                        placeholder="Job title"
+                      />
+                      <Textarea
+                        value={job.description}
+                        onChange={(e) => {
+                          const updated = [...config.jobs];
+                          updated[index] = { ...updated[index], description: e.target.value };
+                          updateConfig('jobs', updated);
+                        }}
+                        className="bg-gray-900 border-gray-600 text-white text-[10px] mb-1"
+                        rows={2}
+                        placeholder="Description"
+                      />
+                      <Input
+                        type="text"
+                        value={job.type}
+                        onChange={(e) => {
+                          const updated = [...config.jobs];
+                          updated[index] = { ...updated[index], type: e.target.value };
+                          updateConfig('jobs', updated);
+                        }}
+                        className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
+                        placeholder="Full-time / Part-time"
+                      />
+                      <Input
+                        type="text"
+                        value={job.buttonText}
+                        onChange={(e) => {
+                          const updated = [...config.jobs];
+                          updated[index] = { ...updated[index], buttonText: e.target.value };
+                          updateConfig('jobs', updated);
+                        }}
+                        className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
+                        placeholder="Button text"
+                      />
+                      <div className="flex gap-1">
+                        <Input
+                          type="color"
+                          value={job.buttonColor}
+                          onChange={(e) => {
+                            const updated = [...config.jobs];
+                            updated[index] = { ...updated[index], buttonColor: e.target.value };
+                            updateConfig('jobs', updated);
+                          }}
+                          className="w-full h-6 bg-gray-900 border-gray-600"
+                        />
+                        <Input
+                          type="color"
+                          value={job.buttonTextColor}
+                          onChange={(e) => {
+                            const updated = [...config.jobs];
+                            updated[index] = { ...updated[index], buttonTextColor: e.target.value };
+                            updateConfig('jobs', updated);
+                          }}
+                          className="w-full h-6 bg-gray-900 border-gray-600"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Creators List - Only for people-creators */}
+            {config.type === 'people-creators' && config.creators && (
+              <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                <div className="flex items-center justify-between mb-1">
+                  <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Creators</Label>
+                  <Button
+                    onClick={() => {
+                      const newCreator = {
+                        id: `creator-${Date.now()}`,
+                        name: 'New Creator',
+                        role: 'Role',
+                        image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop',
+                        link: '#'
+                      };
+                      updateConfig('creators', [...(config.creators || []), newCreator]);
+                    }}
+                    className="h-5 px-2 text-[9px] bg-indigo-600 hover:bg-indigo-700"
+                  >
+                    Add Creator
+                  </Button>
+                </div>
+                <div className="space-y-1 max-h-80 overflow-y-auto pr-1">
+                  {config.creators.map((creator, index) => (
+                    <div key={creator.id} className="bg-gray-800 p-1.5 rounded border border-gray-700">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[9px] text-indigo-400">Creator {index + 1}</span>
+                        <Button
+                          onClick={() => {
+                            const updated = config.creators.filter((_, i) => i !== index);
+                            updateConfig('creators', updated);
+                          }}
+                          className="h-4 w-4 p-0 bg-red-600 hover:bg-red-700"
+                        >
+                          <X className="w-3 h-3" />
+                        </Button>
+                      </div>
+                      <Input
+                        type="text"
+                        value={creator.name}
+                        onChange={(e) => {
+                          const updated = [...config.creators];
+                          updated[index] = { ...updated[index], name: e.target.value };
+                          updateConfig('creators', updated);
+                        }}
+                        className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
+                        placeholder="Name"
+                      />
+                      <Input
+                        type="text"
+                        value={creator.role}
+                        onChange={(e) => {
+                          const updated = [...config.creators];
+                          updated[index] = { ...updated[index], role: e.target.value };
+                          updateConfig('creators', updated);
+                        }}
+                        className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
+                        placeholder="Role"
+                      />
+                      <Input
+                        type="text"
+                        value={creator.image}
+                        onChange={(e) => {
+                          const updated = [...config.creators];
+                          updated[index] = { ...updated[index], image: e.target.value };
+                          updateConfig('creators', updated);
+                        }}
+                        className="bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                        placeholder="Image URL"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Testimonials List - Only for people-testimonials */}
+            {config.type === 'people-testimonials' && config.testimonials && (
+              <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                <div className="flex items-center justify-between mb-1">
+                  <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Testimonials</Label>
+                  <Button
+                    onClick={() => {
+                      const newTestimonial = {
+                        id: `test-${Date.now()}`,
+                        quote: 'Great experience!',
+                        name: 'Customer Name',
+                        image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop',
+                        rating: 5
+                      };
+                      updateConfig('testimonials', [...(config.testimonials || []), newTestimonial]);
+                    }}
+                    className="h-5 px-2 text-[9px] bg-indigo-600 hover:bg-indigo-700"
+                  >
+                    Add Testimonial
+                  </Button>
+                </div>
+                <div className="space-y-1 max-h-80 overflow-y-auto pr-1">
+                  {config.testimonials.map((testimonial, index) => (
+                    <div key={testimonial.id} className="bg-gray-800 p-1.5 rounded border border-gray-700">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[9px] text-indigo-400">Testimonial {index + 1}</span>
+                        <Button
+                          onClick={() => {
+                            const updated = config.testimonials.filter((_, i) => i !== index);
+                            updateConfig('testimonials', updated);
+                          }}
+                          className="h-4 w-4 p-0 bg-red-600 hover:bg-red-700"
+                        >
+                          <X className="w-3 h-3" />
+                        </Button>
+                      </div>
+                      <Textarea
+                        value={testimonial.quote}
+                        onChange={(e) => {
+                          const updated = [...config.testimonials];
+                          updated[index] = { ...updated[index], quote: e.target.value };
+                          updateConfig('testimonials', updated);
+                        }}
+                        className="bg-gray-900 border-gray-600 text-white text-[10px] mb-1"
+                        rows={3}
+                        placeholder="Quote"
+                      />
+                      <Input
+                        type="text"
+                        value={testimonial.name}
+                        onChange={(e) => {
+                          const updated = [...config.testimonials];
+                          updated[index] = { ...updated[index], name: e.target.value };
+                          updateConfig('testimonials', updated);
+                        }}
+                        className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
+                        placeholder="Name"
+                      />
+                      <Input
+                        type="text"
+                        value={testimonial.image}
+                        onChange={(e) => {
+                          const updated = [...config.testimonials];
+                          updated[index] = { ...updated[index], image: e.target.value };
+                          updateConfig('testimonials', updated);
+                        }}
+                        className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
+                        placeholder="Image URL"
+                      />
+                      <div className="space-y-0.5">
+                        <Label className="text-[9px] text-gray-300">Rating</Label>
+                        <Input
+                          type="range"
+                          value={testimonial.rating || 5}
+                          onChange={(e) => {
+                            const updated = [...config.testimonials];
+                            updated[index] = { ...updated[index], rating: parseInt(e.target.value) };
+                            updateConfig('testimonials', updated);
+                          }}
+                          className="w-full bg-gray-900 border-gray-600"
+                          min="1"
+                          max="5"
+                        />
+                        <span className="text-[9px] text-gray-400">{testimonial.rating || 5} stars</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Clients List - Only for people-clients */}
+            {config.type === 'people-clients' && config.clients && (
+              <div className="space-y-0.5 border-t border-gray-800 pt-1">
+                <div className="flex items-center justify-between mb-1">
+                  <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Clients</Label>
+                  <Button
+                    onClick={() => {
+                      const newClient = {
+                        id: `client-${Date.now()}`,
+                        name: 'Client Name',
+                        logo: '🏢',
+                        backgroundColor: '#E0F2FE',
+                        textColor: '#0369A1',
+                        link: '#'
+                      };
+                      updateConfig('clients', [...(config.clients || []), newClient]);
+                    }}
+                    className="h-5 px-2 text-[9px] bg-indigo-600 hover:bg-indigo-700"
+                  >
+                    Add Client
+                  </Button>
+                </div>
+                <div className="space-y-1 max-h-80 overflow-y-auto pr-1">
+                  {config.clients.map((client, index) => (
+                    <div key={client.id} className="bg-gray-800 p-1.5 rounded border border-gray-700">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[9px] text-indigo-400">Client {index + 1}</span>
+                        <Button
+                          onClick={() => {
+                            const updated = config.clients.filter((_, i) => i !== index);
+                            updateConfig('clients', updated);
+                          }}
+                          className="h-4 w-4 p-0 bg-red-600 hover:bg-red-700"
+                        >
+                          <X className="w-3 h-3" />
+                        </Button>
+                      </div>
+                      <Input
+                        type="text"
+                        value={client.name}
+                        onChange={(e) => {
+                          const updated = [...config.clients];
+                          updated[index] = { ...updated[index], name: e.target.value };
+                          updateConfig('clients', updated);
+                        }}
+                        className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
+                        placeholder="Client name"
+                      />
+                      <Input
+                        type="text"
+                        value={client.logo}
+                        onChange={(e) => {
+                          const updated = [...config.clients];
+                          updated[index] = { ...updated[index], logo: e.target.value };
+                          updateConfig('clients', updated);
+                        }}
+                        className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
+                        placeholder="Logo emoji"
+                      />
+                      <div className="flex gap-1">
+                        <div className="flex-1 space-y-0.5">
+                          <Label className="text-[9px] text-gray-300">BG</Label>
+                          <Input
+                            type="color"
+                            value={client.backgroundColor}
+                            onChange={(e) => {
+                              const updated = [...config.clients];
+                              updated[index] = { ...updated[index], backgroundColor: e.target.value };
+                              updateConfig('clients', updated);
+                            }}
+                            className="w-full h-6 bg-gray-900 border-gray-600"
+                          />
+                        </div>
+                        <div className="flex-1 space-y-0.5">
+                          <Label className="text-[9px] text-gray-300">Text</Label>
+                          <Input
+                            type="color"
+                            value={client.textColor}
+                            onChange={(e) => {
+                              const updated = [...config.clients];
+                              updated[index] = { ...updated[index], textColor: e.target.value };
+                              updateConfig('clients', updated);
+                            }}
+                            className="w-full h-6 bg-gray-900 border-gray-600"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Padding */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <Label className="text-[9px] font-bold text-white uppercase tracking-wider">Padding</Label>
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Top</Label>
+                <Input
+                  type="range"
+                  value={config.padding?.top || 60}
+                  onChange={(e) => updateConfig('padding.top', parseInt(e.target.value))}
+                  className="w-full bg-gray-800 border-gray-700"
+                  min="0"
+                  max="200"
+                />
+                <span className="text-[9px] text-gray-400">{config.padding?.top || 60}px</span>
+              </div>
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Bottom</Label>
+                <Input
+                  type="range"
+                  value={config.padding?.bottom || 60}
+                  onChange={(e) => updateConfig('padding.bottom', parseInt(e.target.value))}
+                  className="w-full bg-gray-800 border-gray-700"
+                  min="0"
+                  max="200"
+                />
+                <span className="text-[9px] text-gray-400">{config.padding?.bottom || 60}px</span>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Social Icons Modal */}
