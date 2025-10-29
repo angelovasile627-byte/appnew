@@ -2438,9 +2438,8 @@ export const blockTemplates = [
       type: 'text',
       theme: 'ice',
       background: {
-        type: 'image',
-        value: 'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=1920&h=1080&fit=crop',
-        parallax: true
+        type: 'color',
+        color: '#FFFFFF'
       },
       padding: {
         top: 100,
