@@ -2338,8 +2338,10 @@ export const blockTemplates = [
           id: 'theme-contact',
           type: 'contact',
           layout: 'side-by-side',
-          background: '#f8f9fa',
+          background: { value: '#f8f9fa' },
           padding: { top: 80, bottom: 80 },
+          fullWidth: false,
+          contentWidth: 1200,
           title: {
             text: 'Get In Touch',
             show: true,
