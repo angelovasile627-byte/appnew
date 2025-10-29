@@ -2216,7 +2216,7 @@ export const blockTemplates = [
           columns: 3,
           gap: 20,
           lightbox: true,
-          background: '#f8f9fa',
+          background: { value: '#f8f9fa' },
           padding: { top: 80, bottom: 80 },
           title: {
             text: 'Our Collection',
