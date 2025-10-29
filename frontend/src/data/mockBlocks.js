@@ -2365,6 +2365,7 @@ export const blockTemplates = [
           background: { value: '#1a1a1a' },
           textColor: '#ffffff',
           padding: { top: 60, bottom: 60 },
+          showLinks: true,
           logo: {
             show: true,
             text: 'HIGH ALTITUDE',
