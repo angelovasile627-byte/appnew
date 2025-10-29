@@ -2725,13 +2725,14 @@ const generateBlockHTML = (config) => {
               gap: 32px;
               justify-content: center;
             ">
-              ${creators.map(creator => `
-                <div style="
+              ${creators.map((creator, idx) => `
+                <div class="creator-card-${idx}" style="
                   background-color: #f8f8f8;
                   border-radius: 12px;
                   padding: 32px;
                   text-align: center;
                   transition: transform 0.3s ease, box-shadow 0.3s ease;
+                  cursor: pointer;
                 ">
                   <img
                     src="${creator.image}"
@@ -2760,6 +2761,14 @@ const generateBlockHTML = (config) => {
             </div>
           </div>
         </section>
+        <style>
+          ${creators.map((creator, idx) => `
+            .creator-card-${idx}:hover {
+              transform: translateY(-8px);
+              box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            }
+          `).join('')}
+        </style>
       `;
     }
 
