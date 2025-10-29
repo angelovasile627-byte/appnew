@@ -109,7 +109,7 @@ export const ContactBlock = ({ config, onUpdate }) => {
                 onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
                 onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
               >
-                {config.form.buttonText}
+                {config.form?.button?.text || 'Send Message'}
               </Button>
             </form>
           </div>
