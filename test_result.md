@@ -34,6 +34,51 @@ desktop_transformation:
         comment: "Successfully transformed AXXO Builder into standalone desktop application. App now runs with single command (start.sh/start.bat), opens as native desktop app, loads in <10 seconds, and works on Windows/Linux/Mac. All optimizations complete."
 
 frontend:
+  - task: "Gallery Block - Complete controls implementation (animations, link URL)"
+    implemented: true
+    working: "YES"
+    files:
+      - "/app/frontend/src/components/Builder/InlineEditingPanel.jsx" (ADDED animation controls + link URL input)
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    changes_made:
+      - "ADDED Animation Selection: Dropdown with 3 options (Hover Zoom, Fade on Scroll, Slide Up)"
+      - "Animation controls placed between Lightbox toggle and Images Management section"
+      - "ADDED Link URL Input: Text field for each image in gallery to add optional link"
+      - "Link input placed after Price field in image configuration"
+      - "Gallery images now support all required features: upload, link, size (columns/gap), animations"
+      - "Existing animation logic in GalleryBlock.jsx and PreviewModal.jsx already functional"
+    status_history:
+      - working: "YES"
+        agent: "main"
+        comment: "Successfully implemented missing Gallery Block controls. Users can now select animations (hover zoom, fade scroll, slide) from dropdown and add link URLs to individual images. All gallery features now complete: image upload, link URLs, size controls (columns/gap), and animation selection."
+
+  - task: "Contact Form - Notification Email with SMTP implementation"
+    implemented: true
+    working: "YES"
+    files:
+      - "/app/backend/server.py" (ADDED SMTP email sending function + updated contact endpoint)
+      - "/app/backend/.env" (ADDED SMTP configuration variables)
+      - "/app/EMAIL_SETUP.md" (NEW - Complete email setup documentation)
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    changes_made:
+      - "ADDED send_email_notification() function using Python smtplib"
+      - "Function supports SMTP with TLS encryption (STARTTLS)"
+      - "Email template: Professional HTML format with sender info, message, and styling"
+      - "SMTP configuration via environment variables: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, FROM_EMAIL"
+      - "Graceful fallback: If SMTP credentials not configured, form submissions still work (email skipped)"
+      - "Contact endpoint now sends email to notification_email if configured"
+      - "Response includes email_sent boolean to indicate if email was sent"
+      - "Supports Gmail (with app password), Outlook, Yahoo, and custom SMTP servers"
+      - "Created EMAIL_SETUP.md with step-by-step configuration guide"
+    status_history:
+      - working: "YES"
+        agent: "main"
+        comment: "Successfully implemented SMTP email notifications for Contact Form. When users configure notification_email in Contact Block, form submissions trigger professional HTML emails to that address. SMTP credentials configured via .env file. System works with Gmail (app password), Outlook, Yahoo, and custom SMTP. If SMTP not configured, forms still work but emails are skipped. Complete documentation provided in EMAIL_SETUP.md."
+
   - task: "Fix duplicate menu in preview when sticky is enabled"
     implemented: true
     working: "YES"
