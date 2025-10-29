@@ -673,7 +673,7 @@ const generateBlockHTML = (config) => {
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
+          padding: ${padding.top}px 24px ${padding.bottom}px;
           position: relative;
         ">
           ${overlay}
