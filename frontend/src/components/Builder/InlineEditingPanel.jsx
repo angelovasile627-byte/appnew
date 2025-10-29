@@ -4497,8 +4497,6 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                     </>
                   )}
                 </div>
-                  </div>
-                </div>
 
                 {/* Social Links */}
                 <div className="space-y-0.5 border-t border-gray-800 pt-1">
