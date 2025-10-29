@@ -8,6 +8,14 @@ const DEVICE_SIZES = {
   mobile: { width: '375px', label: 'Mobil', icon: Smartphone }
 };
 
+// Helper function to safely get padding values with defaults
+const getPadding = (config, defaultTop = 16, defaultBottom = 16) => {
+  return {
+    top: config?.padding?.top ?? defaultTop,
+    bottom: config?.padding?.bottom ?? defaultBottom
+  };
+};
+
 // Helper function to generate HTML from block config
 const generateBlockHTML = (config) => {
   if (!config) return '';
