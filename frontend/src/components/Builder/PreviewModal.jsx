@@ -1547,7 +1547,7 @@ const generateBlockHTML = (config) => {
                 </p>
               ` : ''}
               
-              ${(config.links && config.links.length > 0) ? `
+              ${(config.showLinks !== false && config.links && config.links.length > 0) ? `
                 <div style="
                   display: flex;
                   gap: 24px;
