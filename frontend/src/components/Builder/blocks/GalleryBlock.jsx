@@ -5,7 +5,7 @@ export const GalleryBlock = ({ config, onUpdate }) => {
   const animation = config.animation || 'hover-zoom';
 
   useEffect(() => {
-    if (animation === 'fade-scroll' && galleryRef.current) {
+    if ((animation === 'fade-scroll' || animation === 'slide') && galleryRef.current) {
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
