@@ -1319,6 +1319,7 @@ const generateBlockHTML = (config) => {
         'centered': 'flex-direction: column; align-items: center;'
       };
 
+      const padding = getPadding(config, 80, 80);
       return `
         <section style="
           ${bgStyle}
