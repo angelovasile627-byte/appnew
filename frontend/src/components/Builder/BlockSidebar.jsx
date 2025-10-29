@@ -666,6 +666,208 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                 );
               }
               
+              // People blocks
+              if (config.type === 'people-hiring') {
+                return (
+                  <div style={{
+                    background: config.background || '#F8F8F8',
+                    padding: '8px',
+                    height: '100%'
+                  }}>
+                    {config.title?.show && (
+                      <div style={{
+                        fontSize: '8px',
+                        fontWeight: 700,
+                        color: config.title.color,
+                        marginBottom: '4px'
+                      }}>
+                        {config.title.text}
+                      </div>
+                    )}
+                    <div style={{
+                      background: '#ffffff',
+                      borderRadius: '4px',
+                      padding: '4px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '2px'
+                    }}>
+                      {(config.jobs || []).slice(0, 2).map((job, i) => (
+                        <div key={i} style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          borderBottom: i < 1 ? '1px solid #e5e5e5' : 'none',
+                          paddingBottom: '2px'
+                        }}>
+                          <div style={{ flex: 1 }}>
+                            <div style={{ fontSize: '5px', fontWeight: 600, color: '#1a1a1a' }}>
+                              {job.title}
+                            </div>
+                            <div style={{ fontSize: '3px', color: '#999999' }}>
+                              {job.type}
+                            </div>
+                          </div>
+                          <div style={{
+                            background: job.buttonColor,
+                            color: job.buttonTextColor,
+                            fontSize: '3px',
+                            padding: '1px 3px',
+                            borderRadius: '2px'
+                          }}>
+                            {job.buttonText}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+              
+              if (config.type === 'people-creators') {
+                return (
+                  <div style={{
+                    background: config.background || '#ffffff',
+                    padding: '8px',
+                    height: '100%'
+                  }}>
+                    {config.title?.show && (
+                      <div style={{
+                        fontSize: '6px',
+                        fontWeight: 700,
+                        color: config.title.color,
+                        marginBottom: '4px',
+                        textAlign: 'center'
+                      }}>
+                        {config.title.text}
+                      </div>
+                    )}
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(3, 1fr)',
+                      gap: '3px'
+                    }}>
+                      {(config.creators || []).slice(0, 3).map((creator, i) => (
+                        <div key={i} style={{
+                          background: '#f8f8f8',
+                          borderRadius: '3px',
+                          padding: '3px',
+                          textAlign: 'center'
+                        }}>
+                          <div style={{
+                            width: '12px',
+                            height: '12px',
+                            borderRadius: '50%',
+                            background: '#e0e0e0',
+                            margin: '0 auto 2px'
+                          }} />
+                          <div style={{ fontSize: '4px', fontWeight: 600, color: '#1a1a1a' }}>
+                            {creator.name.split(' ')[0]}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+              
+              if (config.type === 'people-testimonials') {
+                return (
+                  <div style={{
+                    background: config.background || '#F8F8F8',
+                    padding: '8px',
+                    height: '100%'
+                  }}>
+                    {config.title?.show && (
+                      <div style={{
+                        fontSize: '6px',
+                        fontWeight: 700,
+                        color: config.title.color,
+                        marginBottom: '4px',
+                        textAlign: 'center'
+                      }}>
+                        {config.title.text}
+                      </div>
+                    )}
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: `repeat(${Math.min(config.columns || 3, 3)}, 1fr)`,
+                      gap: '3px'
+                    }}>
+                      {(config.testimonials || []).slice(0, Math.min(config.columns || 3, 3)).map((test, i) => (
+                        <div key={i} style={{
+                          background: '#ffffff',
+                          borderRadius: '3px',
+                          padding: '3px',
+                          textAlign: 'center'
+                        }}>
+                          <div style={{ fontSize: '4px', marginBottom: '2px' }}>
+                            {'⭐'.repeat(test.rating || 5)}
+                          </div>
+                          <div style={{
+                            width: '8px',
+                            height: '8px',
+                            borderRadius: '50%',
+                            background: '#e0e0e0',
+                            margin: '0 auto 2px'
+                          }} />
+                          <div style={{ fontSize: '3px', fontWeight: 600, color: '#1a1a1a' }}>
+                            {test.name}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+              
+              if (config.type === 'people-clients') {
+                return (
+                  <div style={{
+                    background: config.background || '#ffffff',
+                    padding: '8px',
+                    height: '100%'
+                  }}>
+                    {config.title?.show && (
+                      <div style={{
+                        fontSize: '6px',
+                        fontWeight: 700,
+                        color: config.title.color,
+                        marginBottom: '4px',
+                        textAlign: 'center'
+                      }}>
+                        {config.title.text}
+                      </div>
+                    )}
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(3, 1fr)',
+                      gap: '3px'
+                    }}>
+                      {(config.clients || []).slice(0, 3).map((client, i) => (
+                        <div key={i} style={{
+                          background: client.backgroundColor,
+                          borderRadius: '3px',
+                          padding: '4px',
+                          textAlign: 'center',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}>
+                          <div style={{ fontSize: '8px', marginBottom: '1px' }}>
+                            {client.logo}
+                          </div>
+                          <div style={{ fontSize: '3px', fontWeight: 600, color: client.textColor }}>
+                            {client.name}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+              
               // Generic fallback for remaining types
               return (
                 <div style={{
