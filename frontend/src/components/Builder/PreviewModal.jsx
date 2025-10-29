@@ -2540,14 +2540,41 @@ const generateBlockHTML = (config) => {
 
           <script>
             (function() {
-              let scrollY = 0;
+              let mouseX = 0;
+              let mouseY = 0;
+              let currentX = 0;
+              let currentY = 0;
+              let isMouseOver = false;
+              
               const container = document.getElementById('home-parallax-container');
               const layers = container.querySelectorAll('[data-layer]');
               
-              function updateParallax() {
+              // Mouse move handler for parallax effect
+              container.addEventListener('mousemove', (e) => {
                 const rect = container.getBoundingClientRect();
-                const scrollProgress = -rect.top;
-                scrollY = scrollProgress;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Calculate mouse position relative to center (-1 to 1)
+                const x = (e.clientX - rect.left - centerX) / centerX;
+                const y = (e.clientY - rect.top - centerY) / centerY;
+                
+                mouseX = x * 100;
+                mouseY = y * 100;
+                isMouseOver = true;
+              });
+              
+              container.addEventListener('mouseleave', () => {
+                isMouseOver = false;
+                mouseX = 0;
+                mouseY = 0;
+              });
+              
+              // Animation loop for smooth transition
+              function animate() {
+                // Smooth interpolation
+                currentX += (mouseX - currentX) * 0.1;
+                currentY += (mouseY - currentY) * 0.1;
                 
                 layers.forEach(layer => {
                   const speedX = parseFloat(layer.getAttribute('data-speedx')) || 0;
@@ -2555,17 +2582,20 @@ const generateBlockHTML = (config) => {
                   const speedZ = parseFloat(layer.getAttribute('data-speedz')) || 0;
                   const rotation = parseFloat(layer.getAttribute('data-rotation')) || 0;
                   
-                  const translateX = scrollY * speedX;
-                  const translateY = scrollY * speedY;
-                  const scale = 1 + (scrollY * speedZ * 0.0001);
-                  const rotate = scrollY * rotation;
+                  // Apply offset based on layer speed
+                  const translateX = currentX * speedX * 5;
+                  const translateY = currentY * speedY * 5;
+                  const scale = 1 + (Math.abs(currentX) * speedZ * 0.002);
+                  const rotate = currentX * rotation * 2;
                   
                   layer.style.transform = \`translate3d(\${translateX}px, \${translateY}px, 0) scale(\${scale}) rotate(\${rotate}deg)\`;
+                  layer.style.transition = isMouseOver ? 'transform 0.1s ease-out' : 'transform 0.5s ease-out';
                 });
+                
+                requestAnimationFrame(animate);
               }
               
-              window.addEventListener('scroll', updateParallax);
-              updateParallax(); // Initial call
+              animate();
             })();
           </script>
         </section>
