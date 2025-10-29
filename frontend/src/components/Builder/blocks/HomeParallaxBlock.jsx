@@ -75,7 +75,7 @@ const HomeParallaxBlock = ({ config, isEditing, onUpdate }) => {
     const scale = 1 + (Math.abs(offset.x) * speedZ * 0.0001);
     
     // Minimal rotation based on offset
-    const rotate = offset.x * rotation * 0.5;
+    const rotate = offset.x * rotation * 0.1;
 
     return {
       transform: `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale}) rotate(${rotate}deg)`,
