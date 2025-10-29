@@ -3919,7 +3919,6 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
             )}
 
             {/* Gallery Block Controls */}
-            {console.log('🔍 Gallery Check - config.type:', config.type, 'config:', config)}
             {config.type === 'gallery' && (
               <>
                 {/* Layout Selection */}
