@@ -1835,6 +1835,22 @@ const generateBlockHTML = (config) => {
         : `background-color: ${config.background?.value || '#f8f9fa'};`;
 
       return `
+        <style>
+          .preview-contact-grid {
+            display: grid;
+            grid-template-columns: ${config.layout === 'stacked' ? '1fr' : '2fr 1fr'};
+            gap: 60px;
+          }
+          @media (max-width: 768px) {
+            .preview-contact-grid {
+              grid-template-columns: 1fr !important;
+              gap: 40px !important;
+            }
+            .preview-contact-grid > div:last-child {
+              order: -1;
+            }
+          }
+        </style>
         <div style="
           ${bgStyle}
           width: 100%;
@@ -1869,11 +1885,7 @@ const generateBlockHTML = (config) => {
               </p>
             ` : ''}
             
-            <div style="
-              display: grid;
-              grid-template-columns: ${config.layout === 'stacked' ? '1fr' : '2fr 1fr'};
-              gap: 60px;
-            ">
+            <div class="preview-contact-grid">
               <div style="
                 background-color: #ffffff;
                 border-radius: 16px;
