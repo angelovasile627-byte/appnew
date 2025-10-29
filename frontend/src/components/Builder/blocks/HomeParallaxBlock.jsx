@@ -21,7 +21,7 @@ const HomeParallaxBlock = ({ config, isEditing, onUpdate }) => {
       const x = (e.clientX - rect.left - centerX) / centerX;
       const y = (e.clientY - rect.top - centerY) / centerY;
       
-      setMousePosition({ x: x * 100, y: y * 100 });
+      setMousePosition({ x: x * 20, y: y * 20 });
       setIsMouseOver(true);
     };
 
