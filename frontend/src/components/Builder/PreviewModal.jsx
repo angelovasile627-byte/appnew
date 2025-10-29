@@ -1724,6 +1724,25 @@ const generateBlockHTML = (config) => {
         : `background-color: ${config.background?.value || '#f8f9fa'};`;
 
       return `
+        <style>
+          .preview-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(${config.columns || 3}, 1fr);
+            gap: ${config.gap || 24}px;
+          }
+          @media (max-width: 768px) {
+            .preview-gallery-grid {
+              grid-template-columns: repeat(${(config.columns || 3) >= 3 ? 2 : 1}, 1fr) !important;
+              gap: 16px !important;
+            }
+          }
+          @media (max-width: 480px) {
+            .preview-gallery-grid {
+              grid-template-columns: 1fr !important;
+              gap: 16px !important;
+            }
+          }
+        </style>
         <div style="
           ${bgStyle}
           width: 100%;
@@ -1758,11 +1777,7 @@ const generateBlockHTML = (config) => {
               </p>
             ` : ''}
             
-            <div style="
-              display: grid;
-              grid-template-columns: repeat(${config.columns || 3}, 1fr);
-              gap: ${config.gap || 24}px;
-            ">
+            <div class="preview-gallery-grid">
               ${(config.images || []).map((image, index) => `
                 <div style="
                   border-radius: 12px;
