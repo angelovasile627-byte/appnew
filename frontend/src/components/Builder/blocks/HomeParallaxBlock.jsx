@@ -72,7 +72,7 @@ const HomeParallaxBlock = ({ config, isEditing, onUpdate }) => {
     const translateY = offset.y * speedY * 0.3;
     
     // Add very slight scale variation based on distance
-    const scale = 1 + (Math.abs(offset.x) * speedZ * 0.0005);
+    const scale = 1 + (Math.abs(offset.x) * speedZ * 0.0001);
     
     // Minimal rotation based on offset
     const rotate = offset.x * rotation * 0.5;
