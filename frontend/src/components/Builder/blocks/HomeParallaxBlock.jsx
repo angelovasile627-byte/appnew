@@ -68,8 +68,8 @@ const HomeParallaxBlock = ({ config, isEditing, onUpdate }) => {
     const distance = layer.distance || 0;
 
     // Apply offset based on layer speed with subtle effect
-    const translateX = offset.x * speedX * 0.33; // Reduced for subtle movement
-    const translateY = offset.y * speedY * 0.33;
+    const translateX = offset.x * speedX * 0.38; // Reduced for subtle movement
+    const translateY = offset.y * speedY * 0.38;
     
     // Add very slight scale variation based on distance
     const scale = 1 + (Math.abs(offset.x) * speedZ * 0.00011);
