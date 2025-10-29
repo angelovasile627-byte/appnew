@@ -238,8 +238,9 @@ export const ContactBlock = ({ config, onUpdate }) => {
               );
             })}
           </div>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
