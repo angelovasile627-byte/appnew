@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Settings } from 'lucide-react';
+import { X, Settings, Upload } from 'lucide-react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
