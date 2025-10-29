@@ -664,6 +664,7 @@ const generateBlockHTML = (config) => {
         "></div>
       ` : '';
 
+      const padding = getPadding(config, 100, 100);
       return `
         <section style="
           ${bgStyle}
