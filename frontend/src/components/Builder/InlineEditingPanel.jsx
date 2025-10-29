@@ -4023,6 +4023,44 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                           className="bg-gray-900 border-gray-600 text-white text-[10px] h-6 mb-1"
                           placeholder="Image URL"
                         />
+                        <Button
+                          onClick={async () => {
+                            const input = document.createElement('input');
+                            input.type = 'file';
+                            input.accept = 'image/jpeg,image/jpg,image/png,image/gif,image/webp';
+                            input.onchange = async (e) => {
+                              const file = e.target.files[0];
+                              if (!file) return;
+                              
+                              const formData = new FormData();
+                              formData.append('file', file);
+                              
+                              try {
+                                const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_BACKEND_URL;
+                                const response = await fetch(`${backendUrl}/api/upload/image`, {
+                                  method: 'POST',
+                                  body: formData
+                                });
+                                
+                                if (response.ok) {
+                                  const data = await response.json();
+                                  const updated = [...config.images];
+                                  updated[index] = { ...updated[index], src: data.url };
+                                  updateConfig('images', updated);
+                                } else {
+                                  console.error('Upload failed');
+                                }
+                              } catch (error) {
+                                console.error('Upload error:', error);
+                              }
+                            };
+                            input.click();
+                          }}
+                          className="h-5 px-2 text-[9px] bg-indigo-600 hover:bg-indigo-700 mb-1 w-full"
+                        >
+                          <Upload className="w-3 h-3 mr-1" />
+                          Încarcă Imagine
+                        </Button>
                         <Input
                           type="text"
                           value={image.alt || ''}
