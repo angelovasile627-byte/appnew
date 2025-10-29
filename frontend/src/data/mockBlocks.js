@@ -2339,5 +2339,185 @@ export const blockTemplates = [
         }
       ]
     }
+  },
+  // Text Parallax Blocks - Fire Theme
+  {
+    id: 'text-1',
+    category: 'text',
+    name: 'Text Parallax - Fire',
+    thumbnail: 'https://images.unsplash.com/photo-1525267219888-bb077b8792cc?w=400&h=300&fit=crop',
+    config: {
+      type: 'text',
+      theme: 'fire',
+      background: {
+        type: 'image',
+        value: 'https://images.unsplash.com/photo-1525267219888-bb077b8792cc?w=1920&h=1080&fit=crop',
+        parallax: true
+      },
+      padding: {
+        top: 100,
+        bottom: 100
+      },
+      title: {
+        text: 'Fire',
+        show: true,
+        size: 120,
+        weight: 700,
+        color: '#000000',
+        backgroundImage: {
+          value: 'https://images.unsplash.com/photo-1525267219888-bb077b8792cc?w=1920&h=1080&fit=crop'
+        }
+      },
+      description: {
+        text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+        show: true,
+        size: 16,
+        color: '#333333',
+        maxWidth: 800
+      },
+      button: {
+        text: 'Read More',
+        show: true,
+        link: '#',
+        color: '#FF6B35',
+        textColor: '#FFFFFF',
+        size: 16
+      }
+    }
+  },
+  // Text Parallax Blocks - Water Theme
+  {
+    id: 'text-2',
+    category: 'text',
+    name: 'Text Parallax - Water',
+    thumbnail: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=300&fit=crop',
+    config: {
+      type: 'text',
+      theme: 'water',
+      background: {
+        type: 'image',
+        value: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&h=1080&fit=crop',
+        parallax: true
+      },
+      padding: {
+        top: 100,
+        bottom: 100
+      },
+      title: {
+        text: 'Water',
+        show: true,
+        size: 120,
+        weight: 700,
+        color: '#000000',
+        backgroundImage: {
+          value: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&h=1080&fit=crop'
+        }
+      },
+      description: {
+        text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+        show: true,
+        size: 16,
+        color: '#333333',
+        maxWidth: 800
+      },
+      button: {
+        text: 'Read More',
+        show: true,
+        link: '#',
+        color: '#4A90E2',
+        textColor: '#FFFFFF',
+        size: 16
+      }
+    }
+  },
+  // Text Parallax Blocks - Ice Theme
+  {
+    id: 'text-3',
+    category: 'text',
+    name: 'Text Parallax - Ice',
+    thumbnail: 'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=400&h=300&fit=crop',
+    config: {
+      type: 'text',
+      theme: 'ice',
+      background: {
+        type: 'image',
+        value: 'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=1920&h=1080&fit=crop',
+        parallax: true
+      },
+      padding: {
+        top: 100,
+        bottom: 100
+      },
+      title: {
+        text: 'Ice',
+        show: true,
+        size: 120,
+        weight: 700,
+        color: '#000000',
+        backgroundImage: {
+          value: 'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=1920&h=1080&fit=crop'
+        }
+      },
+      description: {
+        text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+        show: true,
+        size: 16,
+        color: '#333333',
+        maxWidth: 800
+      },
+      button: {
+        text: 'Read More',
+        show: true,
+        link: '#',
+        color: '#00BCD4',
+        textColor: '#FFFFFF',
+        size: 16
+      }
+    }
+  },
+  // Text Parallax Blocks - Sand Theme
+  {
+    id: 'text-4',
+    category: 'text',
+    name: 'Text Parallax - Sand',
+    thumbnail: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=400&h=300&fit=crop',
+    config: {
+      type: 'text',
+      theme: 'sand',
+      background: {
+        type: 'image',
+        value: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1920&h=1080&fit=crop',
+        parallax: true
+      },
+      padding: {
+        top: 100,
+        bottom: 100
+      },
+      title: {
+        text: 'Sand',
+        show: true,
+        size: 120,
+        weight: 700,
+        color: '#000000',
+        backgroundImage: {
+          value: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1920&h=1080&fit=crop'
+        }
+      },
+      description: {
+        text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+        show: true,
+        size: 16,
+        color: '#333333',
+        maxWidth: 800
+      },
+      button: {
+        text: 'Read More',
+        show: true,
+        link: '#',
+        color: '#D4A574',
+        textColor: '#FFFFFF',
+        size: 16
+      }
+    }
   }
 ];
