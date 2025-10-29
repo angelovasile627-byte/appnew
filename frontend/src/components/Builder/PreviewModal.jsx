@@ -2583,10 +2583,10 @@ const generateBlockHTML = (config) => {
                   const rotation = parseFloat(layer.getAttribute('data-rotation')) || 0;
                   
                   // Apply offset based on layer speed
-                  const translateX = currentX * speedX * 5;
-                  const translateY = currentY * speedY * 5;
-                  const scale = 1 + (Math.abs(currentX) * speedZ * 0.002);
-                  const rotate = currentX * rotation * 2;
+                  const translateX = currentX * speedX * 0.3;
+                  const translateY = currentY * speedY * 0.3;
+                  const scale = 1 + (Math.abs(currentX) * speedZ * 0.0001);
+                  const rotate = currentX * rotation * 0.1;
                   
                   layer.style.transform = \`translate3d(\${translateX}px, \${translateY}px, 0) scale(\${scale}) rotate(\${rotate}deg)\`;
                   layer.style.transition = isMouseOver ? 'transform 0.1s ease-out' : 'transform 0.5s ease-out';
