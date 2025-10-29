@@ -71,42 +71,53 @@ export const ContactBlock = ({ config, onUpdate }) => {
   };
 
   return (
-    <div style={containerStyle}>
-      <div style={contentStyle}>
-        {config.title.show && (
-          <h2
-            style={{
-              fontSize: '42px',
-              fontWeight: '700',
-              color: config.title.color,
-              textAlign: config.title.align,
-              marginBottom: '16px'
-            }}
-          >
-            {config.title.text}
-          </h2>
-        )}
-        {config.description.show && (
-          <p
-            style={{
-              fontSize: '18px',
-              color: config.description.color,
-              textAlign: config.description.align,
-              marginBottom: '60px',
-              maxWidth: '700px',
-              margin: config.description.align === 'center' ? '0 auto 60px' : '0 0 60px'
-            }}
-          >
-            {config.description.text}
-          </p>
-        )}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '2fr 1fr',
-            gap: '60px'
-          }}
-        >
+    <>
+      <style>{`
+        .contact-block-grid {
+          display: grid;
+          grid-template-columns: 2fr 1fr;
+          gap: 60px;
+        }
+        @media (max-width: 768px) {
+          .contact-block-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px;
+          }
+          .contact-block-grid > div:last-child {
+            order: -1;
+          }
+        }
+      `}</style>
+      <div style={containerStyle}>
+        <div style={contentStyle}>
+          {config.title.show && (
+            <h2
+              style={{
+                fontSize: '42px',
+                fontWeight: '700',
+                color: config.title.color,
+                textAlign: config.title.align,
+                marginBottom: '16px'
+              }}
+            >
+              {config.title.text}
+            </h2>
+          )}
+          {config.description.show && (
+            <p
+              style={{
+                fontSize: '18px',
+                color: config.description.color,
+                textAlign: config.description.align,
+                marginBottom: '60px',
+                maxWidth: '700px',
+                margin: config.description.align === 'center' ? '0 auto 60px' : '0 0 60px'
+              }}
+            >
+              {config.description.text}
+            </p>
+          )}
+          <div className="contact-block-grid">
           <div
             style={{
               backgroundColor: '#ffffff',
