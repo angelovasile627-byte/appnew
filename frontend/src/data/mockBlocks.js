@@ -1785,5 +1785,220 @@ export const blockTemplates = [
         }
       ]
     }
+  },
+  
+  // ==================== PEOPLE CATEGORY ====================
+  {
+    id: 'people-1',
+    category: 'people',
+    name: 'People - We\'re Hiring',
+    thumbnail: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=300&fit=crop',
+    config: {
+      type: 'people-hiring',
+      title: {
+        text: 'We\'re hiring',
+        show: true,
+        size: 36,
+        weight: 700,
+        color: '#1a1a1a'
+      },
+      description: {
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae posuere, integer alam.',
+        show: true,
+        size: 16,
+        color: '#666666'
+      },
+      jobs: [
+        {
+          id: 'job-1',
+          title: 'Designer',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+          type: 'Full-time',
+          buttonText: 'Apply',
+          buttonColor: '#333333',
+          buttonTextColor: '#ffffff',
+          link: '#'
+        },
+        {
+          id: 'job-2',
+          title: 'Manager',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+          type: 'Full-time',
+          buttonText: 'Apply',
+          buttonColor: '#333333',
+          buttonTextColor: '#ffffff',
+          link: '#'
+        },
+        {
+          id: 'job-3',
+          title: 'Creator',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+          type: 'Full-time',
+          buttonText: 'Apply',
+          buttonColor: '#333333',
+          buttonTextColor: '#ffffff',
+          link: '#'
+        }
+      ],
+      readMoreButton: {
+        show: true,
+        text: 'Read more',
+        color: '#A8F5B8',
+        textColor: '#2B2B2B'
+      },
+      background: '#F8F8F8',
+      padding: { top: 60, bottom: 60 }
+    }
+  },
+  {
+    id: 'people-2',
+    category: 'people',
+    name: 'People - Meet the Creators',
+    thumbnail: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=300&fit=crop',
+    config: {
+      type: 'people-creators',
+      title: {
+        text: 'Meet the creators',
+        show: true,
+        size: 36,
+        weight: 700,
+        color: '#1a1a1a'
+      },
+      layout: 'cards',
+      creators: [
+        {
+          id: 'creator-1',
+          name: 'Emma Johnson',
+          role: 'Project Manager',
+          image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop',
+          link: '#'
+        },
+        {
+          id: 'creator-2',
+          name: 'Lina Rodriguez',
+          role: 'UX Designer',
+          image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop',
+          link: '#'
+        },
+        {
+          id: 'creator-3',
+          name: 'Aarav Patel',
+          role: 'Lead Developer',
+          image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop',
+          link: '#'
+        }
+      ],
+      background: '#ffffff',
+      padding: { top: 60, bottom: 60 }
+    }
+  },
+  {
+    id: 'people-3',
+    category: 'people',
+    name: 'People - Testimonials Grid',
+    thumbnail: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=400&h=300&fit=crop',
+    config: {
+      type: 'people-testimonials',
+      title: {
+        text: 'Testimonials',
+        show: true,
+        size: 36,
+        weight: 700,
+        color: '#1a1a1a'
+      },
+      layout: 'grid',
+      columns: 3,
+      testimonials: [
+        {
+          id: 'test-1',
+          quote: 'I can\'t express how much I admire the distinctive offerings from this creative small business. Each product exudes its own character and charm, making me feel like I own a piece of art.',
+          name: 'Sarah Jones',
+          image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop',
+          rating: 5
+        },
+        {
+          id: 'test-2',
+          quote: 'I\'ve been a customer for years, and I can confidently say that this place never disappoints. The quality and attention to detail in every product are truly impressive.',
+          name: 'Michael',
+          image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
+          rating: 5
+        },
+        {
+          id: 'test-3',
+          quote: 'The customer service is top-notch, and the staff is always friendly and helpful. I wouldn\'t shop anywhere else for my creative needs.',
+          name: 'Emily',
+          image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop',
+          rating: 5
+        },
+        {
+          id: 'test-4',
+          quote: 'From excellent products to efficient shipping. It\'s a statement. I\'m proud to support this business.',
+          name: 'David',
+          image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop',
+          rating: 5
+        },
+        {
+          id: 'test-5',
+          quote: 'I\'m always looking back for more because I know I can count on the outstanding quality and service they consistently provide.',
+          name: 'Rachel',
+          image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop',
+          rating: 5
+        },
+        {
+          id: 'test-6',
+          quote: 'The designs are not only eye-catching but also durable. I\'ve been thrilled with all the latest creations I\'ve seen on their website.',
+          name: 'Jessica',
+          image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&h=200&fit=crop',
+          rating: 5
+        }
+      ],
+      background: '#F8F8F8',
+      padding: { top: 60, bottom: 60 }
+    }
+  },
+  {
+    id: 'people-4',
+    category: 'people',
+    name: 'People - Our Clients',
+    thumbnail: 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&h=300&fit=crop',
+    config: {
+      type: 'people-clients',
+      title: {
+        text: 'Our Clients',
+        show: true,
+        size: 36,
+        weight: 700,
+        color: '#1a1a1a'
+      },
+      layout: 'logos',
+      clients: [
+        {
+          id: 'client-1',
+          name: 'Recharge',
+          logo: '⚡',
+          backgroundColor: '#E0F2FE',
+          textColor: '#0369A1',
+          link: '#'
+        },
+        {
+          id: 'client-2',
+          name: 'Border',
+          logo: '🛡️',
+          backgroundColor: '#DBEAFE',
+          textColor: '#1E40AF',
+          link: '#'
+        },
+        {
+          id: 'client-3',
+          name: 'Sitemark',
+          logo: '🧭',
+          backgroundColor: '#FEF3C7',
+          textColor: '#92400E',
+          link: '#'
+        }
+      ],
+      background: '#ffffff',
+      padding: { top: 60, bottom: 60 }
+    }
   }
 ];
