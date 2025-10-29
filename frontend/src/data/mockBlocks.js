@@ -2285,7 +2285,7 @@ export const blockTemplates = [
           type: 'features',
           layout: 'cards-with-images',
           columns: 3,
-          background: '#ffffff',
+          background: { value: '#ffffff' },
           padding: { top: 80, bottom: 80 },
           title: {
             text: 'Why Choose Our Prints',
