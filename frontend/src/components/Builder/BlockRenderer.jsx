@@ -4,6 +4,7 @@ import { MenuBlock } from './blocks/MenuBlock';
 import { HeroBlock } from './blocks/HeroBlock';
 import { HeroParallaxBlock } from './blocks/HeroParallaxBlock';
 import { ParallaxBlock } from './blocks/ParallaxBlock';
+import { TextBlock } from './blocks/TextBlock';
 import { FeaturesBlock } from './blocks/FeaturesBlock';
 import { ArticleBlock } from './blocks/ArticleBlock';
 import { IntroBlock } from './blocks/IntroBlock';
@@ -30,6 +31,7 @@ const blockComponents = {
   'hero-parallax': HeroParallaxBlock,
   'home-parallax': HomeParallaxBlock,
   parallax: ParallaxBlock,
+  text: TextBlock,
   features: FeaturesBlock,
   article: ArticleBlock,
   intro: IntroBlock,
