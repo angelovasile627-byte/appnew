@@ -2398,7 +2398,24 @@ export const blockTemplates = [
               facebook: 'https://facebook.com',
               twitter: 'https://twitter.com'
             }
-          }
+          },
+          info: [
+            {
+              icon: 'Mail',
+              label: 'Email',
+              value: 'hello@highaltitude.photo'
+            },
+            {
+              icon: 'Phone',
+              label: 'Phone',
+              value: '+1 (555) 123-4567'
+            },
+            {
+              icon: 'MapPin',
+              label: 'Address',
+              value: 'Mountain View Studio, CO 80401'
+            }
+          ]
         },
         
         // FOOTER BLOCK
