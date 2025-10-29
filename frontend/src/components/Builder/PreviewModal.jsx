@@ -1507,18 +1507,127 @@ const generateBlockHTML = (config) => {
     }
 
     case 'footer': {
-      const bgStyle = config.background.type === 'gradient'
+      const bgStyle = config.background?.type === 'gradient'
         ? `background: ${config.background.value};`
-        : `background-color: ${config.background.value};`;
+        : `background-color: ${config.background?.value || config.background || '#1a1a2e'};`;
 
+      // Simple layout (single column with links)
+      if (config.layout === 'simple') {
+        return `
+          <footer style="
+            ${bgStyle}
+            width: 100%;
+            padding: ${config.padding?.top || 60}px 24px ${config.padding?.bottom || 60}px;
+          ">
+            <div style="
+              max-width: ${config.contentWidth || 1200}px;
+              margin: 0 auto;
+              text-align: center;
+            ">
+              ${config.logo?.show ? `
+                <h3 style="
+                  font-size: ${config.logo.size || 24}px;
+                  font-weight: 800;
+                  color: ${config.logo.color || '#ffffff'};
+                  margin-bottom: 16px;
+                ">
+                  ${config.logo.text}
+                </h3>
+              ` : ''}
+              
+              ${config.description?.show ? `
+                <p style="
+                  color: ${config.description.color || '#cccccc'};
+                  margin-bottom: 24px;
+                  max-width: 600px;
+                  margin: 0 auto 24px;
+                  font-size: 15px;
+                ">
+                  ${config.description.text}
+                </p>
+              ` : ''}
+              
+              ${(config.links && config.links.length > 0) ? `
+                <div style="
+                  display: flex;
+                  gap: 24px;
+                  justify-content: center;
+                  flex-wrap: wrap;
+                  margin-bottom: 24px;
+                ">
+                  ${config.links.map(link => `
+                    <a href="${link.link}" style="
+                      color: ${link.color || '#cccccc'};
+                      text-decoration: none;
+                      font-size: 14px;
+                      transition: color 0.2s;
+                    ">
+                      ${link.text}
+                    </a>
+                  `).join('')}
+                </div>
+              ` : ''}
+              
+              ${(config.social?.show && config.social?.links && config.social.links.length > 0) ? `
+                <div style="
+                  display: flex;
+                  gap: 12px;
+                  justify-content: center;
+                  margin-bottom: 24px;
+                ">
+                  ${config.social.links.map(social => {
+                    const icons = {
+                      instagram: 'IG',
+                      facebook: 'FB',
+                      twitter: 'TW',
+                      linkedin: 'LI',
+                      youtube: 'YT'
+                    };
+                    return `
+                      <a href="${social.url}" style="
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        background: rgba(255,255,255,0.1);
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: ${social.color || '#ffffff'};
+                        text-decoration: none;
+                        font-size: 12px;
+                        font-weight: bold;
+                        transition: background 0.2s;
+                      ">
+                        ${icons[social.platform] || 'LK'}
+                      </a>
+                    `;
+                  }).join('')}
+                </div>
+              ` : ''}
+              
+              ${config.copyright?.show ? `
+                <p style="
+                  color: ${config.copyright.color || '#888888'};
+                  font-size: 14px;
+                  margin-top: 24px;
+                ">
+                  ${config.copyright.text}
+                </p>
+              ` : ''}
+            </div>
+          </footer>
+        `;
+      }
+
+      // Complex layout with columns (original code)
       return `
         <footer style="
           ${bgStyle}
           width: 100%;
-          padding: ${config.padding.top}px 24px ${config.padding.bottom}px;
+          padding: ${config.padding?.top || 60}px 24px ${config.padding?.bottom || 60}px;
         ">
           <div style="
-            max-width: ${config.contentWidth}px;
+            max-width: ${config.contentWidth || 1200}px;
             margin: 0 auto;
           ">
             <div style="
@@ -1527,7 +1636,7 @@ const generateBlockHTML = (config) => {
               gap: 40px;
               margin-bottom: 40px;
             ">
-              ${config.logo.show ? `
+              ${config.logo?.show ? `
                 <div>
                   <div style="
                     font-size: 24px;
@@ -1545,7 +1654,7 @@ const generateBlockHTML = (config) => {
                   <h3 style="
                     font-size: 16px;
                     font-weight: 600;
-                    color: ${config.logo.color};
+                    color: ${config.logo?.color || '#ffffff'};
                     margin-bottom: 16px;
                   ">
                     ${column.title}
@@ -1583,7 +1692,7 @@ const generateBlockHTML = (config) => {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    color: ${config.logo.color};
+                    color: ${config.logo?.color || '#ffffff'};
                     text-decoration: none;
                     font-weight: bold;
                   ">
@@ -1593,7 +1702,7 @@ const generateBlockHTML = (config) => {
               </div>
             ` : ''}
             
-            ${config.copyright.show ? `
+            ${config.copyright?.show ? `
               <div style="
                 text-align: center;
                 color: ${config.copyright.color};
