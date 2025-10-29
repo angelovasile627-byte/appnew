@@ -372,6 +372,7 @@ const generateBlockHTML = (config) => {
             }
 
             // DEFAULT LAYOUTS - Left, Right, Space Between
+            const padding = getPadding(config);
             return `
               <div style="
                 max-width: ${config.fullWidth ? '100%' : config.contentWidth + 'px'};
