@@ -2189,10 +2189,7 @@ const generateBlockHTML = (config) => {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          background-image: url(${config.background?.value || ''});
-          background-size: cover;
-          background-position: center;
-          background-attachment: ${config.background?.parallax ? 'fixed' : 'scroll'};
+          background-color: ${config.background?.color || '#FFFFFF'};
           padding: ${config.padding?.top || 100}px 2rem ${config.padding?.bottom || 100}px;
         ">
           ${config.title?.show ? `
