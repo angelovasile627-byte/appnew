@@ -1722,6 +1722,9 @@ const generateBlockHTML = (config) => {
       const bgStyle = config.background?.type === 'gradient'
         ? `background: ${config.background.value};`
         : `background-color: ${config.background?.value || '#f8f9fa'};`;
+      
+      const animation = config.animation || 'hover-zoom';
+      const animationClass = animation === 'fade-scroll' ? 'gallery-fade-scroll' : animation === 'slide' ? 'gallery-slide' : 'gallery-hover-zoom';
 
       return `
         <style>
@@ -1741,6 +1744,42 @@ const generateBlockHTML = (config) => {
               grid-template-columns: 1fr !important;
               gap: 16px !important;
             }
+          }
+
+          /* Hover Zoom Animation */
+          .gallery-hover-zoom .gallery-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+          }
+          .gallery-hover-zoom .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15) !important;
+          }
+
+          /* Fade Scroll Animation */
+          .gallery-fade-scroll .gallery-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+          }
+          .gallery-fade-scroll .gallery-item.fade-in-visible {
+            opacity: 1;
+            transform: translateY(0);
+          }
+
+          /* Slide Animation */
+          .gallery-slide .gallery-item {
+            opacity: 0;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+          }
+          .gallery-slide .gallery-item:nth-child(odd) {
+            transform: translateX(-50px);
+          }
+          .gallery-slide .gallery-item:nth-child(even) {
+            transform: translateX(50px);
+          }
+          .gallery-slide .gallery-item.fade-in-visible {
+            opacity: 1;
+            transform: translateX(0);
           }
         </style>
         <div style="
@@ -1777,42 +1816,84 @@ const generateBlockHTML = (config) => {
               </p>
             ` : ''}
             
-            <div class="preview-gallery-grid">
-              ${(config.images || []).map((image, index) => `
-                <div style="
-                  border-radius: 12px;
-                  overflow: hidden;
-                  cursor: pointer;
-                  transition: transform 0.3s, box-shadow 0.3s;
-                  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                ">
-                  <img
-                    src="${image.src}"
-                    alt="${image.alt || ''}"
-                    style="
-                      width: 100%;
-                      height: 280px;
-                      object-fit: cover;
-                      display: block;
-                    "
-                  />
-                  ${image.title || image.price ? `
-                    <div style="
-                      padding: 12px;
-                      background: #ffffff;
-                    ">
-                      ${image.title ? `
-                        <div style="
-                          font-size: 16px;
-                          font-weight: 600;
-                          color: #1a1a1a;
-                          margin-bottom: 4px;
-                        ">
-                          ${image.title}
-                        </div>
-                      ` : ''}
-                      ${image.price ? `
-                        <div style="
+            <div class="preview-gallery-grid ${animationClass}">
+              ${(config.images || []).map((image, index) => {
+                const Tag = image.link ? 'a' : 'div';
+                const linkAttrs = image.link ? `href="${image.link}" target="_blank" rel="noopener noreferrer"` : '';
+                return `
+                  <${Tag} ${linkAttrs} class="gallery-item" style="
+                    border-radius: 12px;
+                    overflow: hidden;
+                    cursor: ${image.link ? 'pointer' : 'default'};
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                    text-decoration: none;
+                    color: inherit;
+                    display: block;
+                  ">
+                    <img
+                      src="${image.src}"
+                      alt="${image.alt || ''}"
+                      style="
+                        width: 100%;
+                        height: 280px;
+                        object-fit: cover;
+                        display: block;
+                      "
+                    />
+                    ${image.title || image.price ? `
+                      <div style="
+                        padding: 12px;
+                        background: #ffffff;
+                      ">
+                        ${image.title ? `
+                          <div style="
+                            font-size: 16px;
+                            font-weight: 600;
+                            color: #1a1a1a;
+                            margin-bottom: 4px;
+                          ">
+                            ${image.title}
+                          </div>
+                        ` : ''}
+                        ${image.price ? `
+                          <div style="
+                            font-size: 14px;
+                            color: #6B6B6B;
+                          ">
+                            ${image.price}
+                          </div>
+                        ` : ''}
+                      </div>
+                    ` : ''}
+                  </${Tag}>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        </div>
+
+        <script>
+          (function() {
+            const animation = '${animation}';
+            if (animation === 'fade-scroll' || animation === 'slide') {
+              const observer = new IntersectionObserver(
+                (entries) => {
+                  entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                      entry.target.classList.add('fade-in-visible');
+                    }
+                  });
+                },
+                { threshold: 0.1 }
+              );
+
+              const items = document.querySelectorAll('.preview-gallery-grid .gallery-item');
+              items.forEach((item) => observer.observe(item));
+            }
+          })();
+        </script>
+      `;
+    }
                           font-size: 14px;
                           color: #6B6B6B;
                         ">
