@@ -4493,6 +4493,10 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                         />
                       </div>
                     ))}
+                      </div>
+                    </>
+                  )}
+                </div>
                   </div>
                 </div>
 
