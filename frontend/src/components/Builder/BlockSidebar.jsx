@@ -234,6 +234,70 @@ export const BlockSidebar = ({ isOpen, onToggle, onAddBlock }) => {
                 );
               }
               
+              // Text Parallax block
+              if (config.type === 'text') {
+                return (
+                  <div style={{
+                    position: 'relative',
+                    height: '100%',
+                    backgroundImage: `url(${config.background?.value || ''})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '8px'
+                  }}>
+                    {/* Title with background clip */}
+                    {config.title?.show && (
+                      <div style={{
+                        fontSize: '14px',
+                        fontWeight: 700,
+                        backgroundImage: `url(${config.title?.backgroundImage?.value || ''})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        backgroundClip: 'text',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        textAlign: 'center',
+                        marginBottom: '4px'
+                      }}>
+                        {config.title.text}
+                      </div>
+                    )}
+                    
+                    {/* Description Preview */}
+                    {config.description?.show && (
+                      <div style={{
+                        fontSize: '4px',
+                        color: config.description.color,
+                        textAlign: 'center',
+                        marginBottom: '4px',
+                        lineHeight: 1.2,
+                        maxWidth: '90%'
+                      }}>
+                        {(config.description.text || '').substring(0, 60)}...
+                      </div>
+                    )}
+                    
+                    {/* Button Preview */}
+                    {config.button?.show && (
+                      <div style={{
+                        backgroundColor: config.button.color,
+                        color: config.button.textColor,
+                        padding: '2px 4px',
+                        borderRadius: '2px',
+                        fontSize: '4px',
+                        fontWeight: 600
+                      }}>
+                        {config.button.text}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+              
               // Parallax block
               if (config.type === 'parallax') {
                 return (
