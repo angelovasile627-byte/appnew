@@ -2559,8 +2559,8 @@ const generateBlockHTML = (config) => {
                 const x = (e.clientX - rect.left - centerX) / centerX;
                 const y = (e.clientY - rect.top - centerY) / centerY;
                 
-                mouseX = x * 100;
-                mouseY = y * 100;
+                mouseX = x * 20;
+                mouseY = y * 20;
                 isMouseOver = true;
               });
               
