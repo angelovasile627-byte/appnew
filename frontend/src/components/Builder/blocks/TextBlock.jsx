@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const TextBlock = ({ config, onUpdate }) => {
-  // Container Style with Parallax Background
+  // Container Style with Solid Background
   const containerStyle = {
     width: '100%',
     minHeight: '100vh',
@@ -9,10 +9,7 @@ export const TextBlock = ({ config, onUpdate }) => {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundImage: config.background?.value ? `url(${config.background.value})` : 'none',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundAttachment: config.background?.parallax ? 'fixed' : 'scroll',
+    backgroundColor: config.background?.color || '#FFFFFF',
     paddingTop: `${config.padding?.top || 100}px`,
     paddingBottom: `${config.padding?.bottom || 100}px`,
     paddingLeft: '2rem',
