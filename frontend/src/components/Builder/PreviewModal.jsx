@@ -1894,21 +1894,6 @@ const generateBlockHTML = (config) => {
         </script>
       `;
     }
-                          font-size: 14px;
-                          color: #6B6B6B;
-                        ">
-                          ${image.price}
-                        </div>
-                      ` : ''}
-                    </div>
-                  ` : ''}
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        </div>
-      `;
-    }
 
     case 'contact': {
       const bgStyle = config.background?.type === 'gradient'
