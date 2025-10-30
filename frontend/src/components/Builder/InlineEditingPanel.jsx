@@ -4753,6 +4753,14 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
                     />
                     <span className="text-[9px] text-gray-400">{config.title?.weight || 700}</span>
                   </div>
+
+                  <div className="flex items-center justify-between py-0.5 mt-1">
+                    <Label className="text-[9px] text-gray-300">Parallax Effect</Label>
+                    <Switch
+                      checked={config.title?.parallax !== false}
+                      onCheckedChange={(checked) => updateConfig('title.parallax', checked)}
+                    />
+                  </div>
                 </>
               )}
             </div>
