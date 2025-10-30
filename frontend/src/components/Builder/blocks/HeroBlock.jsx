@@ -21,13 +21,13 @@ export const HeroBlock = ({ config, onUpdate }) => {
   const containerStyle = {
     ...getBackground(),
     minHeight: config.fullScreen ? '100vh' : 'auto',
-    paddingTop: `${config.padding.top}px`,
-    paddingBottom: `${config.padding.bottom}px`,
+    paddingTop: `${config.padding?.top || 100}px`,
+    paddingBottom: `${config.padding?.bottom || 100}px`,
     width: '100%'
   };
 
   const contentStyle = {
-    maxWidth: config.fullWidth ? '100%' : `${config.contentWidth}px`,
+    maxWidth: config.fullWidth ? '100%' : `${config.contentWidth || 1000}px`,
     margin: '0 auto',
     padding: '0 24px'
   };
