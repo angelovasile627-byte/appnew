@@ -1,8 +1,15 @@
 import React from 'react';
 
 export const SkillsBlock = ({ config, onUpdate }) => {
+  // Get background value - handle both direct value and type/value structure
+  const getBackgroundValue = () => {
+    if (!config.background) return '#ffffff';
+    if (config.background.type === 'gradient') return config.background.value;
+    return config.background.value || config.background;
+  };
+
   const containerStyle = {
-    backgroundColor: config.background.value,
+    background: getBackgroundValue(),
     paddingTop: `${config.padding?.top || 100}px`,
     paddingBottom: `${config.padding?.bottom || 100}px`,
     width: '100%'
