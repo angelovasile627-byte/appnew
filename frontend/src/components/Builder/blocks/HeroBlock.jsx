@@ -131,6 +131,176 @@ export const HeroBlock = ({ config, onUpdate }) => {
     );
   }
 
+  // Particles Hero layout (for Prezentare theme)
+  if (config.layout === 'particles-hero') {
+    return (
+      <div style={{
+        ...containerStyle,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        {/* Particles.js would be here - simplified for now */}
+        {config.particles?.enabled && (
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: `radial-circle(at center, ${config.particles.color}15 0%, transparent 70%)`,
+              pointerEvents: 'none'
+            }}
+          />
+        )}
+        
+        <div style={{ ...contentStyle, position: 'relative', zIndex: 1, textAlign: 'center' }}>
+          {/* Profile Image */}
+          {config.profileImage?.show && config.profileImage?.src && (
+            <div style={{ marginBottom: '32px' }}>
+              <img
+                src={config.profileImage.src}
+                alt={config.profileImage.alt || 'Profile'}
+                style={{
+                  width: `${config.profileImage.size || 200}px`,
+                  height: `${config.profileImage.size || 200}px`,
+                  borderRadius: config.profileImage.borderRadius,
+                  border: config.profileImage.border,
+                  objectFit: 'cover',
+                  boxShadow: '0 10px 40px rgba(0,0,0,0.2)'
+                }}
+              />
+            </div>
+          )}
+          
+          {/* Title */}
+          {config.title?.show && (
+            <h1
+              style={{
+                fontSize: `${config.title.size || 64}px`,
+                fontWeight: config.title.weight || '700',
+                color: config.title.color,
+                textAlign: config.title.align,
+                marginBottom: '16px',
+                lineHeight: '1.2'
+              }}
+            >
+              {config.title.text}
+            </h1>
+          )}
+          
+          {/* Subtitle with rotating text */}
+          {config.subtitle?.show && (
+            <h2
+              style={{
+                fontSize: `${config.subtitle.size || 24}px`,
+                fontWeight: config.subtitle.weight || '400',
+                color: config.subtitle.color,
+                textAlign: config.subtitle.align,
+                marginBottom: '24px'
+              }}
+            >
+              {config.subtitle.text}
+            </h2>
+          )}
+          
+          {/* Description */}
+          {config.description?.show && (
+            <p
+              style={{
+                fontSize: `${config.description.size || 18}px`,
+                color: config.description.color,
+                textAlign: config.description.align,
+                marginBottom: '40px',
+                maxWidth: '700px',
+                margin: '0 auto 40px',
+                lineHeight: '1.6'
+              }}
+            >
+              {config.description.text}
+            </p>
+          )}
+          
+          {/* Multiple Buttons */}
+          {config.buttons && config.buttons.length > 0 && (
+            <div style={{ 
+              display: 'flex', 
+              gap: '16px', 
+              justifyContent: 'center',
+              flexWrap: 'wrap'
+            }}>
+              {config.buttons.filter(btn => btn.show).map((btn) => (
+                <Button
+                  key={btn.id}
+                  style={{
+                    backgroundColor: btn.style === 'outline' ? 'transparent' : btn.color,
+                    color: btn.textColor,
+                    padding: '14px 36px',
+                    fontSize: `${btn.size || 16}px`,
+                    borderRadius: '8px',
+                    border: btn.style === 'outline' ? `2px solid ${btn.borderColor || btn.textColor}` : 'none',
+                    cursor: 'pointer',
+                    fontWeight: '600',
+                    transition: 'all 0.3s',
+                    boxShadow: btn.style === 'outline' ? 'none' : '0 4px 12px rgba(0,0,0,0.15)'
+                  }}
+                  onClick={() => window.location.href = btn.link}
+                  onMouseEnter={(e) => {
+                    if (btn.style === 'outline') {
+                      e.currentTarget.style.backgroundColor = btn.textColor + '20';
+                    } else {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (btn.style === 'outline') {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    } else {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                    }
+                  }}
+                >
+                  {btn.text}
+                </Button>
+              ))}
+            </div>
+          )}
+          
+          {/* Video Embed (optional) */}
+          {config.videoEmbed?.show && config.videoEmbed?.url && (
+            <div style={{ marginTop: '60px', maxWidth: '800px', margin: '60px auto 0' }}>
+              <div style={{ 
+                position: 'relative', 
+                paddingBottom: '56.25%', 
+                height: 0,
+                borderRadius: '12px',
+                overflow: 'hidden',
+                boxShadow: '0 10px 40px rgba(0,0,0,0.3)'
+              }}>
+                <iframe
+                  src={config.videoEmbed.url}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    border: 'none'
+                  }}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   // Default layout (background-based)
   return (
     <div style={containerStyle}>
