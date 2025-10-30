@@ -3595,6 +3595,459 @@ const generateBlockHTML = (config) => {
       `;
     }
 
+    case 'about': {
+      const padding = getPadding(config);
+      const bgStyle = config.background?.type === 'gradient' 
+        ? `background: ${config.background.value};`
+        : `background-color: ${config.background?.value || '#ffffff'};`;
+
+      return `
+        <section style="
+          ${bgStyle}
+          padding: ${padding.top}px 24px ${padding.bottom}px;
+          width: 100%;
+        ">
+          <div style="
+            max-width: ${config.fullWidth ? '100%' : `${config.contentWidth || 1200}px`};
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: ${config.image?.show && config.image?.position === 'left' ? '1fr 1fr' : '1fr 1fr'};
+            gap: 60px;
+            align-items: center;
+          ">
+            ${config.image?.show && config.image?.position === 'left' ? `
+              <div>
+                <img src="${config.image.src}" alt="${config.image.alt || 'About'}" style="
+                  width: 100%;
+                  max-width: ${config.image.width || 500}px;
+                  border-radius: ${config.image.borderRadius || 8}px;
+                  object-fit: cover;
+                " />
+              </div>
+            ` : ''}
+            <div>
+              ${config.title?.show ? `
+                <h2 style="
+                  font-size: ${config.title.size || 48}px;
+                  font-weight: ${config.title.weight || 700};
+                  color: ${config.title.color || '#1a1a1a'};
+                  text-align: ${config.title.align || 'left'};
+                  margin-bottom: 20px;
+                ">
+                  ${config.title.text}
+                </h2>
+              ` : ''}
+              ${config.subtitle?.show ? `
+                <p style="
+                  font-size: ${config.subtitle.size || 20}px;
+                  font-weight: ${config.subtitle.weight || 500};
+                  color: ${config.subtitle.color || '#667eea'};
+                  text-align: ${config.subtitle.align || 'left'};
+                  margin-bottom: 20px;
+                ">
+                  ${config.subtitle.text}
+                </p>
+              ` : ''}
+              ${config.description?.show ? `
+                <p style="
+                  font-size: ${config.description.size || 16}px;
+                  color: ${config.description.color || '#6B6B6B'};
+                  text-align: ${config.description.align || 'left'};
+                  line-height: 1.6;
+                  margin-bottom: 30px;
+                  white-space: pre-wrap;
+                ">
+                  ${config.description.text}
+                </p>
+              ` : ''}
+              ${config.signatureImage?.show ? `
+                <img src="${config.signatureImage.src}" alt="${config.signatureImage.alt || 'Signature'}" style="
+                  width: ${config.signatureImage.width || 150}px;
+                  margin-bottom: 20px;
+                " />
+              ` : ''}
+              ${config.button?.show ? `
+                <a href="${config.button.link || '#'}" style="
+                  display: inline-block;
+                  background-color: ${config.button.color || '#0077B5'};
+                  color: ${config.button.textColor || '#FFFFFF'};
+                  padding: 12px 32px;
+                  font-size: ${config.button.size || 16}px;
+                  font-weight: 600;
+                  border-radius: 8px;
+                  text-decoration: none;
+                  transition: transform 0.2s;
+                ">
+                  ${config.button.text}
+                </a>
+              ` : ''}
+            </div>
+            ${config.image?.show && config.image?.position !== 'left' ? `
+              <div>
+                <img src="${config.image.src}" alt="${config.image.alt || 'About'}" style="
+                  width: 100%;
+                  max-width: ${config.image.width || 500}px;
+                  border-radius: ${config.image.borderRadius || 8}px;
+                  object-fit: cover;
+                " />
+              </div>
+            ` : ''}
+          </div>
+        </section>
+        <style>
+          @media (max-width: 768px) {
+            section > div {
+              grid-template-columns: 1fr !important;
+            }
+          }
+        </style>
+      `;
+    }
+
+    case 'timeline': {
+      const padding = getPadding(config);
+      const bgStyle = config.background?.type === 'gradient' 
+        ? `background: ${config.background.value};`
+        : `background-color: ${config.background?.value || '#f8f9fa'};`;
+
+      return `
+        <section style="
+          ${bgStyle}
+          padding: ${padding.top}px 24px ${padding.bottom}px;
+          width: 100%;
+        ">
+          <div style="
+            max-width: ${config.fullWidth ? '100%' : `${config.contentWidth || 1200}px`};
+            margin: 0 auto;
+          ">
+            ${config.title?.show ? `
+              <h2 style="
+                font-size: ${config.title.size || 48}px;
+                font-weight: ${config.title.weight || 700};
+                color: ${config.title.color || '#1a1a1a'};
+                text-align: ${config.title.align || 'center'};
+                margin-bottom: 20px;
+              ">
+                ${config.title.text}
+              </h2>
+            ` : ''}
+            ${config.description?.show ? `
+              <p style="
+                font-size: ${config.description.size || 18}px;
+                color: ${config.description.color || '#6B6B6B'};
+                text-align: ${config.description.align || 'center'};
+                margin-bottom: 60px;
+              ">
+                ${config.description.text}
+              </p>
+            ` : ''}
+            <div style="position: relative;">
+              ${(config.items || []).map((item, index) => `
+                <div style="
+                  display: grid;
+                  grid-template-columns: 1fr 40px 1fr;
+                  gap: 30px;
+                  margin-bottom: ${index === config.items.length - 1 ? '0' : '60px'};
+                  align-items: start;
+                ">
+                  ${index % 2 === 0 ? `
+                    <div style="text-align: right;">
+                      ${item.logo ? `
+                        <img src="${item.logo}" alt="${item.company}" style="
+                          width: 60px;
+                          height: 60px;
+                          border-radius: 50%;
+                          margin-bottom: 16px;
+                          float: right;
+                        " />
+                        <div style="clear: both;"></div>
+                      ` : ''}
+                      <h3 style="
+                        font-size: 22px;
+                        font-weight: 700;
+                        color: #1a1a1a;
+                        margin-bottom: 8px;
+                      ">
+                        ${item.title}
+                      </h3>
+                      <p style="
+                        font-size: 16px;
+                        font-weight: 600;
+                        color: ${item.color || '#667eea'};
+                        margin-bottom: 8px;
+                      ">
+                        ${item.company || ''}
+                      </p>
+                      <p style="
+                        font-size: 14px;
+                        color: #999;
+                        margin-bottom: 16px;
+                      ">
+                        ${item.period || ''}
+                      </p>
+                      <p style="
+                        font-size: 15px;
+                        color: #6B6B6B;
+                        line-height: 1.6;
+                        white-space: pre-wrap;
+                        margin-bottom: 12px;
+                      ">
+                        ${item.description || ''}
+                      </p>
+                      ${item.technologies ? `
+                        <p style="
+                          font-size: 13px;
+                          color: #999;
+                          font-style: italic;
+                        ">
+                          <strong>Tech:</strong> ${item.technologies}
+                        </p>
+                      ` : ''}
+                    </div>
+                    <div style="
+                      display: flex;
+                      flex-direction: column;
+                      align-items: center;
+                      position: relative;
+                    ">
+                      <div style="
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 50%;
+                        background-color: ${item.color || '#667eea'};
+                        border: 4px solid ${config.background?.value || '#f8f9fa'};
+                        z-index: 1;
+                      "></div>
+                      ${index !== config.items.length - 1 ? `
+                        <div style="
+                          width: 2px;
+                          height: calc(100% + 60px);
+                          background-color: ${item.color || '#667eea'}33;
+                          position: absolute;
+                          top: 20px;
+                        "></div>
+                      ` : ''}
+                    </div>
+                    <div></div>
+                  ` : `
+                    <div></div>
+                    <div style="
+                      display: flex;
+                      flex-direction: column;
+                      align-items: center;
+                      position: relative;
+                    ">
+                      <div style="
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 50%;
+                        background-color: ${item.color || '#667eea'};
+                        border: 4px solid ${config.background?.value || '#f8f9fa'};
+                        z-index: 1;
+                      "></div>
+                      ${index !== config.items.length - 1 ? `
+                        <div style="
+                          width: 2px;
+                          height: calc(100% + 60px);
+                          background-color: ${item.color || '#667eea'}33;
+                          position: absolute;
+                          top: 20px;
+                        "></div>
+                      ` : ''}
+                    </div>
+                    <div style="text-align: left;">
+                      ${item.logo ? `
+                        <img src="${item.logo}" alt="${item.company}" style="
+                          width: 60px;
+                          height: 60px;
+                          border-radius: 50%;
+                          margin-bottom: 16px;
+                        " />
+                      ` : ''}
+                      <h3 style="
+                        font-size: 22px;
+                        font-weight: 700;
+                        color: #1a1a1a;
+                        margin-bottom: 8px;
+                      ">
+                        ${item.title}
+                      </h3>
+                      <p style="
+                        font-size: 16px;
+                        font-weight: 600;
+                        color: ${item.color || '#667eea'};
+                        margin-bottom: 8px;
+                      ">
+                        ${item.company || ''}
+                      </p>
+                      <p style="
+                        font-size: 14px;
+                        color: #999;
+                        margin-bottom: 16px;
+                      ">
+                        ${item.period || ''}
+                      </p>
+                      <p style="
+                        font-size: 15px;
+                        color: #6B6B6B;
+                        line-height: 1.6;
+                        white-space: pre-wrap;
+                        margin-bottom: 12px;
+                      ">
+                        ${item.description || ''}
+                      </p>
+                      ${item.technologies ? `
+                        <p style="
+                          font-size: 13px;
+                          color: #999;
+                          font-style: italic;
+                        ">
+                          <strong>Tech:</strong> ${item.technologies}
+                        </p>
+                      ` : ''}
+                    </div>
+                  `}
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </section>
+        <style>
+          @media (max-width: 768px) {
+            section > div > div {
+              grid-template-columns: 40px 1fr !important;
+            }
+          }
+        </style>
+      `;
+    }
+
+    case 'skills': {
+      const padding = getPadding(config);
+      const bgStyle = config.background?.type === 'gradient' 
+        ? `background: ${config.background.value};`
+        : `background-color: ${config.background?.value || '#ffffff'};`;
+
+      return `
+        <section style="
+          ${bgStyle}
+          padding: ${padding.top}px 24px ${padding.bottom}px;
+          width: 100%;
+        ">
+          <div style="
+            max-width: ${config.fullWidth ? '100%' : `${config.contentWidth || 1200}px`};
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: ${config.image?.show ? '1fr 1fr' : '1fr'};
+            gap: 60px;
+            align-items: center;
+          ">
+            ${config.image?.show && config.image?.position === 'left' ? `
+              <div>
+                <img src="${config.image.src}" alt="${config.image.alt || 'Skills'}" style="
+                  width: 100%;
+                  max-width: ${config.image.width || 450}px;
+                  border-radius: 8px;
+                  object-fit: cover;
+                " />
+              </div>
+            ` : ''}
+            <div>
+              ${config.title?.show ? `
+                <h2 style="
+                  font-size: ${config.title.size || 48}px;
+                  font-weight: ${config.title.weight || 700};
+                  color: ${config.title.color || '#1a1a1a'};
+                  text-align: ${config.title.align || 'left'};
+                  margin-bottom: 20px;
+                ">
+                  ${config.title.text}
+                </h2>
+              ` : ''}
+              ${config.description?.show ? `
+                <p style="
+                  font-size: ${config.description.size || 16}px;
+                  color: ${config.description.color || '#6B6B6B'};
+                  text-align: ${config.description.align || 'left'};
+                  line-height: 1.6;
+                  margin-bottom: 40px;
+                ">
+                  ${config.description.text}
+                </p>
+              ` : ''}
+              ${(config.categories || []).map(category => `
+                <div style="margin-bottom: 32px;">
+                  <h3 style="
+                    font-size: 20px;
+                    font-weight: 600;
+                    color: #1a1a1a;
+                    margin-bottom: 16px;
+                  ">
+                    ${category.name}
+                  </h3>
+                  ${(category.skills || []).map(skill => `
+                    <div style="margin-bottom: 16px;">
+                      <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 8px;
+                      ">
+                        <span style="
+                          font-size: 15px;
+                          color: #333;
+                          font-weight: 500;
+                        ">
+                          ${skill.name}
+                        </span>
+                        <span style="
+                          font-size: 14px;
+                          color: #666;
+                        ">
+                          ${skill.level}%
+                        </span>
+                      </div>
+                      <div style="
+                        width: 100%;
+                        height: 8px;
+                        background-color: #e0e0e0;
+                        border-radius: 4px;
+                        overflow: hidden;
+                      ">
+                        <div style="
+                          width: ${skill.level}%;
+                          height: 100%;
+                          background-color: ${skill.color || '#667eea'};
+                          border-radius: 4px;
+                          transition: width 1s ease;
+                        "></div>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              `).join('')}
+            </div>
+            ${config.image?.show && config.image?.position !== 'left' ? `
+              <div>
+                <img src="${config.image.src}" alt="${config.image.alt || 'Skills'}" style="
+                  width: 100%;
+                  max-width: ${config.image.width || 450}px;
+                  border-radius: 8px;
+                  object-fit: cover;
+                " />
+              </div>
+            ` : ''}
+          </div>
+        </section>
+        <style>
+          @media (max-width: 768px) {
+            section > div {
+              grid-template-columns: 1fr !important;
+            }
+          }
+        </style>
+      `;
+    }
+
     default:
       return `<div style="padding: 40px; text-align: center; font-family: sans-serif;"><p>Bloc de tip "${config.type}" - previzualizare indisponibilă</p></div>`;
   }
