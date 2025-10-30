@@ -4981,6 +4981,419 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
             </div>
           </div>
         )}
+
+        {/* CUSTOM FORM BLOCK CONTROLS */}
+        {config.type === 'custom-form' && (
+          <div className="space-y-1">
+            {/* Size Controls */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Size</h4>
+              
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Top Padding (0-10)</Label>
+                <Input
+                  type="range"
+                  value={config.padding?.top || 5}
+                  onChange={(e) => updateConfig('padding.top', parseInt(e.target.value))}
+                  className="w-full bg-gray-800 border-gray-700"
+                  min="0"
+                  max="10"
+                  step="1"
+                />
+                <span className="text-[9px] text-gray-400">{config.padding?.top || 5} ({(config.padding?.top || 5) * 15}px)</span>
+              </div>
+
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Bottom Padding (0-10)</Label>
+                <Input
+                  type="range"
+                  value={config.padding?.bottom || 5}
+                  onChange={(e) => updateConfig('padding.bottom', parseInt(e.target.value))}
+                  className="w-full bg-gray-800 border-gray-700"
+                  min="0"
+                  max="10"
+                  step="1"
+                />
+                <span className="text-[9px] text-gray-400">{config.padding?.bottom || 5} ({(config.padding?.bottom || 5) * 15}px)</span>
+              </div>
+            </div>
+
+            {/* Style Controls */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Style</h4>
+              
+              <div className="flex items-center justify-between py-0.5">
+                <Label className="text-[9px] text-gray-300">Custom Style</Label>
+                <Switch
+                  checked={config.customStyle !== false}
+                  onCheckedChange={(checked) => updateConfig('customStyle', checked)}
+                />
+              </div>
+
+              <div className="flex items-center justify-between py-0.5">
+                <Label className="text-[9px] text-gray-300">Disable Control</Label>
+                <Switch
+                  checked={config.disableElements === true}
+                  onCheckedChange={(checked) => updateConfig('disableElements', checked)}
+                />
+              </div>
+
+              {config.customStyle && (
+                <>
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Field Color</Label>
+                    <div className="flex gap-1.5">
+                      <Input
+                        type="color"
+                        value={config.colors?.fieldColor || '#ffffff'}
+                        onChange={(e) => updateConfig('colors.fieldColor', e.target.value)}
+                        className="w-6 h-6 bg-gray-900 border-gray-600"
+                      />
+                      <Input
+                        type="text"
+                        value={config.colors?.fieldColor || '#ffffff'}
+                        onChange={(e) => updateConfig('colors.fieldColor', e.target.value)}
+                        className="flex-1 bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Field Hover</Label>
+                    <div className="flex gap-1.5">
+                      <Input
+                        type="color"
+                        value={config.colors?.fieldHover || '#efefef'}
+                        onChange={(e) => updateConfig('colors.fieldHover', e.target.value)}
+                        className="w-6 h-6 bg-gray-900 border-gray-600"
+                      />
+                      <Input
+                        type="text"
+                        value={config.colors?.fieldHover || '#efefef'}
+                        onChange={(e) => updateConfig('colors.fieldHover', e.target.value)}
+                        className="flex-1 bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Border Color</Label>
+                    <div className="flex gap-1.5">
+                      <Input
+                        type="color"
+                        value={config.colors?.borderColor || '#cccccc'}
+                        onChange={(e) => updateConfig('colors.borderColor', e.target.value)}
+                        className="w-6 h-6 bg-gray-900 border-gray-600"
+                      />
+                      <Input
+                        type="text"
+                        value={config.colors?.borderColor || '#cccccc'}
+                        onChange={(e) => updateConfig('colors.borderColor', e.target.value)}
+                        className="flex-1 bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Text Color</Label>
+                    <div className="flex gap-1.5">
+                      <Input
+                        type="color"
+                        value={config.colors?.formText || '#000000'}
+                        onChange={(e) => updateConfig('colors.formText', e.target.value)}
+                        className="w-6 h-6 bg-gray-900 border-gray-600"
+                      />
+                      <Input
+                        type="text"
+                        value={config.colors?.formText || '#000000'}
+                        onChange={(e) => updateConfig('colors.formText', e.target.value)}
+                        className="flex-1 bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Placeholder Color</Label>
+                    <div className="flex gap-1.5">
+                      <Input
+                        type="color"
+                        value={config.colors?.formPlaceholder || '#c1c1c1'}
+                        onChange={(e) => updateConfig('colors.formPlaceholder', e.target.value)}
+                        className="w-6 h-6 bg-gray-900 border-gray-600"
+                      />
+                      <Input
+                        type="text"
+                        value={config.colors?.formPlaceholder || '#c1c1c1'}
+                        onChange={(e) => updateConfig('colors.formPlaceholder', e.target.value)}
+                        className="flex-1 bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Background Controls */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Background</h4>
+              
+              <div className="space-y-0.5">
+                <Label className="text-[9px] text-gray-300">Type</Label>
+                <select
+                  value={config.background?.type || 'color'}
+                  onChange={(e) => updateConfig('background.type', e.target.value)}
+                  className="w-full bg-gray-900 border-gray-600 text-white text-[10px] h-7 rounded"
+                >
+                  <option value="color">Color</option>
+                  <option value="image">Image</option>
+                </select>
+              </div>
+
+              {config.background?.type === 'color' ? (
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Background Color</Label>
+                  <div className="flex gap-1.5">
+                    <Input
+                      type="color"
+                      value={config.background?.value || '#ffffff'}
+                      onChange={(e) => updateConfig('background.value', e.target.value)}
+                      className="w-6 h-6 bg-gray-900 border-gray-600"
+                    />
+                    <Input
+                      type="text"
+                      value={config.background?.value || '#ffffff'}
+                      onChange={(e) => updateConfig('background.value', e.target.value)}
+                      className="flex-1 bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Background Image URL</Label>
+                    <Input
+                      type="text"
+                      value={config.background?.imageUrl || ''}
+                      onChange={(e) => updateConfig('background.imageUrl', e.target.value)}
+                      className="bg-gray-900 border-gray-600 text-white text-[10px] h-7"
+                      placeholder="https://..."
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between py-0.5">
+                    <Label className="text-[9px] text-gray-300">Overlay</Label>
+                    <Switch
+                      checked={config.overlay?.enabled === true}
+                      onCheckedChange={(checked) => updateConfig('overlay.enabled', checked)}
+                    />
+                  </div>
+
+                  {config.overlay?.enabled && (
+                    <>
+                      <div className="space-y-0.5">
+                        <Label className="text-[9px] text-gray-300">Overlay Color</Label>
+                        <div className="flex gap-1.5">
+                          <Input
+                            type="color"
+                            value={config.overlay?.color || '#ffffff'}
+                            onChange={(e) => updateConfig('overlay.color', e.target.value)}
+                            className="w-6 h-6 bg-gray-900 border-gray-600"
+                          />
+                          <Input
+                            type="text"
+                            value={config.overlay?.color || '#ffffff'}
+                            onChange={(e) => updateConfig('overlay.color', e.target.value)}
+                            className="flex-1 bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-0.5">
+                        <Label className="text-[9px] text-gray-300">Overlay Opacity</Label>
+                        <Input
+                          type="range"
+                          value={config.overlay?.opacity || 0.4}
+                          onChange={(e) => updateConfig('overlay.opacity', parseFloat(e.target.value))}
+                          className="w-full bg-gray-800 border-gray-700"
+                          min="0"
+                          max="1"
+                          step="0.1"
+                        />
+                        <span className="text-[9px] text-gray-400">{config.overlay?.opacity || 0.4}</span>
+                      </div>
+                    </>
+                  )}
+                </>
+              )}
+            </div>
+
+            {/* Title Controls */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Title</h4>
+              
+              <div className="flex items-center justify-between py-0.5">
+                <Label className="text-[9px] text-gray-300">Show</Label>
+                <Switch
+                  checked={config.title?.show !== false}
+                  onCheckedChange={(checked) => updateConfig('title.show', checked)}
+                />
+              </div>
+
+              {config.title?.show !== false && (
+                <>
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Text</Label>
+                    <Input
+                      type="text"
+                      value={config.title?.text || ''}
+                      onChange={(e) => updateConfig('title.text', e.target.value)}
+                      className="bg-gray-900 border-gray-600 text-white text-[10px] h-7"
+                      placeholder="Custom Form"
+                    />
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Color</Label>
+                    <div className="flex gap-1.5">
+                      <Input
+                        type="color"
+                        value={config.title?.color || '#777777'}
+                        onChange={(e) => updateConfig('title.color', e.target.value)}
+                        className="w-6 h-6 bg-gray-900 border-gray-600"
+                      />
+                      <Input
+                        type="text"
+                        value={config.title?.color || '#777777'}
+                        onChange={(e) => updateConfig('title.color', e.target.value)}
+                        className="flex-1 bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Size</Label>
+                    <Input
+                      type="range"
+                      value={config.title?.size || 48}
+                      onChange={(e) => updateConfig('title.size', parseInt(e.target.value))}
+                      className="w-full bg-gray-800 border-gray-700"
+                      min="24"
+                      max="72"
+                    />
+                    <span className="text-[9px] text-gray-400">{config.title?.size || 48}px</span>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Subtitle Controls */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Subtitle</h4>
+              
+              <div className="flex items-center justify-between py-0.5">
+                <Label className="text-[9px] text-gray-300">Show</Label>
+                <Switch
+                  checked={config.subtitle?.show !== false}
+                  onCheckedChange={(checked) => updateConfig('subtitle.show', checked)}
+                />
+              </div>
+
+              {config.subtitle?.show !== false && (
+                <>
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Text</Label>
+                    <Input
+                      type="text"
+                      value={config.subtitle?.text || ''}
+                      onChange={(e) => updateConfig('subtitle.text', e.target.value)}
+                      className="bg-gray-900 border-gray-600 text-white text-[10px] h-7"
+                      placeholder="Click to open Form Builder"
+                    />
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Color</Label>
+                    <div className="flex gap-1.5">
+                      <Input
+                        type="color"
+                        value={config.subtitle?.color || '#777777'}
+                        onChange={(e) => updateConfig('subtitle.color', e.target.value)}
+                        className="w-6 h-6 bg-gray-900 border-gray-600"
+                      />
+                      <Input
+                        type="text"
+                        value={config.subtitle?.color || '#777777'}
+                        onChange={(e) => updateConfig('subtitle.color', e.target.value)}
+                        className="flex-1 bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Size</Label>
+                    <Input
+                      type="range"
+                      value={config.subtitle?.size || 24}
+                      onChange={(e) => updateConfig('subtitle.size', parseInt(e.target.value))}
+                      className="w-full bg-gray-800 border-gray-700"
+                      min="14"
+                      max="36"
+                    />
+                    <span className="text-[9px] text-gray-400">{config.subtitle?.size || 24}px</span>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Icon Controls */}
+            <div className="space-y-0.5 border-t border-gray-800 pt-1">
+              <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Icon</h4>
+              
+              <div className="flex items-center justify-between py-0.5">
+                <Label className="text-[9px] text-gray-300">Show</Label>
+                <Switch
+                  checked={config.icon?.show !== false}
+                  onCheckedChange={(checked) => updateConfig('icon.show', checked)}
+                />
+              </div>
+
+              {config.icon?.show !== false && (
+                <>
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Color</Label>
+                    <div className="flex gap-1.5">
+                      <Input
+                        type="color"
+                        value={config.icon?.color || '#777777'}
+                        onChange={(e) => updateConfig('icon.color', e.target.value)}
+                        className="w-6 h-6 bg-gray-900 border-gray-600"
+                      />
+                      <Input
+                        type="text"
+                        value={config.icon?.color || '#777777'}
+                        onChange={(e) => updateConfig('icon.color', e.target.value)}
+                        className="flex-1 bg-gray-900 border-gray-600 text-white text-[10px] h-6"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <Label className="text-[9px] text-gray-300">Size</Label>
+                    <Input
+                      type="range"
+                      value={config.icon?.size || 200}
+                      onChange={(e) => updateConfig('icon.size', parseInt(e.target.value))}
+                      className="w-full bg-gray-800 border-gray-700"
+                      min="100"
+                      max="300"
+                    />
+                    <span className="text-[9px] text-gray-400">{config.icon?.size || 200}px</span>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Social Icons Modal */}
