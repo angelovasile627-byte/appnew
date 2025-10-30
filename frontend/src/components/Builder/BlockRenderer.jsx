@@ -13,7 +13,6 @@ import { GalleryBlock } from './blocks/GalleryBlock';
 import { Gallery3DBlock } from './blocks/Gallery3DBlock';
 import { TestimonialBlock } from './blocks/TestimonialBlock';
 import { ContactBlock } from './blocks/ContactBlock';
-import { CustomFormBlock } from './blocks/CustomFormBlock';
 import { PricingBlock } from './blocks/PricingBlock';
 import { FooterBlock } from './blocks/FooterBlock';
 import { TeamBlock } from './blocks/TeamBlock';
@@ -41,7 +40,6 @@ const blockComponents = {
   'gallery-3d': Gallery3DBlock,
   testimonial: TestimonialBlock,
   contact: ContactBlock,
-  'custom-form': CustomFormBlock,
   pricing: PricingBlock,
   footer: FooterBlock,
   team: TeamBlock,
