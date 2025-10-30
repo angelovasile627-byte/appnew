@@ -4981,6 +4981,229 @@ export const InlineEditingPanel = ({ block, onUpdate, onClose, position, selecte
             </div>
           </div>
         )}
+
+        {/* Timeline Block Controls */}
+        {config.type === 'timeline' && (
+          <div className="space-y-0.5 border-t border-gray-800 pt-1">
+            <h4 className="text-[9px] font-bold text-white uppercase tracking-wider">Timeline Items</h4>
+            
+            {/* Timeline Items Management */}
+            {(config.items || []).map((item, index) => (
+              <div key={item.id} className="border border-gray-700 rounded p-1.5 space-y-1 bg-gray-800/50">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-[9px] font-semibold text-gray-300">Item {index + 1}</span>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="h-5 w-5 p-0 text-red-400 hover:text-red-300 hover:bg-red-900/20"
+                    onClick={() => {
+                      const newItems = config.items.filter((_, i) => i !== index);
+                      updateConfig('items', newItems);
+                    }}
+                  >
+                    <X className="w-3 h-3" />
+                  </Button>
+                </div>
+
+                {/* Period */}
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Period</Label>
+                  <Input
+                    type="text"
+                    value={item.period || ''}
+                    onChange={(e) => {
+                      const newItems = [...config.items];
+                      newItems[index] = { ...item, period: e.target.value };
+                      updateConfig('items', newItems);
+                    }}
+                    className="h-7 text-[9px] bg-gray-700 border-gray-600 text-white"
+                    placeholder="Oct 2023 - Prezent"
+                  />
+                </div>
+
+                {/* Title */}
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Title</Label>
+                  <Input
+                    type="text"
+                    value={item.title || ''}
+                    onChange={(e) => {
+                      const newItems = [...config.items];
+                      newItems[index] = { ...item, title: e.target.value };
+                      updateConfig('items', newItems);
+                    }}
+                    className="h-7 text-[9px] bg-gray-700 border-gray-600 text-white"
+                    placeholder="Job Title"
+                  />
+                </div>
+
+                {/* Company */}
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Company</Label>
+                  <Input
+                    type="text"
+                    value={item.company || ''}
+                    onChange={(e) => {
+                      const newItems = [...config.items];
+                      newItems[index] = { ...item, company: e.target.value };
+                      updateConfig('items', newItems);
+                    }}
+                    className="h-7 text-[9px] bg-gray-700 border-gray-600 text-white"
+                    placeholder="Company Name"
+                  />
+                </div>
+
+                {/* Company URL */}
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Company URL</Label>
+                  <Input
+                    type="text"
+                    value={item.companyUrl || ''}
+                    onChange={(e) => {
+                      const newItems = [...config.items];
+                      newItems[index] = { ...item, companyUrl: e.target.value };
+                      updateConfig('items', newItems);
+                    }}
+                    className="h-7 text-[9px] bg-gray-700 border-gray-600 text-white"
+                    placeholder="https://company.com"
+                  />
+                </div>
+
+                {/* Logo URL */}
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Logo URL</Label>
+                  <div className="flex gap-1">
+                    <Input
+                      type="text"
+                      value={item.logo || ''}
+                      onChange={(e) => {
+                        const newItems = [...config.items];
+                        newItems[index] = { ...item, logo: e.target.value };
+                        updateConfig('items', newItems);
+                      }}
+                      className="h-7 text-[9px] bg-gray-700 border-gray-600 text-white flex-1"
+                      placeholder="Image URL"
+                    />
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="h-7 px-2 text-[9px] bg-indigo-600 hover:bg-indigo-700 border-indigo-500 text-white"
+                      onClick={async () => {
+                        const input = document.createElement('input');
+                        input.type = 'file';
+                        input.accept = 'image/*';
+                        input.onchange = async (e) => {
+                          const file = e.target.files[0];
+                          if (file) {
+                            const formData = new FormData();
+                            formData.append('file', file);
+                            try {
+                              const response = await fetch(`${process.env.REACT_APP_BACKEND_URL || ''}/api/upload/image`, {
+                                method: 'POST',
+                                body: formData
+                              });
+                              const data = await response.json();
+                              if (data.url) {
+                                const newItems = [...config.items];
+                                newItems[index] = { ...item, logo: data.url };
+                                updateConfig('items', newItems);
+                              }
+                            } catch (error) {
+                              console.error('Upload failed:', error);
+                            }
+                          }
+                        };
+                        input.click();
+                      }}
+                    >
+                      <Upload className="w-3 h-3" />
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Description */}
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Description</Label>
+                  <Textarea
+                    value={item.description || ''}
+                    onChange={(e) => {
+                      const newItems = [...config.items];
+                      newItems[index] = { ...item, description: e.target.value };
+                      updateConfig('items', newItems);
+                    }}
+                    className="h-16 text-[9px] bg-gray-700 border-gray-600 text-white resize-none"
+                    placeholder="Job description..."
+                  />
+                </div>
+
+                {/* Technologies */}
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Technologies</Label>
+                  <Input
+                    type="text"
+                    value={item.technologies || ''}
+                    onChange={(e) => {
+                      const newItems = [...config.items];
+                      newItems[index] = { ...item, technologies: e.target.value };
+                      updateConfig('items', newItems);
+                    }}
+                    className="h-7 text-[9px] bg-gray-700 border-gray-600 text-white"
+                    placeholder="Java, React, Docker..."
+                  />
+                </div>
+
+                {/* Color */}
+                <div className="space-y-0.5">
+                  <Label className="text-[9px] text-gray-300">Color</Label>
+                  <div className="flex items-center gap-1.5">
+                    <input
+                      type="color"
+                      value={item.color || '#667eea'}
+                      onChange={(e) => {
+                        const newItems = [...config.items];
+                        newItems[index] = { ...item, color: e.target.value };
+                        updateConfig('items', newItems);
+                      }}
+                      className="w-6 h-6 rounded border border-gray-600 cursor-pointer"
+                    />
+                    <Input
+                      type="text"
+                      value={item.color || '#667eea'}
+                      onChange={(e) => {
+                        const newItems = [...config.items];
+                        newItems[index] = { ...item, color: e.target.value };
+                        updateConfig('items', newItems);
+                      }}
+                      className="h-7 text-[9px] bg-gray-700 border-gray-600 text-white flex-1"
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            {/* Add New Timeline Item Button */}
+            <Button
+              size="sm"
+              className="w-full h-7 text-[9px] bg-indigo-600 hover:bg-indigo-700 text-white"
+              onClick={() => {
+                const newItem = {
+                  id: `exp-${Date.now()}`,
+                  period: 'Period',
+                  title: 'New Position',
+                  company: 'Company Name',
+                  companyUrl: 'https://example.com',
+                  description: 'Job description here...',
+                  technologies: 'Tech stack',
+                  color: '#667eea',
+                  logo: 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=100&h=100&fit=crop'
+                };
+                updateConfig('items', [...(config.items || []), newItem]);
+              }}
+            >
+              + Add Timeline Item
+            </Button>
+          </div>
+        )}
       </div>
 
       {/* Social Icons Modal */}
