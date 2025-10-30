@@ -3491,6 +3491,110 @@ const generateBlockHTML = (config) => {
       `;
     }
 
+    case 'stats': {
+      // Get background value - handle both direct value and type/value structure
+      const getBackgroundValue = () => {
+        if (!config.background) return '#ffffff';
+        if (config.background.type === 'gradient') return config.background.value;
+        return config.background.value || config.background;
+      };
+
+      // Get stats items - handle both 'stats' and 'items' property names
+      const statsItems = config.stats || config.items || [];
+      
+      // Get columns - default to auto-calculate based on items count
+      const columns = config.columns || Math.min(statsItems.length, 4);
+
+      const padding = getPadding(config);
+
+      return `
+        <section style="
+          background: ${getBackgroundValue()};
+          padding: ${padding.top}px 24px ${padding.bottom}px;
+          width: 100%;
+        ">
+          <div style="
+            max-width: ${config.fullWidth ? '100%' : `${config.contentWidth || 1200}px`};
+            margin: 0 auto;
+          ">
+            ${config.title?.show ? `
+              <h2 style="
+                font-size: 42px;
+                font-weight: 700;
+                color: ${config.title.color || '#ffffff'};
+                text-align: ${config.title.align || 'center'};
+                margin-bottom: 60px;
+              ">
+                ${config.title.text}
+              </h2>
+            ` : ''}
+            <div class="stats-grid" style="
+              display: grid;
+              grid-template-columns: repeat(${columns}, 1fr);
+              gap: 60px;
+            ">
+              ${statsItems.map((stat, index) => `
+                <div class="stat-card-${index}" style="
+                  text-align: center;
+                  transition: transform 0.3s;
+                  cursor: pointer;
+                ">
+                  ${stat.icon ? `
+                    <div style="
+                      font-size: 48px;
+                      margin-bottom: 16px;
+                      filter: ${stat.iconColor ? `drop-shadow(0 0 10px ${stat.iconColor})` : 'none'};
+                    ">
+                      ${stat.icon}
+                    </div>
+                  ` : ''}
+                  <div style="
+                    font-size: 56px;
+                    font-weight: 900;
+                    color: ${stat.color || '#ffffff'};
+                    margin-bottom: 12px;
+                    line-height: 1;
+                  ">
+                    ${stat.number}${stat.suffix || ''}
+                  </div>
+                  <p style="
+                    font-size: 18px;
+                    color: ${stat.color || '#ffffff'};
+                    font-weight: 500;
+                    opacity: 0.9;
+                  ">
+                    ${stat.label}
+                  </p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </section>
+        <style>
+          ${statsItems.map((stat, index) => `
+            .stat-card-${index}:hover {
+              transform: scale(1.05);
+            }
+          `).join('')}
+          
+          /* Responsive grid for stats */
+          @media (max-width: 768px) {
+            .stats-grid {
+              grid-template-columns: repeat(2, 1fr) !important;
+              gap: 40px !important;
+            }
+          }
+          
+          @media (max-width: 480px) {
+            .stats-grid {
+              grid-template-columns: 1fr !important;
+              gap: 30px !important;
+            }
+          }
+        </style>
+      `;
+    }
+
     default:
       return `<div style="padding: 40px; text-align: center; font-family: sans-serif;"><p>Bloc de tip "${config.type}" - previzualizare indisponibilă</p></div>`;
   }
