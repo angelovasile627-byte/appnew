@@ -2180,7 +2180,7 @@ const generateBlockHTML = (config) => {
     }
 
     case 'text': {
-      // Text Parallax Block with Background Clip Effect
+      // Text Parallax Block with Background Clip Effect and Fixed Attachment
       return `
         <div style="
           width: 100%;
@@ -2200,6 +2200,7 @@ const generateBlockHTML = (config) => {
               background-image: url(${config.title?.backgroundImage?.value || ''});
               background-size: cover;
               background-position: center;
+              background-attachment: ${config.title?.parallax !== false ? 'fixed' : 'scroll'};
               background-clip: text;
               -webkit-background-clip: text;
               -webkit-text-fill-color: ${config.title?.backgroundImage?.value ? 'transparent' : config.title?.color};
