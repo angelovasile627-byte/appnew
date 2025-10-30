@@ -2519,5 +2519,62 @@ export const blockTemplates = [
         size: 16
       }
     }
+  },
+  // Custom Form Block
+  {
+    id: 'contact-custom-form',
+    category: 'contact',
+    name: 'Custom Form',
+    thumbnail: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=400&h=300&fit=crop',
+    config: {
+      type: 'custom-form',
+      padding: {
+        top: 5,
+        bottom: 5
+      },
+      customStyle: true,
+      disableElements: true,
+      colors: {
+        fieldColor: '#ffffff',
+        fieldHover: '#efefef',
+        borderColor: '#cccccc',
+        borderHover: '#cccccc',
+        formText: '#000000',
+        formFocusText: '#232323',
+        formPlaceholder: '#c1c1c1',
+        formFocusPlaceholder: '#c1c1c1'
+      },
+      background: {
+        type: 'color',
+        value: '#ffffff',
+        imageUrl: ''
+      },
+      overlay: {
+        enabled: false,
+        color: '#ffffff',
+        opacity: 0.4
+      },
+      title: {
+        text: 'Custom Form',
+        show: true,
+        color: '#777777',
+        size: 48,
+        align: 'center'
+      },
+      subtitle: {
+        text: 'Click to open Form Builder',
+        show: true,
+        color: '#777777',
+        size: 24,
+        align: 'center'
+      },
+      icon: {
+        show: true,
+        color: '#777777',
+        size: 200
+      },
+      formAction: '',
+      formMethod: 'post'
+    }
   }
 ];
