@@ -2,8 +2,15 @@ import React from 'react';
 import { ExternalLink } from 'lucide-react';
 
 export const TimelineBlock = ({ config, onUpdate }) => {
+  // Get background value - handle both direct value and type/value structure
+  const getBackgroundValue = () => {
+    if (!config.background) return '#f8f9fa';
+    if (config.background.type === 'gradient') return config.background.value;
+    return config.background.value || config.background;
+  };
+
   const containerStyle = {
-    backgroundColor: config.background.value,
+    background: getBackgroundValue(),
     paddingTop: `${config.padding?.top || 100}px`,
     paddingBottom: `${config.padding?.bottom || 100}px`,
     width: '100%'
