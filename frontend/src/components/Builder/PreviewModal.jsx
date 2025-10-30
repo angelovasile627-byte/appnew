@@ -502,6 +502,149 @@ const generateBlockHTML = (config) => {
     }
 
     case 'hero': {
+      // Check if it's particles-hero layout
+      if (config.layout === 'particles-hero') {
+        const bgStyle = config.background?.type === 'gradient' 
+          ? `background: ${config.background.value};`
+          : `background-color: ${config.background?.value || '#667eea'};`;
+        
+        const padding = getPadding(config, 100, 100);
+        
+        return `
+          <section style="
+            ${bgStyle}
+            width: 100%;
+            min-height: ${config.fullScreen ? '100vh' : 'auto'};
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: ${padding.top}px 24px ${padding.bottom}px;
+            position: relative;
+            overflow: hidden;
+          ">
+            <div style="
+              max-width: ${config.contentWidth || 1000}px;
+              text-align: ${config.title?.align || 'center'};
+              position: relative;
+              z-index: 2;
+            ">
+              ${config.profileImage?.show ? `
+                <div style="margin-bottom: 32px;">
+                  <img 
+                    src="${config.profileImage.src}" 
+                    alt="${config.profileImage.alt || 'Profile'}" 
+                    style="
+                      width: ${config.profileImage.size || 200}px;
+                      height: ${config.profileImage.size || 200}px;
+                      border-radius: ${config.profileImage.borderRadius || '50%'};
+                      border: ${config.profileImage.border || '4px solid #ffffff'};
+                      object-fit: cover;
+                      margin: 0 auto;
+                    "
+                  />
+                </div>
+              ` : ''}
+              
+              ${config.title?.show ? `
+                <h1 style="
+                  font-size: ${config.title.size || 64}px;
+                  font-weight: ${config.title.weight || 700};
+                  color: ${config.title.color || '#FFFFFF'};
+                  margin-bottom: 24px;
+                  line-height: 1.1;
+                ">
+                  ${config.title.text || ''}
+                </h1>
+              ` : ''}
+              
+              ${config.subtitle?.show ? `
+                <p style="
+                  font-size: ${config.subtitle.size || 24}px;
+                  font-weight: ${config.subtitle.weight || 400};
+                  color: ${config.subtitle.color || '#FFFFFF'};
+                  margin-bottom: 24px;
+                  line-height: 1.4;
+                ">
+                  ${config.subtitle.text || ''}
+                </p>
+              ` : ''}
+              
+              ${config.description?.show ? `
+                <p style="
+                  font-size: ${config.description.size || 18}px;
+                  color: ${config.description.color || '#FFFFFF'};
+                  margin-bottom: 32px;
+                  line-height: 1.6;
+                  max-width: 700px;
+                  margin-left: auto;
+                  margin-right: auto;
+                ">
+                  ${config.description.text || ''}
+                </p>
+              ` : ''}
+              
+              ${config.buttons && config.buttons.length > 0 ? `
+                <div style="
+                  display: flex;
+                  gap: 16px;
+                  justify-content: ${config.title?.align || 'center'};
+                  flex-wrap: wrap;
+                ">
+                  ${config.buttons.filter(btn => btn.show).map(button => `
+                    <a href="${button.link || '#'}" style="
+                      background-color: ${button.style === 'outline' ? 'transparent' : button.color};
+                      color: ${button.textColor};
+                      padding: 12px 32px;
+                      font-size: ${button.size || 16}px;
+                      border-radius: 8px;
+                      font-weight: 600;
+                      text-decoration: none;
+                      display: inline-block;
+                      border: ${button.style === 'outline' ? `2px solid ${button.borderColor || button.textColor}` : 'none'};
+                      transition: transform 0.2s;
+                    ">
+                      ${button.text}
+                    </a>
+                  `).join('')}
+                </div>
+              ` : ''}
+            </div>
+            
+            ${config.particles?.enabled ? `
+              <div style="
+                position: absolute;
+                inset: 0;
+                opacity: 0.3;
+                pointer-events: none;
+              ">
+                <!-- Particles effect placeholder - would need JS for real animation -->
+                <div style="
+                  width: 100%;
+                  height: 100%;
+                  background-image: 
+                    radial-gradient(circle at 20% 30%, ${config.particles.color || '#ffffff'}22 2px, transparent 2px),
+                    radial-gradient(circle at 60% 70%, ${config.particles.color || '#ffffff'}22 2px, transparent 2px),
+                    radial-gradient(circle at 80% 20%, ${config.particles.color || '#ffffff'}22 2px, transparent 2px),
+                    radial-gradient(circle at 40% 80%, ${config.particles.color || '#ffffff'}22 2px, transparent 2px);
+                  background-size: 200px 200px, 150px 150px, 180px 180px, 220px 220px;
+                  background-position: 0 0, 50px 50px, 100px 0, 0 100px;
+                "></div>
+              </div>
+            ` : ''}
+          </section>
+          <style>
+            @media (max-width: 768px) {
+              section h1 {
+                font-size: 36px !important;
+              }
+              section > div > div {
+                flex-direction: column !important;
+              }
+            }
+          </style>
+        `;
+      }
+      
       // Check if it's the new image-above-text layout
       if (config.layout === 'image-above-text') {
         const padding = getPadding(config, 80, 80);
