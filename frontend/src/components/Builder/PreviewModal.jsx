@@ -793,13 +793,13 @@ const generateBlockHTML = (config) => {
       }
       
       // Default layout (background-based)
-      const bgStyle = config.background.type === 'image' 
+      const bgStyle = config.background?.type === 'image' 
         ? `background-image: url('${config.background.value}'); background-size: cover; background-position: center;`
-        : config.background.type === 'gradient'
+        : config.background?.type === 'gradient'
         ? `background: ${config.background.value};`
-        : `background-color: ${config.background.value};`;
+        : `background-color: ${config.background?.value || '#ffffff'};`;
       
-      const overlay = config.background.overlay ? `
+      const overlay = config.background?.overlay ? `
         <div style="
           position: absolute;
           inset: 0;
@@ -821,12 +821,12 @@ const generateBlockHTML = (config) => {
         ">
           ${overlay}
           <div style="
-            max-width: ${config.contentWidth}px;
-            text-align: ${config.title.align};
+            max-width: ${config.contentWidth || 1200}px;
+            text-align: ${config.title?.align || 'center'};
             position: relative;
             z-index: 1;
           ">
-            ${config.title.show ? `
+            ${config.title?.show ? `
               <h1 style="
                 font-size: 64px;
                 font-weight: 800;
@@ -838,7 +838,7 @@ const generateBlockHTML = (config) => {
               </h1>
             ` : ''}
             
-            ${config.description.show ? `
+            ${config.description?.show ? `
               <p style="
                 font-size: 20px;
                 color: ${config.description.color};
@@ -849,7 +849,7 @@ const generateBlockHTML = (config) => {
               </p>
             ` : ''}
             
-            ${config.button.show ? `
+            ${config.button?.show ? `
               <a href="${config.button.link}" style="
                 background-color: ${config.button.color};
                 color: ${config.button.textColor};
@@ -865,7 +865,7 @@ const generateBlockHTML = (config) => {
               </a>
             ` : ''}
             
-            ${config.subtitle.show ? `
+            ${config.subtitle?.show ? `
               <p style="
                 font-size: 14px;
                 color: ${config.subtitle.color};
