@@ -1,15 +1,28 @@
 import React from 'react';
 
 export const StatsBlock = ({ config, onUpdate }) => {
+  // Get background value - handle both direct value and type/value structure
+  const getBackgroundValue = () => {
+    if (!config.background) return '#ffffff';
+    if (config.background.type === 'gradient') return config.background.value;
+    return config.background.value || config.background;
+  };
+
+  // Get stats items - handle both 'stats' and 'items' property names
+  const statsItems = config.stats || config.items || [];
+  
+  // Get columns - default to auto-calculate based on items count
+  const columns = config.columns || Math.min(statsItems.length, 4);
+
   const containerStyle = {
-    backgroundColor: config.background.value,
-    paddingTop: `${config.padding.top}px`,
-    paddingBottom: `${config.padding.bottom}px`,
+    background: getBackgroundValue(),
+    paddingTop: `${config.padding?.top || 80}px`,
+    paddingBottom: `${config.padding?.bottom || 80}px`,
     width: '100%'
   };
 
   const contentStyle = {
-    maxWidth: config.fullWidth ? '100%' : `${config.contentWidth}px`,
+    maxWidth: config.fullWidth ? '100%' : `${config.contentWidth || 1200}px`,
     margin: '0 auto',
     padding: '0 24px'
   };
@@ -17,13 +30,13 @@ export const StatsBlock = ({ config, onUpdate }) => {
   return (
     <div style={containerStyle}>
       <div style={contentStyle}>
-        {config.title.show && (
+        {config.title?.show && (
           <h2
             style={{
               fontSize: '42px',
               fontWeight: '700',
-              color: config.title.color,
-              textAlign: config.title.align,
+              color: config.title.color || '#ffffff',
+              textAlign: config.title.align || 'center',
               marginBottom: '60px'
             }}
           >
@@ -33,13 +46,13 @@ export const StatsBlock = ({ config, onUpdate }) => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: `repeat(${config.columns}, 1fr)`,
+            gridTemplateColumns: `repeat(${columns}, 1fr)`,
             gap: '60px'
           }}
         >
-          {config.stats.map((stat, index) => (
+          {statsItems.map((stat, index) => (
             <div
-              key={index}
+              key={stat.id || index}
               style={{
                 textAlign: 'center',
                 transition: 'transform 0.3s',
@@ -48,21 +61,32 @@ export const StatsBlock = ({ config, onUpdate }) => {
               onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
               onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
             >
+              {stat.icon && (
+                <div
+                  style={{
+                    fontSize: '48px',
+                    marginBottom: '16px',
+                    filter: stat.iconColor ? `drop-shadow(0 0 10px ${stat.iconColor})` : 'none'
+                  }}
+                >
+                  {stat.icon}
+                </div>
+              )}
               <div
                 style={{
                   fontSize: '56px',
                   fontWeight: '900',
-                  color: stat.color,
+                  color: stat.color || '#ffffff',
                   marginBottom: '12px',
                   lineHeight: '1'
                 }}
               >
-                {stat.number}
+                {stat.number}{stat.suffix || ''}
               </div>
               <p
                 style={{
                   fontSize: '18px',
-                  color: stat.color,
+                  color: stat.color || '#ffffff',
                   fontWeight: '500',
                   opacity: 0.9
                 }}
