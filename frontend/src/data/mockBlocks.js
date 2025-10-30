@@ -2519,5 +2519,699 @@ export const blockTemplates = [
         size: 16
       }
     }
+  },
+  
+  // ============================================
+  // PREZENTARE THEME - Complete Personal Website Template
+  // ============================================
+  {
+    id: 'theme-prezentare',
+    category: 'themes',
+    name: 'Prezentare',
+    thumbnail: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=300&fit=crop',
+    description: 'Template complet pentru website de prezentare personală cu particule interactive, statistici, experiență și skills',
+    config: {
+      type: 'theme',
+      blocks: [
+        // HERO BLOCK WITH PARTICLES
+        {
+          id: 'prezentare-hero',
+          type: 'hero',
+          layout: 'particles-hero',
+          background: { 
+            type: 'gradient', 
+            value: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+          },
+          particles: {
+            enabled: true,
+            color: '#ffffff',
+            density: 80,
+            speed: 0.5,
+            size: 3,
+            links: true,
+            linkColor: '#ffffff',
+            linkDistance: 150
+          },
+          fullScreen: true,
+          fullWidth: true,
+          contentWidth: 1000,
+          profileImage: {
+            show: true,
+            src: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop',
+            alt: 'Fotografie profil',
+            size: 200,
+            borderRadius: '50%',
+            border: '4px solid #ffffff'
+          },
+          title: { 
+            text: 'Numele Tău', 
+            show: true, 
+            color: '#FFFFFF', 
+            align: 'center', 
+            size: 64, 
+            weight: 700 
+          },
+          subtitle: {
+            text: 'Sunt un Full-Stack Web Developer Pasionat',
+            show: true,
+            color: '#FFFFFF',
+            align: 'center',
+            size: 24,
+            weight: 400,
+            animated: true,
+            rotatingTexts: [
+              'Full-Stack Web Developer',
+              'Frontend Developer',
+              'Backend Developer',
+              'UI/UX Designer'
+            ]
+          },
+          description: { 
+            text: 'Bine ai venit pe website-ul meu! Aici poți afla mai multe despre mine și proiectele mele.', 
+            show: true, 
+            color: '#FFFFFF', 
+            align: 'center', 
+            size: 18 
+          },
+          buttons: [
+            {
+              id: 'btn-1',
+              text: 'Contactează-mă',
+              show: true,
+              color: '#A8F5B8',
+              textColor: '#1a1a1a',
+              link: '#contact',
+              size: 16,
+              style: 'solid'
+            },
+            {
+              id: 'btn-2',
+              text: 'Vezi CV-ul',
+              show: true,
+              color: 'transparent',
+              textColor: '#FFFFFF',
+              link: '#resume',
+              size: 16,
+              style: 'outline',
+              borderColor: '#FFFFFF'
+            }
+          ],
+          videoEmbed: {
+            show: false,
+            url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+            autoplay: false,
+            muted: true,
+            loop: true
+          }
+        },
+        
+        // ABOUT SECTION
+        {
+          id: 'prezentare-about',
+          type: 'about',
+          layout: 'image-text-side',
+          background: { value: '#ffffff' },
+          padding: { top: 100, bottom: 100 },
+          fullWidth: false,
+          contentWidth: 1200,
+          image: {
+            show: true,
+            src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=600&fit=crop',
+            alt: 'Despre mine',
+            position: 'left',
+            width: 500,
+            borderRadius: 8
+          },
+          title: {
+            text: 'Numele Tău',
+            show: true,
+            color: '#1a1a1a',
+            size: 48,
+            weight: 700,
+            align: 'left'
+          },
+          subtitle: {
+            text: 'Sunt un Full-Stack Web Developer Pasionat',
+            show: true,
+            color: '#667eea',
+            size: 20,
+            weight: 500,
+            align: 'left'
+          },
+          description: {
+            text: 'Sunt un Web Developer și Master în Inginerie cu 12+ ani de experiență profesională. Am experiență cu toate etapele ciclului de dezvoltare pentru proiecte web dinamice. Am lucrat la design-ul și dezvoltarea unui spectru larg de proiecte.\n\nSunt deschis și concentrat pe îmbunătățirea profesională continuă. Sunt interesat de roluri remote ca Full-Stack Web Developer.',
+            show: true,
+            color: '#6B6B6B',
+            size: 16,
+            align: 'left'
+          },
+          signatureImage: {
+            show: true,
+            src: 'https://images.unsplash.com/photo-1589149098258-3e9102cd63d3?w=200&h=80&fit=crop',
+            alt: 'Semnătură',
+            width: 150
+          },
+          button: {
+            text: 'Vezi LinkedIn',
+            show: true,
+            color: '#0077B5',
+            textColor: '#FFFFFF',
+            link: 'https://linkedin.com',
+            size: 16
+          }
+        },
+        
+        // HOBBIES/INTERESTS BLOCK
+        {
+          id: 'prezentare-hobbies',
+          type: 'features',
+          layout: 'cards-simple',
+          columns: 4,
+          background: { value: '#f8f9fa' },
+          padding: { top: 80, bottom: 80 },
+          title: {
+            text: 'Hobby-uri & Interese',
+            show: true,
+            color: '#1a1a1a',
+            size: 42,
+            weight: 700,
+            align: 'center'
+          },
+          description: {
+            text: 'Îmi place să fiu activ fizic și petrec mult timp jucând sporturi și jocuri de echipă.',
+            show: true,
+            color: '#6B6B6B',
+            size: 16,
+            align: 'center'
+          },
+          items: [
+            {
+              id: 'hobby-1',
+              icon: '💻',
+              showIcon: true,
+              title: 'Dezvoltare',
+              description: 'Pasionat de coding și tehnologii noi',
+              color: '#667eea',
+              link: '#',
+              linkText: ''
+            },
+            {
+              id: 'hobby-2',
+              icon: '🏄',
+              showIcon: true,
+              title: 'Windsurfing',
+              description: 'Iubesc să navighez pe valuri',
+              color: '#667eea',
+              link: '#',
+              linkText: ''
+            },
+            {
+              id: 'hobby-3',
+              icon: '🚴',
+              showIcon: true,
+              title: 'Mountain Bike',
+              description: 'Aventuri pe trasee montane',
+              color: '#667eea',
+              link: '#',
+              linkText: ''
+            },
+            {
+              id: 'hobby-4',
+              icon: '🥋',
+              showIcon: true,
+              title: 'Arte Marțiale',
+              description: 'Disciplină și autocontrol',
+              color: '#667eea',
+              link: '#',
+              linkText: ''
+            },
+            {
+              id: 'hobby-5',
+              icon: '🏂',
+              showIcon: true,
+              title: 'Snowboard',
+              description: 'Coborâri pe pârtii alpine',
+              color: '#667eea',
+              link: '#',
+              linkText: ''
+            },
+            {
+              id: 'hobby-6',
+              icon: '💪',
+              showIcon: true,
+              title: 'Gym',
+              description: 'Antrenamente regulate',
+              color: '#667eea',
+              link: '#',
+              linkText: ''
+            },
+            {
+              id: 'hobby-7',
+              icon: '🎮',
+              showIcon: true,
+              title: 'Jocuri',
+              description: 'Gaming în timpul liber',
+              color: '#667eea',
+              link: '#',
+              linkText: ''
+            },
+            {
+              id: 'hobby-8',
+              icon: '✈️',
+              showIcon: true,
+              title: 'Călătorii',
+              description: 'Explorare și descoperiri',
+              color: '#667eea',
+              link: '#',
+              linkText: ''
+            }
+          ]
+        },
+        
+        // STATS COUNTER BLOCK
+        {
+          id: 'prezentare-stats',
+          type: 'stats',
+          layout: 'counter-animated',
+          background: { 
+            type: 'gradient',
+            value: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+          },
+          padding: { top: 80, bottom: 80 },
+          items: [
+            {
+              id: 'stat-1',
+              icon: '💻',
+              number: 50000,
+              suffix: '+',
+              label: 'Linii de Cod',
+              color: '#FFFFFF',
+              iconColor: '#A8F5B8',
+              animationDuration: 2000
+            },
+            {
+              id: 'stat-2',
+              icon: '☕',
+              number: 1500,
+              suffix: '+',
+              label: 'Ceșți de Cafea',
+              color: '#FFFFFF',
+              iconColor: '#A8F5B8',
+              animationDuration: 2000
+            },
+            {
+              id: 'stat-3',
+              icon: '🚀',
+              number: 100,
+              suffix: '+',
+              label: 'Proiecte Complete',
+              color: '#FFFFFF',
+              iconColor: '#A8F5B8',
+              animationDuration: 2000
+            },
+            {
+              id: 'stat-4',
+              icon: '😊',
+              number: 85,
+              suffix: '+',
+              label: 'Clienți Mulțumiți',
+              color: '#FFFFFF',
+              iconColor: '#A8F5B8',
+              animationDuration: 2000
+            }
+          ]
+        },
+        
+        // SERVICES/OFFER BLOCK
+        {
+          id: 'prezentare-services',
+          type: 'features',
+          layout: 'cards-gradient',
+          columns: 3,
+          background: { value: '#ffffff' },
+          padding: { top: 100, bottom: 100 },
+          title: {
+            text: 'Ce Ofer?',
+            show: true,
+            color: '#1a1a1a',
+            size: 48,
+            weight: 700,
+            align: 'center'
+          },
+          description: {
+            text: 'Am experiență cu toate etapele ciclului de dezvoltare pentru proiecte web dinamice.',
+            show: true,
+            color: '#6B6B6B',
+            size: 18,
+            align: 'center'
+          },
+          items: [
+            {
+              id: 'service-1',
+              icon: '🏗️',
+              showIcon: true,
+              title: 'Aplicații Complexe',
+              description: '12+ ani de experiență comercială în lucrul hands-on pe aplicații complexe și de anvergură.',
+              color: '#667eea'
+            },
+            {
+              id: 'service-2',
+              icon: '⚙️',
+              showIcon: true,
+              title: 'Stack Tehnologic',
+              description: 'Familiaritate generală cu o varietate de tehnologii care acoperă întregul stack al aplicației.',
+              color: '#667eea'
+            },
+            {
+              id: 'service-3',
+              icon: '☕',
+              showIcon: true,
+              title: 'Limbaje Backend',
+              description: 'Familiaritate cu majoritatea limbajelor JVM și framework-uri precum Java, Kotlin, Groovy, Scala, etc.',
+              color: '#667eea'
+            },
+            {
+              id: 'service-4',
+              icon: '⚛️',
+              showIcon: true,
+              title: 'Framework-uri Frontend',
+              description: 'Familiaritate cu framework-uri și biblioteci Frontend precum Angular, React, Vue, Ionic, etc.',
+              color: '#667eea'
+            },
+            {
+              id: 'service-5',
+              icon: '🔄',
+              showIcon: true,
+              title: 'Ciclu de Dezvoltare',
+              description: 'Experiență cu ciclul de viață al dezvoltării și procesul de management Scrum sau Kanban.',
+              color: '#667eea'
+            },
+            {
+              id: 'service-6',
+              icon: '👨‍🏫',
+              showIcon: true,
+              title: 'Mentorat',
+              description: 'Capacitatea de a învăța rapid (cu mentorat de la alții) și pot mentora ingineri juniori.',
+              color: '#667eea'
+            }
+          ]
+        },
+        
+        // WORK EXPERIENCE BLOCK
+        {
+          id: 'prezentare-experience',
+          type: 'timeline',
+          layout: 'vertical',
+          background: { value: '#f8f9fa' },
+          padding: { top: 100, bottom: 100 },
+          title: {
+            text: 'Participare la Proiecte',
+            show: true,
+            color: '#1a1a1a',
+            size: 48,
+            weight: 700,
+            align: 'center'
+          },
+          description: {
+            text: 'Am lucrat la design-ul și dezvoltarea unui spectru larg de proiecte.',
+            show: true,
+            color: '#6B6B6B',
+            size: 18,
+            align: 'center'
+          },
+          items: [
+            {
+              id: 'exp-1',
+              period: 'Oct 2023 - Prezent',
+              title: 'Technical Lead',
+              company: 'Compania Ta',
+              companyUrl: 'https://example.com',
+              description: 'Gateway-uri Europene de Plată\n\nResponsabilități cheie:\n- Conducerea echipei de dezvoltare\n- Design și dezvoltare Backend în Java/Node.js\n- Design și dezvoltare Frontend în React\n- Testare software prin teste unitare și de integrare\n- Mentorat membri juniori ai echipei',
+              technologies: 'Java 17, Spring Boot 3, React, Docker, Kubernetes, PostgreSQL',
+              color: '#667eea',
+              logo: 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=100&h=100&fit=crop'
+            },
+            {
+              id: 'exp-2',
+              period: 'Ian 2021 - Sept 2023',
+              title: 'Senior Software Engineer',
+              company: 'Compania Anterioară',
+              companyUrl: 'https://example.com',
+              description: 'Software Financiar & Raportare SEC\n\nResponsabilități cheie:\n- Design și dezvoltare microservicii Backend în Java/Node.js\n- Design și dezvoltare Frontend în React\n- Efectuare interviuri tehnice\n- Mentorat membri mai puțin experimentați\n- Design specificații API și structură baze de date',
+              technologies: 'Java 17, Spring Boot 3, React, Redux-Saga, PostgreSQL, RabbitMQ',
+              color: '#667eea',
+              logo: 'https://images.unsplash.com/photo-1549923746-c502d488b3ea?w=100&h=100&fit=crop'
+            },
+            {
+              id: 'exp-3',
+              period: 'Sept 2019 - Dec 2020',
+              title: 'Full-Stack Developer',
+              company: 'Altă Companie',
+              companyUrl: 'https://example.com',
+              description: 'Platformă Web și Mobile pentru lucrători din teren\n\nResponsabilități cheie:\n- Conducere echipă de 4 dezvoltatori\n- Design și dezvoltare microservicii Backend în Java\n- Aplicații Frontend/Mobile în Ionic cu Angular\n- Design specificații API și structură baze de date',
+              technologies: 'Java 11, Spring Boot 2, Ionic 5, Angular 9, MySQL, Docker',
+              color: '#667eea',
+              logo: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=100&h=100&fit=crop'
+            }
+          ]
+        },
+        
+        // SKILLS BLOCK
+        {
+          id: 'prezentare-skills',
+          type: 'skills',
+          layout: 'progress-bars',
+          background: { value: '#ffffff' },
+          padding: { top: 100, bottom: 100 },
+          contentWidth: 1200,
+          image: {
+            show: true,
+            src: 'https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?w=500&h=600&fit=crop',
+            alt: 'Experiență',
+            position: 'left',
+            width: 450
+          },
+          title: {
+            text: 'Experiență de Lucru',
+            show: true,
+            color: '#1a1a1a',
+            size: 48,
+            weight: 700,
+            align: 'left'
+          },
+          description: {
+            text: 'Evident, sunt un Full-Stack Web Developer. Am experiență cu toate etapele ciclului de dezvoltare pentru proiecte web dinamice.',
+            show: true,
+            color: '#6B6B6B',
+            size: 16,
+            align: 'left'
+          },
+          categories: [
+            {
+              id: 'cat-1',
+              name: 'Limbaje JVM',
+              skills: [
+                { id: 'skill-1', name: 'Java', level: 90, color: '#667eea' },
+                { id: 'skill-2', name: 'Groovy', level: 70, color: '#667eea' },
+                { id: 'skill-3', name: 'Kotlin', level: 60, color: '#667eea' },
+                { id: 'skill-4', name: 'Scala', level: 30, color: '#667eea' }
+              ]
+            },
+            {
+              id: 'cat-2',
+              name: 'Dezvoltare Backend',
+              skills: [
+                { id: 'skill-5', name: 'Spring', level: 80, color: '#667eea' },
+                { id: 'skill-6', name: 'Hibernate', level: 70, color: '#667eea' },
+                { id: 'skill-7', name: 'Maven / Gradle', level: 70, color: '#667eea' },
+                { id: 'skill-8', name: 'Docker', level: 60, color: '#667eea' }
+              ]
+            },
+            {
+              id: 'cat-3',
+              name: 'Dezvoltare Frontend',
+              skills: [
+                { id: 'skill-9', name: 'HTML', level: 80, color: '#667eea' },
+                { id: 'skill-10', name: 'CSS', level: 60, color: '#667eea' },
+                { id: 'skill-11', name: 'JavaScript', level: 70, color: '#667eea' },
+                { id: 'skill-12', name: 'Angular', level: 80, color: '#667eea' },
+                { id: 'skill-13', name: 'React', level: 30, color: '#667eea' }
+              ]
+            },
+            {
+              id: 'cat-4',
+              name: 'Limbi Străine',
+              skills: [
+                { id: 'skill-14', name: 'Română', level: 100, color: '#667eea' },
+                { id: 'skill-15', name: 'Engleză', level: 80, color: '#667eea' },
+                { id: 'skill-16', name: 'Germană', level: 30, color: '#667eea' }
+              ]
+            }
+          ]
+        },
+        
+        // CONTACT BLOCK
+        {
+          id: 'prezentare-contact',
+          type: 'contact',
+          layout: 'with-map',
+          background: { value: '#f8f9fa' },
+          padding: { top: 100, bottom: 100 },
+          fullWidth: false,
+          contentWidth: 1200,
+          title: {
+            text: 'Contactează-mă',
+            show: true,
+            color: '#1a1a1a',
+            size: 48,
+            weight: 700,
+            align: 'center'
+          },
+          description: {
+            text: 'Dacă ai întrebări, nu ezita să mă contactezi.',
+            show: true,
+            color: '#6B6B6B',
+            size: 18,
+            align: 'center'
+          },
+          form: {
+            fields: [
+              {
+                id: 'name',
+                type: 'text',
+                label: 'Nume',
+                placeholder: 'Numele tău',
+                required: true
+              },
+              {
+                id: 'email',
+                type: 'email',
+                label: 'Email',
+                placeholder: 'email@tau.com',
+                required: true
+              },
+              {
+                id: 'subject',
+                type: 'text',
+                label: 'Subiect',
+                placeholder: 'Subiectul mesajului',
+                required: false
+              },
+              {
+                id: 'message',
+                type: 'textarea',
+                label: 'Mesaj',
+                placeholder: 'Spune-mi despre ce vrei să discutăm...',
+                required: true,
+                rows: 5
+              }
+            ],
+            button: {
+              text: 'Trimite Mesaj',
+              color: '#667eea',
+              textColor: '#FFFFFF'
+            },
+            notificationEmail: 'contact@example.com',
+            successMessage: 'Mulțumesc pentru mesaj! Îți voi răspunde în curând.'
+          },
+          contactInfo: {
+            show: true,
+            email: 'contact@example.com',
+            phone: '+40 123 456 789',
+            address: 'București, România',
+            social: {
+              linkedin: 'https://linkedin.com',
+              github: 'https://github.com',
+              twitter: 'https://twitter.com'
+            }
+          },
+          info: [
+            {
+              icon: 'Phone',
+              label: 'Telefon',
+              value: '+40 123 456 789'
+            },
+            {
+              icon: 'Mail',
+              label: 'Email',
+              value: 'contact@example.com'
+            },
+            {
+              icon: 'MapPin',
+              label: 'Locație',
+              value: 'București, România'
+            }
+          ],
+          map: {
+            show: true,
+            latitude: 44.4268,
+            longitude: 26.1025,
+            zoom: 12,
+            embedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d182967.03573253895!2d26.10252!3d44.4268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b1f93abf3cad4f%3A0xac0632e37c9ca628!2sBucure%C8%99ti!5e0!3m2!1sro!2sro!4v1234567890'
+          }
+        },
+        
+        // FOOTER BLOCK
+        {
+          id: 'prezentare-footer',
+          type: 'footer',
+          layout: 'simple',
+          background: { value: '#1a1a1a' },
+          textColor: '#ffffff',
+          padding: { top: 60, bottom: 60 },
+          showLinks: true,
+          logo: {
+            show: true,
+            text: 'NUMELE TĂU',
+            color: '#ffffff',
+            size: 24
+          },
+          description: {
+            show: true,
+            text: 'Full-Stack Web Developer pasionat de tehnologie și inovație.',
+            color: '#cccccc'
+          },
+          links: [
+            {
+              id: 'footer-home',
+              text: 'Acasă',
+              link: '#',
+              color: '#cccccc'
+            },
+            {
+              id: 'footer-about',
+              text: 'Despre',
+              link: '#about',
+              color: '#cccccc'
+            },
+            {
+              id: 'footer-services',
+              text: 'Servicii',
+              link: '#services',
+              color: '#cccccc'
+            },
+            {
+              id: 'footer-contact',
+              text: 'Contact',
+              link: '#contact',
+              color: '#cccccc'
+            }
+          ],
+          social: {
+            show: true,
+            links: [
+              { platform: 'linkedin', url: 'https://linkedin.com', color: '#0077B5' },
+              { platform: 'github', url: 'https://github.com', color: '#333333' },
+              { platform: 'twitter', url: 'https://twitter.com', color: '#1DA1F2' }
+            ]
+          },
+          copyright: {
+            show: true,
+            text: '© 2025 Numele Tău. Toate drepturile rezervate.',
+            color: '#888888'
+          }
+        }
+      ]
+    }
   }
 ];
