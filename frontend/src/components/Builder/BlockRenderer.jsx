@@ -24,6 +24,9 @@ import { PeopleHiringBlock } from './blocks/PeopleHiringBlock';
 import { PeopleCreatorsBlock } from './blocks/PeopleCreatorsBlock';
 import { PeopleTestimonialsBlock } from './blocks/PeopleTestimonialsBlock';
 import { PeopleClientsBlock } from './blocks/PeopleClientsBlock';
+import { TimelineBlock } from './blocks/TimelineBlock';
+import { SkillsBlock } from './blocks/SkillsBlock';
+import { AboutBlock } from './blocks/AboutBlock';
 
 const blockComponents = {
   menu: MenuBlock,
@@ -49,7 +52,10 @@ const blockComponents = {
   'people-hiring': PeopleHiringBlock,
   'people-creators': PeopleCreatorsBlock,
   'people-testimonials': PeopleTestimonialsBlock,
-  'people-clients': PeopleClientsBlock
+  'people-clients': PeopleClientsBlock,
+  timeline: TimelineBlock,
+  skills: SkillsBlock,
+  about: AboutBlock
 };
 
 export const BlockRenderer = ({ block, isSelected, onSelect, onUpdate, onDelete, onMoveUp, onMoveDown, selectedElementId, onSelectElement }) => {
