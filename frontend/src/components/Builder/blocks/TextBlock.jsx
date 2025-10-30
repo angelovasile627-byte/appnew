@@ -16,7 +16,7 @@ export const TextBlock = ({ config, onUpdate }) => {
     paddingRight: '2rem'
   };
 
-  // Title Style with Background Clip
+  // Title Style with Background Clip and Parallax Effect
   const titleStyle = {
     fontSize: `${config.title?.size || 120}px`,
     fontWeight: config.title?.weight || 700,
@@ -24,6 +24,7 @@ export const TextBlock = ({ config, onUpdate }) => {
     backgroundImage: config.title?.backgroundImage?.value ? `url(${config.title.backgroundImage.value})` : 'none',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    backgroundAttachment: config.title?.parallax !== false ? 'fixed' : 'scroll',
     backgroundClip: 'text',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: config.title?.backgroundImage?.value ? 'transparent' : config.title?.color,
