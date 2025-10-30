@@ -2453,6 +2453,7 @@ export const blockTemplates = [
         size: 120,
         weight: 700,
         color: '#000000',
+        parallax: true,
         backgroundImage: {
           value: 'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=1920&h=1080&fit=crop'
         }
