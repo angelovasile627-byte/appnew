@@ -679,8 +679,8 @@ const generateBlockHTML = (config) => {
                 </div>
               ` : ''}
               
-              <div class="hero-content" style="text-align: ${config.title.align};">
-                ${config.title.show ? `
+              <div class="hero-content" style="text-align: ${config.title?.align || 'center'};">
+                ${config.title?.show ? `
                   <h1 class="hero-title" style="
                     font-size: ${config.title.size || 56}px;
                     font-weight: ${config.title.weight || 700};
@@ -692,7 +692,7 @@ const generateBlockHTML = (config) => {
                   </h1>
                 ` : ''}
                 
-                ${config.description.show ? `
+                ${config.description?.show ? `
                   <p class="hero-description" style="
                     font-size: ${config.description.size || 20}px;
                     color: ${config.description.color};
@@ -706,7 +706,7 @@ const generateBlockHTML = (config) => {
                   </p>
                 ` : ''}
                 
-                ${config.button.show ? `
+                ${config.button?.show ? `
                   <a href="${config.button.link}" class="hero-button" style="
                     background-color: ${config.button.color};
                     color: ${config.button.textColor};
@@ -723,7 +723,7 @@ const generateBlockHTML = (config) => {
                   </a>
                 ` : ''}
                 
-                ${config.subtitle.show && config.subtitle.text ? `
+                ${config.subtitle?.show && config.subtitle?.text ? `
                   <p class="hero-subtitle" style="
                     font-size: 16px;
                     color: ${config.subtitle.color};
