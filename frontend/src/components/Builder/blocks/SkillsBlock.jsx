@@ -3,8 +3,8 @@ import React from 'react';
 export const SkillsBlock = ({ config, onUpdate }) => {
   const containerStyle = {
     backgroundColor: config.background.value,
-    paddingTop: `${config.padding.top}px`,
-    paddingBottom: `${config.padding.bottom}px`,
+    paddingTop: `${config.padding?.top || 100}px`,
+    paddingBottom: `${config.padding?.bottom || 100}px`,
     width: '100%'
   };
 
